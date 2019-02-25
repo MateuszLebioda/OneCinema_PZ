@@ -18,8 +18,8 @@
 #### UI:
 - TypeScript -> Język programowania 
 - Angular 7 -> Główny framework
+- WebStore -> IDE
 
 #### Dodatkowe:
 - Trello
 - Git -> System Kontroli wersji
-- WebStore -> IDE
