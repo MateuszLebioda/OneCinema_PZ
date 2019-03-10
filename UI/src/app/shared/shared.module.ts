@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import {HeaderComponent} from './header/header.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+import { LoginRegisterPopUpComponent } from './login-register-pop-up/login-register-pop-up.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    LoginRegisterPopUpComponent
   ],
   imports: [
     CommonModule
@@ -16,7 +18,8 @@ import { FooterComponent } from './footer/footer.component';
   exports: [
     HeaderComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    LoginRegisterPopUpComponent
   ]
 })
 export class SharedModule { }

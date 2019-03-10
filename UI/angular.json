@@ -42,19 +42,20 @@
               "src/assets/news-css/news.css"
             ],
             "scripts": [
+              "src/assets/js/jquery-2.1.4.min.js",
+              "src/assets/js/owl.carousel.js",
+              "src/assets/js/move-top.js",
               "src/assets/js/easing.js",
-              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "src/assets/js/jquery.slidey.js",
               "src/assets/js/jquery.dotdotdot.min.js",
               "src/assets/js/jquery.flexslider.js",
               "src/assets/js/jquery.magnific-popup.js",
-              "src/assets/js/jquery.slidey.js",
-              "src/assets/js/jquery-2.1.4.min.js",
-              "src/assets/js/move-top.js",
-              "src/assets/js/owl.carousel.js",
-              "src/assets/js/simplePlayer.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js",
               "src/assets/list-js/jquery.basictable.min.js",
               "src/assets/list-js/jquery.mobile.custom.min.js",
-              "src/assets/list-js/jquery.tools.min.js"
+              "src/assets/list-js/jquery.tools.min.js",
+              "src/assets/js/simplePlayer.js",
+              "src/assets/js/little-functions.js"
             ]
           },
           "configurations": {
