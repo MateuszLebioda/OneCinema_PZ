@@ -23,7 +23,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "src/assets/css/contactstyle.css",
               "src/assets/css/faqstyle.css",
@@ -39,7 +38,8 @@
               "src/assets/list-css/basictable.css",
               "src/assets/list-css/list.css",
               "src/assets/list-css/table-style.css",
-              "src/assets/news-css/news.css"
+              "src/assets/news-css/news.css",
+              "src/styles.css"
             ],
             "scripts": [
               "src/assets/js/jquery-2.1.4.min.js",
