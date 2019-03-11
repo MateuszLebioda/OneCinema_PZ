@@ -1,19 +1,3 @@
-addEventListener("load", function () {
-  setTimeout(hideURLbar, 0);
-}, false);
-
-function hideURLbar() {
-  window.scrollTo(0, 1);
-}
-
-$("#slidey").slidey({
-  interval: 8000,
-  listCount: 5,
-  autoplay: false,
-  showList: true
-});
-$(".slidey-list-description").dotdotdot();
-
 $(document).ready(function () {
   $(".dropdown").hover(
     function () {
@@ -25,6 +9,34 @@ $(document).ready(function () {
       $(this).toggleClass('open');
     }
   );
+
+  $("#slidey").slidey({
+    interval: 8000,
+    listCount: 5,
+    autoplay: false,
+    showList: true
+  });
+  $(".slidey-list-description").dotdotdot();
+
+  addEventListener("load", function () {
+    setTimeout(hideURLbar, 0);
+  }, false);
+
+  function hideURLbar() {
+    window.scrollTo(0, 1);
+  }
+
+  $('.toggle').click(function () {
+    // Switches the Icon
+    $(this).children('i').toggleClass('fa-pencil');
+    // Switches the forms
+    $('.form').animate({
+      height: "toggle",
+      'padding-top': 'toggle',
+      'padding-bottom': 'toggle',
+      opacity: "toggle"
+    }, "slow");
+  });
 });
 
 $(document).ready(function () {
@@ -87,16 +99,4 @@ jQuery(document).ready(function ($) {
       scrollTop: $(this.hash).offset().top
     }, 1000);
   });
-});
-
-$('.toggle').click(function () {
-  // Switches the Icon
-  $(this).children('i').toggleClass('fa-pencil');
-  // Switches the forms
-  $('.form').animate({
-    height: "toggle",
-    'padding-top': 'toggle',
-    'padding-bottom': 'toggle',
-    opacity: "toggle"
-  }, "slow");
 });

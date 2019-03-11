@@ -42,7 +42,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/assets/js/jquery-2.1.4.min.js",
+              "node_modules/jquery/dist/jquery.min.js",
               "src/assets/js/owl.carousel.js",
               "src/assets/js/move-top.js",
               "src/assets/js/easing.js",
