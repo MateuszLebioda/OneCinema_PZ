@@ -18,19 +18,14 @@
   border-right: #e8e8e8 1px solid;
 }
 
-.zero-horizontal-padding {
-  padding-left: 0;
-  padding-right: 0
-}
-
 .table-header {
   background-color: white;
 }
 
 .no-border {
-  border-bottom: white 1px solid !important;
+  border-bottom: white 1px solid;
 }
 
 .no-bottom-border {
-  border-bottom: white 1px solid !important;
+  border-bottom: white 1px solid;
 }
