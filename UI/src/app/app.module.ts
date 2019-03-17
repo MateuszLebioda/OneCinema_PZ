@@ -6,7 +6,10 @@ import {SharedModule} from './shared/shared.module';
 import {HomeModule} from './pages/home/home.module';
 import {AppRoutingModule} from './app-routing.module';
 import {RepertoireModule} from './pages/repertoire/repertoire.module';
-import {APP_BASE_HREF} from '@angular/common';
+import {APP_BASE_HREF, registerLocaleData} from '@angular/common';
+import localePL from '@angular/common/locales/pl';
+
+registerLocaleData(localePL);
 
 @NgModule({
   declarations: [

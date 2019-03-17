@@ -41,9 +41,22 @@
                   <p>Gatunek: {{movieProjection.movieCategory}}</p>
                   <p>Typ projekcji: {{movieProjection.projectionType}}</p>
                 </td>
-                <td><p *ngFor="let time of movieProjection.seancesUntilNoon" [ngClass]="getSeanceCssClass(time)">{{time.start | date: 'hh:mm'}}</p></td>
-                <td><p *ngFor="let time of movieProjection.seancesAfternoon" [ngClass]="getSeanceCssClass(time)">{{time.start | date: 'hh:mm'}}</p></td>
-                <td><p *ngFor="let time of movieProjection.seancesEvening" [ngClass]="getSeanceCssClass(time)">{{time.start | date: 'hh:mm'}}</p></td>
+                <td>
+                  <p *ngFor="let time of movieProjection.seancesUntilNoon"
+                     [ngClass]="getSeanceCssClass(time)">
+                    {{time.start | date: 'HH:mm'}}
+                  </p>
+                </td>
+                <td>
+                  <p *ngFor="let time of movieProjection.seancesAfternoon"
+                     [ngClass]="getSeanceCssClass(time)">{{time.start | date: 'HH:mm'}}
+                  </p>
+                </td>
+                <td>
+                  <p *ngFor="let time of movieProjection.seancesEvening"
+                     [ngClass]="getSeanceCssClass(time)">{{time.start | date: 'HH:mm'}}
+                  </p>
+                </td>
               </tr>
               </tbody>
             </table>

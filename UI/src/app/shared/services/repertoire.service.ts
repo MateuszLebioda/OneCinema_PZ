@@ -4,7 +4,6 @@ import {HttpClient} from '@angular/common/http';
 import {HttpBaseService} from './http-base.service';
 import {MovieProjection} from '../models/movie-projection.model';
 import {SharedModule} from '../shared.module';
-import {Seance} from '../models/seance.model';
 
 @Injectable({
   providedIn: SharedModule
@@ -26,19 +25,19 @@ export class RepertoireService extends HttpBaseService {
       projectionType: '2D',
       seances: [
         {
-          start: new Date(1995, 11, 17, 11, 24, 0),
-          finish: new Date(1995, 11, 17, 13, 24, 0),
+          start: new Date('March 17, 2019 18:05:00'),
+          finish: new Date('March 17, 2019 20:05:00'),
+          id: '8823242'
+        },
+        {
+          start: new Date('March 17, 2019 15:05:00'),
+          finish: new Date('March 17, 2019 16:05:00'),
           id: '54543242'
         },
         {
-          start: new Date(2019, 3, 17, 15, 0, 0),
-          finish: new Date(2019, 3, 17, 17, 30, 0),
+          start: new Date('March 17, 2019 20:05:00'),
+          finish: new Date('March 17, 2019 22:05:00'),
           id: '12223242'
-        },
-        {
-          start: new Date(2019, 3, 17, 14, 40, 0),
-          finish: new Date(2019, 3, 17, 15, 30, 0),
-          id: '8823242'
         }
       ]
     });
@@ -50,8 +49,8 @@ export class RepertoireService extends HttpBaseService {
         movieTitle: 'Jaś fasola', projectionType: '3D',
         seances: [
           {
-            start: new Date(2019, 3, 17, 20, 0, 0),
-            finish: new Date(2019, 3, 18, 20, 0, 0),
+            start: new Date('March 17, 2019 11:05:00'),
+            finish: new Date('March 17, 2019 15:05:00'),
             id: '32223242'
           },
         ]
