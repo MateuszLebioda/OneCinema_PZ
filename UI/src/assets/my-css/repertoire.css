@@ -1,14 +1,14 @@
 .past-seance {
-  font-weight: bold;
-  color: darkgray;
+  font-weight: bold !important;
+  color: darkgray !important;
 }
 
 .running-seance {
-  font-weight: bold;
-  color: orangered;
+  font-weight: bold !important;
+  color: orangered !important;
 }
 
 .available-seance {
-  font-weight: bold;
-  color: limegreen;
+  font-weight: bold !important;
+  color: limegreen !important;
 }

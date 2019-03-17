@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
-import {MovieProjectionViewModel} from '../../../../../shared/view-models/movie-projection-view-model.model';
+import {MovieProjectionViewModel} from '../view-models/movie-projection-view-model.model';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/internal/Observable';
-import {HttpBaseService} from '../../../../../shared/services/http-base.service';
-import {MovieProjection} from '../../../../../shared/models/movie-projection.model';
-import {forEach} from '@angular/router/src/utils/collection';
+import {HttpBaseService} from './http-base.service';
+import {MovieProjection} from '../models/movie-projection.model';
+import {SharedModule} from '../shared.module';
+import {Seance} from '../models/seance.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: SharedModule
 })
-export class RepertoireListService extends HttpBaseService {
+export class RepertoireService extends HttpBaseService {
 
   constructor(private http: HttpClient) {
     super(http);
@@ -25,8 +25,21 @@ export class RepertoireListService extends HttpBaseService {
       movieTitle: 'Avengers',
       projectionType: '2D',
       seances: [
-        new Date(1995, 11, 17, 11, 24, 0),
-        new Date(1995, 11, 17, 9, 14, 0)
+        {
+          start: new Date(1995, 11, 17, 11, 24, 0),
+          finish: new Date(1995, 11, 17, 13, 24, 0),
+          id: '54543242'
+        },
+        {
+          start: new Date(2019, 3, 17, 15, 0, 0),
+          finish: new Date(2019, 3, 17, 17, 30, 0),
+          id: '12223242'
+        },
+        {
+          start: new Date(2019, 3, 17, 14, 40, 0),
+          finish: new Date(2019, 3, 17, 15, 30, 0),
+          id: '8823242'
+        }
       ]
     });
 
@@ -35,7 +48,13 @@ export class RepertoireListService extends HttpBaseService {
         movieCategory: 'Komedia', movieDuration: 150,
         moviePosterUrl: 'https://static.posters.cz/image/750/plakaty/kac-vegas-ii-plakat-i12276.jpg',
         movieTitle: 'Jaś fasola', projectionType: '3D',
-        seances: [new Date(1995, 11, 17, 18, 22, 44)]
+        seances: [
+          {
+            start: new Date(2019, 3, 17, 20, 0, 0),
+            finish: new Date(2019, 3, 18, 20, 0, 0),
+            id: '32223242'
+          },
+        ]
       });
     }
     return repertoire;
@@ -49,7 +68,7 @@ export class RepertoireListService extends HttpBaseService {
       Object.assign(resultMovie, movie);
 
       for (const seance of movie.seances) {
-        const minutesInDay = seance.getMinutes() + seance.getHours() * 60;
+        const minutesInDay = seance.start.getMinutes() + seance.start.getHours() * 60;
 
         if (minutesInDay <= 12 * 60) {
           resultMovie.seancesUntilNoon.push(seance);

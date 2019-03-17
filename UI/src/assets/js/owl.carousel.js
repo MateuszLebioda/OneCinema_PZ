@@ -849,7 +849,7 @@ if (typeof Object.create !== "function") {
 
             base.ev_types.start = types[0];
             base.ev_types.move = types[1];
-            base.ev_types.end = types[2];
+            base.ev_types.finish = types[2];
         },
 
         disabledEvents :  function () {

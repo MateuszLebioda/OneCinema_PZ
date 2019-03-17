@@ -814,7 +814,7 @@ MagnificPopup.prototype = {
 		return mfp.scrollbarSize;
 	}
 
-}; /* MagnificPopup core prototype end */
+}; /* MagnificPopup core prototype finish */
 
 
 
@@ -1871,7 +1871,7 @@ addSwipeGesture: function() {
 	if(window.navigator.msPointerEnabled) {
 		addEventNames('MSPointer', 'Down', 'Move', 'Up', 'Cancel');
 	} else if('ontouchstart' in window) {
-		addEventNames('touch', 'start', 'move', 'end', 'cancel');
+		addEventNames('touch', 'start', 'move', 'finish', 'cancel');
 	} else {
 		return;
 	}
