@@ -5,6 +5,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginRegisterPopUpComponent } from './components/login-register-pop-up/login-register-pop-up.component';
 import {RouterModule} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,13 +16,14 @@ import {RouterModule} from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ],
   exports: [
     HeaderComponent,
     NavbarComponent,
     FooterComponent,
-    LoginRegisterPopUpComponent
-  ]
+    LoginRegisterPopUpComponent,
+  ],
 })
 export class SharedModule { }

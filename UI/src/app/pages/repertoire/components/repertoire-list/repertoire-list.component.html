@@ -40,9 +40,9 @@
                   <p>Czas trwania: {{movieProjection.movieDuration}}</p>
                   <p>Gatunek: {{movieProjection.movieCategory}}</p>
                 </td>
-                <td>{{movieProjection.movieCategory}}</td>
-                <td>{{movieProjection.movieDuration}}</td>
-                <td>{{movieProjection.movieDuration}}</td>
+                <td><p *ngFor="let time of movieProjection.seancesUntilNoon">{{time | date: 'hh:mm'}}</p></td>
+                <td><p *ngFor="let time of movieProjection.seancesAfternoon">{{time | date: 'hh:mm'}}</p></td>
+                <td><p *ngFor="let time of movieProjection.seancesEvening">{{time | date: 'hh:mm'}}</p></td>
               </tr>
               </tbody>
             </table>
