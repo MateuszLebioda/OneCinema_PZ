@@ -1,6 +1,7 @@
 import {Seance} from '../models/seance.model';
 
 export class MovieProjectionViewModel {
+  public movieId: string;
   public movieTitle: string;
   public projectionType: string;
   public moviePosterUrl: string;

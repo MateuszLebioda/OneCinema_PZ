@@ -1,12 +1,11 @@
 import {Injectable} from '@angular/core';
-import {MovieProjectionViewModel} from '../view-models/movie-projection-view-model.model';
+import {MovieProjectionViewModel} from '../../view-models/movie-projection-view-model.model';
 import {HttpClient} from '@angular/common/http';
-import {HttpBaseService} from './http-base.service';
-import {MovieProjection} from '../models/movie-projection.model';
-import {SharedModule} from '../shared.module';
+import {HttpBaseService} from '../../../../shared/services/http-base.service';
+import {MovieProjection} from '../../models/movie-projection.model';
 
 @Injectable({
-  providedIn: SharedModule
+  providedIn: 'root'
 })
 export class RepertoireService extends HttpBaseService {
 
@@ -18,6 +17,7 @@ export class RepertoireService extends HttpBaseService {
     const repertoire = new Array<MovieProjectionViewModel>();
 
     repertoire.push({
+      movieId: 'id1',
       movieCategory: 'Akcji',
       movieDuration: 120,
       moviePosterUrl: 'https://static.pressfrom.info/upload/images/real/2019/03/14/fans-angry-danai-gurira-s-name-isn-t-atop-avengers-endgame-poster__701824_.jpg?content=1',
@@ -35,8 +35,8 @@ export class RepertoireService extends HttpBaseService {
           id: '54543242'
         },
         {
-          start: new Date('March 17, 2019 20:05:00'),
-          finish: new Date('March 17, 2019 22:05:00'),
+          start: new Date('March 18, 2019 20:05:00'),
+          finish: new Date('March 18, 2019 22:05:00'),
           id: '12223242'
         }
       ]
@@ -44,6 +44,7 @@ export class RepertoireService extends HttpBaseService {
 
     if (dayNumber === 2) {
       repertoire.push({
+        movieId: 'id2',
         movieCategory: 'Komedia', movieDuration: 150,
         moviePosterUrl: 'https://static.posters.cz/image/750/plakaty/kac-vegas-ii-plakat-i12276.jpg',
         movieTitle: 'Jaś fasola', projectionType: '3D',

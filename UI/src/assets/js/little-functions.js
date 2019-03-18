@@ -40,22 +40,6 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-  /*
-            var defaults = {
-            containerID: 'toTop', // fading element id
-            containerHoverID: 'toTopHover', // fading element hover id
-            scrollSpeed: 1200,
-            easingType: 'linear'
-            };
-        */
-
-  $().UItoTop({
-    easingType: 'easeOutQuart'
-  });
-
-});
-
-$(document).ready(function () {
   $('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
     type: 'inline',
     fixedContentPos: false,

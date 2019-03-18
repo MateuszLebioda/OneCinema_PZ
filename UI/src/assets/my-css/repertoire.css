@@ -11,4 +11,5 @@
 .available-seance {
   font-weight: bold !important;
   color: limegreen !important;
+  cursor: pointer !important;
 }
