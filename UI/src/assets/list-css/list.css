@@ -41,7 +41,7 @@ td.w3-list-img a{
 	text-decoration:none;
 }
 td.w3-list-img a img {
-    width: 16% !important;
+    width: 16%;
 }
 td.w3-list-img a span{
 	color:#000000;
@@ -91,7 +91,7 @@ td.w3-list-info a {
 		margin: 0 .5em 0.5em 0;
 	}
 	td.w3-list-img a img {
-		width: 25% !important;
+		width: 25%;
 	}
 	td.w3-list-img a span {
 		margin: .5em 0 0 0;
