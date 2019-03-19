@@ -8,6 +8,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {RepertoireModule} from './pages/repertoire/repertoire.module';
 import {APP_BASE_HREF, registerLocaleData} from '@angular/common';
 import localePL from '@angular/common/locales/pl';
+import {MovieModule} from './pages/movie/movie.module';
 
 registerLocaleData(localePL);
 
@@ -20,6 +21,7 @@ registerLocaleData(localePL);
     SharedModule,
     HomeModule,
     RepertoireModule,
+    MovieModule,
     AppRoutingModule
   ],
   providers: [

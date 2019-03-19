@@ -43,14 +43,14 @@ function showBanner() {
 
 function showSlideBanner() {
   $("#owl-demo").owlCarousel({
-    autoPlay: 3000, //Set AutoPlay to 3 seconds
+    autoPlay: 6000,
     items: 5,
     itemsDesktop: [640, 4],
     itemsDesktopSmall: [414, 3]
   });
 }
 
-$(document).ready(function () {
+function showVideoPlayer() {
   $('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
     type: 'inline',
     fixedContentPos: false,
@@ -62,8 +62,8 @@ $(document).ready(function () {
     removalDelay: 300,
     mainClass: 'my-mfp-zoom-in'
   });
+}
 
-});
 
 $(window).load(function () {
   $('.flexslider').flexslider({

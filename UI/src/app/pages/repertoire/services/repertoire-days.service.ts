@@ -26,7 +26,7 @@ export class RepertoireDaysService {
     const currentDayNumber = new Date().getDay() - 1;
     const result = new Array<string>();
 
-    for (let dayIndex = currentDayNumber; dayIndex < this._maxCountOfPresentedRepertoireDays; dayIndex++) {
+    for (let dayIndex = currentDayNumber; dayIndex <= this._maxCountOfPresentedRepertoireDays; dayIndex++) {
       result.push(this._weekDays[dayIndex]);
     }
     return result;

@@ -46,8 +46,6 @@
               "node_modules/jquery/dist/jquery.min.js",
               "src/assets/js/owl.carousel.js",
               "src/assets/js/easing.js",
-              "src/assets/js/jquery.slidey.js",
-              "src/assets/js/jquery.dotdotdot.min.js",
               "src/assets/js/jquery.flexslider.js",
               "src/assets/js/jquery.magnific-popup.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
