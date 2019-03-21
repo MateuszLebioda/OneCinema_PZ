@@ -27,7 +27,6 @@ export class RepertoireComponent implements OnInit {
   public ngOnInit(): void {
     this.repertoire = this._repertoireListService.getRepertoire(1);
     this.repertoireDays = this._repertoireDaysService.getRepertoireDaysSinceNow();
-    console.log(this.repertoireDays);
   }
 
   public repertoireList(bookmarkLetter: string, dayNumber: number): void {

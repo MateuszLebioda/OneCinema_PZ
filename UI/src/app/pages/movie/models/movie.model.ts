@@ -5,8 +5,9 @@ export class Movie {
   public description: string;
   public projectionType: string;
   public posterUrl: string;
+  public trailerUrl: string;
   public duration: number;
-  public category: string;
+  public gender: string;
   public rating: number;
   public seances: SeancesPerDay[];
 

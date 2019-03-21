@@ -5,6 +5,7 @@ export class MovieApiModel {
   public description: string;
   public projectionType: string;
   public posterUrl: string;
+  public trailerUrl: string;
   public duration: number;
   public category: string;
   public rating: number;

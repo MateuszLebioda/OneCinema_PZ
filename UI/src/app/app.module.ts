@@ -9,6 +9,7 @@ import {RepertoireModule} from './pages/repertoire/repertoire.module';
 import {APP_BASE_HREF, registerLocaleData} from '@angular/common';
 import localePL from '@angular/common/locales/pl';
 import {MovieModule} from './pages/movie/movie.module';
+import {SafePipe} from './pages/movie/pipes/safe.pipe';
 
 registerLocaleData(localePL);
 

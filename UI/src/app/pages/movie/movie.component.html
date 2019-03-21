@@ -9,39 +9,47 @@
               <div class="col-md-4 agile_tv_series_grid_left">
                 <div class="w3ls_market_video_grid1">
                   <img
-                    src="https://www.vintagemovieposters.co.uk/wp-content/uploads/2018/04/IMG_3059-482x714.jpg"
-                    alt=" " class="img-responsive"/>
-                  <a class="w3_play_icon2" href="#small-dialog">
+                    src="{{movie.posterUrl}}"
+                    alt="Plakat  filmu {{movie.title}}" class="img-responsive"/>
+                  <a class="w3_play_icon2" href="#video-player-window">
                     <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
                   </a>
                 </div>
               </div>
               <div class="col-md-8">
                 <div class="agile_tv_series_grid_right">
-                  <p class="fexi_header">civil war captain America</p>
-                  <p class="fexi_header_para"><span class="conjuring_w3">Story Line<label>:</label></span> After the
-                    Avengers
-                    leaves some&nbsp;collateral damage, political pressure mounts to install a system of accountability.&nbsp;The
-                    new status quo deeply divides ...</p>
-                  <br>
-                  <p class="fexi_header_para">
-                    <span>Genres<label>:</label> </span>
-                    <a href="genres.html">Action</a> |
-                    <a href="genres.html">Adventure</a>
-                  </p>
-                  <p class="fexi_header_para">
-                    <span>Genres<label>:</label> </span>
-                    <a href="genres.html">Action</a> |
-                    <a href="genres.html">Adventure</a>
-                  </p>
-                  <p class="fexi_header_para fexi_header_para1"><span>Star Rating<label>:</label></span>
-                    <a href="#"><i class="fa fa-star" aria-hidden="true"></i></a>
-                    <a href="#"><i class="fa fa-star" aria-hidden="true"></i></a>
-                    <a href="#"><i class="fa fa-star" aria-hidden="true"></i></a>
-                    <a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>
-                    <a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>
-                  </p>
+                  <table>
+                    <caption class="table-header">{{movie.title}}</caption>
+                    <tr>
+                      <th class="row-title">Typ projekcji</th>
+                      <th class="row-content">{{movie.projectionType}}</th>
+                    </tr>
+                    <tr>
+                      <th class="row-title">Gatunek</th>
+                      <th class="row-content">{{movie.gender}}</th>
+                    </tr>
+                    <tr>
+                      <th class="row-title">Czas trwania</th>
+                      <th class="row-content">{{movie.duration}}</th>
+                    </tr>
+                    <tr>
+                      <th class="row-title">Opis</th>
+                      <th class="row-content">{{movie.description}}</th>
+                    </tr>
+                    <tr>
+                      <th class="row-title">Ocena</th>
+                      <th class="row-content">
+                        <a *ngFor="let star of getFakeTableForShowingStars(movie.rating)"><i class="fa fa-star"
+                                                                                             aria-hidden="true"></i></a>
+                        <a *ngIf="ratingHasHalfPoint(movie.rating)"><i class="fa fa-star-half-o" aria-hidden="true"></i></a>
+                        <a *ngFor="let emptyStar of getFakeTableForShowingEmptyStars(movie.rating)"><i
+                          class="fa fa-star-o" aria-hidden="true"></i></a>
+                      </th>
+                    </tr>
+                  </table>
+
                 </div>
+                <!--<app-movie-seances seances="seances"></app-movie-seances>-->
                 <app-movie-seances></app-movie-seances>
               </div>
               <div class="clearfix"></div>
@@ -53,6 +61,6 @@
   </div>
 </div>
 
-<div id="small-dialog" class="mfp-hide">
-  <iframe src="https://player.vimeo.com/video/164819130?title=0&byline=0"></iframe>
+<div id="video-player-window" class="mfp-hide">
+  <iframe [src]="movie.trailerUrl + '?autoplay=1'| safe"></iframe>
 </div>
