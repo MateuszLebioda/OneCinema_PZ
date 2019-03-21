@@ -1,13 +1,13 @@
-import {Seance} from '../models/seance.model';
+import {SeanceApiModel} from './seance-api.model';
 
-export class MovieProjectionViewModel {
+export class MovieProjectionApiModel {
   public movieId: string;
   public movieTitle: string;
   public projectionType: string;
   public moviePosterUrl: string;
   public movieDuration: number;
   public movieCategory: string;
-  public seances: Seance[];
+  public seances: SeanceApiModel[];
 
   constructor() {
     this.seances = [];

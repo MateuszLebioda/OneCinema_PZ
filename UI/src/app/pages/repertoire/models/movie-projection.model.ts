@@ -1,4 +1,4 @@
-import {Seance} from './seance.model';
+import {SeancesPerTimesOfDay} from './seances-per-times-of-day';
 
 export class MovieProjection {
   public movieTitle: string;
@@ -6,13 +6,9 @@ export class MovieProjection {
   public moviePosterUrl: string;
   public movieDuration: number;
   public movieCategory: string;
-  public seancesUntilNoon: Seance[];
-  public seancesAfternoon: Seance[];
-  public seancesEvening: Seance[];
+  public seances: SeancesPerTimesOfDay;
 
   constructor() {
-    this.seancesUntilNoon = [];
-    this.seancesAfternoon = [];
-    this.seancesEvening = [];
+    this.seances = new SeancesPerTimesOfDay();
   }
 }

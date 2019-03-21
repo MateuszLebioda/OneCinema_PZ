@@ -1,4 +1,4 @@
-import {DaySeances} from './day-seances.model';
+import {SeancesPerDay} from './seances-per-day.model';
 
 export class Movie {
   public title: string;
@@ -8,7 +8,7 @@ export class Movie {
   public duration: number;
   public category: string;
   public rating: number;
-  public seances: DaySeances[];
+  public seances: SeancesPerDay[];
 
   constructor() {
     this.seances = [];

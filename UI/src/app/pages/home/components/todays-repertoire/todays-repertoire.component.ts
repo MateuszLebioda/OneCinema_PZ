@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MovieProjection} from '../../../repertoire/models/movie-projection.model';
 import {RepertoireService} from '../../../repertoire/services/api-services/repertoire.service';
 import {SeanceService} from '../../../repertoire/services/seance.service';
 import {RepertoireDaysService} from '../../../repertoire/services/repertoire-days.service';
 import {Router} from '@angular/router';
-import {Seance} from '../../../repertoire/models/seance.model';
+import {SeanceApiModel} from '../../../repertoire/api-models/seance-api.model';
 import {SeanceStatus} from '../../../repertoire/enums/seance-statu.enum';
 
 @Component({
@@ -15,6 +15,7 @@ import {SeanceStatus} from '../../../repertoire/enums/seance-statu.enum';
 export class TodaysRepertoireComponent implements OnInit {
   public repertoire: MovieProjection[];
   public repertoireDays: string[];
+
   constructor(
     private _repertoireListService: RepertoireService,
     private _seanceService: SeanceService,
@@ -23,12 +24,11 @@ export class TodaysRepertoireComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    const repertoire = this._repertoireListService.getRepertoire(1);
-    this.repertoire = this._repertoireListService.mapToMovieProjection(repertoire);
+    this.repertoire = this._repertoireListService.getRepertoire(1);
     this.repertoireDays = this._repertoireDaysService.getRepertoireDaysSinceNow();
   }
 
-  public getSeanceCssClass(seance: Seance): string {
+  public getSeanceCssClass(seance: SeanceApiModel): string {
     switch (this._seanceService.getSeanceStatus(seance)) {
       case SeanceStatus.available:
         return 'available-seance';
@@ -39,7 +39,7 @@ export class TodaysRepertoireComponent implements OnInit {
     }
   }
 
-  public bookSeance(seance: Seance): void {
+  public bookSeance(seance: SeanceApiModel): void {
     if (this._seanceService.getSeanceStatus(seance) === SeanceStatus.available) {
       console.log('rezerwacaj seansu o id:', seance.id);
       // this._router.navigate(['/product-details', seance.id]);

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {SeanceStatus} from '../enums/seance-statu.enum';
-import {Seance} from '../models/seance.model';
+import {SeanceApiModel} from '../api-models/seance-api.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ import {Seance} from '../models/seance.model';
 export class SeanceService {
   private readonly maxBookingOffsetInMilliseconds = 1800000;
 
-  public getSeanceStatus(seanceDate: Seance): SeanceStatus {
+  public getSeanceStatus(seanceDate: SeanceApiModel): SeanceStatus {
     const currentTimeInMilliseconds = Date.now();
     const seanceStartDateTimeInMilliseconds = seanceDate.start.getTime();
     const seanceFinishDateTimeInMilliseconds = seanceDate.finish.getTime();

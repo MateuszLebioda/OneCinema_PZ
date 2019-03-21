@@ -4,7 +4,7 @@ import {RepertoireService} from '../../../repertoire/services/api-services/reper
 import {SeanceService} from '../../../repertoire/services/seance.service';
 import {RepertoireDaysService} from '../../../repertoire/services/repertoire-days.service';
 import {Router} from '@angular/router';
-import {Seance} from '../../../repertoire/models/seance.model';
+import {SeanceApiModel} from '../../../repertoire/api-models/seance-api.model';
 import {SeanceStatus} from '../../../repertoire/enums/seance-statu.enum';
 
 @Component({
@@ -27,17 +27,17 @@ export class MovieSeancesComponent implements OnInit {
 
   public ngOnInit(): void {
     const repertoire = this._repertoireListService.getRepertoire(1);
-    this.repertoire = this._repertoireListService.mapToMovieProjection(repertoire);
     this.repertoireDays = this._repertoireDaysService.getRepertoireDaysSinceNow();
+
+    console.log(repertoire);
   }
 
   public repertoireList(bookmarkLetter: string, dayNumber: number): void {
     this.bookmarkLetter = bookmarkLetter;
-    const repertoire = this._repertoireListService.getRepertoire(dayNumber);
-    this.repertoire = this._repertoireListService.mapToMovieProjection(repertoire);
+    this.repertoire = this._repertoireListService.getRepertoire(dayNumber);
   }
 
-  public getSeanceCssClass(seance: Seance): string {
+  public getSeanceCssClass(seance: SeanceApiModel): string {
     switch (this._seanceService.getSeanceStatus(seance)) {
       case SeanceStatus.available:
         return 'available-seance';
@@ -48,7 +48,7 @@ export class MovieSeancesComponent implements OnInit {
     }
   }
 
-  public bookSeance(seance: Seance): void {
+  public bookSeance(seance: SeanceApiModel): void {
     if (this._seanceService.getSeanceStatus(seance) === SeanceStatus.available) {
       console.log('rezerwacaj seansu o id:', seance.id);
       // this._router.navigate(['/product-details', seance.id]);

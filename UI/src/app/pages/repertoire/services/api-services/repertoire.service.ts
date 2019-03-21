@@ -1,20 +1,21 @@
 import {Injectable} from '@angular/core';
-import {MovieProjectionViewModel} from '../../view-models/movie-projection-view-model.model';
+import {MovieProjectionApiModel} from '../../api-models/movie-projection-api.model';
 import {HttpClient} from '@angular/common/http';
 import {HttpBaseService} from '../../../../shared/services/http-base.service';
 import {MovieProjection} from '../../models/movie-projection.model';
+import {MapperService} from '../../../../shared/helpers/mapper/mapper.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RepertoireService extends HttpBaseService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private _mapper: MapperService) {
     super(http);
   }
 
-  public getRepertoire(dayNumber: number): MovieProjectionViewModel[] {
-    const repertoire = new Array<MovieProjectionViewModel>();
+  public getRepertoire(dayNumber: number): MovieProjection[] {
+    const repertoire = new Array<MovieProjectionApiModel>();
 
     repertoire.push({
       movieId: 'id1',
@@ -57,32 +58,8 @@ export class RepertoireService extends HttpBaseService {
         ]
       });
     }
-    return repertoire;
-  }
 
-  public mapToMovieProjection(movieProjectionViewModel: MovieProjectionViewModel[]): MovieProjection[] {
-    const result = new Array<MovieProjection>();
-
-    for (const movie of movieProjectionViewModel) {
-      const resultMovie = new MovieProjection();
-      Object.assign(resultMovie, movie);
-
-      for (const seance of movie.seances) {
-        const minutesInDay = seance.start.getMinutes() + seance.start.getHours() * 60;
-
-        if (minutesInDay <= 12 * 60) {
-          resultMovie.seancesUntilNoon.push(seance);
-        } else if (minutesInDay <= 18 * 60) {
-          resultMovie.seancesAfternoon.push(seance);
-        } else {
-          resultMovie.seancesEvening.push(seance);
-        }
-      }
-
-      result.push(resultMovie);
-    }
-
-    return result;
+    return this._mapper.toMovieProjectionCollection(repertoire);
   }
 
   // private temp() {

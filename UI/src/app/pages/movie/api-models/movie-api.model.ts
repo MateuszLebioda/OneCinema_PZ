@@ -1,6 +1,6 @@
-import {DaySeancesViewModel} from './day-seances-view.model';
+import {DaySeancesApiModel} from './day-seances-api.model';
 
-export class MovieViewModel {
+export class MovieApiModel {
   public title: string;
   public description: string;
   public projectionType: string;
@@ -8,7 +8,7 @@ export class MovieViewModel {
   public duration: number;
   public category: string;
   public rating: number;
-  public seances: DaySeancesViewModel[];
+  public seances: DaySeancesApiModel[];
 
   constructor() {
     this.seances = [];
