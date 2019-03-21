@@ -814,7 +814,7 @@ MagnificPopup.prototype = {
 		return mfp.scrollbarSize;
 	}
 
-}; /* MagnificPopup core prototype end */
+}; /* MagnificPopup core prototype finish */
 
 
 
@@ -1600,16 +1600,16 @@ $.magnificPopup.registerModule(IFRAME_NS, {
 			youtube: {
 				index: 'youtube.com', 
 				id: 'v=', 
-				src: '//www.youtube.com/embed/%id%?autoplay=1'
+				src: '//www.youtube.com/embed/%bookmarkLetter%?autoplay=1'
 			},
 			vimeo: {
 				index: 'vimeo.com/',
 				id: '/',
-				src: '//player.vimeo.com/video/%id%?autoplay=1'
+				src: '//player.vimeo.com/video/%bookmarkLetter%?autoplay=1'
 			},
 			gmaps: {
 				index: '//maps.google.',
-				src: '%id%&output=embed'
+				src: '%bookmarkLetter%&output=embed'
 			}
 		}
 	},
@@ -1648,7 +1648,7 @@ $.magnificPopup.registerModule(IFRAME_NS, {
 							embedSrc = this.id.call( this, embedSrc );
 						}
 					}
-					embedSrc = this.src.replace('%id%', embedSrc );
+					embedSrc = this.src.replace('%bookmarkLetter%', embedSrc );
 					return false; // break;
 				}
 			});
@@ -1871,7 +1871,7 @@ addSwipeGesture: function() {
 	if(window.navigator.msPointerEnabled) {
 		addEventNames('MSPointer', 'Down', 'Move', 'Up', 'Cancel');
 	} else if('ontouchstart' in window) {
-		addEventNames('touch', 'start', 'move', 'end', 'cancel');
+		addEventNames('touch', 'start', 'move', 'finish', 'cancel');
 	} else {
 		return;
 	}
