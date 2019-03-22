@@ -54,7 +54,8 @@ export class MovieService {
       trailerUrl: 'https://www.youtube.com/embed/TcMBFSGVi1c',
       projectionType: '3D',
       rating: 3.5,
-      seances: [this._mapper.toDaySeances(x1), this._mapper.toDaySeances(x2)]
+      seances2D: [this._mapper.toDaySeances(x1), this._mapper.toDaySeances(x2)],
+      seances3D: [this._mapper.toDaySeances(x1)]
     };
   }
 }

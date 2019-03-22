@@ -1,8 +1,10 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {SlideBannerService} from './services/slide-banner.service';
 import {SlideBannerMovie} from './models/banner-movie';
+import {Router} from '@angular/router';
 
 declare function showSlideBanner(): void;
+
 declare function showVideoPlayer(): void;
 
 @Component({
@@ -13,7 +15,9 @@ declare function showVideoPlayer(): void;
 export class SlideBannerComponent implements OnInit, AfterViewInit {
   public movies: SlideBannerMovie[];
 
-  constructor(private _slideBannerService: SlideBannerService) {
+  constructor(
+    private _slideBannerService: SlideBannerService,
+    private _router: Router) {
   }
 
   public ngOnInit(): void {
@@ -33,8 +37,8 @@ export class SlideBannerComponent implements OnInit, AfterViewInit {
     return !Number.isInteger(rating);
   }
 
-  public sss() {
-    console.log('jeeee');
+  public navigateToMovie(movieId: string): void {
+    this._router.navigate(['/film', movieId]);
   }
 }
 
