@@ -56,7 +56,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
+              <tr *ngIf="areSeances2D">
                 <td>2D</td>
                 <td>
                   <p *ngFor="let seance of seances2DPerTimesOfDay.seancesUntilNoon"
@@ -83,7 +83,7 @@
                   </p>
                 </td>
               </tr>
-              <tr>
+              <tr *ngIf="areSeances3D">
                 <td>3D</td>
                 <td>
                   <p *ngFor="let seance of seances3DPerTimesOfDay.seancesUntilNoon"

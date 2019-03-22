@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {MovieService} from './services/movie.service';
 import {Movie} from './models/movie.model';
+import {ActivatedRoute} from '@angular/router';
 
 declare function showVideoPlayer(): void;
 
@@ -11,13 +12,18 @@ declare function showVideoPlayer(): void;
 })
 export class MovieComponent implements OnInit, AfterViewInit {
   public movie: Movie;
+  public movieId: string;
 
-  constructor(private _movieService: MovieService) {
+  constructor(
+    private _movieService: MovieService,
+    private route: ActivatedRoute) {
   }
 
   public ngOnInit(): void {
     this.movie = this._movieService.getMovie();
     console.log(this.movie);
+
+    this.movieId = this.route.snapshot.params.movieId;
   }
 
   public ngAfterViewInit(): void {

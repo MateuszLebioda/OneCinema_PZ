@@ -6,13 +6,12 @@
 
         <div class="item" *ngFor="let movie of movies">
           <div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
-            <a class="hvr-shutter-out-horizontal">
-              <img src="{{movie.posterUrl}}" title="album-name" class="img-responsive" alt=" "/>
-              <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+            <a class="hvr-shutter-out-horizontal cursor-pointer" (click)="navigateToMovie(movie.id)">
+              <img src="{{movie.posterUrl}}" class="img-responsive" alt="Plakat filmu {{movie.title}}"/>
             </a>
             <div class="mid-1 agileits_w3layouts_mid_1_home">
               <div class="w3l-movie-text">
-                <h6><a href="">{{movie.title}}</a></h6>
+                <h6><a class="cursor-pointer" (click)="navigateToMovie(movie.id)">{{movie.title}}</a></h6>
               </div>
               <div class="mid-2 agile_mid_2_home">
                 <p>{{movie.yearOfPremiere}}</p>
@@ -20,12 +19,12 @@
                   <ul class="w3l-ratings">
 
                     <li *ngFor="let star of getFakeTableForShowingStars(movie.rating)">
-                      <a href="#">
+                      <a>
                         <i class="fa fa-star" aria-hidden="true"></i>
                       </a>
                     </li>
                     <li *ngIf="ratingHasHalfPoint(movie.rating)">
-                      <a href="#">
+                      <a>
                         <i class="fa fa-star-half-o" aria-hidden="true"></i>
                       </a>
                     </li>
@@ -44,8 +43,4 @@
       </div>
     </div>
   </div>
-</div>
-
-<div id="small-dialog" class="mfp-hide">
-  <iframe src="https://www.youtube.com/embed/TcMBFSGVi1c"></iframe>
 </div>

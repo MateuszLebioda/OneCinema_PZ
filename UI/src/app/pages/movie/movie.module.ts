@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {MovieComponent} from './movie.component';
 import {MovieSeancesComponent} from './components/movie-seances/movie-seances.component';
 import {SafePipe} from './pipes/safe.pipe';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import {SafePipe} from './pipes/safe.pipe';
   ],
   imports: [
     CommonModule,
+    RouterModule
   ]
 })
 export class MovieModule {

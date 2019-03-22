@@ -26,6 +26,14 @@ export class MovieSeancesComponent implements OnInit {
     return this._getSeance(this.seances3D).seances;
   }
 
+  public get areSeances2D(): boolean {
+    return this._areSeances(this.seances2D);
+  }
+
+  public get areSeances3D(): boolean {
+    return this._areSeances(this.seances3D);
+  }
+
   public bookmarkLetter = 'a';
   public repertoireDays: string[];
 
@@ -39,10 +47,7 @@ export class MovieSeancesComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    const repertoire = this._repertoireListService.getRepertoire(1);
     this.repertoireDays = this._repertoireDaysService.getRepertoireDaysSinceNow();
-
-    console.log(repertoire);
   }
 
   public repertoireList(bookmarkLetter: string, dayNumber: number): void {
@@ -70,5 +75,15 @@ export class MovieSeancesComponent implements OnInit {
 
   private _getSeance(seancesPerDay: SeancesPerDay[]): SeancesPerDay {
     return seancesPerDay.find(x => x.day === this._deyIndex);
+  }
+
+  private _areSeances(seancesPerDay: SeancesPerDay[]): boolean {
+    const seances = seancesPerDay.find(x => x.day === this._deyIndex);
+    if (seances) {
+      return seances.seances.seancesUntilNoon.length !== 0
+        || seances.seances.seancesAfternoon.length !== 0
+        || seances.seances.seancesEvening.length !== 0;
+    }
+    return false;
   }
 }

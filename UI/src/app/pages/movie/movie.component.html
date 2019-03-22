@@ -49,7 +49,7 @@
                   </table>
 
                 </div>
-                <app-movie-seances [seances2D]="movie.seances2D" [seances3D]="movie.seances2D"></app-movie-seances>
+                <app-movie-seances [seances2D]="movie.seances2D" [seances3D]="movie.seances3D"></app-movie-seances>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -61,5 +61,5 @@
 </div>
 
 <div id="small-dialog" class="mfp-hide">
-  <iframe [src]="movie.trailerUrl + '?autoplay=1'| safe"></iframe>
+  <iframe [src]="movie.trailerUrl | safe"></iframe>
 </div>
