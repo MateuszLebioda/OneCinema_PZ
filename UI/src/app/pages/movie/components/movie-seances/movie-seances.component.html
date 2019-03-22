@@ -3,12 +3,12 @@
     <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
       <ul id="myTab" class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
-          <a (click)="repertoireList('a', 1)" href="#a" role="tab" id="a-tab" data-toggle="tab" aria-controls="a">
+          <a (click)="repertoireList('a', 0)" href="#a" role="tab" id="a-tab" data-toggle="tab" aria-controls="a">
             {{repertoireDays[0]}}
           </a>
         </li>
         <li role="presentation">
-          <a (click)="repertoireList('b', 2)" href="#b" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">
+          <a (click)="repertoireList('b', 1)" href="#b" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">
             {{repertoireDays[1]}}
           </a>
         </li>
@@ -49,15 +49,17 @@
             <table id="table-breakpoint">
               <thead>
               <tr>
+                <th>Typ projekcji</th>
                 <th>Do południa</th>
                 <th>Po południu</th>
                 <th>Wieczorem</th>
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let movieProjection of repertoire ">
+              <tr>
+                <td>2D</td>
                 <td>
-                  <p *ngFor="let seance of movieProjection.seancesUntilNoon"
+                  <p *ngFor="let seance of seances2DPerTimesOfDay.seancesUntilNoon"
                      [ngClass]="getSeanceCssClass(seance)"
                      (click)="bookSeance(seance)"
                   >
@@ -65,7 +67,7 @@
                   </p>
                 </td>
                 <td>
-                  <p *ngFor="let seance of movieProjection.seancesAfternoon"
+                  <p *ngFor="let seance of seances2DPerTimesOfDay.seancesAfternoon"
                      [ngClass]="getSeanceCssClass(seance)"
                      (click)="bookSeance(seance)"
                   >
@@ -73,7 +75,34 @@
                   </p>
                 </td>
                 <td>
-                  <p *ngFor="let seance of movieProjection.seancesEvening"
+                  <p *ngFor="let seance of seances2DPerTimesOfDay.seancesEvening"
+                     [ngClass]="getSeanceCssClass(seance)"
+                     (click)="bookSeance(seance)"
+                  >
+                    {{seance.start | date: 'HH:mm'}}
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>3D</td>
+                <td>
+                  <p *ngFor="let seance of seances3DPerTimesOfDay.seancesUntilNoon"
+                     [ngClass]="getSeanceCssClass(seance)"
+                     (click)="bookSeance(seance)"
+                  >
+                    {{seance.start | date: 'HH:mm'}}
+                  </p>
+                </td>
+                <td>
+                  <p *ngFor="let seance of seances3DPerTimesOfDay.seancesAfternoon"
+                     [ngClass]="getSeanceCssClass(seance)"
+                     (click)="bookSeance(seance)"
+                  >
+                    {{seance.start | date: 'HH:mm'}}
+                  </p>
+                </td>
+                <td>
+                  <p *ngFor="let seance of seances3DPerTimesOfDay.seancesEvening"
                      [ngClass]="getSeanceCssClass(seance)"
                      (click)="bookSeance(seance)"
                   >

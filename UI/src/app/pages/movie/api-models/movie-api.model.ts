@@ -9,9 +9,11 @@ export class MovieApiModel {
   public duration: number;
   public category: string;
   public rating: number;
-  public seances: DaySeancesApiModel[];
+  public seances2D: DaySeancesApiModel[];
+  public seances3D: DaySeancesApiModel[];
 
   constructor() {
-    this.seances = [];
+    this.seances2D = [];
+    this.seances3D = [];
   }
 }

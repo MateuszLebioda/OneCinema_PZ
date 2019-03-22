@@ -6,6 +6,8 @@ import {RepertoireDaysService} from '../../../repertoire/services/repertoire-day
 import {Router} from '@angular/router';
 import {SeanceApiModel} from '../../../repertoire/api-models/seance-api.model';
 import {SeanceStatus} from '../../../repertoire/enums/seance-statu.enum';
+import {SeancesPerDay} from '../../models/seances-per-day.model';
+import {SeancesPerTimesOfDay} from '../../../repertoire/models/seances-per-times-of-day';
 
 @Component({
   selector: 'app-movie-seances',
@@ -13,11 +15,21 @@ import {SeanceStatus} from '../../../repertoire/enums/seance-statu.enum';
   styleUrls: ['./movie-seances.component.css']
 })
 export class MovieSeancesComponent implements OnInit {
-  // @Input() seances: MovieProjection;
+  @Input() seances2D: SeancesPerDay[] = [];
+  @Input() seances3D: SeancesPerDay[] = [];
+
+  public get seances2DPerTimesOfDay(): SeancesPerTimesOfDay {
+    return this._getSeance(this.seances2D).seances;
+  }
+
+  public get seances3DPerTimesOfDay(): SeancesPerTimesOfDay {
+    return this._getSeance(this.seances3D).seances;
+  }
 
   public bookmarkLetter = 'a';
-  public repertoire: MovieProjection[];
   public repertoireDays: string[];
+
+  private _deyIndex = 0;
 
   constructor(
     private _repertoireListService: RepertoireService,
@@ -35,7 +47,7 @@ export class MovieSeancesComponent implements OnInit {
 
   public repertoireList(bookmarkLetter: string, dayNumber: number): void {
     this.bookmarkLetter = bookmarkLetter;
-    this.repertoire = this._repertoireListService.getRepertoire(dayNumber);
+    this._deyIndex = dayNumber;
   }
 
   public getSeanceCssClass(seance: SeanceApiModel): string {
@@ -54,5 +66,9 @@ export class MovieSeancesComponent implements OnInit {
       console.log('rezerwacaj seansu o id:', seance.id);
       // this._router.navigate(['/product-details', seance.id]);
     }
+  }
+
+  private _getSeance(seancesPerDay: SeancesPerDay[]): SeancesPerDay {
+    return seancesPerDay.find(x => x.day === this._deyIndex);
   }
 }

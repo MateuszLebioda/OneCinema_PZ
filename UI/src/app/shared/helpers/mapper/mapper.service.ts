@@ -32,8 +32,11 @@ export class MapperService {
 
   public toMovie(source: MovieApiModel): Movie {
     const destination: Movie = automapper.map(MovieApiModel.name, Movie.name, source);
-    destination.seances.forEach((value, index) => {
-      value = this.toDaySeances(source[index]);
+    destination.seances2D.forEach((value, index) => {
+      value = this.toDaySeances(source.seances2D[index]);
+    });
+    destination.seances3D.forEach((value, index) => {
+      value = this.toDaySeances(source.seances3D[index]);
     });
 
     return destination;

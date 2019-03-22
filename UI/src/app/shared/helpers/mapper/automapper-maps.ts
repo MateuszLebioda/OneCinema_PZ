@@ -19,7 +19,10 @@ export class AutomapperMaps {
       });
 
     automapper.createMap(MovieApiModel.name, Movie.name)
-      .forSourceMember('seances', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => {
+      .forSourceMember('seances2D', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => {
+        opts.ignore();
+      })
+      .forSourceMember('seances3D', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => {
         opts.ignore();
       });
   }

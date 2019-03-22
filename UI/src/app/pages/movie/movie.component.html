@@ -11,7 +11,7 @@
                   <img
                     src="{{movie.posterUrl}}"
                     alt="Plakat  filmu {{movie.title}}" class="img-responsive"/>
-                  <a class="w3_play_icon2" href="#video-player-window">
+                  <a class="w3_play_icon2" href="#small-dialog">
                     <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
                   </a>
                 </div>
@@ -49,8 +49,7 @@
                   </table>
 
                 </div>
-                <!--<app-movie-seances seances="seances"></app-movie-seances>-->
-                <app-movie-seances></app-movie-seances>
+                <app-movie-seances [seances2D]="movie.seances2D" [seances3D]="movie.seances2D"></app-movie-seances>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -61,6 +60,6 @@
   </div>
 </div>
 
-<div id="video-player-window" class="mfp-hide">
+<div id="small-dialog" class="mfp-hide">
   <iframe [src]="movie.trailerUrl + '?autoplay=1'| safe"></iframe>
 </div>
