@@ -1,8 +1,10 @@
 package com.MateuszLebioda.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -22,6 +24,10 @@ public class TsType {
     @Column(name = "nazwa")
     private String name;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "types")
+    private Set<Film> posts;
+
     public String getId() {
     return id;
     }
@@ -36,6 +42,14 @@ public class TsType {
 
     public void setName(String name) {
     this.name = name;
+    }
+
+    public Set<Film> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<Film> posts) {
+        this.posts = posts;
     }
 }
 

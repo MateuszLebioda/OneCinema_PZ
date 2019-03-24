@@ -4,11 +4,44 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "film")
 public class Film {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    private String id;
+
+    @Column(name = "tytul")
+    String title;
+
+    @Column(name = "rezyser")
+    String director;
+
+    @ManyToMany
+    @JoinTable(
+            name = "gatunek_film",
+            joinColumns = @JoinColumn(name = "id_film"),
+            inverseJoinColumns = @JoinColumn(name = "id_ts_gatunek"))
+    Set<TsType> types;
+
+    @Column(name = "premiera")
+    Date premiere;
+
+    @Column(name = "Czas_trwania")
+    int duration;
+
+    @Column(name = "url")
+    String url;
 
     public String getId() {
         return id;
@@ -42,12 +75,12 @@ public class Film {
         this.premiere = premiere;
     }
 
-    public int getDuratation() {
-        return duratation;
+    public int getDuration() {
+        return duration;
     }
 
-    public void setDuratation(int duratation) {
-        this.duratation = duratation;
+    public void setDuration(int duratation) {
+        this.duration = duratation;
     }
 
     public String getUrl() {
@@ -58,32 +91,22 @@ public class Film {
         this.url = url;
     }
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    private String id;
+    public Set<TsType> getTypes() {
+        return types;
+    }
 
-    @Column(name = "tytul")
-    String title;
+    public void setTypes(Set<TsType> type) {
+        this.types = type;
+    }
 
-    @Column(name = "rezyser")
-    String director;
+    public void addType(TsType type){
+        this.types.add(type);
+    }
 
-    /*@Column(name = "gatunek")
+    public void addTypes(List<TsType> type){
+        this.types.addAll(type);
+    }
 
-    */
 
-    @Column(name = "premiera")
-    Date premiere;
-
-    @Column(name = "Czas_trwania")
-    int duratation;
-
-    @Column(name = "url")
-    String url;
 
 }
