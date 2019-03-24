@@ -1,8 +1,10 @@
 package com.MateuszLebioda.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "sala")
@@ -15,6 +17,12 @@ public class Room {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     private String id;
+
+
+
+    //    @JsonIgnore
+    @OneToMany(mappedBy = "room")
+    private Set<Spot> spots;
 
     @Column(name = "nazwa")
     private String name;
@@ -45,5 +53,13 @@ public class Room {
 
     public void setCinema(Cinema cinema) {
         this.cinema = cinema;
+    }
+
+    public Set<Spot> getSpots() {
+        return spots;
+    }
+
+    public void setSpots(Set<Spot> spots) {
+        this.spots = spots;
     }
 }
