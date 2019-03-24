@@ -1,8 +1,10 @@
 package com.MateuszLebioda.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "kino")
@@ -31,6 +33,10 @@ public class Cinema {
 
   @Column (name = "e_mail")
   private String eMail;
+
+  @JsonIgnore
+  @OneToMany(mappedBy = "cinema")
+  private Set<Room> rooms;
 
   public String getId() {
     return id;
