@@ -27,6 +27,9 @@ public class Film {
     @Column(name = "rezyser")
     String director;
 
+    @OneToMany(mappedBy = "film")
+    private Set<Seance> seances;
+
     @ManyToMany
     @JoinTable(
             name = "gatunek_film",
@@ -107,6 +110,11 @@ public class Film {
         this.types.addAll(type);
     }
 
+    public Set<Seance> getSeances() {
+        return seances;
+    }
 
-
+    public void setSeances(Set<Seance> seances) {
+        this.seances = seances;
+    }
 }

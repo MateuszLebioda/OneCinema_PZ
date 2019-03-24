@@ -20,7 +20,6 @@ public class Room {
 
 
 
-    //    @JsonIgnore
     @OneToMany(mappedBy = "room")
     private Set<Spot> spots;
 
@@ -28,7 +27,7 @@ public class Room {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "cinema_id")
+    @JoinColumn(name = "id_kino")
     private Cinema cinema;
 
     public String getId() {

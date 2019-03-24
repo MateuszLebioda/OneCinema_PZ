@@ -29,7 +29,7 @@ public class Spot {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "room_id")
+    @JoinColumn(name = "id_sala")
     private Room room;
 
     public String getId() {
