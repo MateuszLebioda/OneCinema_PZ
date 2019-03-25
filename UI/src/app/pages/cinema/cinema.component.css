@@ -6,12 +6,21 @@
   padding-bottom: 1em;
 }
 
+.row-header {
+  color: #212121;
+  font-size: 18px;
+  font-weight: bold;
+  float: left;
+  width: 50%;
+  text-align: center;
+}
+
 .row-title {
   color: #212121;
   font-size: 14px;
   font-weight: bold;
   float: left;
-  width: 25%;
+  width: 15%;
 }
 
 .row-content {
@@ -19,7 +28,7 @@
   font-size: 14px;
   font-weight: bold;
   float: left;
-  width: 25%;
+  width: 35%;
 }
 
 table {
@@ -40,3 +49,6 @@ i {
   color: white;
 }
 
+.agile_tv_series_grid_right {
+  padding: 1em 1em 0 !important;
+}
