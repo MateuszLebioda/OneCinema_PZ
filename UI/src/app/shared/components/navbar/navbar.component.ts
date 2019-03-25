@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {NavbarService} from './services/navbar.service';
+import {PriceListApiModel} from './api-models/price-list-api.model';
 
 @Component({
   selector: 'app-navbar',
@@ -6,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  public priceList: PriceListApiModel;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private _navbarService: NavbarService) {
   }
 
+  public ngOnInit(): void {
+    this.priceList = this._navbarService.getPriceList();
+  }
 }

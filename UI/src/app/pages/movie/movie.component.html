@@ -21,30 +21,30 @@
                   <table>
                     <caption class="table-header">{{movie.title}}</caption>
                     <tr>
-                      <th class="row-title">Typ projekcji</th>
-                      <th class="row-content">{{movie.projectionType}}</th>
+                      <td class="row-title">Typ projekcji</td>
+                      <td class="row-content">{{movie.projectionType}}</td>
                     </tr>
                     <tr>
-                      <th class="row-title">Gatunek</th>
-                      <th class="row-content">{{movie.gender}}</th>
+                      <td class="row-title">Gatunek</td>
+                      <td class="row-content">{{movie.gender}}</td>
                     </tr>
                     <tr>
-                      <th class="row-title">Czas trwania</th>
-                      <th class="row-content">{{movie.duration}}</th>
+                      <td class="row-title">Czas trwania</td>
+                      <td class="row-content">{{movie.duration}}</td>
                     </tr>
                     <tr>
-                      <th class="row-title">Opis</th>
-                      <th class="row-content">{{movie.description}}</th>
+                      <td class="row-title">Opis</td>
+                      <td class="row-content">{{movie.description}}</td>
                     </tr>
                     <tr>
-                      <th class="row-title">Ocena</th>
-                      <th class="row-content">
+                      <td class="row-title">Ocena</td>
+                      <td class="row-content">
                         <a *ngFor="let star of getFakeTableForShowingStars(movie.rating)"><i class="fa fa-star"
                                                                                              aria-hidden="true"></i></a>
                         <a *ngIf="ratingHasHalfPoint(movie.rating)"><i class="fa fa-star-half-o" aria-hidden="true"></i></a>
                         <a *ngFor="let emptyStar of getFakeTableForShowingEmptyStars(movie.rating)"><i
                           class="fa fa-star-o" aria-hidden="true"></i></a>
-                      </th>
+                      </td>
                     </tr>
                   </table>
 
