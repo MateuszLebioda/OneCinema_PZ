@@ -25,7 +25,7 @@ public class Seance {
     @OneToMany(mappedBy = "seance",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private Set<SpotSeance> spotSeances;
+    private Set<Reservation> reservations;
 
     @Column(name = "czy_3d")
     boolean is3D;
@@ -58,12 +58,12 @@ public class Seance {
         this.is3D = is3D;
     }
 
-    public Set<SpotSeance> getSpotSeances() {
-        return spotSeances;
+    public Set<Reservation> getReservations() {
+        return reservations;
     }
 
-    public void setSpotSeances(Set<SpotSeance> spotSeances) {
-        this.spotSeances = spotSeances;
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
     }
 
     public Film getFilm() {
