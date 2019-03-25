@@ -1,5 +1,5 @@
 .wide-dropdown-menu {
-  width: 402% !important;
+  width: 301% !important;
 }
 
 .all-section-dropdown-menu {
@@ -28,4 +28,8 @@
 
 .no-bottom-border {
   border-bottom: white 1px solid;
+}
+
+.navbar-nav > li {
+  width: 33.3%;
 }

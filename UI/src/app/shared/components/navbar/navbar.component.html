@@ -26,31 +26,27 @@
                   </tr>
                   <tr>
                     <th class="text-center table-header" scope="row">Normalny</th>
-                    <td class="text-center">22.5</td>
-                    <td class="text-center border-right">25.7</td>
-                    <td class="text-center">24.45</td>
-                    <td class="text-center">30.7</td>
+                    <td class="text-center">{{priceList.price2D.normal.mondayThursday}}</td>
+                    <td class="text-center border-right">{{priceList.price2D.normal.fridaySunday}}</td>
+                    <td class="text-center">{{priceList.price3D.normal.mondayThursday}}</td>
+                    <td class="text-center">{{priceList.price3D.normal.fridaySunday}}</td>
                   </tr>
                   <tr>
                     <th class="text-center table-header no-bottom-border" scope="row">Ulgowy</th>
-                    <td class="text-center table-header no-bottom-border">21.5</td>
-                    <td class="text-center table-header no-bottom-border border-right">24.5</td>
-                    <td class="text-center table-header no-bottom-border">23.3</td>
-                    <td class="text-center table-header no-bottom-border">27.9</td>
+                    <td
+                      class="text-center table-header no-bottom-border">{{priceList.price2D.reduced.mondayThursday}}</td>
+                    <td
+                      class="text-center table-header no-bottom-border border-right">{{priceList.price2D.reduced.fridaySunday}}</td>
+                    <td
+                      class="text-center table-header no-bottom-border">{{priceList.price3D.reduced.mondayThursday}}</td>
+                    <td
+                      class="text-center table-header no-bottom-border">{{priceList.price3D.reduced.fridaySunday}}</td>
                   </tr>
                   </tbody>
                 </table>
               </ul>
             </li>
             <li routerLinkActive="active"><a routerLink="/repertuar">Repertuar</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kino - Dąbrowa Górnicza<b
-                class="caret"></b></a>
-              <ul class="all-section-dropdown-menu dropdown-menu">
-                <li><a href="">Dąbrowa Górnicza</a></li>
-                <li><a href="">Katowice</a></li>
-              </ul>
-            </li>
             <li><a routerLink="/repertuar" routerLinkActive="active">O kinie</a></li>
           </ul>
         </nav>
