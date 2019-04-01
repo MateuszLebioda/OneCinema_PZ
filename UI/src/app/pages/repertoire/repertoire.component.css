@@ -6,3 +6,8 @@
 .image-column-size {
   width: 100px !important;
 }
+
+.time-padding {
+  padding-right: 5px;
+  padding-left: 5px;
+}

@@ -26,18 +26,18 @@ export class RepertoireService extends HttpBaseService {
       projectionType: '2D',
       seances: [
         {
-          start: new Date('March 17, 2019 18:05:00'),
-          finish: new Date('March 17, 2019 20:05:00'),
+          start: new Date('April 1, 2019 19:05:00'),
+          finish: new Date('April 1, 2019 23:05:00'),
           id: '8823242'
         },
         {
-          start: new Date('March 17, 2019 15:05:00'),
-          finish: new Date('March 17, 2019 16:05:00'),
+          start: new Date('April 1, 2019 20:05:00'),
+          finish: new Date('April 1, 2019 23:05:00'),
           id: '54543242'
         },
         {
-          start: new Date('March 18, 2019 20:05:00'),
-          finish: new Date('March 18, 2019 22:05:00'),
+          start: new Date('April 1, 2019 15:05:00'),
+          finish: new Date('April 1, 2019 18:05:00'),
           id: '12223242'
         }
       ]
@@ -51,8 +51,8 @@ export class RepertoireService extends HttpBaseService {
         movieTitle: 'Jaś fasola', projectionType: '3D',
         seances: [
           {
-            start: new Date('March 17, 2019 11:05:00'),
-            finish: new Date('March 17, 2019 15:05:00'),
+            start: new Date('April 1, 2019 11:05:00'),
+            finish: new Date('April 1, 2019 15:05:00'),
             id: '32223242'
           },
         ]

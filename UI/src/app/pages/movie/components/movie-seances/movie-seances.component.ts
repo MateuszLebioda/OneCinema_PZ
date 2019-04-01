@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MovieProjection} from '../../../repertoire/models/movie-projection.model';
 import {RepertoireService} from '../../../repertoire/services/api-services/repertoire.service';
 import {SeanceService} from '../../../repertoire/services/seance.service';
 import {RepertoireDaysService} from '../../../repertoire/services/repertoire-days.service';

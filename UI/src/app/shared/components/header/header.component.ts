@@ -14,5 +14,4 @@ export class HeaderComponent implements OnInit {
   public ngOnInit(): void {
     this.cinemPhoneNumber = '(+000) 123 345 653';
   }
-
 }
