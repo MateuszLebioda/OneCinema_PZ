@@ -8,6 +8,7 @@ import {Seat} from './models/seat';
 })
 export class BookingComponent implements OnInit {
   public bookedSeats: Array<Seat> = new Array<Seat>();
+  public screeningRoomOne = false;
 
   constructor() {
   }
@@ -17,5 +18,9 @@ export class BookingComponent implements OnInit {
 
   public setBookedSeats(bookedSeats: Array<Seat>): void {
     this.bookedSeats = bookedSeats;
+  }
+
+  public bookSeats(): void {
+    console.log('zabukowano');
   }
 }

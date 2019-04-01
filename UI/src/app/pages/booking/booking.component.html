@@ -2,7 +2,10 @@
   <div class="container">
     <div class="agileinfo-news-top-grids">
       <div class="col-md-8 wthree-top-news-left">
-        <app-screening-room-one (bookedSeatsEvent)="setBookedSeats($event)"></app-screening-room-one>
+        <app-screening-room-one *ngIf="screeningRoomOne"
+                                (bookedSeatsEvent)="setBookedSeats($event)"></app-screening-room-one>
+        <app-screening-room-two *ngIf="!screeningRoomOne"
+                                (bookedSeatsEvent)="setBookedSeats($event)"></app-screening-room-two>
       </div>
       <div class="col-md-4 wthree-news-right">
         <!-- news-right-top -->
@@ -31,7 +34,9 @@
             </div>
           </div>
           <div>
-            <button type="button" class="btn btn-md my-button">Medium</button>
+            <button type="button" class="btn btn-md my-button" *ngIf="bookedSeats.length > 0" (click)="bookSeats()">
+              Medium
+            </button>
           </div>
           <div class="comment">
             <p>*Maksymalnie można zarezerwoać 4 miejsca</p>
