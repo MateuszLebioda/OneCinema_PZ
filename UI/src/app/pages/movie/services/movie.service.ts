@@ -19,8 +19,8 @@ export class MovieService {
     x1.day = 0;
     x1.seances = [
       {
-        start: new Date('March 17, 2019 18:05:00'),
-        finish: new Date('March 17, 2019 20:05:00'),
+        start: new Date('April 1, 2019 20:05:00'),
+        finish: new Date('April 1, 2019 23:05:00'),
         id: '8823242'
       },
       {

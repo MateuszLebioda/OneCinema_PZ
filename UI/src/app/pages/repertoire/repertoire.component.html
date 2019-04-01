@@ -70,28 +70,28 @@
                   <p>Typ projekcji: {{movieProjection.projectionType}}</p>
                 </td>
                 <td>
-                  <p *ngFor="let seance of movieProjection.seancesUntilNoon"
-                     [ngClass]="getSeanceCssClass(seance)"
-                     (click)="bookSeance(seance)"
-                  >
+                  <span *ngFor="let seance of movieProjection.seances.seancesUntilNoon"
+                        [ngClass]="getSeanceCssClass(seance)"
+                        (click)="bookSeance(seance)"
+                        class="time-padding">
                     {{seance.start | date: 'HH:mm'}}
-                  </p>
+                  </span>
                 </td>
                 <td>
-                  <p *ngFor="let seance of movieProjection.seancesAfternoon"
-                     [ngClass]="getSeanceCssClass(seance)"
-                     (click)="bookSeance(seance)"
-                  >
+                  <span *ngFor="let seance of movieProjection.seances.seancesAfternoon"
+                        [ngClass]="getSeanceCssClass(seance)"
+                        (click)="bookSeance(seance)"
+                        class="time-padding">
                     {{seance.start | date: 'HH:mm'}}
-                  </p>
+                  </span>
                 </td>
                 <td>
-                  <p *ngFor="let seance of movieProjection.seancesEvening"
-                     [ngClass]="getSeanceCssClass(seance)"
-                     (click)="bookSeance(seance)"
-                  >
+                  <span *ngFor="let seance of movieProjection.seances.seancesEvening"
+                        [ngClass]="getSeanceCssClass(seance)"
+                        (click)="bookSeance(seance)"
+                        class="time-padding">
                     {{seance.start | date: 'HH:mm'}}
-                  </p>
+                  </span>
                 </td>
               </tr>
               </tbody>
