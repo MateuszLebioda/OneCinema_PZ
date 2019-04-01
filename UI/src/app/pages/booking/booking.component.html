@@ -1,0 +1,50 @@
+<div class="faq">
+  <div class="container">
+    <div class="agileinfo-news-top-grids">
+      <div class="col-md-8 wthree-top-news-left">
+        <app-screening-room-one *ngIf="screeningRoomOne"
+                                (bookedSeatsEvent)="setBookedSeats($event)"></app-screening-room-one>
+        <app-screening-room-two *ngIf="!screeningRoomOne"
+                                (bookedSeatsEvent)="setBookedSeats($event)"></app-screening-room-two>
+      </div>
+      <div class="col-md-4 wthree-news-right">
+        <!-- news-right-top -->
+        <div class="news-right-top background-color">
+          <div class="wthree-news-right-top background-color">
+            <div class="news-grids-bottom background-color">
+              <!-- date -->
+              <div id="design" class="date">
+                <table class="background-color">
+                  <tr class="no-border background-color">
+                    <td class="row-title">Film</td>
+                    <td class="row-content">6</td>
+                  </tr>
+                  <tr class="no-border background-color">
+                    <td class="row-title">Bilety</td>
+                    <td [class.max-booked-count]="bookedSeats.length === 4"
+                        class="row-content">{{bookedSeats.length}}</td>
+                  </tr>
+                  <tr class="no-border background-color">
+                    <td class="row-title">Koszt</td>
+                    <td class="row-content">6</td>
+                  </tr>
+                </table>
+              </div>
+              <!-- //date -->
+            </div>
+          </div>
+          <div>
+            <button type="button" class="btn btn-md my-button" *ngIf="bookedSeats.length > 0" (click)="bookSeats()">
+              Medium
+            </button>
+          </div>
+          <div class="comment">
+            <p>*Maksymalnie można zarezerwoać 4 miejsca</p>
+          </div>
+        </div>
+        <!-- //news-right-top -->
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
