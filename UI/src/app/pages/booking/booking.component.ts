@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Seat} from './models/seat';
+import {BookingService} from './services/booking.service';
 
 @Component({
   selector: 'app-reservation',
@@ -8,9 +9,8 @@ import {Seat} from './models/seat';
 })
 export class BookingComponent implements OnInit {
   public bookedSeats: Array<Seat> = new Array<Seat>();
-  public screeningRoomOne = false;
 
-  constructor() {
+  constructor(private _bookingService: BookingService) {
   }
 
   public ngOnInit(): void {

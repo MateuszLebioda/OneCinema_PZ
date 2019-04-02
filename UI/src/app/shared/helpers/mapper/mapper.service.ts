@@ -8,6 +8,10 @@ import {MovieApiModel} from '../../../pages/movie/api-models/movie-api.model';
 import {Movie} from '../../../pages/movie/models/movie.model';
 import {SeancesPerDay} from '../../../pages/movie/models/seances-per-day.model';
 import {DaySeancesApiModel} from '../../../pages/movie/api-models/day-seances-api.model';
+import {Seat} from '../../../pages/booking/models/seat';
+import {ScreeningRoomPlanRowApiModel} from '../../../pages/booking/components/screening-room/api-models/screening-room-plan-row-api.model';
+import {ScreeningRoom} from '../../../pages/booking/components/screening-room/models/screening-room';
+import {ScreeningRoomPlanApiModel} from '../../../pages/booking/components/screening-room/api-models/screening-room-plan-api.model';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +49,13 @@ export class MapperService {
   public toDaySeances(source: DaySeancesApiModel): SeancesPerDay {
     const destination: SeancesPerDay = automapper.map(DaySeancesApiModel.name, SeancesPerDay.name, source);
     destination.seances = PropertiesMapper.getSeancesPerTimesOfDay(source.seances);
+
+    return destination;
+  }
+
+  public toScreeningRoom(source: ScreeningRoomPlanApiModel): ScreeningRoom {
+    const destination: ScreeningRoom = automapper.map(ScreeningRoomPlanApiModel.name, ScreeningRoom.name, source);
+    destination.rows = PropertiesMapper.getRows(source.rows);
 
     return destination;
   }
