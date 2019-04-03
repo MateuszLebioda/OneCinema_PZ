@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: 'repertuar', component: RepertoireComponent},
   {path: 'film/:movieId', component: MovieComponent},
   {path: 'kino', component: CinemaComponent},
-  {path: 'rezerwacja', component: BookingComponent},
+  {path: 'rezerwacja/:seanceId', component: BookingComponent},
 ];
 
 @NgModule({

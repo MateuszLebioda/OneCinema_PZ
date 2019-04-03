@@ -58,7 +58,7 @@
               <tbody>
               <tr *ngFor="let movieProjection of repertoire ">
                 <td class="w3-list-img image-column-size">
-                  <a href="">
+                  <a (click)="navigateToMovie(movieProjection.movieId)" class="cursor-pointer">
                     <img class="poster-size" src="{{movieProjection.moviePosterUrl}}"
                          alt="{{movieProjection.movieTitle}} plakat"/>
                     <span>{{movieProjection.movieTitle}}</span>

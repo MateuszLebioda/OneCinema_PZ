@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {CinemaService} from '../../../pages/cinema/services/cinema.service';
 
 @Component({
   selector: 'app-header',
@@ -8,10 +9,11 @@ import {Component, OnInit} from '@angular/core';
 export class HeaderComponent implements OnInit {
   public cinemPhoneNumber: string;
 
-  constructor() {
+  constructor(private _cinemaService: CinemaService) {
   }
 
   public ngOnInit(): void {
-    this.cinemPhoneNumber = '(+000) 123 345 653';
+    const cinema = this._cinemaService.getCinemaInfo();
+    this.cinemPhoneNumber = cinema.phoneNumber;
   }
 }

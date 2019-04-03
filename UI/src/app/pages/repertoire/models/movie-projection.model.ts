@@ -1,6 +1,7 @@
 import {SeancesPerTimesOfDay} from './seances-per-times-of-day';
 
 export class MovieProjection {
+  public movieId: string;
   public movieTitle: string;
   public projectionType: string;
   public moviePosterUrl: string;

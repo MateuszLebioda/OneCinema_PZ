@@ -2,7 +2,7 @@
   <div class="container">
     <div class="agileinfo-news-top-grids">
       <div class="col-md-8 wthree-top-news-left">
-        <app-screening-room (bookedSeatsEvent)="setBookedSeats($event)"></app-screening-room>
+        <app-screening-room [seance]="seance" (bookedSeatsEvent)="setBookedSeats($event)"></app-screening-room>
       </div>
       <div class="col-md-4 wthree-news-right">
         <!-- news-right-top -->
@@ -17,13 +17,29 @@
                     <td class="row-content">Jaś fasola</td>
                   </tr>
                   <tr class="no-border background-color">
+                    <td class="row-title">Data seansu</td>
+                    <td class="row-content">11.12.2019 15:00</td>
+                  </tr>
+                  <tr class="no-border background-color">
                     <td class="row-title">Bilety</td>
                     <td [class.max-booked-count]="bookedSeats.length === 4"
                         class="row-content">{{bookedSeats.length}}</td>
                   </tr>
                   <tr class="no-border background-color">
-                    <td class="row-title">Koszt</td>
-                    <td class="row-content">6</td>
+                    <td class="row-title"></td>
+                    <td class="row-content"></td>
+                  </tr>
+                  <tr class="no-border background-color">
+                    <td class="row-title"></td>
+                    <td class="row-content booked legend">Zarezerowane</td>
+                  </tr>
+                  <tr class="no-border background-color">
+                    <td class="row-title"></td>
+                    <td class="row-content available-background-color legend">Wolne</td>
+                  </tr>
+                  <tr class="no-border background-color">
+                    <td class="row-title"></td>
+                    <td class="row-content selected legend">Wybrane przez Ciebie</td>
                   </tr>
                 </table>
               </div>
@@ -32,7 +48,7 @@
           </div>
           <div>
             <button type="button" class="btn btn-md my-button" *ngIf="bookedSeats.length > 0" (click)="bookSeats()">
-              Medium
+              Zarezerwuj
             </button>
           </div>
           <div class="comment">

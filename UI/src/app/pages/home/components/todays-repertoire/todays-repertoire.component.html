@@ -17,7 +17,7 @@
               <tbody>
               <tr *ngFor="let movieProjection of repertoire">
                 <td class="w3-list-img image-column-size">
-                  <a href="">
+                  <a (click)="navigateToMovie(movieProjection.movieId)" class="cursor-pointer">
                     <img class="poster-size" src="{{movieProjection.moviePosterUrl}}"
                          alt="{{movieProjection.movieTitle}} plakat"/>
                     <span>{{movieProjection.movieTitle}}</span>
@@ -29,26 +29,23 @@
                   <p>Typ projekcji: {{movieProjection.projectionType}}</p>
                 </td>
                 <td>
-                  <p *ngFor="let seance of movieProjection.seancesUntilNoon"
+                  <p *ngFor="let seance of movieProjection.seances.seancesUntilNoon"
                      [ngClass]="getSeanceCssClass(seance)"
-                     (click)="bookSeance(seance)"
-                  >
+                     (click)="bookSeance(seance)">
                     {{seance.start | date: 'HH:mm'}}
                   </p>
                 </td>
                 <td>
-                  <p *ngFor="let seance of movieProjection.seancesAfternoon"
+                  <p *ngFor="let seance of movieProjection.seances.seancesAfternoon"
                      [ngClass]="getSeanceCssClass(seance)"
-                     (click)="bookSeance(seance)"
-                  >
+                     (click)="bookSeance(seance)">
                     {{seance.start | date: 'HH:mm'}}
                   </p>
                 </td>
                 <td>
-                  <p *ngFor="let seance of movieProjection.seancesEvening"
+                  <p *ngFor="let seance of movieProjection.seances.seancesEvening"
                      [ngClass]="getSeanceCssClass(seance)"
-                     (click)="bookSeance(seance)"
-                  >
+                     (click)="bookSeance(seance)">
                     {{seance.start | date: 'HH:mm'}}
                   </p>
                 </td>

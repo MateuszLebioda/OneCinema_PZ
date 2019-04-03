@@ -7,5 +7,4 @@ export class CinemaApiModel {
   public email: string;
   public numberOfcinemaHalls: number;
   public numberOfseats: number;
-  public typesOfSessions: string;
 }

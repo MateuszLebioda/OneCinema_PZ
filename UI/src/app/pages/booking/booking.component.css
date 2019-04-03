@@ -1,6 +1,6 @@
 .seat {
   color: white;
-  border-radius: 25%;
+  border-radius: 15px;
   padding: 4px 4px;
   border: 3px solid white;
   width: 12px;
@@ -10,16 +10,23 @@
 }
 
 .available {
-  background-color: green;
+  background-color: limegreen !important;
   cursor: pointer;
+}
+.available-background-color {
+  background-color: limegreen !important;
 }
 
 .booked {
-  background-color: red;
+  background-color: orangered !important;
+}
+
+.selected {
+  background-color: dodgerblue !important;
 }
 
 .unavailable {
-  background-color: white;
+  background-color: white !important;
   color: white;
 }
 
@@ -27,12 +34,11 @@
   margin-bottom: 15px;
   padding: 5px 0;
   text-align: center;
-  background-color: red;
+  background-color: darkgray;
+  border-radius: 15px 15px 0px 0px;
 }
 
-.selected {
-  background-color: orangered !important;
-}
+
 
 .wthree-news-right-top {
   min-height: 0;
@@ -42,7 +48,7 @@
   position: relative;
   left: 40%;
   color: white;
-  background-color: green;
+  background-color: maroon;
 }
 
 .comment {
@@ -56,18 +62,18 @@
   font-size: 14px;
   font-weight: bold;
   float: left;
-  width: 25%;
+  width: 35%;
   border: none !important;
 }
 
 .row-content {
   border: none !important;
-  background-color: #FF8D1B !important;
+  background-color: #FF8D1B;
   color: white;
   font-size: 14px;
   font-weight: bold;
   float: left;
-  width: 25%;
+  width: 65%;
 }
 
 .no-border {
@@ -80,4 +86,9 @@
 
 .max-booked-count {
   color: red;
+}
+
+.legend {
+  border-radius: 15px;
+  text-align: center;
 }

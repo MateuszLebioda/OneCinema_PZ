@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ScreeningRoomPlanApiModel} from '../api-models/screening-room-plan-api.model';
-import {BookedSeatsApiModel} from '../../../api-models/booked-seats/booked-seats-api.model';
+import {BookedSeatsApiModel} from '../api-models/booked-seats/booked-seats-api.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +10,10 @@ export class ScreeningRoomService {
   constructor() {
   }
 
-  public getScreeningRoomPlan(): ScreeningRoomPlanApiModel {
+  public getScreeningRoomPlan(screeningRoomId: string): ScreeningRoomPlanApiModel {
+    console.log('plan sali screeningRoomId', screeningRoomId);
     return {
-      id: 'fajne iddd',
+      id: '14sd-47-aaa',
       screeningRoomName: 'Pierwsza',
       rows: [
         {
@@ -54,7 +55,8 @@ export class ScreeningRoomService {
     };
   }
 
-  public getBookedSeats(): BookedSeatsApiModel {
+  public getBookedSeats(seanceId: string): BookedSeatsApiModel {
+    console.log('zarezerwowane miejsca seanceId', seanceId);
     return {
       ids: [
         '12',

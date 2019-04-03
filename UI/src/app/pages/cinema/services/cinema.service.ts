@@ -17,7 +17,6 @@ export class CinemaService {
       numberOfcinemaHalls: 4,
       numberOfseats: 123,
       phoneNumber: '145 245 478',
-      typesOfSessions: '2D i 3D',
       photoUrl: 'https://pik.wroclaw.pl/wp-content/uploads/2019/01/Kino-Cinema-City-Wroclavia-%E2%80%93-IMAX-Wroc%C5%82aw-4DX.jpg',
       description: 'Pellentesque vel urna accumsan, dictum sapien vitae, condimentum tellus. Nulla fermentum enim vitae\n' +
         '                  commodo dapibus. Vivamus diam ligula, accumsan non malesuada et, interdum malesuada turpis. Donec\n' +

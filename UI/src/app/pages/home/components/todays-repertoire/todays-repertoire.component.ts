@@ -42,7 +42,11 @@ export class TodaysRepertoireComponent implements OnInit {
   public bookSeance(seance: SeanceApiModel): void {
     if (this._seanceService.getSeanceStatus(seance) === SeanceStatus.available) {
       console.log('rezerwacaj seansu o id:', seance.id);
-      // this._router.navigate(['/product-details', seance.id]);
+      this._router.navigate(['/rezerwacja', seance.id]);
     }
+  }
+
+  public navigateToMovie(movieId: string): void {
+    this._router.navigate(['/film', movieId]);
   }
 }

@@ -48,11 +48,9 @@ export class MovieService {
     return {
       title: 'Avengers',
       gender: 'Akcji, Kryminał',
-      description: 'Opis przykłądowy',
       duration: 180,
       posterUrl: 'https://www.vintagemovieposters.co.uk/wp-content/uploads/2018/04/IMG_3059-482x714.jpg',
       trailerUrl: 'https://www.youtube.com/embed/TcMBFSGVi1c',
-      projectionType: '3D',
       rating: 3.5,
       seances2D: [this._mapper.toDaySeances(x1), this._mapper.toDaySeances(x2)],
       seances3D: [this._mapper.toDaySeances(x1)]

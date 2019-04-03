@@ -51,4 +51,8 @@ export class RepertoireComponent implements OnInit {
       // this._router.navigate(['/product-details', seance.id]);
     }
   }
+
+  public navigateToMovie(movieId: string): void {
+    this._router.navigate(['/film', movieId]);
+  }
 }
