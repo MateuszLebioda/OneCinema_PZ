@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Movie} from '../models/movie.model';
 import {RepertoireService} from '../../repertoire/services/api-services/repertoire.service';
-import {SeancesPerTimesOfDay} from '../../repertoire/models/seances-per-times-of-day';
-import {SeanceApiModel} from '../../repertoire/api-models/seance-api.model';
 import {MapperService} from '../../../shared/helpers/mapper/mapper.service';
 import {DaySeancesApiModel} from '../api-models/day-seances-api.model';
 
@@ -19,8 +17,8 @@ export class MovieService {
     x1.day = 0;
     x1.seances = [
       {
-        start: new Date('April 1, 2019 20:05:00'),
-        finish: new Date('April 1, 2019 23:05:00'),
+        start: new Date('April 3, 2019 23:05:00'),
+        finish: new Date('April 3, 2019 23:55:00'),
         id: '8823242'
       },
       {

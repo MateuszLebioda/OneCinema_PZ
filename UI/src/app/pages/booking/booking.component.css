@@ -36,6 +36,8 @@
   text-align: center;
   background-color: darkgray;
   border-radius: 15px 15px 0px 0px;
+  width: 91%;
+  float: right;
 }
 
 
@@ -91,4 +93,5 @@
 .legend {
   border-radius: 15px;
   text-align: center;
+  margin: 5px 0;
 }

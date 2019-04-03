@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ScreeningRoomPlanApiModel} from '../api-models/screening-room-plan-api.model';
 import {BookedSeatsApiModel} from '../api-models/booked-seats/booked-seats-api.model';
+import {ScreeningRoomPlanRowApiModel} from '../api-models/screening-room-plan-row-api.model';
+import {ScreeningRoomPlanSeatApiModel} from '../api-models/screening-room-plan-seat-api.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,43 +17,7 @@ export class ScreeningRoomService {
     return {
       id: '14sd-47-aaa',
       screeningRoomName: 'Pierwsza',
-      rows: [
-        {
-          seats: [
-            {id: '', isSeat: false},
-            {id: '12', isSeat: true},
-            {id: '13', isSeat: true},
-            {id: '', isSeat: false},
-            {id: '15', isSeat: true}
-          ]
-        },
-        {
-          seats: [
-            {id: '21', isSeat: false},
-            {id: '22', isSeat: true},
-            {id: '23', isSeat: true},
-            {id: '', isSeat: false},
-            {id: '', isSeat: false},
-          ]
-        },
-        {
-          seats: [
-            {id: '', isSeat: false},
-            {id: '', isSeat: false},
-            {id: '', isSeat: false},
-            {id: '', isSeat: false},
-            {id: '33', isSeat: true}
-          ]
-        },
-        {
-          seats: [
-            {id: '41', isSeat: true},
-            {id: '42', isSeat: true},
-            {id: '', isSeat: false},
-            {id: '44', isSeat: true}
-          ]
-        },
-      ]
+      rows: this._randomSeats()
     };
   }
 
@@ -64,5 +30,25 @@ export class ScreeningRoomService {
         '44'
       ]
     };
+  }
+
+  private _randomSeats(): ScreeningRoomPlanRowApiModel[] {
+    const result = new Array<ScreeningRoomPlanRowApiModel>();
+
+    for (let i = 0; i < 8; i++) {
+      const seats = new Array<ScreeningRoomPlanSeatApiModel>();
+
+      for (let j = 0; j < 10; j++) {
+        seats.push({
+          id: i.toString() + j,
+          isSeat: Math.random() >= 0.5
+        });
+      }
+
+      result.push({
+        seats: seats
+      });
+    }
+    return result;
   }
 }

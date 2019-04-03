@@ -33,6 +33,7 @@ export class MovieSeancesComponent implements OnInit {
     return this._areSeances(this.seances3D);
   }
 
+  public bookmarkLetters: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
   public bookmarkLetter = 'a';
   public repertoireDays: string[];
 
@@ -68,7 +69,7 @@ export class MovieSeancesComponent implements OnInit {
   public bookSeance(seance: SeanceApiModel): void {
     if (this._seanceService.getSeanceStatus(seance) === SeanceStatus.available) {
       console.log('rezerwacaj seansu o id:', seance.id);
-      // this._router.navigate(['/product-details', seance.id]);
+      this._router.navigate(['/rezerwacja', seance.id]);
     }
   }
 

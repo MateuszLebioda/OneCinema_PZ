@@ -13,6 +13,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./repertoire.component.css']
 })
 export class RepertoireComponent implements OnInit {
+  public bookmarkLetters: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
   public bookmarkLetter = 'a';
   public repertoire: MovieProjection[];
   public repertoireDays: string[];
