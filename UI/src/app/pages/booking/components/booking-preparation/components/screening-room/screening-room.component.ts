@@ -9,7 +9,7 @@ import {SeanceApiModel} from '../../api-models/seance-api.model';
 @Component({
   selector: 'app-screening-room',
   templateUrl: './screening-room.component.html',
-  styleUrls: ['./screening-room.component.css', '../../booking-preparation.component.css']
+  styleUrls: ['./screening-room.component.css', '../../../../booking.component.css']
 })
 export class ScreeningRoomComponent implements OnInit {
   @Input() seance: SeanceApiModel = new SeanceApiModel();

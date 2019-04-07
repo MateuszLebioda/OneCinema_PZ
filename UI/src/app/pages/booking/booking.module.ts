@@ -5,6 +5,7 @@ import {ScreeningRoomComponent} from './components/booking-preparation/component
 import {BookingPreparationComponent} from './components/booking-preparation/booking-preparation.component';
 import {BookingFinalizationComponent} from './components/booking-finalization/booking-finalization.component';
 import {ReservationComponent} from './components/booking-preparation/components/reservation/reservation.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {ReservationComponent} from './components/booking-preparation/components/
     BookingFinalizationComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ]
 })
 export class BookingModule {

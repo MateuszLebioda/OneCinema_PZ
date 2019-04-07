@@ -33,7 +33,7 @@ export class MovieSeancesComponent implements OnInit {
     return this._areSeances(this.seances3D);
   }
 
-  public bookmarkLetters: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+  public bookmarkLetters: string[] = ['a', 'b', 'c', 'd', 'e', 'formControls', 'g', 'h'];
   public bookmarkLetter = 'a';
   public repertoireDays: string[];
 

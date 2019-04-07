@@ -7,7 +7,7 @@ import {ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-booking-preparation',
   templateUrl: './booking-preparation.component.html',
-  styleUrls: ['./booking-preparation.component.css']
+  styleUrls: ['./booking-preparation.component.css', '../../booking.component.css']
 })
 export class BookingPreparationComponent implements OnInit {
   @Output() bookedSeatsEvent: EventEmitter<Array<Seat>> = new EventEmitter<Array<Seat>>();

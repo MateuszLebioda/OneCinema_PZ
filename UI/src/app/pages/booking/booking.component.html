@@ -1,6 +1,13 @@
 <div class="faq">
   <div class="container">
-    <app-booking-preparation (bookedSeatsEvent)="setBookedSeats($event)" *ngIf="preparation"></app-booking-preparation>
-    <app-booking-finalization *ngIf="!preparation"></app-booking-finalization>
+    <app-booking-preparation
+      *ngIf="preparation"
+      (bookedSeatsEvent)="setBookedSeats($event)">
+    </app-booking-preparation>
+    <app-booking-finalization
+      *ngIf="!preparation"
+      [seance]="seance"
+      [bookedSeats]="bookedSeats">
+    </app-booking-finalization>
   </div>
 </div>

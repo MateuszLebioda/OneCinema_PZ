@@ -6,6 +6,7 @@ export class Seat {
   public number: number;
   public status: SeatStatus;
   public selected: boolean;
+  public halfPriceTicket: boolean;
 
   constructor() {
     this.status = SeatStatus.available;

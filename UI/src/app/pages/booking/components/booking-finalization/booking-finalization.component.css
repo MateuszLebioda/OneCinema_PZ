@@ -1,0 +1,49 @@
+.white-font-color {
+  color: white !important;
+}
+
+.black-font-color {
+  color: #212121 !important;
+}
+
+.btn span.glyphicon {
+  opacity: 0;
+}
+
+.btn.active span.glyphicon {
+  opacity: 1;
+}
+
+.white-border-top {
+  border-top: 5px solid white !important;
+}
+
+.font-size {
+  font-size: 14px;
+}
+
+.agile-info-wthree-box form {
+  margin: 1em auto;
+}
+
+.form-module {
+  border-top: none;
+  box-shadow: none;
+}
+
+.error-font {
+  font-size: 80%;
+  color: #dc3545;
+}
+
+.center-div {
+  margin: 0 33%;
+}
+
+.orange-background {
+  background-color: orangered;
+}
+
+.center-text {
+  text-align: center;
+}
