@@ -4,7 +4,7 @@ import {SeanceApiModel} from '../api-models/seance-api.model';
 @Injectable({
   providedIn: 'root'
 })
-export class BookingService {
+export class BookingPreparationService {
 
   constructor() {
   }

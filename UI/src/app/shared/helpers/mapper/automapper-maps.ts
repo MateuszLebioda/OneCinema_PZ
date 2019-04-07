@@ -5,8 +5,8 @@ import {DaySeancesApiModel} from '../../../pages/movie/api-models/day-seances-ap
 import {SeancesPerDay} from '../../../pages/movie/models/seances-per-day.model';
 import {MovieApiModel} from '../../../pages/movie/api-models/movie-api.model';
 import {Movie} from '../../../pages/movie/models/movie.model';
-import {ScreeningRoomPlanApiModel} from '../../../pages/booking/components/screening-room/api-models/screening-room-plan-api.model';
-import {ScreeningRoom} from '../../../pages/booking/components/screening-room/models/screening-room';
+import {ScreeningRoomPlanApiModel} from '../../../pages/booking/components/booking-preparation/components/screening-room/api-models/screening-room-plan-api.model';
+import {ScreeningRoom} from '../../../pages/booking/components/booking-preparation/components/screening-room/models/screening-room';
 
 export class AutomapperMaps {
   public static InitializeMaps(): void {

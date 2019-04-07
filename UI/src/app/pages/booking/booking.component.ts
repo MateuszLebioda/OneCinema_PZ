@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Seat} from './models/seat';
-import {BookingService} from './services/booking.service';
+import {Seat} from './components/booking-preparation/models/seat';
+import {BookingPreparationService} from './components/booking-preparation/services/booking-preparation.service';
 import {ActivatedRoute} from '@angular/router';
-import {SeanceApiModel} from './api-models/seance-api.model';
+import {SeanceApiModel} from './components/booking-preparation/api-models/seance-api.model';
 
 @Component({
   selector: 'app-reservation',
@@ -10,10 +10,11 @@ import {SeanceApiModel} from './api-models/seance-api.model';
   styleUrls: ['./booking.component.css']
 })
 export class BookingComponent implements OnInit {
+  public preparation = true;
   public bookedSeats: Array<Seat> = new Array<Seat>();
   public seance: SeanceApiModel = new SeanceApiModel();
 
-  constructor(private _bookingService: BookingService, private _route: ActivatedRoute) {
+  constructor(private _bookingService: BookingPreparationService, private _route: ActivatedRoute) {
   }
 
   public ngOnInit(): void {
@@ -23,9 +24,6 @@ export class BookingComponent implements OnInit {
 
   public setBookedSeats(bookedSeats: Array<Seat>): void {
     this.bookedSeats = bookedSeats;
-  }
-
-  public bookSeats(): void {
-    console.log('zabukowano');
+    this.preparation = false;
   }
 }

@@ -1,0 +1,59 @@
+<div class="agileinfo-news-top-grids">
+  <div class="col-md-8 wthree-top-news-left">
+    <app-screening-room [seance]="seance" (bookedSeatsEvent)="setBookedSeats($event)"></app-screening-room>
+  </div>
+  <div class="col-md-4 wthree-news-right">
+    <!-- news-right-top -->
+    <div class="news-right-top background-color">
+      <div class="wthree-news-right-top background-color">
+        <div class="news-grids-bottom background-color">
+          <!-- date -->
+          <div id="design" class="date">
+            <table class="background-color">
+              <tr class="no-border background-color">
+                <td class="row-title">Film</td>
+                <td class="row-content">Jaś fasola</td>
+              </tr>
+              <tr class="no-border background-color">
+                <td class="row-title">Data seansu</td>
+                <td class="row-content">11.12.2019 15:00</td>
+              </tr>
+              <tr class="no-border background-color">
+                <td class="row-title">Bilety</td>
+                <td [class.max-booked-count]="bookedSeats.length === 4"
+                    class="row-content">{{bookedSeats.length}}</td>
+              </tr>
+              <tr class="no-border background-color">
+                <td class="row-title"></td>
+                <td class="row-content"></td>
+              </tr>
+              <tr class="no-border background-color">
+                <td class="row-title"></td>
+                <td class="row-content booked legend">Zarezerowane</td>
+              </tr>
+              <tr class="no-border background-color">
+                <td class="row-title"></td>
+                <td class="row-content available-background-color legend">Wolne</td>
+              </tr>
+              <tr class="no-border background-color">
+                <td class="row-title"></td>
+                <td class="row-content selected legend">Wybrane przez Ciebie</td>
+              </tr>
+            </table>
+          </div>
+          <!-- //date -->
+        </div>
+      </div>
+      <div>
+        <button type="button" class="btn btn-md my-button" *ngIf="bookedSeats.length > 0" (click)="bookSeats()">
+          Zarezerwuj
+        </button>
+      </div>
+      <div class="comment">
+        <p>*Maksymalnie można zarezerwoać 4 miejsca</p>
+      </div>
+    </div>
+    <!-- //news-right-top -->
+  </div>
+  <div class="clearfix"></div>
+</div>

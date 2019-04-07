@@ -6,6 +6,7 @@ import {Injectable} from '@angular/core';
 export class RepertoireDaysService {
   private readonly _numberOfDaysPresentingRepertoireStartingFromZero = 7;
   private readonly _weekDays = [
+    'Niedziela',
     'Poniedziałek',
     'Wtorek',
     'Środa',
@@ -19,11 +20,10 @@ export class RepertoireDaysService {
     'Czwartek',
     'Piątek',
     'Sobota',
-    'Niedziela'
   ];
 
   public getRepertoireDaysSinceNow(): string[] {
-    const currentDayNumber = new Date().getDay() - 1;
+    const currentDayNumber = new Date().getDay();
     const result = new Array<string>();
 
     for (let dayIndex = currentDayNumber; dayIndex <= currentDayNumber + this._numberOfDaysPresentingRepertoireStartingFromZero; dayIndex++) {

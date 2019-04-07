@@ -1,8 +1,8 @@
 import {SeanceApiModel} from '../../../pages/repertoire/api-models/seance-api.model';
 import {SeancesPerTimesOfDay} from '../../../pages/repertoire/models/seances-per-times-of-day';
-import {Seat} from '../../../pages/booking/models/seat';
-import {ScreeningRoomPlanRowApiModel} from '../../../pages/booking/components/screening-room/api-models/screening-room-plan-row-api.model';
-import {SeatStatus} from '../../../pages/booking/enums/seat-status';
+import {Seat} from '../../../pages/booking/components/booking-preparation/models/seat';
+import {ScreeningRoomPlanRowApiModel} from '../../../pages/booking/components/booking-preparation/components/screening-room/api-models/screening-room-plan-row-api.model';
+import {SeatStatus} from '../../../pages/booking/components/booking-preparation/enums/seat-status';
 
 export class PropertiesMapper {
 
@@ -32,6 +32,7 @@ export class PropertiesMapper {
       row.seats.forEach((seat, seatIndex) => {
         result[rowIndex].push(new Seat());
         result[rowIndex][seatIndex].id = seat.id;
+        result[rowIndex][seatIndex].row = seat.isSeat ? rowIndex + 1 : 0;
         result[rowIndex][seatIndex].number = seat.isSeat ? seatNumber++ : 0;
         result[rowIndex][seatIndex].status = seat.isSeat ? SeatStatus.available : SeatStatus.unavailable;
       });
