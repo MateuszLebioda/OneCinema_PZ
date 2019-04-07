@@ -47,3 +47,7 @@
 .center-text {
   text-align: center;
 }
+
+.price {
+  font-size: 200% !important;
+}
