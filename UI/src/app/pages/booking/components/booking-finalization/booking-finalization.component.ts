@@ -4,6 +4,11 @@ import {SeanceApiModel} from '../booking-preparation/api-models/seance-api.model
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormValidatorService} from '../../../../shared/services/form-validator.service';
 import {GeneralFormControlName} from '../../../../shared/enums/general-form-control-name.enum';
+import {NavbarService} from '../../../../shared/components/navbar/services/navbar.service';
+import {BookingFinalizationService} from './services/booking-finalization.service';
+import {PriceListApiModel} from '../../../../shared/components/navbar/api-models/price-list-api.model';
+import {BookingApiModel} from './api-models/booking-api.model';
+import {isNull} from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-booking-finalization',
@@ -13,17 +18,15 @@ import {GeneralFormControlName} from '../../../../shared/enums/general-form-cont
 export class BookingFinalizationComponent implements OnInit {
   @Input() bookedSeats: Array<Seat> = new Array<Seat>();
   @Input() seance: SeanceApiModel = new SeanceApiModel();
-  public bookingForm: FormGroup;
-  public GeneralFormControlName = GeneralFormControlName;
 
   public get price(): number {
     let price = 0;
 
     this.bookedSeats.forEach(seat => {
-      if (seat.halfPriceTicket) {
-        price += 10;
+      if (seat.reducedPrice) {
+        price += this._reducedPrice;
       } else {
-        price += 20;
+        price += this._normalPrice;
       }
     });
 
@@ -34,15 +37,27 @@ export class BookingFinalizationComponent implements OnInit {
     return this.bookingForm.controls;
   }
 
-  constructor(public formValidatorService: FormValidatorService) {
+  public bookingForm: FormGroup;
+  public GeneralFormControlName = GeneralFormControlName;
+
+  private _prices: PriceListApiModel = new PriceListApiModel();
+  private _normalPrice = 0;
+  private _reducedPrice = 0;
+
+  constructor(
+    private _bookingFinalizationService: BookingFinalizationService,
+    public formValidatorService: FormValidatorService) {
   }
 
   public ngOnInit(): void {
     this.bookingForm = new FormGroup({
-      'name': new FormControl(null, [Validators.required, Validators.maxLength(35)]),
+      'firstname': new FormControl(null, [Validators.required, Validators.maxLength(35)]),
       'surname': new FormControl(null, [Validators.required, Validators.maxLength(100)]),
       'email': new FormControl(null, [Validators.required, Validators.email]),
     });
+
+    this._prices = this._bookingFinalizationService.getPriceList();
+    this._setPrices();
   }
 
   public isInvalid(formControlName: GeneralFormControlName): boolean {
@@ -50,11 +65,46 @@ export class BookingFinalizationComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    console.log('submit');
+    const bookingApiModel = this._createBookingApiModel(this.bookedSeats, this.seance, this.bookingForm);
+    console.log(bookingApiModel);
   }
 
-  public changePrice(d: Seat): void {
-    d.halfPriceTicket = !d.halfPriceTicket;
-    console.log('status', d);
+  public setReducedPrice(seat: Seat): void {
+    seat.reducedPrice = !seat.reducedPrice;
+  }
+
+  private _setPrices(): void {
+    if (this.seance.seanceType === '2D') {
+      if (this.seance.date.getDay() >= 1 && this.seance.date.getDay() <= 4) {
+        this._normalPrice = this._prices.price2D.normal.mondayThursday;
+        this._reducedPrice = this._prices.price2D.reduced.mondayThursday;
+      } else {
+        this._normalPrice = this._prices.price2D.normal.fridaySunday;
+        this._reducedPrice = this._prices.price2D.reduced.fridaySunday;
+      }
+    } else {
+      if (this.seance.date.getDay() >= 1 && this.seance.date.getDay() <= 4) {
+        this._normalPrice = this._prices.price3D.normal.mondayThursday;
+        this._reducedPrice = this._prices.price3D.reduced.mondayThursday;
+      } else {
+        this._normalPrice = this._prices.price3D.normal.fridaySunday;
+        this._reducedPrice = this._prices.price3D.reduced.fridaySunday;
+      }
+    }
+  }
+
+  private _createBookingApiModel(bookedSeats: Array<Seat>, seance: SeanceApiModel, form: FormGroup): BookingApiModel {
+    const bookingApiModel = new BookingApiModel();
+
+    bookingApiModel.seanceId = seance.id;
+    bookingApiModel.clientFirstname = form.get('firstname').value;
+    bookingApiModel.clientSurname = form.get('surname').value;
+    bookingApiModel.clientEmail = form.get('email').value;
+    bookedSeats.forEach(seat => bookingApiModel.bookedSeats.push({
+      id: seat.id,
+      reducedPrice: seat.reducedPrice
+    }));
+
+    return bookingApiModel;
   }
 }

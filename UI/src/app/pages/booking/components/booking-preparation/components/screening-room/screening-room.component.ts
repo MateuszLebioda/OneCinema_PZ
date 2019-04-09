@@ -36,13 +36,10 @@ export class ScreeningRoomComponent implements OnInit {
   public bookSeat(seat: Seat): void {
     if (seat.status === SeatStatus.available) {
       if (this._bookedSeats.includes(seat)) {
-        console.log('Usunieto');
         this._bookedSeats.splice(this._bookedSeats.indexOf(seat), 1);
         seat.selected = false;
       } else if (this._bookedSeats.length === this._maxBookedSeats) {
-        console.log('ZA DUŻO');
       } else {
-        console.log('Dodano');
         seat.selected = true;
         this._bookedSeats.push(seat);
       }
@@ -53,11 +50,9 @@ export class ScreeningRoomComponent implements OnInit {
   private _setScreeningRoomPlane(): void {
     const _alreadyBookedSeatsForThisMoment = this._screeningRoomService.getBookedSeats(this.seance.id).ids;
     if (!this._isArraysEqual(_alreadyBookedSeatsForThisMoment, this._alreadyBookedSeats)) {
-      console.log('Zajęte miejsca się zmieniły');
       this._alreadyBookedSeats = Object.assign([], _alreadyBookedSeatsForThisMoment);
       this._setAlreadyBookedSeatsOnPlaneAndRemoveThemFromBookedSeatsCollection(this._alreadyBookedSeats);
     }
-    console.log('Sprawdzono zajete miejsca');
   }
 
   private _setAlreadyBookedSeatsOnPlaneAndRemoveThemFromBookedSeatsCollection(alreadyBookedSeats: string[]): void {
@@ -76,10 +71,7 @@ export class ScreeningRoomComponent implements OnInit {
   }
 
   private _isArraysEqual(firstArray: string[], secondArray: string[]): boolean {
-    console.log('pierwsza', firstArray);
-    console.log('druga', secondArray);
     return firstArray.every(element => {
-      console.log(secondArray.includes(element));
       return secondArray.includes(element);
     });
   }

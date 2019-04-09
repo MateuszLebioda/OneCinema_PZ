@@ -1,5 +1,5 @@
 export enum GeneralFormControlName {
-  Name = 'name',
+  Name = 'firstname',
   Surname = 'surname',
   Email = 'email',
 }

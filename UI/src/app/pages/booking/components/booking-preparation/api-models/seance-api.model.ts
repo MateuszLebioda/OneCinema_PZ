@@ -4,6 +4,7 @@ export class SeanceApiModel {
   public screeningRoomName: string;
   public movieTitle: string;
   public date: Date;
+  public seanceType: string;
 
   constructor() {
     this.date = new Date();

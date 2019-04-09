@@ -1,17 +1,18 @@
+<i class="fas fa-arrow-left"></i>
 <div class="single-page-agile-info">
   <div class="show-top-grids-w3lagile">
-    <div class="col-sm-7 single-left">
+    <div class="col-sm-8 single-left">
       <div class="all-comments">
         <div class="all-comments-info">
-          <a href="#">Dane kontaktowe</a>
+          <p>Dane kontaktowe</p>
           <div class="agile-info-wthree-box">
             <form class="form-module" [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
 
               <div class="form-group">
-                <input type="text" formControlName="name" placeholder="Imię">
+                <input type="text" formControlName="firstname" placeholder="Imię">
                 <span *ngIf="isInvalid(GeneralFormControlName.Name)" class="error-font help-block">
-                  <div *ngIf="formControls.name.errors.required">To pole jest wymagane</div>
-                  <div *ngIf="formControls.name.errors.maxlength">Maksymalna długość imienia to 35 znaków</div>
+                  <div *ngIf="formControls.firstname.errors.required">To pole jest wymagane</div>
+                  <div *ngIf="formControls.firstname.errors.maxlength">Maksymalna długość imienia to 35 znaków</div>
                 </span>
               </div>
 
@@ -32,23 +33,24 @@
               </div>
 
               <input type="submit" value="Zarezerwuj">
+
               <div class="clearfix"></div>
             </form>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-5 wthree-news-right">
+    <div class="col-md-4 wthree-news-right">
       <div class="news-right-top background-color">
         <div class="wthree-news-right-top background-color">
           <div class="news-grids-bottom background-color">
             <table class="background-color">
               <tr class="no-border background-color">
-                <td class="row-title">Sala</td>
+                <td class="row-title">Sala({{seance.seanceType}})</td>
                 <td class="row-content">{{seance.screeningRoomName}}</td>
               </tr>
               <tr class="no-border background-color">
-                <td class="row-title">Tytuł filmu</td>
+                <td class="row-title">Film({{seance.seanceType}})</td>
                 <td class="row-content">{{seance.movieTitle}}</td>
               </tr>
               <tr class="no-border background-color">
@@ -61,26 +63,22 @@
               </tr>
               <tr class="no-border background-color" *ngFor="let seat of bookedSeats; let i = index">
                 <td class="row-title">
-                  <div class="btn-group center-div" data-toggle="buttons">
+                  <div (click)="setReducedPrice(seat)" class="btn-group center-div" data-toggle="buttons">
                     <label class="btn btn-warning orange-background">
                       <input type="checkbox"
-                             autocomplete="off"
-                             [value]="seat.halfPriceTicket"
-                             (click)="changePrice(seat)">
+                             autocomplete="off">
                       <span class="glyphicon glyphicon-ok"></span>
                     </label>
                   </div>
                 </td>
-                <td class="row-content white-font-color"
-                    [class.white-font-color]="i % 2 === 0"
-                    [class.black-font-color]="i % 2 !== 0">
+                <td class="row-content">
                   <p class="font-size">Rząd {{seat.row}}</p>
                   <p class="font-size">Miejsce {{seat.number}}</p>
                 </td>
               </tr>
-              <tr class="no-border background-color">
-                <td class="row-title">Koszt</td>
-                <td class="row-content">{{price}}</td>
+              <tr class="no-border background-color white-border-top">
+                <td class="row-title price">Koszt</td>
+                <td class="row-content price">{{price}} zł</td>
               </tr>
             </table>
           </div>

@@ -13,7 +13,6 @@ export class ScreeningRoomService {
   }
 
   public getScreeningRoomPlan(screeningRoomId: string): ScreeningRoomPlanApiModel {
-    console.log('plan sali screeningRoomId', screeningRoomId);
     return {
       id: '14sd-47-aaa',
       screeningRoomName: 'Pierwsza',
@@ -22,7 +21,6 @@ export class ScreeningRoomService {
   }
 
   public getBookedSeats(seanceId: string): BookedSeatsApiModel {
-    console.log('zarezerwowane miejsca seanceId', seanceId);
     return {
       ids: [
         '12',

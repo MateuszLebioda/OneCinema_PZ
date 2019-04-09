@@ -10,12 +10,13 @@ export class BookingPreparationService {
   }
 
   public getSeance(id: string): SeanceApiModel {
-    console.log('id seansu', id);
     return {
       id: 'seance-good-id',
       screeningRoomId: 'sr-good-id',
       movieTitle: 'Jaś Fasola',
-      date: new Date()
+      date: new Date(),
+      screeningRoomName: 'Super sala',
+      seanceType: '3D'
     };
   }
 }
