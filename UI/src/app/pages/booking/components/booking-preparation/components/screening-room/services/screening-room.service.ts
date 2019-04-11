@@ -39,7 +39,8 @@ export class ScreeningRoomService {
       for (let j = 0; j < 10; j++) {
         seats.push({
           id: i.toString() + j,
-          isSeat: Math.random() >= 0.5
+          // isSeat: Math.random() >= 0.5
+          isSeat: true
         });
       }
 

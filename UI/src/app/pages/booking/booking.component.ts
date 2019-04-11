@@ -11,7 +11,7 @@ import {SeanceApiModel} from './components/booking-preparation/api-models/seance
 })
 export class BookingComponent implements OnInit {
   public preparation = true;
-  public bookedSeats: Array<Seat> = new Array<Seat>();
+  public bookedSeats: Seat[] = [];
   public seance: SeanceApiModel = new SeanceApiModel();
 
   constructor(private _bookingService: BookingPreparationService, private _route: ActivatedRoute) {
@@ -22,8 +22,11 @@ export class BookingComponent implements OnInit {
     this.seance = this._bookingService.getSeance(seanceId);
   }
 
-  public setBookedSeats(bookedSeats: Array<Seat>): void {
-    this.bookedSeats = bookedSeats;
+  public startFinalization(): void {
     this.preparation = false;
+  }
+
+  public startPreparation(): void {
+    this.preparation = true;
   }
 }

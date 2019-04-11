@@ -13,11 +13,12 @@ import {SeanceApiModel} from '../../api-models/seance-api.model';
 })
 export class ScreeningRoomComponent implements OnInit {
   @Input() seance: SeanceApiModel = new SeanceApiModel();
-  @Output() bookedSeatsEvent: EventEmitter<Array<Seat>> = new EventEmitter();
+  @Input() bookedSeats: Seat[] = [];
+  @Output() bookedSeatsChange: EventEmitter<Seat[]> = new EventEmitter<Seat[]>();
+
   public screeningRoom: ScreeningRoom = new ScreeningRoom();
 
   private readonly _maxBookedSeats: number = 4;
-  private _bookedSeats: Array<Seat> = new Array<Seat>();
   private _alreadyBookedSeats: string[] = [];
 
   constructor(private _screeningRoomService: ScreeningRoomService, private _mapper: MapperService) {
@@ -27,6 +28,7 @@ export class ScreeningRoomComponent implements OnInit {
     const screeningRoomPlan = this._screeningRoomService.getScreeningRoomPlan(this.seance.screeningRoomId);
     this.screeningRoom = this._mapper.toScreeningRoom(screeningRoomPlan);
     this._setScreeningRoomPlane();
+    this._setBookedSeats();
 
     setInterval(() => {
       this._setScreeningRoomPlane();
@@ -35,21 +37,21 @@ export class ScreeningRoomComponent implements OnInit {
 
   public bookSeat(seat: Seat): void {
     if (seat.status === SeatStatus.available) {
-      if (this._bookedSeats.includes(seat)) {
-        this._bookedSeats.splice(this._bookedSeats.indexOf(seat), 1);
+      if (this.bookedSeats.includes(seat)) {
+        this.bookedSeats.splice(this.bookedSeats.indexOf(seat), 1);
         seat.selected = false;
-      } else if (this._bookedSeats.length === this._maxBookedSeats) {
+      } else if (this.bookedSeats.length === this._maxBookedSeats) {
       } else {
         seat.selected = true;
-        this._bookedSeats.push(seat);
+        this.bookedSeats.push(seat);
       }
     }
-    this.bookedSeatsEvent.emit(this._bookedSeats);
+    this.bookedSeatsChange.emit(this.bookedSeats);
   }
 
   private _setScreeningRoomPlane(): void {
     const _alreadyBookedSeatsForThisMoment = this._screeningRoomService.getBookedSeats(this.seance.id).ids;
-    if (!this._isArraysEqual(_alreadyBookedSeatsForThisMoment, this._alreadyBookedSeats)) {
+    if (!this._areArraysEqual(_alreadyBookedSeatsForThisMoment, this._alreadyBookedSeats)) {
       this._alreadyBookedSeats = Object.assign([], _alreadyBookedSeatsForThisMoment);
       this._setAlreadyBookedSeatsOnPlaneAndRemoveThemFromBookedSeatsCollection(this._alreadyBookedSeats);
     }
@@ -60,8 +62,10 @@ export class ScreeningRoomComponent implements OnInit {
       this.screeningRoom.rows.forEach(row => {
         row.forEach(seat => {
           if (seat.id === id) {
-            const alreadyBookedSeatIndex = this._bookedSeats.findIndex(oneSeat => oneSeat.id === id);
-            this._bookedSeats.splice(alreadyBookedSeatIndex, 1);
+            const alreadyBookedSeatIndex = this.bookedSeats.findIndex(oneSeat => oneSeat.id === id);
+            if (alreadyBookedSeatIndex >= 0) {
+              this.bookedSeats.splice(alreadyBookedSeatIndex, 1);
+            }
             seat.selected = false;
             seat.status = SeatStatus.booked;
           }
@@ -70,9 +74,20 @@ export class ScreeningRoomComponent implements OnInit {
     });
   }
 
-  private _isArraysEqual(firstArray: string[], secondArray: string[]): boolean {
+  private _areArraysEqual(firstArray: string[], secondArray: string[]): boolean {
     return firstArray.every(element => {
       return secondArray.includes(element);
+    });
+  }
+
+  private _setBookedSeats(): void {
+    this.screeningRoom.rows.forEach(row => {
+      row.forEach(seat => {
+        const bookedSeatIndex = this.bookedSeats.findIndex(oneSeat => oneSeat.id === seat.id);
+        if (bookedSeatIndex >= 0) {
+          seat.selected = true;
+        }
+      });
     });
   }
 }

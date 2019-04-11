@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Seat} from '../booking-preparation/models/seat';
 import {SeanceApiModel} from '../booking-preparation/api-models/seance-api.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -16,8 +16,9 @@ import {isNull} from '@angular/compiler/src/output/output_ast';
   styleUrls: ['./booking-finalization.component.css', '../../booking.component.css']
 })
 export class BookingFinalizationComponent implements OnInit {
-  @Input() bookedSeats: Array<Seat> = new Array<Seat>();
+  @Input() bookedSeats: Seat[] = [];
   @Input() seance: SeanceApiModel = new SeanceApiModel();
+  @Output() backToPreparationEvent: EventEmitter<void> = new EventEmitter<void>();
 
   public get price(): number {
     let price = 0;
@@ -45,8 +46,8 @@ export class BookingFinalizationComponent implements OnInit {
   private _reducedPrice = 0;
 
   constructor(
-    private _bookingFinalizationService: BookingFinalizationService,
-    public formValidatorService: FormValidatorService) {
+    public formValidatorService: FormValidatorService,
+    private _bookingFinalizationService: BookingFinalizationService) {
   }
 
   public ngOnInit(): void {
@@ -73,6 +74,10 @@ export class BookingFinalizationComponent implements OnInit {
     seat.reducedPrice = !seat.reducedPrice;
   }
 
+  public backToPreparation(): void {
+    this.backToPreparationEvent.emit();
+  }
+
   private _setPrices(): void {
     if (this.seance.seanceType === '2D') {
       if (this.seance.date.getDay() >= 1 && this.seance.date.getDay() <= 4) {
@@ -93,7 +98,7 @@ export class BookingFinalizationComponent implements OnInit {
     }
   }
 
-  private _createBookingApiModel(bookedSeats: Array<Seat>, seance: SeanceApiModel, form: FormGroup): BookingApiModel {
+  private _createBookingApiModel(bookedSeats: Seat[], seance: SeanceApiModel, form: FormGroup): BookingApiModel {
     const bookingApiModel = new BookingApiModel();
 
     bookingApiModel.seanceId = seance.id;
