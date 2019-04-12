@@ -1,0 +1,97 @@
+/*.seat {*/
+/*  color: white;*/
+/*  border-radius: 15px;*/
+/*  padding: 4px 4px;*/
+/*  border: 3px solid white;*/
+/*  width: 12px;*/
+/*  height: 12px;*/
+/*  text-align: center;*/
+/*  background-color: red;*/
+/*}*/
+
+/*.available {*/
+/*  background-color: limegreen !important;*/
+/*  cursor: pointer;*/
+/*}*/
+/*.available-background-color {*/
+/*  background-color: limegreen !important;*/
+/*}*/
+
+/*.booked {*/
+/*  background-color: orangered !important;*/
+/*}*/
+
+/*.selected {*/
+/*  background-color: dodgerblue !important;*/
+/*}*/
+
+/*.unavailable {*/
+/*  background-color: white !important;*/
+/*  color: white;*/
+/*}*/
+
+/*.screen {*/
+/*  margin-bottom: 15px;*/
+/*  padding: 5px 0;*/
+/*  text-align: center;*/
+/*  background-color: darkgray;*/
+/*  border-radius: 15px 15px 0px 0px;*/
+/*  width: 91%;*/
+/*  float: right;*/
+/*}*/
+
+
+
+/*.wthree-news-right-top {*/
+/*  min-height: 0;*/
+/*}*/
+
+/*.my-button {*/
+/*  position: relative;*/
+/*  left: 40%;*/
+/*  color: white;*/
+/*  background-color: maroon;*/
+/*}*/
+
+/*.comment {*/
+/*  margin: 15px;*/
+/*  text-align: center;*/
+/*}*/
+
+/*.row-title {*/
+/*  background-color: #FF8D1B !important;*/
+/*  color: #212121;*/
+/*  font-size: 14px;*/
+/*  font-weight: bold;*/
+/*  float: left;*/
+/*  width: 35%;*/
+/*  border: none !important;*/
+/*}*/
+
+/*.row-content {*/
+/*  border: none !important;*/
+/*  background-color: #FF8D1B;*/
+/*  color: white;*/
+/*  font-size: 14px;*/
+/*  font-weight: bold;*/
+/*  float: left;*/
+/*  width: 65%;*/
+/*}*/
+
+/*.no-border {*/
+/*  border: none;*/
+/*}*/
+
+/*.background-color {*/
+/*  background-color: #FF8D1B;*/
+/*}*/
+
+/*.max-booked-count {*/
+/*  color: red;*/
+/*}*/
+
+/*.legend {*/
+/*  border-radius: 15px;*/
+/*  text-align: center;*/
+/*  margin: 5px 0;*/
+/*}*/

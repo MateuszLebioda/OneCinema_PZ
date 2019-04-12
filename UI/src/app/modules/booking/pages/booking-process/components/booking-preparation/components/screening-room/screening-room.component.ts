@@ -2,14 +2,14 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Seat} from '../../models/seat';
 import {SeatStatus} from '../../enums/seat-status';
 import {ScreeningRoomService} from './services/screening-room.service';
-import {MapperService} from '../../../../../../shared/helpers/mapper/mapper.service';
+import {MapperService} from '../../../../../../../../shared/helpers/mapper/mapper.service';
 import {ScreeningRoom} from './models/screening-room';
 import {SeanceApiModel} from '../../api-models/seance-api.model';
 
 @Component({
   selector: 'app-screening-room',
   templateUrl: './screening-room.component.html',
-  styleUrls: ['./screening-room.component.css', '../../../../booking.component.css']
+  styleUrls: ['./screening-room.component.css', '../../../../booking-process.component.css']
 })
 export class ScreeningRoomComponent implements OnInit {
   @Input() seance: SeanceApiModel = new SeanceApiModel();

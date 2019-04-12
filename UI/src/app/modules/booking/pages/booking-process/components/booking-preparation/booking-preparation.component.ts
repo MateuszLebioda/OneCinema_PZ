@@ -7,7 +7,7 @@ import {Seat} from './models/seat';
 @Component({
   selector: 'app-booking-preparation',
   templateUrl: './booking-preparation.component.html',
-  styleUrls: ['./booking-preparation.component.css', '../../booking.component.css']
+  styleUrls: ['./booking-preparation.component.css', '../../booking-process.component.css']
 })
 export class BookingPreparationComponent implements OnInit {
   @Input() bookedSeats: Seat[] = [];

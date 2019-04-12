@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {Seat} from './components/booking-preparation/models/seat';
+import {SeanceApiModel} from './components/booking-preparation/api-models/seance-api.model';
 import {BookingPreparationService} from './components/booking-preparation/services/booking-preparation.service';
 import {ActivatedRoute} from '@angular/router';
-import {SeanceApiModel} from './components/booking-preparation/api-models/seance-api.model';
 
 @Component({
-  selector: 'app-reservation',
-  templateUrl: './booking.component.html',
-  styleUrls: ['./booking.component.css']
+  selector: 'app-booking-process',
+  templateUrl: './booking-process.component.html',
+  styleUrls: ['./booking-process.component.css']
 })
-export class BookingComponent implements OnInit {
+export class BookingProcessComponent implements OnInit {
   public preparation = true;
   public bookedSeats: Seat[] = [];
   public seance: SeanceApiModel = new SeanceApiModel();

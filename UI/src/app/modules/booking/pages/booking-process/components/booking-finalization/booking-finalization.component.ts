@@ -2,18 +2,19 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Seat} from '../booking-preparation/models/seat';
 import {SeanceApiModel} from '../booking-preparation/api-models/seance-api.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {FormValidatorService} from '../../../../shared/services/form-validator.service';
-import {GeneralFormControlName} from '../../../../shared/enums/general-form-control-name.enum';
-import {NavbarService} from '../../../../shared/components/navbar/services/navbar.service';
+import {FormValidatorService} from '../../../../../../shared/services/form-validator.service';
+import {GeneralFormControlName} from '../../../../../../shared/enums/general-form-control-name.enum';
+import {NavbarService} from '../../../../../../shared/components/navbar/services/navbar.service';
 import {BookingFinalizationService} from './services/booking-finalization.service';
-import {PriceListApiModel} from '../../../../shared/components/navbar/api-models/price-list-api.model';
+import {PriceListApiModel} from '../../../../../../shared/components/navbar/api-models/price-list-api.model';
 import {BookingApiModel} from './api-models/booking-api.model';
 import {isNull} from '@angular/compiler/src/output/output_ast';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-booking-finalization',
   templateUrl: './booking-finalization.component.html',
-  styleUrls: ['./booking-finalization.component.css', '../../booking.component.css']
+  styleUrls: ['./booking-finalization.component.css', '../../booking-process.component.css']
 })
 export class BookingFinalizationComponent implements OnInit {
   @Input() bookedSeats: Seat[] = [];
@@ -47,7 +48,8 @@ export class BookingFinalizationComponent implements OnInit {
 
   constructor(
     public formValidatorService: FormValidatorService,
-    private _bookingFinalizationService: BookingFinalizationService) {
+    private _bookingFinalizationService: BookingFinalizationService,
+    private _router: Router) {
   }
 
   public ngOnInit(): void {
@@ -68,6 +70,7 @@ export class BookingFinalizationComponent implements OnInit {
   public onSubmit(): void {
     const bookingApiModel = this._createBookingApiModel(this.bookedSeats, this.seance, this.bookingForm);
     console.log(bookingApiModel);
+    this._router.navigate(['/rezerwacja/potwierdzenie']);
   }
 
   public setReducedPrice(seat: Seat): void {

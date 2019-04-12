@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {PriceListApiModel} from '../../../../../shared/components/navbar/api-models/price-list-api.model';
+import {PriceListApiModel} from '../../../../../../../shared/components/navbar/api-models/price-list-api.model';
 
 @Injectable({
   providedIn: 'root'

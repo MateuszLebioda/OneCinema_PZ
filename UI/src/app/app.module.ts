@@ -2,14 +2,14 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {SharedModule} from './shared/shared.module';
-import {HomeModule} from './pages/home/home.module';
+import {HomeModule} from './modules/home/home.module';
 import {AppRoutingModule} from './app-routing.module';
-import {RepertoireModule} from './pages/repertoire/repertoire.module';
+import {RepertoireModule} from './modules/repertoire/repertoire.module';
 import {APP_BASE_HREF, HashLocationStrategy, LocationStrategy, registerLocaleData} from '@angular/common';
 import localePL from '@angular/common/locales/pl';
-import {MovieModule} from './pages/movie/movie.module';
-import {CinemaModule} from './pages/cinema/cinema.module';
-import {BookingModule} from './pages/booking/booking.module';
+import {MovieModule} from './modules/movie/movie.module';
+import {CinemaModule} from './modules/cinema/cinema.module';
+import {BookingModule} from './modules/booking/booking.module';
 
 registerLocaleData(localePL);
 
