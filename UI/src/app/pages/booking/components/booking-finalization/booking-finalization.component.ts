@@ -75,6 +75,9 @@ export class BookingFinalizationComponent implements OnInit {
   }
 
   public backToPreparation(): void {
+    this.bookedSeats.forEach(seat => {
+      seat.reducedPrice = false;
+    });
     this.backToPreparationEvent.emit();
   }
 

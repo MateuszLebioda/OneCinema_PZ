@@ -37,8 +37,10 @@ export class ScreeningRoomComponent implements OnInit {
 
   public bookSeat(seat: Seat): void {
     if (seat.status === SeatStatus.available) {
-      if (this.bookedSeats.includes(seat)) {
-        this.bookedSeats.splice(this.bookedSeats.indexOf(seat), 1);
+      const bookedSeatIndex = this.bookedSeats.findIndex(s => s.id === seat.id);
+
+      if (bookedSeatIndex >= 0) {
+        this.bookedSeats.splice(bookedSeatIndex, 1);
         seat.selected = false;
       } else if (this.bookedSeats.length === this._maxBookedSeats) {
       } else {
@@ -58,18 +60,17 @@ export class ScreeningRoomComponent implements OnInit {
   }
 
   private _setAlreadyBookedSeatsOnPlaneAndRemoveThemFromBookedSeatsCollection(alreadyBookedSeats: string[]): void {
-    alreadyBookedSeats.forEach(id => {
-      this.screeningRoom.rows.forEach(row => {
-        row.forEach(seat => {
-          if (seat.id === id) {
-            const alreadyBookedSeatIndex = this.bookedSeats.findIndex(oneSeat => oneSeat.id === id);
-            if (alreadyBookedSeatIndex >= 0) {
-              this.bookedSeats.splice(alreadyBookedSeatIndex, 1);
-            }
-            seat.selected = false;
-            seat.status = SeatStatus.booked;
+    this.screeningRoom.rows.forEach(row => {
+      row.forEach(seat => {
+        if (alreadyBookedSeats.includes(seat.id)) {
+          const alreadyBookedSeatIndex = this.bookedSeats.findIndex(
+            alreadyBookedSeatSeat => alreadyBookedSeatSeat.id === seat.id);
+          if (alreadyBookedSeatIndex >= 0) {
+            this.bookedSeats.splice(alreadyBookedSeatIndex, 1);
           }
-        });
+          seat.selected = false;
+          seat.status = SeatStatus.booked;
+        }
       });
     });
   }
