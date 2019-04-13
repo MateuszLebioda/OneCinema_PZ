@@ -7,7 +7,7 @@ import {FormErrorMessage} from '../enums/form-error-message.enum';
   providedIn: 'root'
 })
 export class FormValidatorService {
-  public isInvalidAndTouched(form: FormGroup, formControlName: GeneralFormControlName): boolean {
+  public isInvalidAndTouched(form: FormGroup, formControlName: string): boolean {
     return !form.get(formControlName).valid && form.get(formControlName).touched;
   }
 

@@ -663,7 +663,12 @@ p.fexi_header_para1 a i {
   line-height: 1;
 }
 
-.form-module input[type="text"], .form-module input[type="password"], .form-module input[type="email"] {
+.form-module input[type="text"],
+.form-module input[type="password"],
+.form-module input[type="number"],
+.form-module input[type="range"],
+.form-module input[type="url"],
+.form-module input[type="email"] {
   outline: none;
   display: block;
   width: 100%;
@@ -1330,7 +1335,7 @@ h3.head {
   }
 
   .footer {
-    padding: 3em 0;
+    padding: 0.5em 0;
   }
 
   .w3ls_footer_grid_left {

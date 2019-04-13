@@ -11,6 +11,9 @@ import {BookingConfirmationFinishComponent} from './modules/booking/pages/bookin
 import {BookingConfirmationComponent} from './modules/booking/pages/booking-confirmation/booking-confirmation.component';
 import {AdminComponent} from './modules/admin/admin.component';
 import {AdminPanelComponent} from './modules/admin/pages/admin-panel/admin-panel.component';
+import {AddMovieComponent} from './modules/admin/pages/add-movie/add-movie.component';
+import {PreviewMovieComponent} from './modules/admin/pages/preview-movie/preview-movie.component';
+import {EditMovieComponent} from './modules/admin/pages/edit-movie/edit-movie.component';
 
 const routes: Routes = [
   {
@@ -74,10 +77,18 @@ const routes: Routes = [
           // }
         ]
       },
-      // {
-      //   path: ':seanceId',
-      //   component: BookingProcessComponent
-      // },
+      {
+        path: 'film/dodaj',
+        component: AddMovieComponent
+      },
+      {
+        path: 'film/podglad/:movieId',
+        component: PreviewMovieComponent
+      },
+      {
+        path: 'film/edycja/:movieId',
+        component: EditMovieComponent
+      },
     ]
   }
 ];
