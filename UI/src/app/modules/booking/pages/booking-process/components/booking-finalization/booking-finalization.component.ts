@@ -69,7 +69,7 @@ export class BookingFinalizationComponent implements OnInit {
 
   public onSubmit(): void {
     const bookingApiModel = this._createBookingApiModel(this.bookedSeats, this.seance, this.bookingForm);
-    console.log(bookingApiModel);
+    this._bookingFinalizationService.bookSeats(bookingApiModel);
     this._router.navigate(['/rezerwacja/potwierdzenie']);
   }
 

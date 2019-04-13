@@ -9,6 +9,8 @@ import {BookingComponent} from './modules/booking/booking.component';
 import {BookingConfirmationStartComponent} from './modules/booking/pages/booking-confirmation/booking-confirmation-start/booking-confirmation-start.component';
 import {BookingConfirmationFinishComponent} from './modules/booking/pages/booking-confirmation/booking-confirmation-finish/booking-confirmation-finish.component';
 import {BookingConfirmationComponent} from './modules/booking/pages/booking-confirmation/booking-confirmation.component';
+import {AdminComponent} from './modules/admin/admin.component';
+import {AdminPanelComponent} from './modules/admin/pages/admin-panel/admin-panel.component';
 
 const routes: Routes = [
   {
@@ -51,6 +53,31 @@ const routes: Routes = [
         path: ':seanceId',
         component: BookingProcessComponent
       },
+    ]
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    children: [
+      {
+        path: 'panel',
+        component: AdminPanelComponent,
+        children: [
+          // {
+          //   path: '',
+          //   component: BookingConfirmationStartComponent,
+          //   pathMatch: 'full',
+          // },
+          // {
+          //   path: ':bookingId',
+          //   component: BookingConfirmationFinishComponent,
+          // }
+        ]
+      },
+      // {
+      //   path: ':seanceId',
+      //   component: BookingProcessComponent
+      // },
     ]
   }
 ];

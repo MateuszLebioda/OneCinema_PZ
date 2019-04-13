@@ -10,6 +10,7 @@ import localePL from '@angular/common/locales/pl';
 import {MovieModule} from './modules/movie/movie.module';
 import {CinemaModule} from './modules/cinema/cinema.module';
 import {BookingModule} from './modules/booking/booking.module';
+import {AdminModule} from './modules/admin/admin.module';
 
 registerLocaleData(localePL);
 
@@ -25,7 +26,8 @@ registerLocaleData(localePL);
     MovieModule,
     AppRoutingModule,
     CinemaModule,
-    BookingModule
+    BookingModule,
+    AdminModule
   ],
   providers: [
     {provide: APP_BASE_HREF, useValue: '/'},

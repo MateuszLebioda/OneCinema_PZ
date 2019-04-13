@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {PriceListApiModel} from '../../../../../../../shared/components/navbar/api-models/price-list-api.model';
+import {BookingApiModel} from '../api-models/booking-api.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,9 @@ export class BookingFinalizationService {
         }
       }
     };
+  }
+
+  public bookSeats(bookingApiModel: BookingApiModel): void {
+    console.log('wysłano rezerwację biletów');
   }
 }
