@@ -15,12 +15,12 @@ import {AddMovieApiModel} from './api-models/add-movie-api.model';
 })
 export class AddMovieComponent implements OnInit {
   public get formControls() {
+    console.log(this.bookingForm.controls.posterUrl);
     return this.bookingForm.controls;
   }
 
   public addMovieModel: AddMovieApiModel = new AddMovieApiModel();
   public bookingForm: FormGroup;
-  public GeneralFormControlName = GeneralFormControlName;
 
   constructor(
     public formValidatorService: FormValidatorService,
@@ -50,7 +50,8 @@ export class AddMovieComponent implements OnInit {
       'duration': new FormControl(null, [Validators.required]),
       'rate': new FormControl(null, [Validators.required, Validators.min(1), Validators.max(5)]),
       'posterUrl': new FormControl(null, [Validators.required]),
-      'trailerUrl': new FormControl(null, [Validators.required]),
+      'trailerUrl': new FormControl(null, [Validators.required,
+        Validators.pattern('/((([A-Za-z]{3,9}:(?:\\/\\/)?)(?:[\\-;:&=\\+\\$,\\w]+@)?[A-Za-z0-9\\.\\-]+|(?:www\\.|[\\-;:&=\\+\\$,\\w]+@)[A-Za-z0-9\\.\\-]+)((?:\\/[\\+~%\\/\\.\\w\\-_]*)?\\??(?:[\\-\\+=&;%@\\.\\w_]*)#?(?:[\\.\\!\\/\\\\\\w]*))?)/')]),
     });
   }
 

@@ -4,7 +4,7 @@
       <div class="show-top-grids-w3lagile">
         <div class="all-comments">
           <div class="all-comments-info">
-            <p>Dane kontaktowe</p>
+<!--            <h1>Dodawanie filmu</h1>-->
             <div class="agile-info-wthree-box">
               <form class="form-module form" [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
                 <div class="form-left">
@@ -37,7 +37,6 @@
                       <span class="movie-rate-text">Ocena filmu: {{addMovieModel.rate}} </span>
                       <input type="range" min="1" max="5" value="{{addMovieModel.rate}}" step="0.5"
                              class="slider movie-rate-input"
-                             id="myRange"
                              (input)="valueChanged($event.target.value)">
                     </div>
                   </div>
@@ -46,6 +45,7 @@
                     <input type="url" formControlName="posterUrl" placeholder="Link do plakatu">
                     <span *ngIf="isInvalid('posterUrl')" class="error-font help-block">
                   <div *ngIf="formControls.posterUrl.errors.required">To pole jest wymagane</div>
+<!--                  <div *ngIf="formControls.posterUrl.errors.pattern">To nie jest poprawny link</div>-->
                 </span>
                   </div>
 
@@ -53,6 +53,7 @@
                     <input type="url" formControlName="trailerUrl" placeholder="Link do zwiastunu">
                     <span *ngIf="isInvalid('trailerUrl')" class="error-font help-block">
                   <div *ngIf="formControls.trailerUrl.errors.required">To pole jest wymagane</div>
+                  <div *ngIf="formControls.trailerUrl.errors.pattern">To nie jest poprawny link</div>
                 </span>
                   </div>
                 </div>
