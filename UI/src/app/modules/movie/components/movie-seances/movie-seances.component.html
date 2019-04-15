@@ -1,0 +1,93 @@
+<div class="faq">
+  <div class="container" style="width: 100% !important;">
+    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+      <ul id="myTab" class="nav nav-tabs" role="tablist">
+        <li
+          role="presentation"
+          *ngFor="let letter of bookmarkLetters; let dayNumber = index"
+          [class.active]="letter === 'a'">
+          <a
+            (click)="repertoireList(letter, dayNumber)"
+            href="#{{letter}}"
+            role="tab"
+            id="{{letter}}-tab"
+            data-toggle="tab">
+            {{repertoireDays[dayNumber]}}
+          </a>
+        </li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="{{bookmarkLetter}}">
+          <div class="agile-news-table">
+            <table id="table-breakpoint">
+              <thead>
+              <tr>
+                <th>Typ projekcji</th>
+                <th>Do południa</th>
+                <th>Po południu</th>
+                <th>Wieczorem</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngIf="areSeances2D">
+                <td>2D</td>
+                <td>
+                  <p *ngFor="let seance of seances2DPerTimesOfDay.seancesUntilNoon"
+                     [ngClass]="getSeanceCssClass(seance)"
+                     (click)="bookSeance(seance)"
+                  >
+                    {{seance.start | date: 'HH:mm'}}
+                  </p>
+                </td>
+                <td>
+                  <p *ngFor="let seance of seances2DPerTimesOfDay.seancesAfternoon"
+                     [ngClass]="getSeanceCssClass(seance)"
+                     (click)="bookSeance(seance)"
+                  >
+                    {{seance.start | date: 'HH:mm'}}
+                  </p>
+                </td>
+                <td>
+                  <p *ngFor="let seance of seances2DPerTimesOfDay.seancesEvening"
+                     [ngClass]="getSeanceCssClass(seance)"
+                     (click)="bookSeance(seance)"
+                  >
+                    {{seance.start | date: 'HH:mm'}}
+                  </p>
+                </td>
+              </tr>
+              <tr *ngIf="areSeances3D">
+                <td>3D</td>
+                <td>
+                  <p *ngFor="let seance of seances3DPerTimesOfDay.seancesUntilNoon"
+                     [ngClass]="getSeanceCssClass(seance)"
+                     (click)="bookSeance(seance)"
+                  >
+                    {{seance.start | date: 'HH:mm'}}
+                  </p>
+                </td>
+                <td>
+                  <p *ngFor="let seance of seances3DPerTimesOfDay.seancesAfternoon"
+                     [ngClass]="getSeanceCssClass(seance)"
+                     (click)="bookSeance(seance)"
+                  >
+                    {{seance.start | date: 'HH:mm'}}
+                  </p>
+                </td>
+                <td>
+                  <p *ngFor="let seance of seances3DPerTimesOfDay.seancesEvening"
+                     [ngClass]="getSeanceCssClass(seance)"
+                     (click)="bookSeance(seance)"
+                  >
+                    {{seance.start | date: 'HH:mm'}}
+                  </p>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

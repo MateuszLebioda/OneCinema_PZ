@@ -33,3 +33,16 @@
 .navbar-nav > li {
   width: 33.3%;
 }
+
+@media (max-width: 768px) {
+  .navbar-nav > li.navigation-link {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  #price-table {
+    width: 33%;
+  }
+}
+
+

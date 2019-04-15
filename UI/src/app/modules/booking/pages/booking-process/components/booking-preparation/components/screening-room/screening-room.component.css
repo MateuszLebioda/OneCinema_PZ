@@ -1,0 +1,12 @@
+.row-number {
+  width: 12px;
+  height: 12px;
+  color: black;
+  background-color: white;
+
+  border-radius: 15px;
+  padding: 4px 4px;
+  border: 3px solid white;
+  text-align: center;
+  font-weight: bold;
+}

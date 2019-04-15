@@ -1,0 +1,59 @@
+<div class="faq">
+  <div class="container">
+    <div class="agileinfo-news-top-grids">
+      <div class="col-md-12 wthree-top-news-left">
+
+        <div class="wthree-news-left">
+          <div class="wthree-news-left-img">
+            <div class="agile_tv_series_grid">
+              <div class="col-md-4 agile_tv_series_grid_left">
+                <div class="w3ls_market_video_grid1">
+                  <img
+                    src="{{cinema.photoUrl}}"
+                    alt="Zdjęcie kina" class="img-responsive"/>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="agile_tv_series_grid_right">
+                  <table>
+                    <caption class="table-header">{{cinema.name}}</caption>
+                    <tr>
+                      <td colspan="2" class="row-header">Informacje</td>
+                      <td colspan="2" class="row-header">Kontakt</td>
+                    </tr>
+                    <tr>
+                      <td class="row-title">Sale</td>
+                      <td class="row-content">{{cinema.numberOfcinemaHalls}}</td>
+                      <td class="row-title">Adres</td>
+                      <td class="row-content">{{cinema.addres}}</td>
+                    </tr>
+                    <tr>
+                      <td class="row-title">Miejsca</td>
+                      <td class="row-content">{{cinema.numberOfseats}}</td>
+                      <td class="row-title">Telefon</td>
+                      <td class="row-content">{{cinema.phoneNumber}}</td>
+                    </tr>
+                    <tr>
+                      <td class="row-title"></td>
+                      <td class="row-content"></td>
+                      <td class="row-title">Email</td>
+                      <td class="row-content">{{cinema.email}}</td>
+                    </tr>
+                  </table>
+
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <h4>Opis</h4>
+              <div class="w3-agile-news-text">
+                <p>
+                  {{cinema.description}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

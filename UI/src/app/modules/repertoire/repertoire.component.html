@@ -1,0 +1,79 @@
+<div class="faq">
+  <div class="container">
+    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+      <div class="days-center">
+        <ul id="myTab" class="nav nav-tabs" role="tablist">
+          <li
+            role="presentation"
+            *ngFor="let letter of bookmarkLetters; let dayNumber = index"
+            [class.active]="letter === 'a'">
+            <a
+              (click)="repertoireList(letter, dayNumber)"
+              href="#{{letter}}"
+              role="tab"
+              id="{{letter}}-tab"
+              data-toggle="tab">
+              {{repertoireDays[dayNumber]}}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div id="myTabContent" class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="{{bookmarkLetter}}">
+          <div class="agile-news-table">
+            <table id="table-breakpoint">
+              <thead>
+              <tr>
+                <th colspan="2">Filma</th>
+                <th>Do południa</th>
+                <th>Po południu</th>
+                <th>Wieczorem</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let movieProjection of repertoire ">
+                <td class="w3-list-img image-column-size">
+                  <a (click)="navigateToMovie(movieProjection.movieId)" class="cursor-pointer">
+                    <img class="poster-size" src="{{movieProjection.moviePosterUrl}}"
+                         alt="{{movieProjection.movieTitle}} plakat"/>
+                    <span>{{movieProjection.movieTitle}}</span>
+                  </a>
+                </td>
+                <td>
+                  <p>Czas trwania: {{movieProjection.movieDuration}}</p>
+                  <p>Gatunek: {{movieProjection.movieCategory}}</p>
+                  <p>Typ projekcji: {{movieProjection.projectionType}}</p>
+                </td>
+                <td>
+                  <span *ngFor="let seance of movieProjection.seances.seancesUntilNoon"
+                        [ngClass]="getSeanceCssClass(seance)"
+                        (click)="bookSeance(seance)"
+                        class="time-padding">
+                    {{seance.start | date: 'HH:mm'}}
+                  </span>
+                </td>
+                <td>
+                  <span *ngFor="let seance of movieProjection.seances.seancesAfternoon"
+                        [ngClass]="getSeanceCssClass(seance)"
+                        (click)="bookSeance(seance)"
+                        class="time-padding">
+                    {{seance.start | date: 'HH:mm'}}
+                  </span>
+                </td>
+                <td>
+                  <span *ngFor="let seance of movieProjection.seances.seancesEvening"
+                        [ngClass]="getSeanceCssClass(seance)"
+                        (click)="bookSeance(seance)"
+                        class="time-padding">
+                    {{seance.start | date: 'HH:mm'}}
+                  </span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

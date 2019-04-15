@@ -1,0 +1,91 @@
+<div class="single-page-agile-info">
+  <div class="show-top-grids-w3lagile">
+    <div class="col-sm-8 single-left">
+      <div class="all-comments">
+        <div class="all-comments-info">
+          <p>Dane kontaktowe</p>
+          <div class="agile-info-wthree-box">
+            <form class="form-module" [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+
+              <div class="form-group">
+                <input type="text" formControlName="firstname" placeholder="Imię">
+                <span *ngIf="isInvalid(GeneralFormControlName.Name)" class="error-font help-block">
+                  <div *ngIf="formControls.firstname.errors.required">To pole jest wymagane</div>
+                  <div *ngIf="formControls.firstname.errors.maxlength">Maksymalna długość imienia to 35 znaków</div>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <input type="text" formControlName="surname" placeholder="Nazwisko">
+                <span *ngIf="isInvalid(GeneralFormControlName.Surname)" class="error-font help-block">
+                  <div *ngIf="formControls.surname.errors.required">To pole jest wymagane</div>
+                  <div *ngIf="formControls.surname.errors.maxlength">Maksymalna długość nazwiska to 100 znaków</div>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <input type="email" formControlName="email" placeholder="Email">
+                <span *ngIf="isInvalid(GeneralFormControlName.Email)" class="error-font help-block">
+                  <div *ngIf="formControls.email.errors.required">To pole jest wymagane</div>
+                  <div *ngIf="formControls.email.errors.email">To nie jest email</div>
+                </span>
+              </div>
+
+              <input type="submit" value="Zarezerwuj">
+
+              <div class="clearfix"></div>
+            </form>
+          </div>
+          <i class="fas fa-arrow-left" (click)="backToPreparation()"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 wthree-news-right">
+      <div class="news-right-top background-color">
+        <div class="wthree-news-right-top background-color">
+          <div class="news-grids-bottom background-color">
+            <table class="background-color">
+              <tr class="no-border background-color">
+                <td class="row-title">Sala</td>
+                <td class="row-content">{{seance.screeningRoomName}}</td>
+              </tr>
+              <tr class="no-border background-color">
+                <td class="row-title">Film({{seance.seanceType}})</td>
+                <td class="row-content">{{seance.movieTitle}}</td>
+              </tr>
+              <tr class="no-border background-color">
+                <td class="row-title">Data seansu</td>
+                <td class="row-content">{{seance.date}}</td>
+              </tr>
+              <tr class="no-border background-color white-border-top">
+                <td class="row-title black-font-color center-text">Bilet ulgowy</td>
+                <td class="row-content black-font-color">Miejsce</td>
+              </tr>
+              <tr class="no-border background-color" *ngFor="let seat of bookedSeats; let i = index">
+                <td class="row-title">
+                  <div (click)="setReducedPrice(seat)" class="btn-group center-div" data-toggle="buttons">
+                    <label class="btn btn-warning orange-background">
+                      <input type="checkbox"
+                             autocomplete="off">
+                      <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                  </div>
+                </td>
+                <td class="row-content">
+                  <p class="font-size">Rząd {{seat.row}}</p>
+                  <p class="font-size">Miejsce {{seat.number}}</p>
+                </td>
+              </tr>
+              <tr class="no-border background-color white-border-top">
+                <td class="row-title price">Koszt</td>
+                <td class="row-content price">{{price}} zł</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+</div>

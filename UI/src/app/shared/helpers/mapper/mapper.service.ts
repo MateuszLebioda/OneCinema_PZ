@@ -1,16 +1,19 @@
 import {Injectable} from '@angular/core';
 import * as automapper from 'automapper-ts';
-import {MovieProjectionApiModel} from '../../../pages/repertoire/api-models/movie-projection-api.model';
-import {MovieProjection} from '../../../pages/repertoire/models/movie-projection.model';
+import {MovieProjectionApiModel} from '../../../modules/repertoire/api-models/movie-projection-api.model';
+import {MovieProjection} from '../../../modules/repertoire/models/movie-projection.model';
 import {AutomapperMaps} from './automapper-maps';
 import {PropertiesMapper} from './properties-mapper';
-import {MovieApiModel} from '../../../pages/movie/api-models/movie-api.model';
-import {Movie} from '../../../pages/movie/models/movie.model';
-import {SeancesPerDay} from '../../../pages/movie/models/seances-per-day.model';
-import {DaySeancesApiModel} from '../../../pages/movie/api-models/day-seances-api.model';
+import {MovieApiModel} from '../../../modules/movie/api-models/movie-api.model';
+import {Movie} from '../../../modules/movie/models/movie.model';
+import {SeancesPerDay} from '../../../modules/movie/models/seances-per-day.model';
+import {DaySeancesApiModel} from '../../../modules/movie/api-models/day-seances-api.model';
+import {ScreeningRoom} from '../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/models/screening-room';
+import {ScreeningRoomPlanApiModel} from '../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/api-models/screening-room-plan-api.model';
+import {SharedServicesModule} from '../../shared-services.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: SharedServicesModule
 })
 export class MapperService {
 
@@ -45,6 +48,13 @@ export class MapperService {
   public toDaySeances(source: DaySeancesApiModel): SeancesPerDay {
     const destination: SeancesPerDay = automapper.map(DaySeancesApiModel.name, SeancesPerDay.name, source);
     destination.seances = PropertiesMapper.getSeancesPerTimesOfDay(source.seances);
+
+    return destination;
+  }
+
+  public toScreeningRoom(source: ScreeningRoomPlanApiModel): ScreeningRoom {
+    const destination: ScreeningRoom = automapper.map(ScreeningRoomPlanApiModel.name, ScreeningRoom.name, source);
+    destination.rows = PropertiesMapper.getRows(source.rows);
 
     return destination;
   }

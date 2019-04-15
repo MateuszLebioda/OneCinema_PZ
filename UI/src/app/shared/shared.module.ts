@@ -6,7 +6,7 @@ import {FooterComponent} from './components/footer/footer.component';
 import {LoginRegisterPopUpComponent} from './components/login-register-pop-up/login-register-pop-up.component';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
-import {SafePipe} from '../pages/movie/pipes/safe.pipe';
+import {SharedServicesModule} from './shared-services.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,8 @@ import {SafePipe} from '../pages/movie/pipes/safe.pipe';
   imports: [
     CommonModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedServicesModule
   ],
   exports: [
     HeaderComponent,

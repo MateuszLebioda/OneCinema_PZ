@@ -1,0 +1,19 @@
+<div class="wthree-news-left">
+  <div class="wthree-news-left-img">
+    <div class="screen">
+      EKRAN
+    </div>
+    <table>
+      <tr *ngFor="let row of screeningRoom.rows; let rowNumber = index">
+        <td
+          class="row-number">{{rowNumber + 1}}</td>
+        <td
+          class="seat"
+          (click)="bookSeat(seat)"
+          [class.selected]="seat.selected"
+          [ngClass]="seat.status"
+          *ngFor="let seat of row">{{seat.number}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="faq">
+  <div class="container">
+    <div class="single-page-agile-info">
+      <div class="show-top-grids-w3lagile">
+        <div class="all-comments">
+          <div class="all-comments-info">
+            <!--            <h1>Dodawanie filmu</h1>-->
+            <div class="agile-info-wthree-box">
+              <form class="form-module form" [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+                <div class="form-left">
+                  <div class="form-group">
+                    <input type="text" formControlName="title" placeholder="Tytuł">
+                    <span *ngIf="isInvalid('title')" class="error-font help-block">
+                      <div *ngIf="formControls.title.errors.required">To pole jest wymagane</div>
+                      <div *ngIf="formControls.title.errors.maxlength">Maksymalna długość tytułu to 100 znaków</div>
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" formControlName="gender" placeholder="Rodzaj">
+                    <span *ngIf="isInvalid('gender')" class="error-font help-block">
+                      <div *ngIf="formControls.gender.errors.required">To pole jest wymagane</div>
+                      <div *ngIf="formControls.gender.errors.maxlength">Maksymalna długość rodzaju to 100 znaków</div>
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="number" formControlName="duration" placeholder="Czas trwania filmu">
+                    <span *ngIf="isInvalid('duration')" class="error-font help-block">
+                      <div *ngIf="formControls.duration.errors.required">To pole jest wymagane</div>
+                    </span>
+                  </div>
+                </div>
+                <div class="form-right">
+                  <div class="form-group movie-rate">
+                    <div class="slidecontainer">
+                      <span class="movie-rate-text">Ocena filmu: {{addMovieModel.rate}} </span>
+                      <input type="range" min="1" max="5" value="{{addMovieModel.rate}}" step="0.5"
+                             class="slider movie-rate-input"
+                             (input)="valueChanged($event.target.value)">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="url" formControlName="posterUrl" placeholder="Link do plakatu">
+                    <span *ngIf="isInvalid('posterUrl')" class="error-font help-block">
+                      <div *ngIf="formControls.posterUrl.errors.required">To pole jest wymagane</div>
+                      <div *ngIf="formControls.posterUrl.errors.url">To nie jest poprawny link</div>
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="url" formControlName="trailerUrl" placeholder="Link do zwiastunu">
+                    <span *ngIf="isInvalid('trailerUrl')" class="error-font help-block">
+                      <div *ngIf="formControls.trailerUrl.errors.required">To pole jest wymagane</div>
+                      <div *ngIf="formControls.trailerUrl.errors.pattern">To nie jest poprawny link</div>
+                    </span>
+                  </div>
+                </div>
+
+                <app-movie-projection [formGroup]="bookingForm.controls.movieProjection">
+                </app-movie-projection>
+                <!--                <app-movie-projection [formGroup]="bookingForm"></app-movie-projection>-->
+
+                <input type="submit" value="Zarezerwuj" class="form-subbmit">
+
+                <div class="clearfix"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
