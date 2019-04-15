@@ -4,9 +4,10 @@ import {HttpClient} from '@angular/common/http';
 import {HttpBaseService} from '../../../../shared/services/http-base.service';
 import {MovieProjection} from '../../models/movie-projection.model';
 import {MapperService} from '../../../../shared/helpers/mapper/mapper.service';
+import {RepertoireServicesModule} from '../../repertoire-services.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: RepertoireServicesModule
 })
 export class RepertoireService extends HttpBaseService {
 

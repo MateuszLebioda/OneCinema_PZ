@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {SeanceStatus} from '../enums/seance-statu.enum';
 import {SeanceApiModel} from '../api-models/seance-api.model';
+import {RepertoireServicesModule} from '../repertoire-services.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: RepertoireServicesModule
 })
 export class SeanceService {
   private readonly maxBookingOffsetInMilliseconds = 1800000;

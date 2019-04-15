@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/internal/Observable';
 import {HttpOptions} from '../configurations/http-options';
-import {SharedModule} from '../shared.module';
+import {SharedServicesModule} from '../shared-services.module';
 
 @Injectable({
-  providedIn: SharedModule
+  providedIn: SharedServicesModule
 })
 export abstract class HttpBaseService {
   private readonly baseUrl = 'bazowy url/';

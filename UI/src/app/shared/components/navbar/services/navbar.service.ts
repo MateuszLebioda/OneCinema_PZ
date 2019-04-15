@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {PriceListApiModel} from '../api-models/price-list-api.model';
+import {SharedServicesModule} from '../../../shared-services.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: SharedServicesModule
 })
 export class NavbarService {
 

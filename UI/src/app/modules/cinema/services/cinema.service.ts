@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {CinemaApiModel} from '../api-models/cinema-api.model';
+import {CinemaServicesModule} from '../cinema-services.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: CinemaServicesModule
 })
 export class CinemaService {
 

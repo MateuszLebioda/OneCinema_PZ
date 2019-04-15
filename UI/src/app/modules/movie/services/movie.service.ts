@@ -3,9 +3,10 @@ import {Movie} from '../models/movie.model';
 import {RepertoireService} from '../../repertoire/services/api-services/repertoire.service';
 import {MapperService} from '../../../shared/helpers/mapper/mapper.service';
 import {DaySeancesApiModel} from '../api-models/day-seances-api.model';
+import {MovieServicesModule} from '../movie-services.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: MovieServicesModule
 })
 export class MovieService {
 

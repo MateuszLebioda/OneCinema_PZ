@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {SeanceApiModel} from '../api-models/seance-api.model';
+import {BookingServicesModule} from '../../../../../booking-services.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: BookingServicesModule
 })
 export class BookingPreparationService {
 

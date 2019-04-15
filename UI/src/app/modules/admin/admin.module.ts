@@ -7,6 +7,8 @@ import {AddMovieComponent} from './pages/add-movie/add-movie.component';
 import {EditMovieComponent} from './pages/edit-movie/edit-movie.component';
 import {PreviewMovieComponent} from './pages/preview-movie/preview-movie.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MovieProjectionComponent} from './pages/add-movie/components/movie-projection/movie-projection.component';
+import {AdminServicesModule} from './admin-services.module';
 
 @NgModule({
   declarations: [
@@ -14,13 +16,15 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     AdminPanelComponent,
     AddMovieComponent,
     EditMovieComponent,
-    PreviewMovieComponent
+    PreviewMovieComponent,
+    MovieProjectionComponent
   ],
   imports: [
     CommonModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AdminServicesModule
   ]
 })
 export class AdminModule {

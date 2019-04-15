@@ -9,8 +9,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BookingConfirmationStartComponent} from './pages/booking-confirmation/booking-confirmation-start/booking-confirmation-start.component';
 import {BookingProcessComponent} from './pages/booking-process/booking-process.component';
 import {AppRoutingModule} from '../../app-routing.module';
-import { BookingConfirmationFinishComponent } from './pages/booking-confirmation/booking-confirmation-finish/booking-confirmation-finish.component';
-import { BookingConfirmationComponent } from './pages/booking-confirmation/booking-confirmation.component';
+import {BookingConfirmationFinishComponent} from './pages/booking-confirmation/booking-confirmation-finish/booking-confirmation-finish.component';
+import {BookingConfirmationComponent} from './pages/booking-confirmation/booking-confirmation.component';
+import {BookingServicesModule} from './booking-services.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { BookingConfirmationComponent } from './pages/booking-confirmation/booki
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BookingServicesModule
   ]
 })
 export class BookingModule {

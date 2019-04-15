@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
+import {RepertoireServicesModule} from '../repertoire-services.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: RepertoireServicesModule
 })
 export class RepertoireDaysService {
   private readonly _numberOfDaysPresentingRepertoireStartingFromZero = 7;

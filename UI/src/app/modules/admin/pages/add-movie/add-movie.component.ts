@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Seat} from '../../../booking/pages/booking-process/components/booking-preparation/models/seat';
 import {SeanceApiModel} from '../../../booking/pages/booking-process/components/booking-preparation/api-models/seance-api.model';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {GeneralFormControlName} from '../../../../shared/enums/general-form-control-name.enum';
+import {FormGroup} from '@angular/forms';
 import {FormValidatorService} from '../../../../shared/services/form-validator.service';
 import {Router} from '@angular/router';
 import {BookingApiModel} from '../../../booking/pages/booking-process/components/booking-finalization/api-models/booking-api.model';
 import {AddMovieApiModel} from './api-models/add-movie-api.model';
+import {AddMovieService} from './services/add-movie.service';
 
 @Component({
   selector: 'app-add-movie',
@@ -23,16 +23,17 @@ export class AddMovieComponent implements OnInit {
   public bookingForm: FormGroup;
 
   constructor(
-    public formValidatorService: FormValidatorService,
+    private _formValidatorService: FormValidatorService,
+    private _addMovieService: AddMovieService,
     private _router: Router) {
   }
 
   public ngOnInit(): void {
-    this._initForm();
+    this.bookingForm = this._addMovieService.getForm();
   }
 
   public isInvalid(formControlName: string): boolean {
-    return this.formValidatorService.isInvalidAndTouched(this.bookingForm, formControlName);
+    return this._formValidatorService.isInvalidAndTouched(this.bookingForm, formControlName);
   }
 
   public onSubmit(): void {
@@ -41,18 +42,6 @@ export class AddMovieComponent implements OnInit {
 
   public valueChanged(rate: number): void {
     this.addMovieModel.rate = rate;
-  }
-
-  private _initForm(): void {
-    this.bookingForm = new FormGroup({
-      'title': new FormControl(null, [Validators.required, Validators.maxLength(100)]),
-      'gender': new FormControl(null, [Validators.required, Validators.maxLength(100)]),
-      'duration': new FormControl(null, [Validators.required]),
-      'rate': new FormControl(null, [Validators.required, Validators.min(1), Validators.max(5)]),
-      'posterUrl': new FormControl(null, [Validators.required]),
-      'trailerUrl': new FormControl(null, [Validators.required,
-        Validators.pattern('/((([A-Za-z]{3,9}:(?:\\/\\/)?)(?:[\\-;:&=\\+\\$,\\w]+@)?[A-Za-z0-9\\.\\-]+|(?:www\\.|[\\-;:&=\\+\\$,\\w]+@)[A-Za-z0-9\\.\\-]+)((?:\\/[\\+~%\\/\\.\\w\\-_]*)?\\??(?:[\\-\\+=&;%@\\.\\w_]*)#?(?:[\\.\\!\\/\\\\\\w]*))?)/')]),
-    });
   }
 
   private _createBookingApiModel(bookedSeats: Seat[], seance: SeanceApiModel, form: FormGroup): BookingApiModel {

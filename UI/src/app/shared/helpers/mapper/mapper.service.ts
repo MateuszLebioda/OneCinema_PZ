@@ -8,13 +8,12 @@ import {MovieApiModel} from '../../../modules/movie/api-models/movie-api.model';
 import {Movie} from '../../../modules/movie/models/movie.model';
 import {SeancesPerDay} from '../../../modules/movie/models/seances-per-day.model';
 import {DaySeancesApiModel} from '../../../modules/movie/api-models/day-seances-api.model';
-import {Seat} from '../../../modules/booking/pages/booking-process/components/booking-preparation/models/seat';
-import {ScreeningRoomPlanRowApiModel} from '../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/api-models/screening-room-plan-row-api.model';
 import {ScreeningRoom} from '../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/models/screening-room';
 import {ScreeningRoomPlanApiModel} from '../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/api-models/screening-room-plan-api.model';
+import {SharedServicesModule} from '../../shared-services.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: SharedServicesModule
 })
 export class MapperService {
 

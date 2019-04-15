@@ -3,9 +3,10 @@ import {ScreeningRoomPlanApiModel} from '../api-models/screening-room-plan-api.m
 import {BookedSeatsApiModel} from '../api-models/booked-seats/booked-seats-api.model';
 import {ScreeningRoomPlanRowApiModel} from '../api-models/screening-room-plan-row-api.model';
 import {ScreeningRoomPlanSeatApiModel} from '../api-models/screening-room-plan-seat-api.model';
+import {BookingServicesModule} from '../../../../../../../booking-services.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: BookingServicesModule
 })
 export class ScreeningRoomService {
 

@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {SlideBannerMovie} from '../models/banner-movie';
+import {HomeServicesModule} from '../../../home-services.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: HomeServicesModule
 })
 export class SlideBannerService {
 

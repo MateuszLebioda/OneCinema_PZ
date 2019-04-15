@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {MovieApiModel} from '../api-models/movie-api.model';
+import {AdminServicesModule} from '../../../admin-services.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: AdminServicesModule
 })
 export class AdminPanelService {
 
