@@ -1,15 +1,36 @@
 <ng-container [formGroup]="controlContainer.control">
-  <div class="form-group">
-    <input type="number" formControlName="weeksCount" placeholder="Czas trwania filmu">
-    <span *ngIf="isInvalid('weeksCount')" class="error-font help-block">
-        <div *ngIf="formControls.weeksCount.errors.required">To pole jest wymagane</div>
-    </span>
+  <div class="form-group sub-form-group-left">
+
+    <div>
+      <label class="week-count-label">Liczba tygodni projekcji filmu</label>
+      <input type="number" class="week-count">
+    </div>
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-warning orange-background">
+        <span class="checkbox-label">Każdy tydzień ma te same czasy projekcji filmu</span>
+        <input type="checkbox"
+               autocomplete="off">
+        <span class="glyphicon glyphicon-ok"></span>
+      </label>
+    </div>
+
+    <div class="btn-toolbar week-selector" role="toolbar">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default week-number active-week-number">1</button>
+        <button type="button" class="btn btn-default week-number">2</button>
+        <button type="button" class="btn btn-default week-number">3</button>
+        <button type="button" class="btn btn-default week-number">4</button>
+      </div>
+    </div>
+
   </div>
 
-<!--  <div class="form-group">-->
-<!--    <input type="number" formControlName="weeksCount2" placeholder="Czas trwania filmu">-->
-<!--    <span *ngIf="isInvalid('weeksCount2')" class="error-font help-block">-->
-<!--        <div *ngIf="formControls.weeksCount2.errors.required">To pole jest wymagane</div>-->
-<!--    </span>-->
-<!--  </div>-->
+  <div class="sub-form-group-right">sss</div>
+
+  <!--  <div class="form-group">-->
+  <!--    <input type="number" formControlName="weeksCount2" placeholder="Czas trwania filmu">-->
+  <!--    <span *ngIf="isInvalid('weeksCount2')" class="error-font help-block">-->
+  <!--        <div *ngIf="formControls.weeksCount2.errors.required">To pole jest wymagane</div>-->
+  <!--    </span>-->
+  <!--  </div>-->
 </ng-container>

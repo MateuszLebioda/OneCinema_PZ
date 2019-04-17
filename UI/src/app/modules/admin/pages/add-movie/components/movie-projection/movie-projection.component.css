@@ -1,0 +1,53 @@
+.active-week-number {
+  background: #FF8D1B;
+}
+
+.week-number:hover {
+  opacity: 0.5;
+  background: #FF8D1B;
+}
+
+.btn span.glyphicon {
+  opacity: 0;
+}
+
+.btn.active span.glyphicon {
+  opacity: 1;
+}
+
+.center-div {
+  margin: 0 33%;
+}
+
+.orange-background {
+  background-color: #FF8D1B;
+}
+
+
+.checkbox-label {
+  padding-right: 15px;
+}
+
+.week-count {
+  width: 18% !important;
+}
+
+.week-selector {
+  margin-top: 15px;
+}
+
+.sub-form-group-left {
+  display: block;
+  float: left;
+}
+
+.sub-form-group-right {
+  display: block;
+  float: right;
+}
+
+.week-count-label {
+  float: left;
+  font-weight: normal;
+  padding: 10px;
+}
