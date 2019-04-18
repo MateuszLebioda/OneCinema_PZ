@@ -156,6 +156,11 @@
   max-width: none;
 }
 
+.form-inputs {
+  display: block;
+  min-height: 250px;
+}
+
 .form-right {
   display: block;
   float: right;

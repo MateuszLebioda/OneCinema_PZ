@@ -51,3 +51,24 @@
   font-weight: normal;
   padding: 10px;
 }
+
+.cinema-room {
+  margin: 0 auto;
+  width: 75%;
+  padding: 15px;
+}
+
+.cinema-room-options {
+  border-color: #FF8D1B;
+  width: 50%;
+  border-radius: 0;
+  height: 41px;
+}
+
+.cinema-room-label {
+  float: left;
+  width: 25%;
+  padding: 10px;
+  text-align: right;
+  font-weight: normal;
+}
