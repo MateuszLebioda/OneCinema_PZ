@@ -39,7 +39,7 @@
 .selector-label {
   float: left;
   padding: 5px;
-  width: 90px;
+  width: 110px;
 }
 
 .sub-form-group-left {
@@ -81,7 +81,7 @@
   font-weight: normal;
 }
 
-.tab-content {
+.sub-form-group-right {
   float: right;
   width: 60%;
   margin-top: 25px;
@@ -116,4 +116,35 @@
 .error-font {
   text-align: center;
   margin: 0;
+}
+
+
+.tab-whole-line {
+  margin: 50px;
+}
+
+.movie-projection-time {
+  width: 25% !important;
+  text-align: center;
+  padding: 0 !important;
+}
+
+.day-row {
+  font-weight: bold;
+}
+
+.day-row-header {
+  width: 100px;
+  padding: 3px 15px;
+  border-right: 1px solid #777;
+  text-align: center;
+}
+
+.selector-error {
+  margin-top: 0;
+}
+
+.selector-error span {
+  margin-top: 0;
+  padding-right: 40px;
 }

@@ -19,6 +19,7 @@
           <div *ngIf="formControls.weeksCount.errors.min">Minimalna ilość tygodni to 1</div>
       </span>
     </div>
+
   </div>
 
   <div *ngIf="weekCount > 0">
@@ -29,21 +30,45 @@
         <div class="btn-group" role="group">
           <!--          <button type="button" class="btn btn-default week-number active-week-number">1</button>-->
           <button type="button" class="btn btn-default week-number"
+                  [class.active-week-number]="selectedWeek === weekIndex + 1"
+                  (click)="selectWeek(weekIndex + 1)"
                   *ngFor="let week of addMovieApiModel.weeks; let weekIndex = index">
             {{weekIndex + 1}}
           </button>
         </div>
       </div>
-
+      <!-- active-week-number -->
       <div class="btn-toolbar selector" role="toolbar">
         <span class="selector-label">Dzień</span>
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default week-number active-week-number">1</button>
-          <button type="button" class="btn btn-default week-number">2</button>
-          <button type="button" class="btn btn-default week-number">3</button>
-          <button type="button" class="btn btn-default week-number">5</button>
-          <button type="button" class="btn btn-default week-number">6</button>
-          <button type="button" class="btn btn-default week-number">7</button>
+          <button type="button" [class.active-week-number]="selectedDay === 1"
+                  class="btn btn-default week-number"
+                  (click)="selectDay(1)">1
+          </button>
+          <button type="button" [class.active-week-number]="selectedDay === 2"
+                  class="btn btn-default week-number"
+                  (click)="selectDay(2)">2
+          </button>
+          <button type="button" [class.active-week-number]="selectedDay === 3"
+                  class="btn btn-default week-number"
+                  (click)="selectDay(3)">3
+          </button>
+          <button type="button" [class.active-week-number]="selectedDay === 4"
+                  class="btn btn-default week-number"
+                  (click)="selectDay(4)">4
+          </button>
+          <button type="button" [class.active-week-number]="selectedDay === 5"
+                  class="btn btn-default week-number"
+                  (click)="selectDay(5)">5
+          </button>
+          <button type="button" [class.active-week-number]="selectedDay === 6"
+                  class="btn btn-default week-number"
+                  (click)="selectDay(6)">6
+          </button>
+          <button type="button" [class.active-week-number]="selectedDay === 7"
+                  class="btn btn-default week-number"
+                  (click)="selectDay(7)">7
+          </button>
         </div>
       </div>
 
@@ -55,8 +80,21 @@
         </div>
       </div>
 
+      <div class="btn-toolbar selector" role="toolbar">
+        <span class="selector-label">Start projekcji</span>
+        <input type="time" class="week-count movie-projection-time" formControlName="movieProjectionTime">
+        <button>Dodaj</button>
+      </div>
+
+      <div class="btn-toolbar selector selector-error" role="toolbar">
+        <span *ngIf="isInvalid('movieProjectionTime')" class="error-font help-block">
+          <div *ngIf="formControls.movieProjectionTime.errors.required">To pole jest wymagane</div>
+          <!--          <div *ngIf="formControls.movieProjectionTime.errors.min">Minimalna ilość tygodni to 1</div>-->
+        </span>
+      </div>
+
     </div>
-    <div id="myTabContent" class="tab-content">
+    <div class="tab-content sub-form-group-right">
       <div role="tabpanel" class="tab-pane fade in active">
         <div class="agile-news-table">
           <table id="table-breakpoint">
@@ -82,6 +120,38 @@
                   </p>
                   <p>
                     Miś (3D)
+                  </p>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content tab-whole-line" *ngFor="let week of addMovieApiModel.weeks; let weekIndex = index">
+      <div role="tabpanel" class="tab-pane fade in active">
+        <div class="agile-news-table">
+          <table>
+            <thead>
+            <tr>
+              <th colspan="2" class="table-header day-row">
+                Tydzień {{weekIndex + 1}}
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let day of week.days; let dayIndex = index">
+              <td class="day-row-header">
+                <p>
+                  {{convertToPolishDayName(dayIndex)}}
+                </p>
+              </td>
+              <td>
+                <div class="movie-projection-time" *ngFor="let projectionTime of day.projectionTimes">
+                  <p>
+                    {{projectionTime.start | date: 'HH:mm'}} - {{projectionTime.end | date: 'HH:mm'}}
+                    ({{projectionTime.projectionType}})
                   </p>
                 </div>
               </td>

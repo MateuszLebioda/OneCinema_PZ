@@ -668,6 +668,7 @@ p.fexi_header_para1 a i {
 .form-module input[type="number"],
 .form-module input[type="range"],
 .form-module input[type="url"],
+.form-module input[type="time"],
 .form-module input[type="email"] {
   outline: none;
   display: block;
