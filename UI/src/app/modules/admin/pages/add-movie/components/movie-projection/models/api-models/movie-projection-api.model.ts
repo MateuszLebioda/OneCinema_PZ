@@ -1,6 +1,7 @@
-import {ProjectionType} from '../../../../../../repertoire/enums/projection-type.enum';
+import {ProjectionType} from '../../../../../../../repertoire/enums/projection-type.enum';
 
-export class AddMovieProjectionTimeApiModel {
+export class MovieProjectionApiModel {
+  public title: string;
   public projectionType: ProjectionType;
   public start: Date;
   public end: Date;

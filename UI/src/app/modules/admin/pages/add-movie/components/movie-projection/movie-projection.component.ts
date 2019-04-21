@@ -3,9 +3,11 @@ import {ControlContainer, FormGroup} from '@angular/forms';
 import {FormValidatorService} from '../../../../../../shared/services/form-validator.service';
 import {Router} from '@angular/router';
 import {MovieProjectionService} from './services/movie-projection.service';
-import {AddMovieApiModel} from './api-models/add-movie-api.model';
-import {AddMovieWeekApiModel} from './api-models/add-movie-week-api.model';
-import {MovieProjectionApiModel} from './api-models/movie-projection-api.model';
+import {AddMovieApiModel} from './models/api-models/add-movie-api.model';
+import {AddMovieWeekApiModel} from './models/api-models/add-movie-week-api.model';
+import {MovieProjectionApiModel} from './models/api-models/movie-projection-api.model';
+import {SelectedDayMoviesProjectionsModel} from './models/selected-day-movies-projections.model';
+import {getNumberOfCurrencyDigits} from '@angular/common';
 
 @Component({
   selector: 'app-movie-projection',
@@ -27,16 +29,26 @@ export class MovieProjectionComponent implements OnInit {
     return this.bookingForm.get('weeksCount').value;
   }
 
-  //
-  // public get movieProjections() {
-  //
-  // }
+
+  public get movieProjections(): MovieProjectionApiModel[] {
+    if (this.selectedDayMoviesProjectionsModel.weekNumber === this.selectedWeek &&
+      this.selectedDayMoviesProjectionsModel.dayNumber === this.selectedDay) {
+      return this.selectedDayMoviesProjectionsModel.moviesProjections;
+    }
+
+    this.selectedDayMoviesProjectionsModel.weekNumber = this.selectedWeek;
+    this.selectedDayMoviesProjectionsModel.dayNumber = this.selectedDay;
+    this.selectedDayMoviesProjectionsModel
+      .moviesProjections = this._getMovieProjectionsForSelectedDay(this.selectedWeek, this.selectedDay);
+
+    return this.selectedDayMoviesProjectionsModel.moviesProjections;
+  }
 
   public bookingForm: FormGroup;
   public addMovieApiModel: AddMovieApiModel = new AddMovieApiModel();
-  public movieProjectionsForSelectedDay: MovieProjectionApiModel[] = [];
-  public selectedWeek: number;
-  public selectedDay: number;
+  public selectedDayMoviesProjectionsModel: SelectedDayMoviesProjectionsModel = new SelectedDayMoviesProjectionsModel();
+  public selectedWeek = 1;
+  public selectedDay = 1;
 
   constructor(
     private _controlContainer: ControlContainer,
@@ -48,7 +60,12 @@ export class MovieProjectionComponent implements OnInit {
   public ngOnInit(): void {
     this.bookingForm = <FormGroup>this._controlContainer.control;
     this.bookingForm.get('weeksCount').setValue(1);
+
     this.addMovieApiModel.weeks.push(new AddMovieWeekApiModel());
+
+    this.selectedDayMoviesProjectionsModel.weekNumber = this.selectedWeek;
+    this.selectedDayMoviesProjectionsModel.dayNumber = this.selectedDay;
+    console.log(this.getNumberOfWeek());
   }
 
   public isInvalid(formControlName: string): boolean {
@@ -74,8 +91,8 @@ export class MovieProjectionComponent implements OnInit {
     }
   }
 
-  public setMovieProjectionsForSelectedDay(): void {
-    this.movieProjectionsForSelectedDay = this._movieProjectionService.getMoviesMrojections(this._getDate());
+  public _getMovieProjectionsForSelectedDay(weekNumber: number, dayNumber: number): MovieProjectionApiModel[] {
+    return this._movieProjectionService.getMoviesMrojections(this._getDate(weekNumber, dayNumber));
   }
 
   public selectWeek(weekNumber: number) {
@@ -107,7 +124,17 @@ export class MovieProjectionComponent implements OnInit {
     }
   }
 
-  private _getDate(): Date {
+  private _getDate(weekNumber: number, dayNumber: number): Date {
+    const day = new Date();
+    console.log(this.getNumberOfWeek());
     return new Date();
   }
+
+  private getNumberOfWeek(): number {
+    const today = new Date();
+    const firstDayOfYear = new Date(today.getFullYear(), 0, 1);
+    const pastDaysOfYear = (today - firstDayOfYear) / 86400000;
+    return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay()) / 7);
+  }
 }
+

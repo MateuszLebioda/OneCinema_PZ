@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AdminServicesModule} from '../../../../../admin-services.module';
-import {MovieProjectionApiModel} from '../api-models/movie-projection-api.model';
+import {MovieProjectionApiModel} from '../models/api-models/movie-projection-api.model';
 import {ProjectionType} from '../../../../../../repertoire/enums/projection-type.enum';
 
 @Injectable({

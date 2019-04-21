@@ -1,4 +1,4 @@
-import {WeekDays} from '../enums/week-days.enum';
+import {WeekDays} from '../../enums/week-days.enum';
 import {AddMovieProjectionTimeApiModel} from './add-movie-projection-time-api.model';
 
 export class AddMovieDayApiModel {

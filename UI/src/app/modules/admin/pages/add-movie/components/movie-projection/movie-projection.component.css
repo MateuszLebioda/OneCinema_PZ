@@ -107,6 +107,9 @@
   float: left;
   text-align: center;
   margin: 0 10px;
+  width: 20% !important;
+  text-align: center;
+  padding: 0 !important;
 }
 
 .movie-projection-time p {
@@ -121,12 +124,6 @@
 
 .tab-whole-line {
   margin: 50px;
-}
-
-.movie-projection-time {
-  width: 25% !important;
-  text-align: center;
-  padding: 0 !important;
 }
 
 .day-row {
