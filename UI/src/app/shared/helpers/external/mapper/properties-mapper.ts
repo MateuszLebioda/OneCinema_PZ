@@ -1,8 +1,8 @@
-import {SeanceApiModel} from '../../../modules/repertoire/api-models/seance-api.model';
-import {SeancesPerTimesOfDay} from '../../../modules/repertoire/models/seances-per-times-of-day';
-import {Seat} from '../../../modules/booking/pages/booking-process/components/booking-preparation/models/seat';
-import {ScreeningRoomPlanRowApiModel} from '../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/api-models/screening-room-plan-row-api.model';
-import {SeatStatus} from '../../../modules/booking/pages/booking-process/components/booking-preparation/enums/seat-status';
+import {SeanceApiModel} from '../../../../modules/repertoire/api-models/seance-api.model';
+import {SeancesPerTimesOfDay} from '../../../../modules/repertoire/models/seances-per-times-of-day';
+import {Seat} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/models/seat';
+import {ScreeningRoomPlanRowApiModel} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/api-models/screening-room-plan-row-api.model';
+import {SeatStatus} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/enums/seat-status';
 
 export class PropertiesMapper {
 

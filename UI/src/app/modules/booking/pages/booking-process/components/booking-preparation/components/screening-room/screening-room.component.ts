@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Seat} from '../../models/seat';
 import {SeatStatus} from '../../enums/seat-status';
 import {ScreeningRoomService} from './services/screening-room.service';
-import {MapperService} from '../../../../../../../../shared/helpers/mapper/mapper.service';
+import {MapperService} from '../../../../../../../../shared/helpers/external/mapper/mapper.service';
 import {ScreeningRoom} from './models/screening-room';
 import {SeanceApiModel} from '../../api-models/seance-api.model';
 

@@ -7,7 +7,7 @@ import {AddMovieApiModel} from './models/api-models/add-movie-api.model';
 import {AddMovieWeekApiModel} from './models/api-models/add-movie-week-api.model';
 import {MovieProjectionApiModel} from './models/api-models/movie-projection-api.model';
 import {SelectedDayMoviesProjectionsModel} from './models/selected-day-movies-projections.model';
-import {getNumberOfCurrencyDigits} from '@angular/common';
+import {LuxonService} from '../../../../../../shared/helpers/external/luxon.service';
 
 @Component({
   selector: 'app-movie-projection',
@@ -30,16 +30,12 @@ export class MovieProjectionComponent implements OnInit {
   }
 
 
-  public get movieProjections(): MovieProjectionApiModel[] {
+  public get moviesProjections(): MovieProjectionApiModel[] {
     if (this.selectedDayMoviesProjectionsModel.weekNumber === this.selectedWeek &&
       this.selectedDayMoviesProjectionsModel.dayNumber === this.selectedDay) {
       return this.selectedDayMoviesProjectionsModel.moviesProjections;
     }
-
-    this.selectedDayMoviesProjectionsModel.weekNumber = this.selectedWeek;
-    this.selectedDayMoviesProjectionsModel.dayNumber = this.selectedDay;
-    this.selectedDayMoviesProjectionsModel
-      .moviesProjections = this._getMovieProjectionsForSelectedDay(this.selectedWeek, this.selectedDay);
+    this.setSelectedDayMoviesProjectionsModel(this.selectedWeek, this.selectedDay - 1);
 
     return this.selectedDayMoviesProjectionsModel.moviesProjections;
   }
@@ -54,18 +50,15 @@ export class MovieProjectionComponent implements OnInit {
     private _controlContainer: ControlContainer,
     private _formValidatorService: FormValidatorService,
     private _movieProjectionService: MovieProjectionService,
+    private _luxonService: LuxonService,
     private _router: Router) {
   }
 
   public ngOnInit(): void {
     this.bookingForm = <FormGroup>this._controlContainer.control;
     this.bookingForm.get('weeksCount').setValue(1);
-
     this.addMovieApiModel.weeks.push(new AddMovieWeekApiModel());
-
-    this.selectedDayMoviesProjectionsModel.weekNumber = this.selectedWeek;
-    this.selectedDayMoviesProjectionsModel.dayNumber = this.selectedDay;
-    console.log(this.getNumberOfWeek());
+    this.setSelectedDayMoviesProjectionsModel(this.selectedWeek, this.selectedDay - 1);
   }
 
   public isInvalid(formControlName: string): boolean {
@@ -92,7 +85,7 @@ export class MovieProjectionComponent implements OnInit {
   }
 
   public _getMovieProjectionsForSelectedDay(weekNumber: number, dayNumber: number): MovieProjectionApiModel[] {
-    return this._movieProjectionService.getMoviesMrojections(this._getDate(weekNumber, dayNumber));
+    return this._movieProjectionService.getMoviesProjections(this._getDate(weekNumber, dayNumber));
   }
 
   public selectWeek(weekNumber: number) {
@@ -124,17 +117,34 @@ export class MovieProjectionComponent implements OnInit {
     }
   }
 
-  private _getDate(weekNumber: number, dayNumber: number): Date {
-    const day = new Date();
-    console.log(this.getNumberOfWeek());
-    return new Date();
+  private _getDate(weeks: number, days: number): Date {
+    const firstWeekDay = this._getFisrtWeekDay();
+    const date: string = this._luxonService.dateTime.local(firstWeekDay.year, firstWeekDay.month, firstWeekDay.day).plus({
+      weeks: weeks,
+      days: days
+    }).toISODate();
+
+    return new Date(date);
   }
 
-  private getNumberOfWeek(): number {
-    const today = new Date();
-    const firstDayOfYear = new Date(today.getFullYear(), 0, 1);
-    const pastDaysOfYear = (today - firstDayOfYear) / 86400000;
-    return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay()) / 7);
+  private _getFisrtWeekDay(): any {
+    return this._luxonService.dateTime.local().minus(
+      {
+        days: this._getDaysToMinus()
+      });
+  }
+
+  private _getDaysToMinus(): number {
+    const curretDate = new Date();
+    const currentDayOfWeekNumber = curretDate.getDay() === 0 ? 7 : curretDate.getDay();
+    return currentDayOfWeekNumber - 1;
+  }
+
+  private setSelectedDayMoviesProjectionsModel(weekNumber: number, dayNumber: number): void {
+    this.selectedDayMoviesProjectionsModel.weekNumber = this.selectedWeek;
+    this.selectedDayMoviesProjectionsModel.dayNumber = this.selectedDay;
+    this.selectedDayMoviesProjectionsModel
+      .moviesProjections = this._getMovieProjectionsForSelectedDay(this.selectedWeek, this.selectedDay);
   }
 }
 

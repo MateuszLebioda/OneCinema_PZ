@@ -3,7 +3,7 @@ import {MovieProjectionApiModel} from '../../api-models/movie-projection-api.mod
 import {HttpClient} from '@angular/common/http';
 import {HttpBaseService} from '../../../../shared/services/http-base.service';
 import {MovieProjection} from '../../models/movie-projection.model';
-import {MapperService} from '../../../../shared/helpers/mapper/mapper.service';
+import {MapperService} from '../../../../shared/helpers/external/mapper/mapper.service';
 import {RepertoireServicesModule} from '../../repertoire-services.module';
 
 @Injectable({

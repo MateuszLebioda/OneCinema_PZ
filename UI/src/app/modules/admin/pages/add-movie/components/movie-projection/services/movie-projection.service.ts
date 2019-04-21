@@ -11,7 +11,7 @@ export class MovieProjectionService {
   constructor() {
   }
 
-  public getMoviesMrojections(day: Date): MovieProjectionApiModel[] {
+  public getMoviesProjections(date: Date): MovieProjectionApiModel[] {
     return [
       {
         title: 'Jaś fasola',

@@ -4,11 +4,9 @@ import {SeanceApiModel} from '../booking-preparation/api-models/seance-api.model
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormValidatorService} from '../../../../../../shared/services/form-validator.service';
 import {GeneralFormControlName} from '../../../../../../shared/enums/general-form-control-name.enum';
-import {NavbarService} from '../../../../../../shared/components/navbar/services/navbar.service';
 import {BookingFinalizationService} from './services/booking-finalization.service';
 import {PriceListApiModel} from '../../../../../../shared/components/navbar/api-models/price-list-api.model';
 import {BookingApiModel} from './api-models/booking-api.model';
-import {isNull} from '@angular/compiler/src/output/output_ast';
 import {Router} from '@angular/router';
 
 @Component({

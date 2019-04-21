@@ -106,20 +106,12 @@
             <tbody>
             <tr>
               <td>
-                <div class="movie-projection-time">
+                <div class="movie-projection-time" *ngFor="let movieProjection of moviesProjections">
                   <p>
-                    11:15 - 13:45
+                    {{movieProjection.start | date: 'HH:mm'}} - {{movieProjection.end | date: 'HH:mm'}}
                   </p>
                   <p>
-                    Jaś Fasole (3D)
-                  </p>
-                </div>
-                <div class="movie-projection-time">
-                  <p>
-                    13:25 - 18:45
-                  </p>
-                  <p>
-                    Miś (3D)
+                    {{movieProjection.title}} ({{movieProjection.projectionType}})
                   </p>
                 </div>
               </td>

@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import * as automapper from 'automapper-ts';
-import {MovieProjectionApiModel} from '../../../modules/repertoire/api-models/movie-projection-api.model';
-import {MovieProjection} from '../../../modules/repertoire/models/movie-projection.model';
+import {MovieProjectionApiModel} from '../../../../modules/repertoire/api-models/movie-projection-api.model';
+import {MovieProjection} from '../../../../modules/repertoire/models/movie-projection.model';
 import {AutomapperMaps} from './automapper-maps';
 import {PropertiesMapper} from './properties-mapper';
-import {MovieApiModel} from '../../../modules/movie/api-models/movie-api.model';
-import {Movie} from '../../../modules/movie/models/movie.model';
-import {SeancesPerDay} from '../../../modules/movie/models/seances-per-day.model';
-import {DaySeancesApiModel} from '../../../modules/movie/api-models/day-seances-api.model';
-import {ScreeningRoom} from '../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/models/screening-room';
-import {ScreeningRoomPlanApiModel} from '../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/api-models/screening-room-plan-api.model';
-import {SharedServicesModule} from '../../shared-services.module';
+import {MovieApiModel} from '../../../../modules/movie/api-models/movie-api.model';
+import {Movie} from '../../../../modules/movie/models/movie.model';
+import {SeancesPerDay} from '../../../../modules/movie/models/seances-per-day.model';
+import {DaySeancesApiModel} from '../../../../modules/movie/api-models/day-seances-api.model';
+import {ScreeningRoom} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/models/screening-room';
+import {ScreeningRoomPlanApiModel} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/api-models/screening-room-plan-api.model';
+import {SharedServicesModule} from '../../../shared-services.module';
 
 @Injectable({
   providedIn: SharedServicesModule
