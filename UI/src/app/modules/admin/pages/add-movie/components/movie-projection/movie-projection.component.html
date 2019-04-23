@@ -83,14 +83,13 @@
       <div class="btn-toolbar selector" role="toolbar">
         <span class="selector-label">Start projekcji</span>
         <input type="time" class="week-count movie-projection-time" formControlName="movieProjectionTime">
-        <button>Dodaj</button>
-      </div>
-
-      <div class="btn-toolbar selector selector-error" role="toolbar">
         <span *ngIf="isInvalid('movieProjectionTime')" class="error-font help-block">
           <div *ngIf="formControls.movieProjectionTime.errors.required">To pole jest wymagane</div>
-          <!--          <div *ngIf="formControls.movieProjectionTime.errors.min">Minimalna ilość tygodni to 1</div>-->
         </span>
+      </div>
+
+      <div class="btn-toolbar selector" role="toolbar">
+        <input type="button" value="Dodaj projekcję" class="form-subbmit add-procjection-button">
       </div>
 
     </div>

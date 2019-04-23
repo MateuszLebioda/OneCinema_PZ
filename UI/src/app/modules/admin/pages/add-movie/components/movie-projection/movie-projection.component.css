@@ -145,3 +145,17 @@
   margin-top: 0;
   padding-right: 40px;
 }
+
+.help-block {
+  float: left;
+  padding-left: 15px;
+}
+
+.add-procjection-button {
+  cursor: default;
+}
+
+.add-procjection-button-active {
+  cursor: pointer;
+  background-color: #FF8D1B;
+}

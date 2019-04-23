@@ -23,9 +23,8 @@ export class MovieProjectionComponent implements OnInit {
     if (!this.bookingForm.get('weeksCount').value && !isNaN(this.bookingForm.get('weeksCount').value)) {
       return 0;
     }
-
     this._setAddMovieApiModel(this.bookingForm.get('weeksCount').value);
-    console.log(this.addMovieApiModel);
+
     return this.bookingForm.get('weeksCount').value;
   }
 
@@ -59,10 +58,31 @@ export class MovieProjectionComponent implements OnInit {
     this.bookingForm.get('weeksCount').setValue(1);
     this.addMovieApiModel.weeks.push(new AddMovieWeekApiModel());
     this.setSelectedDayMoviesProjectionsModel(this.selectedWeek, this.selectedDay - 1);
+    this.isInvalidProjectionTime(null);
   }
 
   public isInvalid(formControlName: string): boolean {
     return this._formValidatorService.isInvalidAndTouched(this.bookingForm, formControlName);
+  }
+
+  public isInvalidProjectionTime(date: Date): boolean {
+
+    let qx = new Date('April 3, 2019 16:05:00');
+    console.log(this._luxonService.DateTime.fromISO(qx.toISOString()));
+
+    let w = this.selectedDayMoviesProjectionsModel.moviesProjections.findIndex(x => x.start > qx);
+
+    let a1 = this.selectedDayMoviesProjectionsModel.moviesProjections[w - 1].end;
+    let a2 = this.selectedDayMoviesProjectionsModel.moviesProjections[w].start;
+
+    let i = this._luxonService.Interval.fromDateTimes(
+      this._luxonService.DateTime.fromISO(a1.toISOString()), this._luxonService.DateTime.fromISO(a2.toISOString()));
+
+    console.log(i.length('minutes', true));
+
+    let w = this.selectedDayMoviesProjectionsModel.moviesProjections.findIndex(x => x.start > qx);
+
+    return true;
   }
 
   public convertToPolishDayName(day: number) {
@@ -119,7 +139,7 @@ export class MovieProjectionComponent implements OnInit {
 
   private _getDate(weeks: number, days: number): Date {
     const firstWeekDay = this._getFisrtWeekDay();
-    const date: string = this._luxonService.dateTime.local(firstWeekDay.year, firstWeekDay.month, firstWeekDay.day).plus({
+    const date: string = this._luxonService.DateTime.local(firstWeekDay.year, firstWeekDay.month, firstWeekDay.day).plus({
       weeks: weeks,
       days: days
     }).toISODate();
@@ -128,7 +148,7 @@ export class MovieProjectionComponent implements OnInit {
   }
 
   private _getFisrtWeekDay(): any {
-    return this._luxonService.dateTime.local().minus(
+    return this._luxonService.DateTime.local().minus(
       {
         days: this._getDaysToMinus()
       });
@@ -141,8 +161,8 @@ export class MovieProjectionComponent implements OnInit {
   }
 
   private setSelectedDayMoviesProjectionsModel(weekNumber: number, dayNumber: number): void {
-    this.selectedDayMoviesProjectionsModel.weekNumber = this.selectedWeek;
-    this.selectedDayMoviesProjectionsModel.dayNumber = this.selectedDay;
+    this.selectedDayMoviesProjectionsModel.weekNumber = weekNumber;
+    this.selectedDayMoviesProjectionsModel.dayNumber = dayNumber;
     this.selectedDayMoviesProjectionsModel
       .moviesProjections = this._getMovieProjectionsForSelectedDay(this.selectedWeek, this.selectedDay);
   }
