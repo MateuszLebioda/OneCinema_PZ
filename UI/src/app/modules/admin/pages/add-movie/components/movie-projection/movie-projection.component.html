@@ -3,11 +3,8 @@
   <div class="sub-form-line">
     <div class="form-group cinema-room">
       <label class="cinema-room-label">Sala kinowa</label>
-      <select class="form-control cinema-room-options">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
+      <select formControlName="seanceRoom" class="form-control cinema-room-options">
+        <option *ngFor="let seanceRoom of seanceRooms" [ngValue]="seanceRoom">{{seanceRoom.name}}</option>
       </select>
     </div>
 
@@ -99,7 +96,7 @@
           <table id="table-breakpoint">
             <thead>
             <tr>
-              <th class="table-header">Aktualne projekcjie w wybranym dniu</th>
+              <th class="table-header">Aktualne projekcjie w wybranym dniu (plus margines )</th>
             </tr>
             </thead>
             <tbody>

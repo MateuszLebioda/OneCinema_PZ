@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormValidatorService} from '../../../../../shared/services/form-validator.service';
 import {AdminServicesModule} from '../../../admin-services.module';
 
@@ -9,7 +9,7 @@ import {AdminServicesModule} from '../../../admin-services.module';
 export class AddMovieService {
   private formValidatorService: FormValidatorService;
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
     this.formValidatorService = new FormValidatorService();
   }
 
@@ -31,6 +31,7 @@ export class AddMovieService {
     form.addControl('movieProjection', new FormGroup({
       'weeksCount': new FormControl(null, [Validators.required, Validators.min(1)]),
       'movieProjectionTime': new FormControl(null, [Validators.required]),
+      'seanceRoom': new FormControl(null, [Validators.required]),
     }));
   }
 }

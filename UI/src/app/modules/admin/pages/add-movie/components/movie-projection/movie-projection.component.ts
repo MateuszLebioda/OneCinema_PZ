@@ -3,11 +3,14 @@ import {ControlContainer, FormGroup} from '@angular/forms';
 import {FormValidatorService} from '../../../../../../shared/services/form-validator.service';
 import {Router} from '@angular/router';
 import {MovieProjectionService} from './services/movie-projection.service';
-import {AddMovieApiModel} from './models/api-models/add-movie-api.model';
-import {AddMovieWeekApiModel} from './models/api-models/add-movie-week-api.model';
-import {MovieProjectionApiModel} from './models/api-models/movie-projection-api.model';
+import {AddMovieApiModel} from './models/api/add-movie-api.model';
+import {AddMovieWeekApiModel} from './models/api/add-movie-week-api.model';
+import {MovieProjectionApiModel} from './models/api/movie-projection-api.model';
 import {SelectedDayMoviesProjectionsModel} from './models/selected-day-movies-projections.model';
 import {LuxonService} from '../../../../../../shared/helpers/external/luxon.service';
+import {MovieProjectionTimeValidatorService} from './services/movie-projection-time-validator.service';
+import {MovieProjectionRequestModel} from './models/requests/movie-projection-request.model';
+import {SeanceRoomApiModel} from './models/api/seance-room-api.model';
 
 @Component({
   selector: 'app-movie-projection',
@@ -44,12 +47,14 @@ export class MovieProjectionComponent implements OnInit {
   public selectedDayMoviesProjectionsModel: SelectedDayMoviesProjectionsModel = new SelectedDayMoviesProjectionsModel();
   public selectedWeek = 1;
   public selectedDay = 1;
+  public seanceRooms: SeanceRoomApiModel[] = [];
 
   constructor(
     private _controlContainer: ControlContainer,
     private _formValidatorService: FormValidatorService,
     private _movieProjectionService: MovieProjectionService,
     private _luxonService: LuxonService,
+    private _movieProjectionTimeValidatorService: MovieProjectionTimeValidatorService,
     private _router: Router) {
   }
 
@@ -57,8 +62,10 @@ export class MovieProjectionComponent implements OnInit {
     this.bookingForm = <FormGroup>this._controlContainer.control;
     this.bookingForm.get('weeksCount').setValue(1);
     this.addMovieApiModel.weeks.push(new AddMovieWeekApiModel());
+    this.seanceRooms = this._movieProjectionService.getSeanceRooms();
+    this.bookingForm.get('seanceRoom').setValue(this.seanceRooms[0]);
     this.setSelectedDayMoviesProjectionsModel(this.selectedWeek, this.selectedDay - 1);
-    this.isInvalidProjectionTime(null);
+    console.log(this.isInvalidProjectionTime(new Date('April 3, 2019 10:05:00')));
   }
 
   public isInvalid(formControlName: string): boolean {
@@ -66,23 +73,13 @@ export class MovieProjectionComponent implements OnInit {
   }
 
   public isInvalidProjectionTime(date: Date): boolean {
-
-    let qx = new Date('April 3, 2019 16:05:00');
-    console.log(this._luxonService.DateTime.fromISO(qx.toISOString()));
-
-    let w = this.selectedDayMoviesProjectionsModel.moviesProjections.findIndex(x => x.start > qx);
-
-    let a1 = this.selectedDayMoviesProjectionsModel.moviesProjections[w - 1].end;
-    let a2 = this.selectedDayMoviesProjectionsModel.moviesProjections[w].start;
-
-    let i = this._luxonService.Interval.fromDateTimes(
-      this._luxonService.DateTime.fromISO(a1.toISOString()), this._luxonService.DateTime.fromISO(a2.toISOString()));
-
-    console.log(i.length('minutes', true));
-
-    let w = this.selectedDayMoviesProjectionsModel.moviesProjections.findIndex(x => x.start > qx);
-
-    return true;
+    const selectedSeanceRoom: SeanceRoomApiModel = this.bookingForm.get('seanceRoom').value;
+    const movieProjectionDuration: number = this.bookingForm.get('weeksCount').value;
+    return !this._movieProjectionTimeValidatorService.isValid(
+      date,
+      this.selectedDayMoviesProjectionsModel,
+      movieProjectionDuration,
+      selectedSeanceRoom.breakBeforeAndAfterSeance);
   }
 
   public convertToPolishDayName(day: number) {
@@ -105,7 +102,11 @@ export class MovieProjectionComponent implements OnInit {
   }
 
   public _getMovieProjectionsForSelectedDay(weekNumber: number, dayNumber: number): MovieProjectionApiModel[] {
-    return this._movieProjectionService.getMoviesProjections(this._getDate(weekNumber, dayNumber));
+    const request: MovieProjectionRequestModel = new MovieProjectionRequestModel();
+    request.seanceRoomId = 'sss';
+    request.date = this._getDate(weekNumber, dayNumber);
+
+    return this._movieProjectionService.getMoviesProjections(request);
   }
 
   public selectWeek(weekNumber: number) {

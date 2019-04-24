@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
 import {AdminServicesModule} from '../../../../../admin-services.module';
-import {MovieProjectionApiModel} from '../models/api-models/movie-projection-api.model';
+import {MovieProjectionApiModel} from '../models/api/movie-projection-api.model';
 import {ProjectionType} from '../../../../../../repertoire/enums/projection-type.enum';
+import {MovieProjectionRequestModel} from '../models/requests/movie-projection-request.model';
+import {SeanceRoomApiModel} from '../models/api/seance-room-api.model';
 
 @Injectable({
   providedIn: AdminServicesModule
@@ -11,7 +13,22 @@ export class MovieProjectionService {
   constructor() {
   }
 
-  public getMoviesProjections(date: Date): MovieProjectionApiModel[] {
+  public getSeanceRooms(): SeanceRoomApiModel[] {
+    return [
+      {
+        id: 'xxxq',
+        name: 'super sala',
+        breakBeforeAndAfterSeance: 15
+      },
+      {
+        id: 'wifvicvwibie',
+        name: 'fajny room',
+        breakBeforeAndAfterSeance: 10
+      }
+    ];
+  }
+
+  public getMoviesProjections(date: MovieProjectionRequestModel): MovieProjectionApiModel[] {
     return [
       {
         title: 'Jaś fasola',

@@ -1,4 +1,4 @@
-import {MovieProjectionApiModel} from './api-models/movie-projection-api.model';
+import {MovieProjectionApiModel} from './api/movie-projection-api.model';
 
 export class SelectedDayMoviesProjectionsModel {
   public weekNumber: number;

@@ -7,11 +7,6 @@ import {Interval} from 'luxon';
   providedIn: SharedServicesModule
 })
 export class LuxonService {
-  public DateTime: DateTime;
-  public Interval: Interval;
-
-  constructor() {
-    this.DateTime = DateTime;
-    this.Interval = Interval;
-  }
+  public DateTime = DateTime;
+  public Interval = Interval;
 }
