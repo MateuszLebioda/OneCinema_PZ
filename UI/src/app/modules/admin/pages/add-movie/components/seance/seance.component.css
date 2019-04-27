@@ -1,0 +1,161 @@
+.active-week-number {
+  background: #FF8D1B;
+}
+
+.week-number:hover {
+  opacity: 0.5;
+  background: #FF8D1B;
+}
+
+.btn span.glyphicon {
+  opacity: 0;
+}
+
+.btn.active span.glyphicon {
+  opacity: 1;
+}
+
+.center-div {
+  margin: 0 33%;
+}
+
+.orange-background {
+  background-color: #FF8D1B;
+}
+
+
+.checkbox-label {
+  padding-right: 15px;
+}
+
+.week-count {
+  width: 18% !important;
+}
+
+.selector {
+  margin-top: 15px;
+}
+
+.selector-label {
+  float: left;
+  padding: 5px;
+  width: 110px;
+}
+
+.sub-form-group-left {
+  display: block;
+  float: left;
+  width: 40%;
+}
+
+.sub-form-group-right {
+  display: block;
+  float: right;
+}
+
+.week-count-label {
+  float: left;
+  font-weight: normal;
+  padding: 10px;
+}
+
+.cinema-room {
+  margin: 0 auto;
+  width: 50%;
+  padding: 15px;
+  float: right;
+}
+
+.cinema-room-options {
+  border-color: #FF8D1B;
+  width: 75%;
+  border-radius: 0;
+  height: 41px;
+}
+
+.cinema-room-label {
+  float: left;
+  width: 25%;
+  padding: 10px;
+  text-align: right;
+  font-weight: normal;
+}
+
+.sub-form-group-right {
+  float: right;
+  width: 60%;
+  margin-top: 25px;
+}
+
+.table-header {
+  text-align: center;
+}
+
+.sub-form-line {
+  display: block;
+  height: 85px;
+}
+
+.form-week-count {
+  width: 50%;
+  float: left;
+  padding-top: 15px;
+  margin-bottom: 0;
+}
+
+.movie-projection-time {
+  float: left;
+  text-align: center;
+  margin: 0 10px;
+  width: 20% !important;
+  text-align: center;
+  padding: 0 !important;
+}
+
+.movie-projection-time p {
+  line-height: 20px;
+}
+
+.error-font {
+  text-align: center;
+  margin: 0;
+}
+
+
+.tab-whole-line {
+  margin: 50px;
+}
+
+.day-row {
+  font-weight: bold;
+}
+
+.day-row-header {
+  width: 100px;
+  padding: 3px 15px;
+  border-right: 1px solid #777;
+  text-align: center;
+}
+
+.selector-error {
+  margin-top: 0;
+}
+
+.selector-error span {
+  margin-top: 0;
+  padding-right: 40px;
+}
+
+.help-block {
+  float: left;
+  padding-left: 15px;
+}
+
+.add-procjection-button {
+  cursor: default;
+}
+
+.add-procjection-button-active {
+  cursor: pointer;
+  background-color: #FF8D1B;
+}

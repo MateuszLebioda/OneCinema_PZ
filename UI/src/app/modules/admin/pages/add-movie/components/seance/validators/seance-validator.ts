@@ -1,5 +1,5 @@
 import {AbstractControl, ValidatorFn} from '@angular/forms';
-import {SelectedDayMoviesProjectionsModel} from '../models/selected-day-movies-projections.model';
+import {SelectedDaySeancesModel} from '../models/selected-day-seances.model';
 import {DateTime} from 'luxon';
 import {LuxonService} from '../../../../../../../shared/helpers/external/luxon.service';
 import {Time} from '@angular/common';
@@ -8,7 +8,7 @@ export class SeanceValidator {
   private static _luxonService: LuxonService = new LuxonService();
 
   public static isValid(movieProjectionDay: Date,
-                        currentMoviesProjections: SelectedDayMoviesProjectionsModel,
+                        currentMoviesProjections: SelectedDaySeancesModel,
                         movieProjectionDuration: number,
                         breakBeforeAndAfterSeance: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
@@ -39,7 +39,7 @@ export class SeanceValidator {
 
   private static _isValid(startOfProjectionx: string,
                           movieProjectionDay: Date,
-                          currentMoviesProjections: SelectedDayMoviesProjectionsModel,
+                          currentMoviesProjections: SelectedDaySeancesModel,
                           movieProjectionDuration: number,
                           breakBeforeAndAfterSeance: number): boolean {
     const movieProjectionTime: Time = this.convertToTime(startOfProjectionx);
@@ -52,7 +52,7 @@ export class SeanceValidator {
     movieProjectionDay.setMinutes(movieProjectionTime.minutes);
 
     const startOfProjection: Date = movieProjectionDay;
-    const indexOfMovieProjectionBeforeGivenDate = currentMoviesProjections.moviesProjections.findIndex(x => x.start > startOfProjection);
+    const indexOfMovieProjectionBeforeGivenDate = currentMoviesProjections.seances.findIndex(x => x.start > startOfProjection);
     const endOfProjectionBasedOnGivenDate = this._luxonService.DateTime.fromISO(startOfProjection
       .toISOString())
       .plus({minutes: movieProjectionDuration + (breakBeforeAndAfterSeance * 2)});
@@ -66,8 +66,8 @@ export class SeanceValidator {
         currentMoviesProjections, endOfProjectionBasedOnGivenDate, movieProjectionDuration);
     }
 
-    const endOfMovieProjectionBeforeGivenDate = currentMoviesProjections.moviesProjections[indexOfMovieProjectionBeforeGivenDate - 1].end;
-    const startOfMovieProjectionAfterGivenDate = currentMoviesProjections.moviesProjections[indexOfMovieProjectionBeforeGivenDate].start;
+    const endOfMovieProjectionBeforeGivenDate = currentMoviesProjections.seances[indexOfMovieProjectionBeforeGivenDate - 1].end;
+    const startOfMovieProjectionAfterGivenDate = currentMoviesProjections.seances[indexOfMovieProjectionBeforeGivenDate].start;
 
     return endOfMovieProjectionBeforeGivenDate < startOfProjection &&
       startOfMovieProjectionAfterGivenDate > startOfProjection &&
@@ -93,7 +93,7 @@ export class SeanceValidator {
         .length('minutes') > movieProjectionDuration;
   }
 
-  private static _canMovieProjectionBeFirstProjectionOfGaveDay(currentMoviesProjections: SelectedDayMoviesProjectionsModel,
+  private static _canMovieProjectionBeFirstProjectionOfGaveDay(currentMoviesProjections: SelectedDaySeancesModel,
                                                                endOfProjectionBasedOnGivenDate: DateTime,
                                                                movieProjectionDuration: number): boolean {
     const daysStart = new Date(endOfProjectionBasedOnGivenDate.toISODate());
@@ -102,12 +102,12 @@ export class SeanceValidator {
 
     const x = daysStartAsDateTime < endOfProjectionBasedOnGivenDate;
     const y = this._luxonService.Interval
-      .fromDateTimes(daysStartAsDateTime, currentMoviesProjections.moviesProjections[0].start)
+      .fromDateTimes(daysStartAsDateTime, currentMoviesProjections.seances[0].start)
       .length('minutes');
 
     return daysStartAsDateTime < endOfProjectionBasedOnGivenDate &&
       this._luxonService.Interval
-        .fromDateTimes(daysStartAsDateTime, currentMoviesProjections.moviesProjections[0].start)
+        .fromDateTimes(daysStartAsDateTime, currentMoviesProjections.seances[0].start)
         .length('minutes') > movieProjectionDuration;
   }
 }
