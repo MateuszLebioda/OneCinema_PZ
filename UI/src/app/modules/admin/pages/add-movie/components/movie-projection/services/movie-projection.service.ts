@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AdminServicesModule} from '../../../../../admin-services.module';
-import {ControlContainer, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AddMovieWeekApiModel} from '../models/api/add-movie-week-api.model';
 import {SeanceRoomApiModel} from '../models/api/seance-room-api.model';
 import {SeanceValidator} from '../validators/seance-validator';
@@ -11,18 +10,17 @@ import {MovieProjectionApiModel} from '../models/api/movie-projection-api.model'
 import {MovieProjectionRequestModel} from '../models/requests/movie-projection-request.model';
 import {FormValidatorService} from '../../../../../../../shared/services/form-validator.service';
 import {LuxonService} from '../../../../../../../shared/helpers/external/luxon.service';
-import {Router} from '@angular/router';
+import {AddMovieApiModel} from '../models/api/add-movie-api.model';
+import {AdminServicesModule} from '../../../../../admin-services.module';
 
 @Injectable({
   providedIn: AdminServicesModule
 })
 export class MovieProjectionService {
   constructor(
-    private _controlContainer: ControlContainer,
     private _formValidatorService: FormValidatorService,
     private _movieProjectionService: MovieProjectionApiService,
-    private _luxonService: LuxonService,
-    private _router: Router) {
+    private _luxonService: LuxonService) {
   }
 
   public initComponent(bookingForm: FormGroup): MovieProjectionPublicProperties {
@@ -49,6 +47,10 @@ export class MovieProjectionService {
           selectedSeanceRoom.breakBeforeAndAfterSeance)]));
 
     return data;
+  }
+
+  public isInvalid(formControlName: string, bookingForm: FormGroup): boolean {
+    return this._formValidatorService.isInvalidAndTouched(bookingForm, formControlName);
   }
 
   public getSelectedDayMoviesProjectionsModel(weekNumber: number, dayNumber: number): SelectedDayMoviesProjectionsModel {
@@ -89,5 +91,45 @@ export class MovieProjectionService {
     const curretDate = new Date();
     const currentDayOfWeekNumber = curretDate.getDay() === 0 ? 7 : curretDate.getDay();
     return currentDayOfWeekNumber - 1;
+  }
+
+  public convertToPolishDayName(day: number) {
+    switch (day) {
+      case 0:
+        return 'Poniedziałek';
+      case 1:
+        return 'Wtorek';
+      case 2:
+        return 'Środa';
+      case 3:
+        return 'Czwartek';
+      case 4:
+        return 'Piątek';
+      case 5:
+        return 'Sobota';
+      case 6:
+        return 'Niedziela';
+    }
+  }
+
+  public setAddMovieApiModel(weeksCount: number, addMovieApiModel: AddMovieApiModel): void {
+    this._removeWeek(weeksCount, addMovieApiModel);
+    this._addWeek(weeksCount, addMovieApiModel);
+  }
+
+  private _removeWeek(weeksCount: number, addMovieApiModel: AddMovieApiModel): void {
+    if (addMovieApiModel.weeks.length > weeksCount) {
+      while (addMovieApiModel.weeks.length > weeksCount) {
+        addMovieApiModel.weeks.pop();
+      }
+    }
+  }
+
+  private _addWeek(weeksCount: number, addMovieApiModel: AddMovieApiModel): void {
+    if (addMovieApiModel.weeks.length < weeksCount) {
+      while (addMovieApiModel.weeks.length < weeksCount) {
+        addMovieApiModel.weeks.push(new AddMovieWeekApiModel());
+      }
+    }
   }
 }

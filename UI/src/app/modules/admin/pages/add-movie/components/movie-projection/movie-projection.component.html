@@ -4,7 +4,7 @@
     <div class="form-group cinema-room">
       <label class="cinema-room-label">Sala kinowa</label>
       <select formControlName="seanceRoom" class="form-control cinema-room-options">
-        <option *ngFor="let seanceRoom of seanceRooms" [ngValue]="seanceRoom">{{seanceRoom.name}}</option>
+        <option *ngFor="let seanceRoom of data.seanceRooms" [ngValue]="seanceRoom">{{seanceRoom.name}}</option>
       </select>
     </div>
 
@@ -27,9 +27,9 @@
         <div class="btn-group" role="group">
           <!--          <button type="button" class="btn btn-default week-number active-week-number">1</button>-->
           <button type="button" class="btn btn-default week-number"
-                  [class.active-week-number]="selectedWeek === weekIndex + 1"
+                  [class.active-week-number]="data.selectedWeek === weekIndex + 1"
                   (click)="selectWeek(weekIndex + 1)"
-                  *ngFor="let week of addMovieApiModel.weeks; let weekIndex = index">
+                  *ngFor="let week of data.addMovieApiModel.weeks; let weekIndex = index">
             {{weekIndex + 1}}
           </button>
         </div>
@@ -38,31 +38,31 @@
       <div class="btn-toolbar selector" role="toolbar">
         <span class="selector-label">Dzień</span>
         <div class="btn-group" role="group">
-          <button type="button" [class.active-week-number]="selectedDay === 1"
+          <button type="button" [class.active-week-number]="data.selectedDay === 1"
                   class="btn btn-default week-number"
                   (click)="selectDay(1)">1
           </button>
-          <button type="button" [class.active-week-number]="selectedDay === 2"
+          <button type="button" [class.active-week-number]="data.selectedDay === 2"
                   class="btn btn-default week-number"
                   (click)="selectDay(2)">2
           </button>
-          <button type="button" [class.active-week-number]="selectedDay === 3"
+          <button type="button" [class.active-week-number]="data.selectedDay === 3"
                   class="btn btn-default week-number"
                   (click)="selectDay(3)">3
           </button>
-          <button type="button" [class.active-week-number]="selectedDay === 4"
+          <button type="button" [class.active-week-number]="data.selectedDay === 4"
                   class="btn btn-default week-number"
                   (click)="selectDay(4)">4
           </button>
-          <button type="button" [class.active-week-number]="selectedDay === 5"
+          <button type="button" [class.active-week-number]="data.selectedDay === 5"
                   class="btn btn-default week-number"
                   (click)="selectDay(5)">5
           </button>
-          <button type="button" [class.active-week-number]="selectedDay === 6"
+          <button type="button" [class.active-week-number]="data.selectedDay === 6"
                   class="btn btn-default week-number"
                   (click)="selectDay(6)">6
           </button>
-          <button type="button" [class.active-week-number]="selectedDay === 7"
+          <button type="button" [class.active-week-number]="data.selectedDay === 7"
                   class="btn btn-default week-number"
                   (click)="selectDay(7)">7
           </button>
@@ -118,7 +118,7 @@
         </div>
       </div>
     </div>
-    <div class="tab-content tab-whole-line" *ngFor="let week of addMovieApiModel.weeks; let weekIndex = index">
+    <div class="tab-content tab-whole-line" *ngFor="let week of data.addMovieApiModel.weeks; let weekIndex = index">
       <div role="tabpanel" class="tab-pane fade in active">
         <div class="agile-news-table">
           <table>
