@@ -24,29 +24,30 @@ export class SeanceService {
   }
 
   public initComponent(bookingForm: FormGroup): SeanceComponentDataModel {
-    const data = new SeanceComponentDataModel();
+    const result = new SeanceComponentDataModel();
+    result.bookingForm = bookingForm;
+    result.bookingForm.get('weeksCount').setValue(1);
+    result.addMovieApiModel.weeks.push(new AddMovieWeekApiModel());
+    result.seanceRooms = this._movieProjectionService.getSeanceRooms();
+    result.bookingForm.get('seanceRoom').setValue(result.seanceRooms[0]);
+    result.selectedDaySeancesModel = this.getSelectedDayMoviesProjectionsModel(result.selectedWeekNumber, result.selectedDayNumber - 1);
+    result.selectedDate = this.getDate(result.selectedWeekNumber, result.selectedDayNumber);
+    this.setSeanceTimeValidator(result);
 
-    data.bookingForm = bookingForm;
-    data.bookingForm.get('weeksCount').setValue(1);
-    data.addMovieApiModel.weeks.push(new AddMovieWeekApiModel());
-    data.seanceRooms = this._movieProjectionService.getSeanceRooms();
-    data.bookingForm.get('seanceRoom').setValue(data.seanceRooms[0]);
+    return result;
+  }
 
+  public setSeanceTimeValidator(data: SeanceComponentDataModel): void {
     const selectedSeanceRoom: SeanceRoomApiModel = data.bookingForm.get('seanceRoom').value;
-    const movieProjectionDuration: number = data.bookingForm.get('weeksCount').value;
-
-    data.selectedDayMoviesProjectionsModel = this.getSelectedDayMoviesProjectionsModel(data.selectedWeek, data.selectedDay - 1);
-
+    const movieProjectionDuration: number = data.movieDuration ? data.movieDuration : null;
     data.bookingForm.setControl('movieProjectionTime', new FormControl(
       null,
       [Validators.required,
         SeanceValidator.isValid(
-          new Date('April 3, 2019 10:05:00'),
-          data.selectedDayMoviesProjectionsModel,
+          data.selectedDate,
+          data.selectedDaySeancesModel,
           movieProjectionDuration,
           selectedSeanceRoom.breakBeforeAndAfterSeance)]));
-
-    return data;
   }
 
   public isInvalid(formControlName: string, bookingForm: FormGroup): boolean {
@@ -57,40 +58,9 @@ export class SeanceService {
     const result = new SelectedDaySeancesModel();
     result.weekNumber = weekNumber;
     result.dayNumber = dayNumber;
-    result.seances = this.getMovieProjectionsForSelectedDay(weekNumber, dayNumber);
+    result.seances = this._getMovieProjectionsForSelectedDay(weekNumber, dayNumber);
 
     return result;
-  }
-
-  public getMovieProjectionsForSelectedDay(weekNumber: number, dayNumber: number): SeanceApiModel[] {
-    const request: SeanceRequestModel = new SeanceRequestModel();
-    request.seanceRoomId = 'sss';
-    request.date = this.getDate(weekNumber, dayNumber);
-
-    return this._movieProjectionService.getMoviesProjections(request);
-  }
-
-  public getDate(weeks: number, days: number): Date {
-    const firstWeekDay = this.getFisrtWeekDay();
-    const date: string = this._luxonService.DateTime.local(firstWeekDay.year, firstWeekDay.month, firstWeekDay.day).plus({
-      weeks: weeks,
-      days: days
-    }).toISODate();
-
-    return new Date(date);
-  }
-
-  public getFisrtWeekDay(): any {
-    return this._luxonService.DateTime.local().minus(
-      {
-        days: this.getDaysToMinus()
-      });
-  }
-
-  public getDaysToMinus(): number {
-    const curretDate = new Date();
-    const currentDayOfWeekNumber = curretDate.getDay() === 0 ? 7 : curretDate.getDay();
-    return currentDayOfWeekNumber - 1;
   }
 
   public convertToPolishDayName(day: number) {
@@ -117,6 +87,24 @@ export class SeanceService {
     this._addWeek(weeksCount, addMovieApiModel);
   }
 
+  public getDate(weeks: number, days: number): Date {
+    const firstWeekDay = this._getFisrtWeekDay();
+    const date: string = this._luxonService.DateTime.local(firstWeekDay.year, firstWeekDay.month, firstWeekDay.day).plus({
+      weeks: weeks,
+      days: days - 1
+    }).toISODate();
+
+    return new Date(date);
+  }
+
+  private _getMovieProjectionsForSelectedDay(weekNumber: number, dayNumber: number): SeanceApiModel[] {
+    const request: SeanceRequestModel = new SeanceRequestModel();
+    request.seanceRoomId = 'sss';
+    request.date = this.getDate(weekNumber, dayNumber);
+
+    return this._movieProjectionService.getMoviesProjections(request);
+  }
+
   private _removeWeek(weeksCount: number, addMovieApiModel: AddMovieApiModel): void {
     if (addMovieApiModel.weeks.length > weeksCount) {
       while (addMovieApiModel.weeks.length > weeksCount) {
@@ -131,5 +119,18 @@ export class SeanceService {
         addMovieApiModel.weeks.push(new AddMovieWeekApiModel());
       }
     }
+  }
+
+  private _getFisrtWeekDay(): any {
+    return this._luxonService.DateTime.local().minus(
+      {
+        days: this._getDaysToMinus()
+      });
+  }
+
+  private _getDaysToMinus(): number {
+    const curretDate = new Date();
+    const currentDayOfWeekNumber = curretDate.getDay() === 0 ? 7 : curretDate.getDay();
+    return currentDayOfWeekNumber - 1;
   }
 }

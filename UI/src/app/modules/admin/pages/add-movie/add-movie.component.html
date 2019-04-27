@@ -26,9 +26,11 @@
                     </div>
 
                     <div class="form-group">
-                      <input type="number" formControlName="duration" placeholder="Czas trwania filmu">
+                      <input type="number" formControlName="duration" placeholder="Czas trwania filmu"
+                             (change)="emitNewMovieDuration()">
                       <span *ngIf="isInvalid('duration')" class="error-font help-block">
                       <div *ngIf="formControls.duration.errors.required">To pole jest wymagane</div>
+                      <div *ngIf="formControls.duration.errors.min">Czas filmu musi być dodatni</div>
                     </span>
                     </div>
                   </div>
@@ -59,7 +61,7 @@
                     </div>
                   </div>
                 </div>
-                <app-seance [formGroup]="bookingForm.controls.movieProjection">
+                <app-seance [movieDuration]="movieDuration" [formGroup]="bookingForm.controls.movieProjection">
                 </app-seance>
                 <!--                <app-seance [formGroup]="bookingForm"></app-seance>-->
 

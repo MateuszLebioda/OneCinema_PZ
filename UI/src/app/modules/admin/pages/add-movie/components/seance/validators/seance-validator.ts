@@ -12,6 +12,9 @@ export class SeanceValidator {
                         movieProjectionDuration: number,
                         breakBeforeAndAfterSeance: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
+      if (!movieProjectionDuration || movieProjectionDuration <= 0) {
+        return {'emptySeanceDuration': true};
+      }
       if (control.value && !this._isValid(
         control.value, movieProjectionDay, currentMoviesProjections, movieProjectionDuration, breakBeforeAndAfterSeance)) {
         return {'wrongTime': true};

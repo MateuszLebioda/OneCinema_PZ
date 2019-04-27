@@ -17,7 +17,7 @@ export class AddMovieService {
     const form = new FormGroup({
       'title': new FormControl(null, [Validators.required, Validators.maxLength(100)]),
       'gender': new FormControl(null, [Validators.required, Validators.maxLength(100)]),
-      'duration': new FormControl(null, [Validators.required]),
+      'duration': new FormControl(null, [Validators.required, Validators.min(1)]),
       'rate': new FormControl(null, [Validators.required, Validators.min(1), Validators.max(5)]),
       'posterUrl': new FormControl(null, [Validators.required, this.formValidatorService.isUrl.bind(this)]),
       'trailerUrl': new FormControl(null, [Validators.required, this.formValidatorService.isUrl.bind(this)])

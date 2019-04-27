@@ -1,5 +1,4 @@
 <ng-container [formGroup]="_controlContainer.control">
-
   <div class="sub-form-line">
     <div class="form-group cinema-room">
       <label class="cinema-room-label">Sala kinowa</label>
@@ -27,7 +26,7 @@
         <div class="btn-group" role="group">
           <!--          <button type="button" class="btn btn-default week-number active-week-number">1</button>-->
           <button type="button" class="btn btn-default week-number"
-                  [class.active-week-number]="data.selectedWeek === weekIndex + 1"
+                  [class.active-week-number]="data.selectedWeekNumber === weekIndex + 1"
                   (click)="selectWeek(weekIndex + 1)"
                   *ngFor="let week of data.addMovieApiModel.weeks; let weekIndex = index">
             {{weekIndex + 1}}
@@ -38,33 +37,10 @@
       <div class="btn-toolbar selector" role="toolbar">
         <span class="selector-label">Dzień</span>
         <div class="btn-group" role="group">
-          <button type="button" [class.active-week-number]="data.selectedDay === 1"
+          <button type="button" *ngFor="let day of data.weekDays"
+                  [class.active-week-number]="data.selectedDayNumber === day"
                   class="btn btn-default week-number"
-                  (click)="selectDay(1)">1
-          </button>
-          <button type="button" [class.active-week-number]="data.selectedDay === 2"
-                  class="btn btn-default week-number"
-                  (click)="selectDay(2)">2
-          </button>
-          <button type="button" [class.active-week-number]="data.selectedDay === 3"
-                  class="btn btn-default week-number"
-                  (click)="selectDay(3)">3
-          </button>
-          <button type="button" [class.active-week-number]="data.selectedDay === 4"
-                  class="btn btn-default week-number"
-                  (click)="selectDay(4)">4
-          </button>
-          <button type="button" [class.active-week-number]="data.selectedDay === 5"
-                  class="btn btn-default week-number"
-                  (click)="selectDay(5)">5
-          </button>
-          <button type="button" [class.active-week-number]="data.selectedDay === 6"
-                  class="btn btn-default week-number"
-                  (click)="selectDay(6)">6
-          </button>
-          <button type="button" [class.active-week-number]="data.selectedDay === 7"
-                  class="btn btn-default week-number"
-                  (click)="selectDay(7)">7
+                  (click)="selectDay(day)">{{day}}
           </button>
         </div>
       </div>
@@ -82,7 +58,8 @@
         <input type="time" class="week-count movie-projection-time" formControlName="movieProjectionTime">
         <span *ngIf="isInvalid('movieProjectionTime')" class="error-font help-block">
           <div *ngIf="formControls.movieProjectionTime.errors.required">To pole jest wymagane</div>
-          <div *ngIf="formControls.movieProjectionTime.errors.wrongTime">XDdddd</div>
+          <div *ngIf="formControls.movieProjectionTime.errors.emptySeanceDuration">Uzupełnij pole z czasem filmu</div>
+          <div *ngIf="formControls.movieProjectionTime.errors.wrongTime">Ta godzina jest nie poprawna</div>
         </span>
       </div>
 
@@ -133,7 +110,7 @@
             <tr *ngFor="let day of week.days; let dayIndex = index">
               <td class="day-row-header">
                 <p>
-                  {{convertToPolishDayName(dayIndex)}}
+                  {{getPolishDayName(dayIndex)}}
                 </p>
               </td>
               <td>
