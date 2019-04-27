@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {MovieProjection} from '../../../repertoire/models/movie-projection.model';
 import {RepertoireApiService} from '../../../repertoire/services/repertoire-api.service';
-import {SeanceService} from '../../../repertoire/services/seance.service';
-import {RepertoireDaysService} from '../../../repertoire/services/repertoire-days.service';
 import {Router} from '@angular/router';
 import {SeanceApiModel} from '../../../repertoire/models/api-models/seance-api.model';
 import {SeanceStatus} from '../../../repertoire/enums/seance-statu.enum';
+import {RepertoireService} from '../../../repertoire/services/repertoire.service';
 
 @Component({
   selector: 'app-todays-repertoire',
@@ -18,18 +17,17 @@ export class TodaysRepertoireComponent implements OnInit {
 
   constructor(
     private _repertoireListService: RepertoireApiService,
-    private _seanceService: SeanceService,
-    private _repertoireDaysService: RepertoireDaysService,
+    private _repertoireService: RepertoireService,
     private _router: Router) {
   }
 
   public ngOnInit(): void {
     this.repertoire = this._repertoireListService.getRepertoire(1);
-    this.repertoireDays = this._repertoireDaysService.getRepertoireDaysSinceNow();
+    this.repertoireDays = this._repertoireService.getRepertoireDaysSinceNow();
   }
 
   public getSeanceCssClass(seance: SeanceApiModel): string {
-    switch (this._seanceService.getSeanceStatus(seance)) {
+    switch (this._repertoireService.getSeanceStatus(seance)) {
       case SeanceStatus.available:
         return 'available-seance';
       case SeanceStatus.past:
@@ -40,7 +38,7 @@ export class TodaysRepertoireComponent implements OnInit {
   }
 
   public bookSeance(seance: SeanceApiModel): void {
-    if (this._seanceService.getSeanceStatus(seance) === SeanceStatus.available) {
+    if (this._repertoireService.getSeanceStatus(seance) === SeanceStatus.available) {
       console.log('rezerwacaj seansu o id:', seance.id);
       this._router.navigate(['/rezerwacja', seance.id]);
     }

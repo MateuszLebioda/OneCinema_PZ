@@ -5,7 +5,7 @@
         <ul id="myTab" class="nav nav-tabs" role="tablist">
           <li
             role="presentation"
-            *ngFor="let letter of bookmarkLetters; let dayNumber = index"
+            *ngFor="let letter of data.bookmarkLetters; let dayNumber = index"
             [class.active]="letter === 'a'">
             <a
               (click)="repertoireList(letter, dayNumber)"
@@ -13,13 +13,13 @@
               role="tab"
               id="{{letter}}-tab"
               data-toggle="tab">
-              {{repertoireDays[dayNumber]}}
+              {{data.repertoireDays[dayNumber]}}
             </a>
           </li>
         </ul>
       </div>
       <div id="myTabContent" class="tab-content">
-        <div role="tabpanel" class="tab-pane fade in active" id="{{bookmarkLetter}}">
+        <div role="tabpanel" class="tab-pane fade in active" id="{{data.repertoireList.bookmarkLetter}}">
           <div class="agile-news-table">
             <table id="table-breakpoint">
               <thead>
@@ -31,7 +31,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let movieProjection of repertoire ">
+              <tr *ngFor="let movieProjection of data.repertoireList.repertoire ">
                 <td class="w3-list-img image-column-size">
                   <a (click)="navigateToMovie(movieProjection.movieId)" class="cursor-pointer">
                     <img class="poster-size" src="{{movieProjection.moviePosterUrl}}"
