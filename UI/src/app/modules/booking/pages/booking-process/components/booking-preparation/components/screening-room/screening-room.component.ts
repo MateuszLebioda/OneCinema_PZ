@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Seat} from '../../models/seat';
 import {SeatStatus} from '../../enums/seat-status';
-import {ScreeningRoomService} from './services/screening-room.service';
+import {ScreeningRoomApiService} from './services/screening-room-api.service';
 import {MapperService} from '../../../../../../../../shared/helpers/external/mapper/mapper.service';
 import {ScreeningRoom} from './models/screening-room';
-import {SeanceApiModel} from '../../api-models/seance-api.model';
+import {SeanceApiModel} from '../../models/api-models/seance-api.model';
 
 @Component({
   selector: 'app-screening-room',
@@ -21,7 +21,7 @@ export class ScreeningRoomComponent implements OnInit {
   private readonly _maxBookedSeats: number = 4;
   private _alreadyBookedSeats: string[] = [];
 
-  constructor(private _screeningRoomService: ScreeningRoomService, private _mapper: MapperService) {
+  constructor(private _screeningRoomService: ScreeningRoomApiService, private _mapper: MapperService) {
   }
 
   public ngOnInit(): void {

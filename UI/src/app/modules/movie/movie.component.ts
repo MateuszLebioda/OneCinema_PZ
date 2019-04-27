@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {MovieService} from './services/movie.service';
+import {MovieApiService} from './services/movie-api.service';
 import {Movie} from './models/movie.model';
 import {ActivatedRoute} from '@angular/router';
 
@@ -15,7 +15,7 @@ export class MovieComponent implements OnInit, AfterViewInit {
   public movieId: string;
 
   constructor(
-    private _movieService: MovieService,
+    private _movieService: MovieApiService,
     private route: ActivatedRoute) {
   }
 

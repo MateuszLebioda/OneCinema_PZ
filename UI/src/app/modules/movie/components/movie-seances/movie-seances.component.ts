@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {RepertoireService} from '../../../repertoire/services/api-services/repertoire.service';
+import {RepertoireApiService} from '../../../repertoire/services/repertoire-api.service';
 import {SeanceService} from '../../../repertoire/services/seance.service';
 import {RepertoireDaysService} from '../../../repertoire/services/repertoire-days.service';
 import {Router} from '@angular/router';
-import {SeanceApiModel} from '../../../repertoire/api-models/seance-api.model';
+import {SeanceApiModel} from '../../../repertoire/models/api-models/seance-api.model';
 import {SeanceStatus} from '../../../repertoire/enums/seance-statu.enum';
 import {SeancesPerDay} from '../../models/seances-per-day.model';
 import {SeancesPerTimesOfDay} from '../../../repertoire/models/seances-per-times-of-day';
@@ -40,7 +40,7 @@ export class MovieSeancesComponent implements OnInit {
   private _deyIndex = 0;
 
   constructor(
-    private _repertoireListService: RepertoireService,
+    private _repertoireListService: RepertoireApiService,
     private _seanceService: SeanceService,
     private _repertoireDaysService: RepertoireDaysService,
     private _router: Router) {

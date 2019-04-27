@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Seat} from '../../../booking/pages/booking-process/components/booking-preparation/models/seat';
-import {SeanceApiModel} from '../../../booking/pages/booking-process/components/booking-preparation/api-models/seance-api.model';
+import {SeanceApiModel} from '../../../booking/pages/booking-process/components/booking-preparation/models/api-models/seance-api.model';
 import {FormGroup} from '@angular/forms';
 import {FormValidatorService} from '../../../../shared/services/form-validator.service';
 import {Router} from '@angular/router';
-import {BookingApiModel} from '../../../booking/pages/booking-process/components/booking-finalization/api-models/booking-api.model';
+import {BookingApiModel} from '../../../booking/pages/booking-process/components/booking-finalization/models/api-models/booking-api.model';
 import {AddMovieApiModel} from './api-models/add-movie-api.model';
 import {AddMovieService} from './services/add-movie.service';
 

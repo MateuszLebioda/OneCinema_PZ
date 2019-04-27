@@ -4,7 +4,7 @@ import {BannerMovie} from '../models/banner-movie';
 @Injectable({
   providedIn: 'root'
 })
-export class BannerService {
+export class BannerApiService {
 
   constructor() {
   }

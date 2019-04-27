@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {PriceListApiModel} from '../../../../../../../shared/components/navbar/api-models/price-list-api.model';
-import {BookingApiModel} from '../api-models/booking-api.model';
+import {PriceListApiModel} from '../../../../../../../shared/components/navbar/models/api-models/price-list-api.model';
+import {BookingApiModel} from '../models/api-models/booking-api.model';
 import {BookingServicesModule} from '../../../../../booking-services.module';
 
 @Injectable({
   providedIn: BookingServicesModule
 })
-export class BookingFinalizationService {
+export class BookingFinalizationApiService {
 
   constructor() {
   }

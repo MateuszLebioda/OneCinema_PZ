@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {MovieProjection} from '../../../repertoire/models/movie-projection.model';
-import {RepertoireService} from '../../../repertoire/services/api-services/repertoire.service';
+import {RepertoireApiService} from '../../../repertoire/services/repertoire-api.service';
 import {SeanceService} from '../../../repertoire/services/seance.service';
 import {RepertoireDaysService} from '../../../repertoire/services/repertoire-days.service';
 import {Router} from '@angular/router';
-import {SeanceApiModel} from '../../../repertoire/api-models/seance-api.model';
+import {SeanceApiModel} from '../../../repertoire/models/api-models/seance-api.model';
 import {SeanceStatus} from '../../../repertoire/enums/seance-statu.enum';
 
 @Component({
@@ -17,7 +17,7 @@ export class TodaysRepertoireComponent implements OnInit {
   public repertoireDays: string[];
 
   constructor(
-    private _repertoireListService: RepertoireService,
+    private _repertoireListService: RepertoireApiService,
     private _seanceService: SeanceService,
     private _repertoireDaysService: RepertoireDaysService,
     private _router: Router) {

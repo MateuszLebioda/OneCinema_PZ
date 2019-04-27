@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {SeanceApiModel} from '../api-models/seance-api.model';
+import {SeanceApiModel} from '../models/api-models/seance-api.model';
 import {BookingServicesModule} from '../../../../../booking-services.module';
 
 @Injectable({
   providedIn: BookingServicesModule
 })
-export class BookingPreparationService {
+export class BookingPreparationApiService {
 
   constructor() {
   }

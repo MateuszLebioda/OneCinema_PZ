@@ -5,7 +5,7 @@ import {HomeServicesModule} from '../../../home-services.module';
 @Injectable({
   providedIn: HomeServicesModule
 })
-export class SlideBannerService {
+export class SlideBannerApiService {
 
   constructor() {
   }

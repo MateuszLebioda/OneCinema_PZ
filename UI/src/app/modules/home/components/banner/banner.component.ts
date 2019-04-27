@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {BannerService} from './services/banner.service';
+import {BannerApiService} from './services/banner-api.service';
 import {BannerMovie} from './models/banner-movie';
 import jquerySlidey from '../../../../../assets/js/jquery.slidey.js';
 import jqueryDotdotdot from '../../../../../assets/js/jquery.dotdotdot.min.js';
@@ -14,7 +14,7 @@ declare function showBanner(): void;
 export class BannerComponent implements OnInit, AfterViewInit {
   public movies: BannerMovie[];
 
-  constructor(private _bannerService: BannerService) {
+  constructor(private _bannerService: BannerApiService) {
   }
 
   public ngOnInit(): void {

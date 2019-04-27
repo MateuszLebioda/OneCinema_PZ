@@ -5,7 +5,7 @@ import {AdminServicesModule} from '../../../admin-services.module';
 @Injectable({
   providedIn: AdminServicesModule
 })
-export class AdminPanelService {
+export class AdminPanelApiService {
 
   constructor() {
   }

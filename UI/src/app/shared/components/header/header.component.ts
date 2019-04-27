@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CinemaService} from '../../../modules/cinema/services/cinema.service';
+import {CinemaApiService} from '../../../modules/cinema/services/cinema-api.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,7 @@ import {CinemaService} from '../../../modules/cinema/services/cinema.service';
 export class HeaderComponent implements OnInit {
   public cinemPhoneNumber: string;
 
-  constructor(private _cinemaService: CinemaService) {
+  constructor(private _cinemaService: CinemaApiService) {
   }
 
   public ngOnInit(): void {

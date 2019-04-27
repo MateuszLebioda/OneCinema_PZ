@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AdminPanelService} from './services/admin-panel.service';
+import {AdminPanelApiService} from './services/admin-panel-api.service';
 import {MovieApiModel} from './api-models/movie-api.model';
 
 @Component({
@@ -10,7 +10,7 @@ import {MovieApiModel} from './api-models/movie-api.model';
 export class AdminPanelComponent implements OnInit {
   public movies: MovieApiModel[] = [];
 
-  constructor(private _adminPanelService: AdminPanelService) {
+  constructor(private _adminPanelService: AdminPanelApiService) {
   }
 
   public ngOnInit(): void {

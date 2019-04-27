@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {SlideBannerService} from './services/slide-banner.service';
+import {SlideBannerApiService} from './services/slide-banner-api.service';
 import {SlideBannerMovie} from './models/banner-movie';
 import {Router} from '@angular/router';
 
@@ -16,7 +16,7 @@ export class SlideBannerComponent implements OnInit, AfterViewInit {
   public movies: SlideBannerMovie[];
 
   constructor(
-    private _slideBannerService: SlideBannerService,
+    private _slideBannerService: SlideBannerApiService,
     private _router: Router) {
   }
 

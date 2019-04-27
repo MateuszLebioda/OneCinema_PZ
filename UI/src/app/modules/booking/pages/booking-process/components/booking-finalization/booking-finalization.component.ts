@@ -1,12 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Seat} from '../booking-preparation/models/seat';
-import {SeanceApiModel} from '../booking-preparation/api-models/seance-api.model';
+import {SeanceApiModel} from '../booking-preparation/models/api-models/seance-api.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormValidatorService} from '../../../../../../shared/services/form-validator.service';
 import {GeneralFormControlName} from '../../../../../../shared/enums/general-form-control-name.enum';
-import {BookingFinalizationService} from './services/booking-finalization.service';
-import {PriceListApiModel} from '../../../../../../shared/components/navbar/api-models/price-list-api.model';
-import {BookingApiModel} from './api-models/booking-api.model';
+import {BookingFinalizationApiService} from './services/booking-finalization-api.service';
+import {PriceListApiModel} from '../../../../../../shared/components/navbar/models/api-models/price-list-api.model';
+import {BookingApiModel} from './models/api-models/booking-api.model';
 import {Router} from '@angular/router';
 
 @Component({
@@ -46,7 +46,7 @@ export class BookingFinalizationComponent implements OnInit {
 
   constructor(
     public formValidatorService: FormValidatorService,
-    private _bookingFinalizationService: BookingFinalizationService,
+    private _bookingFinalizationService: BookingFinalizationApiService,
     private _router: Router) {
   }
 

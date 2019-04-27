@@ -8,7 +8,7 @@ import {BookingServicesModule} from '../../../../../../../booking-services.modul
 @Injectable({
   providedIn: BookingServicesModule
 })
-export class ScreeningRoomService {
+export class ScreeningRoomApiService {
 
   constructor() {
   }

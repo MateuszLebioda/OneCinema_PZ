@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {NavbarService} from './services/navbar.service';
-import {PriceListApiModel} from './api-models/price-list-api.model';
+import {NavbarApiService} from './services/navbar-api.service';
+import {PriceListApiModel} from './models/api-models/price-list-api.model';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +10,7 @@ import {PriceListApiModel} from './api-models/price-list-api.model';
 export class NavbarComponent implements OnInit {
   public priceList: PriceListApiModel;
 
-  constructor(private _navbarService: NavbarService) {
+  constructor(private _navbarService: NavbarApiService) {
   }
 
   public ngOnInit(): void {

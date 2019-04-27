@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {PriceListApiModel} from '../api-models/price-list-api.model';
+import {PriceListApiModel} from '../models/api-models/price-list-api.model';
 import {SharedServicesModule} from '../../../shared-services.module';
 
 @Injectable({
   providedIn: SharedServicesModule
 })
-export class NavbarService {
+export class NavbarApiService {
 
   constructor() {
   }

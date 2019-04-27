@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {SeanceApiModel} from './api-models/seance-api.model';
-import {BookingPreparationService} from './services/booking-preparation.service';
+import {SeanceApiModel} from './models/api-models/seance-api.model';
+import {BookingPreparationApiService} from './services/booking-preparation-api.service';
 import {ActivatedRoute} from '@angular/router';
 import {Seat} from './models/seat';
 
@@ -16,7 +16,7 @@ export class BookingPreparationComponent implements OnInit {
 
   public seance: SeanceApiModel = new SeanceApiModel();
 
-  constructor(private _bookingService: BookingPreparationService, private _route: ActivatedRoute) {
+  constructor(private _bookingService: BookingPreparationApiService, private _route: ActivatedRoute) {
   }
 
   public ngOnInit(): void {

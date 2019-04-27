@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
-import {MovieProjectionApiModel} from '../../api-models/movie-projection-api.model';
+import {MovieProjectionApiModel} from '../models/api-models/movie-projection-api.model';
 import {HttpClient} from '@angular/common/http';
-import {HttpBaseService} from '../../../../shared/services/http-base.service';
-import {MovieProjection} from '../../models/movie-projection.model';
-import {MapperService} from '../../../../shared/helpers/external/mapper/mapper.service';
-import {RepertoireServicesModule} from '../../repertoire-services.module';
+import {HttpBaseService} from '../../../shared/services/http-base.service';
+import {MovieProjection} from '../models/movie-projection.model';
+import {MapperService} from '../../../shared/helpers/external/mapper/mapper.service';
+import {RepertoireServicesModule} from '../repertoire-services.module';
 
 @Injectable({
   providedIn: RepertoireServicesModule
 })
-export class RepertoireService extends HttpBaseService {
+export class RepertoireApiService extends HttpBaseService {
 
   constructor(private http: HttpClient, private _mapper: MapperService) {
     super(http);

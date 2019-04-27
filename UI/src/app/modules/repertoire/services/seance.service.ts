@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {SeanceStatus} from '../enums/seance-statu.enum';
-import {SeanceApiModel} from '../api-models/seance-api.model';
+import {SeanceApiModel} from '../models/api-models/seance-api.model';
 import {RepertoireServicesModule} from '../repertoire-services.module';
 
 @Injectable({
