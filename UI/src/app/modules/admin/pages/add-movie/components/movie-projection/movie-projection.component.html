@@ -82,6 +82,7 @@
         <input type="time" class="week-count movie-projection-time" formControlName="movieProjectionTime">
         <span *ngIf="isInvalid('movieProjectionTime')" class="error-font help-block">
           <div *ngIf="formControls.movieProjectionTime.errors.required">To pole jest wymagane</div>
+          <div *ngIf="formControls.movieProjectionTime.errors.wrongTime">XDdddd</div>
         </span>
       </div>
 

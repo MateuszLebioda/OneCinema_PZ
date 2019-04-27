@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {ControlContainer, FormGroup} from '@angular/forms';
+import {ControlContainer, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormValidatorService} from '../../../../../../shared/services/form-validator.service';
 import {Router} from '@angular/router';
-import {MovieProjectionService} from './services/movie-projection.service';
+import {MovieProjectionApiService} from './services/movie-projection-api.service';
 import {AddMovieApiModel} from './models/api/add-movie-api.model';
 import {AddMovieWeekApiModel} from './models/api/add-movie-week-api.model';
 import {MovieProjectionApiModel} from './models/api/movie-projection-api.model';
 import {SelectedDayMoviesProjectionsModel} from './models/selected-day-movies-projections.model';
 import {LuxonService} from '../../../../../../shared/helpers/external/luxon.service';
-import {MovieProjectionTimeValidatorService} from './services/movie-projection-time-validator.service';
 import {MovieProjectionRequestModel} from './models/requests/movie-projection-request.model';
 import {SeanceRoomApiModel} from './models/api/seance-room-api.model';
+import {SeanceValidator} from './validators/seance-validator';
 
 @Component({
   selector: 'app-movie-projection',
@@ -52,9 +52,8 @@ export class MovieProjectionComponent implements OnInit {
   constructor(
     private _controlContainer: ControlContainer,
     private _formValidatorService: FormValidatorService,
-    private _movieProjectionService: MovieProjectionService,
+    private _movieProjectionService: MovieProjectionApiService,
     private _luxonService: LuxonService,
-    private _movieProjectionTimeValidatorService: MovieProjectionTimeValidatorService,
     private _router: Router) {
   }
 
@@ -64,22 +63,24 @@ export class MovieProjectionComponent implements OnInit {
     this.addMovieApiModel.weeks.push(new AddMovieWeekApiModel());
     this.seanceRooms = this._movieProjectionService.getSeanceRooms();
     this.bookingForm.get('seanceRoom').setValue(this.seanceRooms[0]);
+
+    const selectedSeanceRoom: SeanceRoomApiModel = this.bookingForm.get('seanceRoom').value;
+    const movieProjectionDuration: number = this.bookingForm.get('weeksCount').value;
+
     this.setSelectedDayMoviesProjectionsModel(this.selectedWeek, this.selectedDay - 1);
-    console.log(this.isInvalidProjectionTime(new Date('April 3, 2019 10:05:00')));
+
+    this.bookingForm.setControl('movieProjectionTime', new FormControl(
+      null,
+      [Validators.required,
+        SeanceValidator.isValid(
+          new Date('April 3, 2019 10:05:00'),
+          this.selectedDayMoviesProjectionsModel,
+          movieProjectionDuration,
+          selectedSeanceRoom.breakBeforeAndAfterSeance)]));
   }
 
   public isInvalid(formControlName: string): boolean {
     return this._formValidatorService.isInvalidAndTouched(this.bookingForm, formControlName);
-  }
-
-  public isInvalidProjectionTime(date: Date): boolean {
-    const selectedSeanceRoom: SeanceRoomApiModel = this.bookingForm.get('seanceRoom').value;
-    const movieProjectionDuration: number = this.bookingForm.get('weeksCount').value;
-    return !this._movieProjectionTimeValidatorService.isValid(
-      date,
-      this.selectedDayMoviesProjectionsModel,
-      movieProjectionDuration,
-      selectedSeanceRoom.breakBeforeAndAfterSeance);
   }
 
   public convertToPolishDayName(day: number) {

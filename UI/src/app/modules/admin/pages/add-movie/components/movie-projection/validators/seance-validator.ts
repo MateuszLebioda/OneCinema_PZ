@@ -1,21 +1,57 @@
-import {Injectable} from '@angular/core';
-import {AdminServicesModule} from '../../../../../admin-services.module';
-import {LuxonService} from '../../../../../../../shared/helpers/external/luxon.service';
+import {AbstractControl, ValidatorFn} from '@angular/forms';
 import {SelectedDayMoviesProjectionsModel} from '../models/selected-day-movies-projections.model';
 import {DateTime} from 'luxon';
+import {LuxonService} from '../../../../../../../shared/helpers/external/luxon.service';
+import {Time} from '@angular/common';
 
-@Injectable({
-  providedIn: AdminServicesModule
-})
-export class MovieProjectionTimeValidatorService {
+export class SeanceValidator {
+  private static _luxonService: LuxonService = new LuxonService();
 
-  constructor(private _luxonService: LuxonService) {
+  public static isValid(movieProjectionDay: Date,
+                        currentMoviesProjections: SelectedDayMoviesProjectionsModel,
+                        movieProjectionDuration: number,
+                        breakBeforeAndAfterSeance: number): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      if (control.value && !this._isValid(
+        control.value, movieProjectionDay, currentMoviesProjections, movieProjectionDuration, breakBeforeAndAfterSeance)) {
+        return {'wrongTime': true};
+      }
+
+      return null;
+    };
   }
 
-  public isValid(startOfProjection: Date,
-                 currentMoviesProjections: SelectedDayMoviesProjectionsModel,
-                 movieProjectionDuration: number,
-                 breakBeforeAndAfterSeance: number): boolean {
+  private static convertToTime(time: string): Time {
+    if (!time) {
+      return null;
+    }
+    const x = time.split(':');
+
+    if (x.length !== 2) {
+      return null;
+    }
+
+    return {
+      hours: Number(x[0].trim()),
+      minutes: Number(x[1].trim())
+    };
+  }
+
+  private static _isValid(startOfProjectionx: string,
+                          movieProjectionDay: Date,
+                          currentMoviesProjections: SelectedDayMoviesProjectionsModel,
+                          movieProjectionDuration: number,
+                          breakBeforeAndAfterSeance: number): boolean {
+    const movieProjectionTime: Time = this.convertToTime(startOfProjectionx);
+
+    if (!movieProjectionTime) {
+      return false;
+    }
+
+    movieProjectionDay.setHours(movieProjectionTime.hours);
+    movieProjectionDay.setMinutes(movieProjectionTime.minutes);
+
+    const startOfProjection: Date = movieProjectionDay;
     const indexOfMovieProjectionBeforeGivenDate = currentMoviesProjections.moviesProjections.findIndex(x => x.start > startOfProjection);
     const endOfProjectionBasedOnGivenDate = this._luxonService.DateTime.fromISO(startOfProjection
       .toISOString())
@@ -40,8 +76,8 @@ export class MovieProjectionTimeValidatorService {
         .length('minutes') > movieProjectionDuration;
   }
 
-  private _canMovieProjectionBeLastProjectionOfGaveDay(endOfProjectionBasedOnGivenDate: DateTime,
-                                                       movieProjectionDuration: number): boolean {
+  private static _canMovieProjectionBeLastProjectionOfGaveDay(endOfProjectionBasedOnGivenDate: DateTime,
+                                                              movieProjectionDuration: number): boolean {
     const daysEnd = new Date(endOfProjectionBasedOnGivenDate.toISODate());
     daysEnd.setHours(23, 59, 59, 999);
     const daysEndAsDateTime = this._luxonService.DateTime.fromISO(daysEnd.toISOString());
@@ -57,9 +93,9 @@ export class MovieProjectionTimeValidatorService {
         .length('minutes') > movieProjectionDuration;
   }
 
-  private _canMovieProjectionBeFirstProjectionOfGaveDay(currentMoviesProjections: SelectedDayMoviesProjectionsModel,
-                                                        endOfProjectionBasedOnGivenDate: DateTime,
-                                                        movieProjectionDuration: number): boolean {
+  private static _canMovieProjectionBeFirstProjectionOfGaveDay(currentMoviesProjections: SelectedDayMoviesProjectionsModel,
+                                                               endOfProjectionBasedOnGivenDate: DateTime,
+                                                               movieProjectionDuration: number): boolean {
     const daysStart = new Date(endOfProjectionBasedOnGivenDate.toISODate());
     daysStart.setHours(0, 0, 0, 0);
     const daysStartAsDateTime = this._luxonService.DateTime.fromISO(daysStart.toISOString());
