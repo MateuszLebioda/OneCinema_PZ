@@ -13,4 +13,5 @@ export class SeanceComponentDataModel {
   public seanceRooms: SeanceRoomApiModel[] = [];
   public weekDays: number[] = [1, 2, 3, 4, 5, 6, 7];
   public movieDuration: number;
+  public selectedSeanceRoom: SeanceRoomApiModel = new SeanceRoomApiModel();
 }

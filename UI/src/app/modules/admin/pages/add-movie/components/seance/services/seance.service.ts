@@ -30,7 +30,7 @@ export class SeanceService {
     result.addMovieApiModel.weeks.push(new AddMovieWeekApiModel());
     result.seanceRooms = this._movieProjectionService.getSeanceRooms();
     result.bookingForm.get('seanceRoom').setValue(result.seanceRooms[0]);
-    result.selectedDaySeancesModel = this.getSelectedDayMoviesProjectionsModel(result.selectedWeekNumber, result.selectedDayNumber - 1);
+    result.selectedDaySeancesModel = this.getSelectedDaySeances(result.selectedWeekNumber, result.selectedDayNumber - 1);
     result.selectedDate = this.getDate(result.selectedWeekNumber, result.selectedDayNumber);
     this.setSeanceTimeValidator(result);
 
@@ -54,7 +54,7 @@ export class SeanceService {
     return this._formValidatorService.isInvalidAndTouched(bookingForm, formControlName);
   }
 
-  public getSelectedDayMoviesProjectionsModel(weekNumber: number, dayNumber: number): SelectedDaySeancesModel {
+  public getSelectedDaySeances(weekNumber: number, dayNumber: number): SelectedDaySeancesModel {
     const result = new SelectedDaySeancesModel();
     result.weekNumber = weekNumber;
     result.dayNumber = dayNumber;

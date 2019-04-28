@@ -5,6 +5,7 @@ import {SeanceApiModel} from './models/api/seance-api.model';
 import {SeanceService} from './services/seance.service';
 import {SeanceComponentDataModel} from './models/seance-component-data.model';
 import {Subject} from 'rxjs';
+import {SeanceRoomApiModel} from './models/api/seance-room-api.model';
 
 @Component({
   selector: 'app-seance',
@@ -32,15 +33,23 @@ export class SeanceComponent implements OnInit, OnDestroy {
       this.data.selectedDaySeancesModel.dayNumber === this.data.selectedDayNumber) {
       return this.data.selectedDaySeancesModel.seances;
     }
-    this.data.selectedDaySeancesModel = this._seanceService.getSelectedDayMoviesProjectionsModel(
+    this.data.selectedDaySeancesModel = this._seanceService.getSelectedDaySeances(
       this.data.selectedWeekNumber, this.data.selectedDayNumber - 1);
 
     return this.data.selectedDaySeancesModel.seances;
   }
 
-  public data: SeanceComponentDataModel = new SeanceComponentDataModel();
+  // public get seanceRoomListener(): any {
+  //   if (this.data.bookingForm.get('seanceRoom') &&
+  //     !isNaN(this.data.bookingForm.get('seanceRoom').value &&
+  //       this.data.selectedSeanceRoom.id === (this.data.bookingForm.get('seanceRoom').value as SeanceRoomApiModel).id)) {
+  //     return null;
+  //   }
+  //
+  //   return null;
+  // }
 
-  private _movieDuration = 0;
+  public data: SeanceComponentDataModel = new SeanceComponentDataModel();
 
   constructor(
     private _controlContainer: ControlContainer,
