@@ -5,7 +5,7 @@ export class Movie {
   public posterUrl: string;
   public trailerUrl: string;
   public duration: number;
-  public gender: string;
+  public genders: string[];
   public rating: number;
   public seances2D: SeancesPerDay[];
   public seances3D: SeancesPerDay[];

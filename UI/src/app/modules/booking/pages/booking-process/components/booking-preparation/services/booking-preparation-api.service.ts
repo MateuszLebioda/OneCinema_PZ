@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {SeanceApiModel} from '../models/api-models/seance-api.model';
+import {SeanceApiModel} from '../models/api/seance-api.model';
 import {BookingServicesModule} from '../../../../../booking-services.module';
 
 @Injectable({

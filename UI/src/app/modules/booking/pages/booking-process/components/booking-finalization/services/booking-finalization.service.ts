@@ -4,7 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormValidatorService} from '../../../../../../../shared/services/form-validator.service';
 import {BookingFinalizationApiService} from './booking-finalization-api.service';
 import {Seat} from '../../booking-preparation/models/seat';
-import {SeanceApiModel} from '../../booking-preparation/models/api-models/seance-api.model';
+import {SeanceApiModel} from '../../booking-preparation/models/api/seance-api.model';
 import {BookingApiModel} from '../models/api/booking-api.model';
 import {TicketPrice} from '../models/ticket-price';
 import {ProjectionType} from '../../../../../../movie/enums/projection-type.enum';

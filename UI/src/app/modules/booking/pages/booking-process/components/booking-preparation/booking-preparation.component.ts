@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {SeanceApiModel} from './models/api-models/seance-api.model';
+import {SeanceApiModel} from './models/api/seance-api.model';
 import {BookingPreparationApiService} from './services/booking-preparation-api.service';
 import {ActivatedRoute} from '@angular/router';
 import {Seat} from './models/seat';
@@ -19,7 +19,7 @@ export class BookingPreparationComponent implements OnInit {
   constructor(private _bookingService: BookingPreparationApiService, private _route: ActivatedRoute) {
   }
 
-  public ngOnInit(): void {
+  ngOnInit() {
     const seanceId: string = this._route.snapshot.params['seanceId'];
     this.seance = this._bookingService.getSeance(seanceId);
   }

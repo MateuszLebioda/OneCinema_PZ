@@ -1,6 +1,6 @@
-import { SeanceApiModel } from './seance-api.model';
-import { ProjectionType } from '../../enums/projection-type.enum';
-import { MovieGender } from '../../enums/movie-gender.enum';
+import {SeanceApiModel} from './seance-api.model';
+import {ProjectionType} from '../../../movie/enums/projection-type.enum';
+import {MovieGender} from '../../../movie/enums/movie-gender.enum';
 
 export class MovieProjectionApiModel {
   public movieId: string;
@@ -12,6 +12,7 @@ export class MovieProjectionApiModel {
   public seances: SeanceApiModel[];
 
   constructor() {
+    this.movieGenders = [];
     this.seances = [];
   }
 }

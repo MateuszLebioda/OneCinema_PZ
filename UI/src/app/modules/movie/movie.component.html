@@ -22,7 +22,9 @@
                     <caption class="table-header">{{movie.title}}</caption>
                     <tr>
                       <td class="row-title">Gatunek</td>
-                      <td class="row-content">{{movie.gender}}</td>
+                      <td class="row-content">
+                        <span *ngFor="let movieGender of movie.genders">{{movieGender}},</span>
+                      </td>
                     </tr>
                     <tr>
                       <td class="row-title">Czas trwania</td>

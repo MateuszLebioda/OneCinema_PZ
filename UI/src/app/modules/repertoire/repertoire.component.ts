@@ -15,7 +15,6 @@ export class RepertoireComponent implements OnInit {
   public data: RepertoireComponentModel = new RepertoireComponentModel();
 
   constructor(
-    private _repertoireApiService: RepertoireApiService,
     private _repertoireService: RepertoireService,
     private _router: Router) {
   }

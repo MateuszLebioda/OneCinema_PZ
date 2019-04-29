@@ -13,6 +13,9 @@ export class AutomapperMaps {
     automapper.createMap(MovieProjectionApiModel.name, MovieProjection.name)
       .forSourceMember('seances', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => {
         opts.ignore();
+      })
+      .forSourceMember('movieGenders', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => {
+        opts.ignore();
       });
 
     automapper.createMap(DaySeancesApiModel.name, SeancesPerDay.name)

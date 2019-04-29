@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Seat} from '../booking-preparation/models/seat';
-import {SeanceApiModel} from '../booking-preparation/models/api-models/seance-api.model';
+import {SeanceApiModel} from '../booking-preparation/models/api/seance-api.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {BookingFinalizationService} from './services/booking-finalization.service';

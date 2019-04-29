@@ -41,7 +41,7 @@
                 </td>
                 <td>
                   <p>Czas trwania: {{movieProjection.movieDuration}}</p>
-                  <p>Gatunek: {{movieProjection.movieCategory}}</p>
+                  <p>Gatunek: <span class="movie-gender" *ngFor="let movieGender of movieProjection.movieGenders">{{movieGender}},</span></p>
                   <p>Typ projekcji: {{movieProjection.projectionType}}</p>
                 </td>
                 <td>

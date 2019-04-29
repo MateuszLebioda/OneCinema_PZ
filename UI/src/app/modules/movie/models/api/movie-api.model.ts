@@ -1,5 +1,5 @@
-import { DaySeancesApiModel } from './day-seances-api.model';
-import { MovieGender } from 'src/app/modules/repertoire/enums/movie-gender.enum';
+import {DaySeancesApiModel} from './day-seances-api.model';
+import {MovieGender} from '../../enums/movie-gender.enum';
 
 export class MovieApiModel {
   public title: string;

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Seat} from '../../../booking/pages/booking-process/components/booking-preparation/models/seat';
-import {SeanceApiModel} from '../../../booking/pages/booking-process/components/booking-preparation/models/api-models/seance-api.model';
+import {SeanceApiModel} from '../../../booking/pages/booking-process/components/booking-preparation/models/api/seance-api.model';
 import {FormGroup} from '@angular/forms';
 import {FormValidatorService} from '../../../../shared/services/form-validator.service';
 import {Router} from '@angular/router';

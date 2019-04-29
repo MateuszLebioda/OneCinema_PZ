@@ -46,7 +46,7 @@ export class MovieApiService {
 
     return {
       title: 'Avengers',
-      gender: 'Akcji, Kryminał',
+      genders: ['Akcji', 'Kryminał'],
       duration: 180,
       posterUrl: 'https://www.vintagemovieposters.co.uk/wp-content/uploads/2018/04/IMG_3059-482x714.jpg',
       trailerUrl: 'https://www.youtube.com/embed/TcMBFSGVi1c',

@@ -19,7 +19,7 @@
 
                     <div class="form-group">
                       <input type="text" formControlName="gender" placeholder="Rodzaj">
-                      <span *ngIf="isInvalid('gender')" class="error-font help-block">
+                      <span *ngIf="isInvalid('genders')" class="error-font help-block">
                       <div *ngIf="formControls.gender.errors.required">To pole jest wymagane</div>
                       <div *ngIf="formControls.gender.errors.maxlength">Maksymalna długość rodzaju to 100 znaków</div>
                     </span>

@@ -3,7 +3,6 @@ import {SeanceApiModel} from '../models/api/seance-api.model';
 import {SeanceStatus} from '../enums/seance-status.enum';
 import {RepertoireComponentModel} from '../models/repertoire-component.model';
 import {RepertoireApiService} from './repertoire-api.service';
-import {Router} from '@angular/router';
 import {RepertoireListModel} from '../models/repertoire-list.model';
 
 @Injectable({
@@ -30,9 +29,7 @@ export class RepertoireService {
   ];
 
 
-  constructor(
-    private _repertoireListService: RepertoireApiService,
-    private _router: Router) {
+  constructor(private _repertoireListService: RepertoireApiService) {
   }
 
   public initComponent(): RepertoireComponentModel {
@@ -59,13 +56,6 @@ export class RepertoireService {
         return 'past-seance';
       case SeanceStatus.running:
         return 'running-seance';
-    }
-  }
-
-  public bookSeance(seance: SeanceApiModel): void {
-    if (this.getSeanceStatus(seance) === SeanceStatus.available) {
-      console.log('rezerwacaj seansu o id:', seance.id);
-      // this._router.navigate(['/product-details', seance.id]);
     }
   }
 
