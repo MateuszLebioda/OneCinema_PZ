@@ -20,7 +20,7 @@ export class RepertoireApiService extends HttpBaseService {
 
     repertoire.push({
       movieId: 'id1',
-      movieCategory: 'Akcji',
+      movieGenders: 'Akcji',
       movieDuration: 120,
       moviePosterUrl: 'https://static.pressfrom.info/upload/images/real/2019/03/14/fans-angry-danai-gurira-s-name-isn-t-atop-avengers-endgame-poster__701824_.jpg?content=1',
       movieTitle: 'Avengers',
@@ -47,7 +47,7 @@ export class RepertoireApiService extends HttpBaseService {
     if (dayNumber === 2) {
       repertoire.push({
         movieId: 'id2',
-        movieCategory: 'Komedia', movieDuration: 150,
+        movieGenders: 'Komedia', movieDuration: 150,
         moviePosterUrl: 'https://static.posters.cz/image/750/plakaty/kac-vegas-ii-plakat-i12276.jpg',
         movieTitle: 'Jaś fasola', projectionType: '3D',
         seances: [
