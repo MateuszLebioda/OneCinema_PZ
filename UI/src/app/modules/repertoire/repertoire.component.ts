@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RepertoireApiService} from './services/repertoire-api.service';
-import {SeanceApiModel} from './models/api-models/seance-api.model';
-import {SeanceStatus} from './enums/seance-statu.enum';
+import {SeanceApiModel} from './models/api/seance-api.model';
+import {SeanceStatus} from './enums/seance-status.enum';
 import {Router} from '@angular/router';
 import {RepertoireService} from './services/repertoire.service';
 import {RepertoireComponentModel} from './models/repertoire-component.model';

@@ -1,4 +1,4 @@
-import {SeanceApiModel} from './api-models/seance-api.model';
+import {SeanceApiModel} from './api/seance-api.model';
 
 export class SeancesPerTimesOfDay {
   public seancesUntilNoon: SeanceApiModel[];

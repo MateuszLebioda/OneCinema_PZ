@@ -8,9 +8,11 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./booking.component.css']
 })
 export class BookingComponent implements OnInit {
-  constructor(private _bookingService: BookingPreparationApiService, private _route: ActivatedRoute) {
+  constructor(
+    private _bookingService: BookingPreparationApiService,
+    private _route: ActivatedRoute) {
   }
 
-  public ngOnInit(): void {
+  ngOnInit() {
   }
 }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Movie} from '../models/movie.model';
 import {RepertoireApiService} from '../../repertoire/services/repertoire-api.service';
 import {MapperService} from '../../../shared/helpers/external/mapper/mapper.service';
-import {DaySeancesApiModel} from '../models/api-models/day-seances-api.model';
+import {DaySeancesApiModel} from '../models/api/day-seances-api.model';
 import {MovieServicesModule} from '../movie-services.module';
 
 @Injectable({

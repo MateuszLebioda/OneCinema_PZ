@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AdminServicesModule} from '../../../../../admin-services.module';
 import {SeanceApiModel} from '../models/api/seance-api.model';
-import {ProjectionType} from '../../../../../../repertoire/enums/projection-type.enum';
+import {ProjectionType} from '../../../../../../movie/enums/projection-type.enum';
 import {SeanceRequestModel} from '../models/requests/seance-request.model';
 import {SeanceRoomApiModel} from '../models/api/seance-room-api.model';
 

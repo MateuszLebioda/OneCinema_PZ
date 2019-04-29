@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MovieProjectionApiModel} from '../models/api-models/movie-projection-api.model';
+import {MovieProjectionApiModel} from '../models/api/movie-projection-api.model';
 import {HttpClient} from '@angular/common/http';
 import {HttpBaseService} from '../../../shared/services/http-base.service';
 import {MovieProjection} from '../models/movie-projection.model';

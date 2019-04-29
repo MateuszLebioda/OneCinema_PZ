@@ -1,4 +1,4 @@
-import {ProjectionType} from '../../../../../../../repertoire/enums/projection-type.enum';
+import {ProjectionType} from '../../../../../../../movie/enums/projection-type.enum';
 
 export class SeanceApiModel {
   public title: string;

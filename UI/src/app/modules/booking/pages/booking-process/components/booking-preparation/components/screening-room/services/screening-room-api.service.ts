@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {ScreeningRoomPlanApiModel} from '../api-models/screening-room-plan-api.model';
-import {BookedSeatsApiModel} from '../api-models/booked-seats/booked-seats-api.model';
-import {ScreeningRoomPlanRowApiModel} from '../api-models/screening-room-plan-row-api.model';
-import {ScreeningRoomPlanSeatApiModel} from '../api-models/screening-room-plan-seat-api.model';
+import {ScreeningRoomPlanApiModel} from '../models/api/screening-room-plan-api.model';
+import {BookedSeatsApiModel} from '../models/api/booked-seats/booked-seats-api.model';
+import {ScreeningRoomPlanRowApiModel} from '../models/api/screening-room-plan-row-api.model';
+import {ScreeningRoomPlanSeatApiModel} from '../models/api/screening-room-plan-seat-api.model';
 import {BookingServicesModule} from '../../../../../../../booking-services.module';
 
 @Injectable({

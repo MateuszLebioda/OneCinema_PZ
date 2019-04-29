@@ -4,7 +4,7 @@ import {SeanceApiModel} from '../../../booking/pages/booking-process/components/
 import {FormGroup} from '@angular/forms';
 import {FormValidatorService} from '../../../../shared/services/form-validator.service';
 import {Router} from '@angular/router';
-import {BookingApiModel} from '../../../booking/pages/booking-process/components/booking-finalization/models/api-models/booking-api.model';
+import {BookingApiModel} from '../../../booking/pages/booking-process/components/booking-finalization/models/api/booking-api.model';
 import {AddMovieApiModel} from './api-models/add-movie-api.model';
 import {AddMovieService} from './services/add-movie.service';
 import {Subject} from 'rxjs';
