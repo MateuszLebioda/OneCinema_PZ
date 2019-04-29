@@ -6,10 +6,11 @@ export class MovieProjection {
   public projectionType: string;
   public moviePosterUrl: string;
   public movieDuration: number;
-  public movieCategory: string;
+  public movieGenders: string[];
   public seances: SeancesPerTimesOfDay;
 
   constructor() {
     this.seances = new SeancesPerTimesOfDay();
+    this.movieGenders = [];
   }
 }

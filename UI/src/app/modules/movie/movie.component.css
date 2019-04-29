@@ -22,6 +22,10 @@
   width: 25%;
 }
 
+.row-content > span {
+  padding-right: 5px;
+}
+
 table {
   background-color: transparent !important;
 }

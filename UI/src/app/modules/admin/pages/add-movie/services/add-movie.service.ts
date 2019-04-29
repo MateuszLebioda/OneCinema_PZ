@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormValidatorService} from '../../../../../shared/services/form-validator.service';
 import {AdminServicesModule} from '../../../admin-services.module';
 
@@ -9,7 +9,7 @@ import {AdminServicesModule} from '../../../admin-services.module';
 export class AddMovieService {
   private formValidatorService: FormValidatorService;
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
     this.formValidatorService = new FormValidatorService();
   }
 
@@ -17,7 +17,7 @@ export class AddMovieService {
     const form = new FormGroup({
       'title': new FormControl(null, [Validators.required, Validators.maxLength(100)]),
       'gender': new FormControl(null, [Validators.required, Validators.maxLength(100)]),
-      'duration': new FormControl(null, [Validators.required]),
+      'duration': new FormControl(null, [Validators.required, Validators.min(1)]),
       'rate': new FormControl(null, [Validators.required, Validators.min(1), Validators.max(5)]),
       'posterUrl': new FormControl(null, [Validators.required, this.formValidatorService.isUrl.bind(this)]),
       'trailerUrl': new FormControl(null, [Validators.required, this.formValidatorService.isUrl.bind(this)])
@@ -29,7 +29,9 @@ export class AddMovieService {
 
   private _setMovieProjectionFormGroup(form: FormGroup): void {
     form.addControl('movieProjection', new FormGroup({
-      'weeksCount': new FormControl(null, [Validators.required]),
+      'weeksCount': new FormControl(null, [Validators.required, Validators.min(1)]),
+      'movieProjectionTime': new FormControl(null, [Validators.required]),
+      'seanceRoom': new FormControl(null, [Validators.required]),
     }));
   }
 }

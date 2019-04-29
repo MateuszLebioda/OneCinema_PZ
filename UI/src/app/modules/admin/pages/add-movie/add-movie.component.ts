@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Seat} from '../../../booking/pages/booking-process/components/booking-preparation/models/seat';
-import {SeanceApiModel} from '../../../booking/pages/booking-process/components/booking-preparation/api-models/seance-api.model';
+import {SeanceApiModel} from '../../../booking/pages/booking-process/components/booking-preparation/models/api/seance-api.model';
 import {FormGroup} from '@angular/forms';
 import {FormValidatorService} from '../../../../shared/services/form-validator.service';
 import {Router} from '@angular/router';
-import {BookingApiModel} from '../../../booking/pages/booking-process/components/booking-finalization/api-models/booking-api.model';
+import {BookingApiModel} from '../../../booking/pages/booking-process/components/booking-finalization/models/api/booking-api.model';
 import {AddMovieApiModel} from './api-models/add-movie-api.model';
 import {AddMovieService} from './services/add-movie.service';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-add-movie',
@@ -21,6 +22,7 @@ export class AddMovieComponent implements OnInit {
 
   public addMovieModel: AddMovieApiModel = new AddMovieApiModel();
   public bookingForm: FormGroup;
+  public movieDuration: Subject<number> = new Subject();
 
   constructor(
     private _formValidatorService: FormValidatorService,
@@ -42,6 +44,10 @@ export class AddMovieComponent implements OnInit {
 
   public valueChanged(rate: number): void {
     this.addMovieModel.rate = rate;
+  }
+
+  public emitNewMovieDuration(): void {
+    this.movieDuration.next(this.bookingForm.get('duration') ? this.bookingForm.get('duration').value : null);
   }
 
   private _createBookingApiModel(bookedSeats: Seat[], seance: SeanceApiModel, form: FormGroup): BookingApiModel {

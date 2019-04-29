@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {MovieProjection} from './models/movie-projection.model';
-import {RepertoireService} from './services/api-services/repertoire.service';
-import {SeanceService} from './services/seance.service';
-import {SeanceApiModel} from './api-models/seance-api.model';
-import {RepertoireDaysService} from './services/repertoire-days.service';
-import {SeanceStatus} from './enums/seance-statu.enum';
+import {RepertoireApiService} from './services/repertoire-api.service';
+import {SeanceApiModel} from './models/api/seance-api.model';
+import {SeanceStatus} from './enums/seance-status.enum';
 import {Router} from '@angular/router';
+import {RepertoireService} from './services/repertoire.service';
+import {RepertoireComponentModel} from './models/repertoire-component.model';
 
 @Component({
   selector: 'app-repertoire',
@@ -13,41 +12,27 @@ import {Router} from '@angular/router';
   styleUrls: ['./repertoire.component.css']
 })
 export class RepertoireComponent implements OnInit {
-  public bookmarkLetters: string[] = ['a', 'b', 'c', 'd', 'e', 'formControls', 'g', 'h'];
-  public bookmarkLetter = 'a';
-  public repertoire: MovieProjection[];
-  public repertoireDays: string[];
+  public data: RepertoireComponentModel = new RepertoireComponentModel();
 
   constructor(
-    private _repertoireListService: RepertoireService,
-    private _seanceService: SeanceService,
-    private _repertoireDaysService: RepertoireDaysService,
+    private _repertoireService: RepertoireService,
     private _router: Router) {
   }
 
   public ngOnInit(): void {
-    this.repertoire = this._repertoireListService.getRepertoire(1);
-    this.repertoireDays = this._repertoireDaysService.getRepertoireDaysSinceNow();
+    this.data = this._repertoireService.initComponent();
   }
 
   public repertoireList(bookmarkLetter: string, dayNumber: number): void {
-    this.bookmarkLetter = bookmarkLetter;
-    this.repertoire = this._repertoireListService.getRepertoire(dayNumber);
+    this.data.repertoireList = this._repertoireService.getRepertoireList(bookmarkLetter, dayNumber);
   }
 
   public getSeanceCssClass(seance: SeanceApiModel): string {
-    switch (this._seanceService.getSeanceStatus(seance)) {
-      case SeanceStatus.available:
-        return 'available-seance';
-      case SeanceStatus.past:
-        return 'past-seance';
-      case SeanceStatus.running:
-        return 'running-seance';
-    }
+    return this._repertoireService.getSeanceCssClass(seance);
   }
 
   public bookSeance(seance: SeanceApiModel): void {
-    if (this._seanceService.getSeanceStatus(seance) === SeanceStatus.available) {
+    if (this._repertoireService.getSeanceStatus(seance) === SeanceStatus.available) {
       console.log('rezerwacaj seansu o id:', seance.id);
       // this._router.navigate(['/product-details', seance.id]);
     }

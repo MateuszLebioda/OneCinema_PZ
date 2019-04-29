@@ -668,6 +668,7 @@ p.fexi_header_para1 a i {
 .form-module input[type="number"],
 .form-module input[type="range"],
 .form-module input[type="url"],
+.form-module input[type="time"],
 .form-module input[type="email"] {
   outline: none;
   display: block;
@@ -687,7 +688,8 @@ p.fexi_header_para1 a i {
   color: #333333;
 }
 
-.form-module input[type="submit"] {
+.form-module input[type="submit"],
+.form-module input[type="button"]{
   background: #919191;
   width: 100%;
   border: 0;

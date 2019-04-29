@@ -9,7 +9,7 @@
 
               <div class="form-group">
                 <input type="text" formControlName="firstname" placeholder="Imię">
-                <span *ngIf="isInvalid(GeneralFormControlName.Name)" class="error-font help-block">
+                <span *ngIf="isInvalid('firstname')" class="error-font help-block">
                   <div *ngIf="formControls.firstname.errors.required">To pole jest wymagane</div>
                   <div *ngIf="formControls.firstname.errors.maxlength">Maksymalna długość imienia to 35 znaków</div>
                 </span>
@@ -17,7 +17,7 @@
 
               <div class="form-group">
                 <input type="text" formControlName="surname" placeholder="Nazwisko">
-                <span *ngIf="isInvalid(GeneralFormControlName.Surname)" class="error-font help-block">
+                <span *ngIf="isInvalid('surname')" class="error-font help-block">
                   <div *ngIf="formControls.surname.errors.required">To pole jest wymagane</div>
                   <div *ngIf="formControls.surname.errors.maxlength">Maksymalna długość nazwiska to 100 znaków</div>
                 </span>
@@ -25,7 +25,7 @@
 
               <div class="form-group">
                 <input type="email" formControlName="email" placeholder="Email">
-                <span *ngIf="isInvalid(GeneralFormControlName.Email)" class="error-font help-block">
+                <span *ngIf="isInvalid('email')" class="error-font help-block">
                   <div *ngIf="formControls.email.errors.required">To pole jest wymagane</div>
                   <div *ngIf="formControls.email.errors.email">To nie jest email</div>
                 </span>

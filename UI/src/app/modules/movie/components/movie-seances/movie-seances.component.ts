@@ -1,12 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {RepertoireService} from '../../../repertoire/services/api-services/repertoire.service';
-import {SeanceService} from '../../../repertoire/services/seance.service';
-import {RepertoireDaysService} from '../../../repertoire/services/repertoire-days.service';
+import {RepertoireApiService} from '../../../repertoire/services/repertoire-api.service';
 import {Router} from '@angular/router';
-import {SeanceApiModel} from '../../../repertoire/api-models/seance-api.model';
-import {SeanceStatus} from '../../../repertoire/enums/seance-statu.enum';
+import {SeanceApiModel} from '../../../repertoire/models/api/seance-api.model';
+import {SeanceStatus} from '../../../repertoire/enums/seance-status.enum';
 import {SeancesPerDay} from '../../models/seances-per-day.model';
 import {SeancesPerTimesOfDay} from '../../../repertoire/models/seances-per-times-of-day';
+import {RepertoireService} from '../../../repertoire/services/repertoire.service';
 
 @Component({
   selector: 'app-movie-seances',
@@ -40,14 +39,13 @@ export class MovieSeancesComponent implements OnInit {
   private _deyIndex = 0;
 
   constructor(
-    private _repertoireListService: RepertoireService,
-    private _seanceService: SeanceService,
-    private _repertoireDaysService: RepertoireDaysService,
+    private _repertoireListService: RepertoireApiService,
+    private _repertoireService: RepertoireService,
     private _router: Router) {
   }
 
   public ngOnInit(): void {
-    this.repertoireDays = this._repertoireDaysService.getRepertoireDaysSinceNow();
+    this.repertoireDays = this._repertoireService.getRepertoireDaysSinceNow();
   }
 
   public repertoireList(bookmarkLetter: string, dayNumber: number): void {
@@ -56,7 +54,7 @@ export class MovieSeancesComponent implements OnInit {
   }
 
   public getSeanceCssClass(seance: SeanceApiModel): string {
-    switch (this._seanceService.getSeanceStatus(seance)) {
+    switch (this._repertoireService.getSeanceStatus(seance)) {
       case SeanceStatus.available:
         return 'available-seance';
       case SeanceStatus.past:
@@ -67,7 +65,7 @@ export class MovieSeancesComponent implements OnInit {
   }
 
   public bookSeance(seance: SeanceApiModel): void {
-    if (this._seanceService.getSeanceStatus(seance) === SeanceStatus.available) {
+    if (this._repertoireService.getSeanceStatus(seance) === SeanceStatus.available) {
       console.log('rezerwacaj seansu o id:', seance.id);
       this._router.navigate(['/rezerwacja', seance.id]);
     }

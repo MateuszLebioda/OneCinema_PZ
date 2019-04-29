@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {CinemaService} from './services/cinema.service';
-import {CinemaApiModel} from './api-models/cinema-api.model';
+import {CinemaApiService} from './services/cinema-api.service';
+import {CinemaApiModel} from './models/api/cinema-api.model';
 
 @Component({
   selector: 'app-cinema',
@@ -10,10 +10,10 @@ import {CinemaApiModel} from './api-models/cinema-api.model';
 export class CinemaComponent implements OnInit {
   public cinema: CinemaApiModel;
 
-  constructor(private _cinemaService: CinemaService) {
+  constructor(private _cinemaService: CinemaApiService) {
   }
 
-  public ngOnInit(): void {
+  ngOnInit() {
     this.cinema = this._cinemaService.getCinemaInfo();
   }
 
