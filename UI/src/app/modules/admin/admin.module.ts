@@ -9,6 +9,7 @@ import {CommonModule} from '@angular/common';
 import {AppRoutingModule} from '../../app-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AdminServicesModule} from './admin-services.module';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {AdminServicesModule} from './admin-services.module';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AdminServicesModule
+    AdminServicesModule,
+    NgMultiSelectDropDownModule
   ]
 })
 export class AdminModule {

@@ -1,0 +1,22 @@
+.multiselect-dropdown > div > span {
+  border: 1px solid #d9d9d9 !important;
+  border-radius: 0 !important;
+  height: 42px !important;
+}
+
+.multiselect-dropdown > div > span > span {
+  color: #777;
+}
+
+.multiselect-item-checkbox > div:before {
+  border: 2px solid #ff9800 !important;
+}
+
+.multiselect-item-checkbox > input:checked + div:before {
+  background: #ff9800 !important;
+}
+
+.dropdown-btn > .selected-item {
+  border: 1px solid #ff9800 !important;
+  background-color: #ff9800 !important;
+}

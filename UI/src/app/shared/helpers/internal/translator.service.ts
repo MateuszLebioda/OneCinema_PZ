@@ -13,7 +13,6 @@ export class TranslatorService {
   }
 
   public translateMovieGender(movieGender: MovieGender): string {
-    console.log(this._movieGenderTranslateMap.get(movieGender));
     return this._movieGenderTranslateMap.get(movieGender);
   }
 

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CinemaApiService} from '../../../modules/cinema/services/cinema-api.service';
+import {CinemaApiService} from '../../../../modules/cinema/services/cinema-api.service';
 
 @Component({
   selector: 'app-header',

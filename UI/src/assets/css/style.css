@@ -689,7 +689,7 @@ p.fexi_header_para1 a i {
 }
 
 .form-module input[type="submit"],
-.form-module input[type="button"]{
+.form-module input[type="button"] {
   background: #919191;
   width: 100%;
   border: 0;

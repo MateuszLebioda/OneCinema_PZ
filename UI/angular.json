@@ -40,7 +40,8 @@
               "src/assets/list-css/list.css",
               "src/assets/list-css/table-style.css",
               "src/assets/news-css/news.css",
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/my-css/multiselect-dropdown-list-component.css"
             ],
             "scripts": [
               "node_modules/automapper-ts/dist/automapper.min.js",
