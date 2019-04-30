@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {PriceListApiModel} from '../models/api-models/price-list-api.model';
-import {SharedServicesModule} from '../../../shared-services.module';
+import {SharedServicesModule} from '../../../../shared-services.module';
 
 @Injectable({
   providedIn: SharedServicesModule

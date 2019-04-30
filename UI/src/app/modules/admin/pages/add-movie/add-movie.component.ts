@@ -5,9 +5,11 @@ import {FormGroup} from '@angular/forms';
 import {FormValidatorService} from '../../../../shared/services/form-validator.service';
 import {Router} from '@angular/router';
 import {BookingApiModel} from '../../../booking/pages/booking-process/components/booking-finalization/models/api/booking-api.model';
-import {AddMovieApiModel} from './api-models/add-movie-api.model';
+import {AddMovieApiModel} from './models/api/add-movie-api.model';
 import {AddMovieService} from './services/add-movie.service';
-import {Subject} from 'rxjs';
+import {Subject} from 'rxjs/internal/Subject';
+import {MovieGenderTranslateModel} from './models/movie-gender-translate.model';
+import {IMultipleSelectDropdownSettings} from '../../../../shared/components/external/multiple-select-dropdown/interfaces/i-multiple-select-dropdown-settings';
 
 @Component({
   selector: 'app-add-movie',
@@ -23,6 +25,11 @@ export class AddMovieComponent implements OnInit {
   public addMovieModel: AddMovieApiModel = new AddMovieApiModel();
   public bookingForm: FormGroup;
   public movieDuration: Subject<number> = new Subject();
+  public genders: MovieGenderTranslateModel[] = [];
+  public selectedGenders: MovieGenderTranslateModel[] = [];
+  public settings: IMultipleSelectDropdownSettings;
+
+  private clickedGenderSelector = false;
 
   constructor(
     private _formValidatorService: FormValidatorService,
@@ -32,10 +39,20 @@ export class AddMovieComponent implements OnInit {
 
   public ngOnInit(): void {
     this.bookingForm = this._addMovieService.getForm();
+    this.settings = this._addMovieService.getMultiselectDropdownComponentSettings();
+    this.genders = this._addMovieService.getGenders();
   }
 
   public isInvalid(formControlName: string): boolean {
     return this._formValidatorService.isInvalidAndTouched(this.bookingForm, formControlName);
+  }
+
+  public isInvalidGenderSelector(): boolean {
+    return this.clickedGenderSelector && this.selectedGenders.length <= 0;
+  }
+
+  public markGenderSelectorAsClicked(): void {
+    this.clickedGenderSelector = true;
   }
 
   public onSubmit(): void {

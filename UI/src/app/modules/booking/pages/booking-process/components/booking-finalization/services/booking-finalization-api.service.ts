@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {PriceListApiModel} from '../../../../../../../shared/components/navbar/models/api-models/price-list-api.model';
+import {PriceListApiModel} from '../../../../../../../shared/components/internal/navbar/models/api-models/price-list-api.model';
 import {BookingApiModel} from '../models/api/booking-api.model';
 import {BookingServicesModule} from '../../../../../booking-services.module';
 

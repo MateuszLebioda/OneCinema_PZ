@@ -1,3 +1,9 @@
+.multiselect-dropdown > div > span {
+  border: 1px solid #d9d9d9 !important;
+  border-radius: 0 !important;
+  height: 42px !important;
+}
+
 .seat {
   color: white;
   border-radius: 15px;

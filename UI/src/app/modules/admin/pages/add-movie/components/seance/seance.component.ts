@@ -4,8 +4,7 @@ import {Router} from '@angular/router';
 import {SeanceApiModel} from './models/api/seance-api.model';
 import {SeanceService} from './services/seance.service';
 import {SeanceComponentDataModel} from './models/seance-component-data.model';
-import {Subject} from 'rxjs';
-import {SeanceRoomApiModel} from './models/api/seance-room-api.model';
+import {Subject} from 'rxjs/internal/Subject';
 
 @Component({
   selector: 'app-seance',

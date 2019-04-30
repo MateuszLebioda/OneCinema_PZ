@@ -17,12 +17,19 @@
                     </span>
                     </div>
 
-                    <div class="form-group">
-                      <input type="text" formControlName="gender" placeholder="Rodzaj">
-                      <span *ngIf="isInvalid('genders')" class="error-font help-block">
-                      <div *ngIf="formControls.gender.errors.required">To pole jest wymagane</div>
-                      <div *ngIf="formControls.gender.errors.maxlength">Maksymalna długość rodzaju to 100 znaków</div>
-                    </span>
+                    <div class="form-group" (click)="markGenderSelectorAsClicked()">
+                      <!--                      <input type="text" formControlName="gender" placeholder="Rodzaj">-->
+                      <ng-multiselect-dropdown
+                        name="gender"
+                        formControlName="gender"
+                        [placeholder]="'Wybierz gatunek'"
+                        [data]="genders"
+                        [(ngModel)]="selectedGenders"
+                        [settings]="settings">
+                      </ng-multiselect-dropdown>
+                      <span *ngIf="isInvalidGenderSelector()" class="error-font help-block">
+                        <div>To pole jest wymagane</div>
+                      </span>
                     </div>
 
                     <div class="form-group">
