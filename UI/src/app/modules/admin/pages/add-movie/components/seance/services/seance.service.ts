@@ -9,9 +9,9 @@ import {SelectedDaySeancesModel} from '../models/selected-day-seances.model';
 import {SeanceApiModel} from '../models/api/seance-api.model';
 import {SeanceRequestModel} from '../models/requests/seance-request.model';
 import {FormValidatorService} from '../../../../../../../shared/services/form-validator.service';
-import {LuxonService} from '../../../../../../../shared/helpers/external/luxon.service';
 import {AddMovieApiModel} from '../models/api/add-movie-api.model';
 import {AdminServicesModule} from '../../../../../admin-services.module';
+import {Luxon} from '../../../../../../../shared/helpers/external/luxon';
 
 @Injectable({
   providedIn: AdminServicesModule
@@ -19,8 +19,7 @@ import {AdminServicesModule} from '../../../../../admin-services.module';
 export class SeanceService {
   constructor(
     private _formValidatorService: FormValidatorService,
-    private _movieProjectionService: SeanceApiService,
-    private _luxonService: LuxonService) {
+    private _movieProjectionService: SeanceApiService) {
   }
 
   public initComponent(bookingForm: FormGroup): SeanceComponentDataModel {
@@ -39,15 +38,16 @@ export class SeanceService {
 
   public setSeanceTimeValidator(data: SeanceComponentDataModel): void {
     const selectedSeanceRoom: SeanceRoomApiModel = data.bookingForm.get('seanceRoom').value;
-    const movieProjectionDuration: number = data.movieDuration ? data.movieDuration : null;
+    const movieDuration: number = data.movieDuration ? data.movieDuration : null;
     data.bookingForm.setControl('movieProjectionTime', new FormControl(
       null,
-      [Validators.required,
+      [
+        Validators.required,
         SeanceValidator.isValid(
           data.selectedDate,
           data.selectedDaySeancesModel,
-          movieProjectionDuration,
-          selectedSeanceRoom.breakBeforeAndAfterSeance)]));
+          movieDuration + selectedSeanceRoom.breakBeforeAndAfterMovie * 2)
+      ]));
   }
 
   public isInvalid(formControlName: string, bookingForm: FormGroup): boolean {
@@ -89,7 +89,7 @@ export class SeanceService {
 
   public getDate(weeks: number, days: number): Date {
     const firstWeekDay = this._getFisrtWeekDay();
-    const date: string = this._luxonService.DateTime.local(firstWeekDay.year, firstWeekDay.month, firstWeekDay.day).plus({
+    const date: string = Luxon.utils.DateTime.local(firstWeekDay.year, firstWeekDay.month, firstWeekDay.day).plus({
       weeks: weeks,
       days: days - 1
     }).toISODate();
@@ -122,7 +122,7 @@ export class SeanceService {
   }
 
   private _getFisrtWeekDay(): any {
-    return this._luxonService.DateTime.local().minus(
+    return Luxon.utils.DateTime.local().minus(
       {
         days: this._getDaysToMinus()
       });

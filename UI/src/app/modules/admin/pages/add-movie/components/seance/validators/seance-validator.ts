@@ -1,22 +1,16 @@
 import {AbstractControl, ValidatorFn} from '@angular/forms';
 import {SelectedDaySeancesModel} from '../models/selected-day-seances.model';
 import {DateTime} from 'luxon';
-import {LuxonService} from '../../../../../../../shared/helpers/external/luxon.service';
 import {Time} from '@angular/common';
+import {Luxon} from '../../../../../../../shared/helpers/external/luxon';
 
 export class SeanceValidator {
-  private static _luxonService: LuxonService = new LuxonService();
-
-  public static isValid(movieProjectionDay: Date,
-                        currentMoviesProjections: SelectedDaySeancesModel,
-                        movieProjectionDuration: number,
-                        breakBeforeAndAfterSeance: number): ValidatorFn {
+  public static isValid(seanceDay: Date, seancesThisDay: SelectedDaySeancesModel, seanceDuration: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
-      if (!movieProjectionDuration || movieProjectionDuration <= 0) {
+      if (!seanceDuration || seanceDuration <= 0) {
         return {'emptySeanceDuration': true};
       }
-      if (control.value && !this._isValid(
-        control.value, movieProjectionDay, currentMoviesProjections, movieProjectionDuration, breakBeforeAndAfterSeance)) {
+      if (control.value && !this._isValid(control.value, seanceDay, seancesThisDay, seanceDuration)) {
         return {'wrongTime': true};
       }
 
@@ -40,77 +34,66 @@ export class SeanceValidator {
     };
   }
 
-  private static _isValid(startOfProjectionx: string,
-                          movieProjectionDay: Date,
-                          currentMoviesProjections: SelectedDaySeancesModel,
-                          movieProjectionDuration: number,
-                          breakBeforeAndAfterSeance: number): boolean {
-    const movieProjectionTime: Time = this.convertToTime(startOfProjectionx);
-
-    if (!movieProjectionTime) {
+  private static _isValid(seanceStartHour: string,
+                          seanceDay: Date,
+                          seancesThisDay: SelectedDaySeancesModel,
+                          seanceDuration: number): boolean {
+    const seanceTime: Time = this.convertToTime(seanceStartHour);
+    if (!seanceTime) {
       return false;
     }
 
-    movieProjectionDay.setHours(movieProjectionTime.hours);
-    movieProjectionDay.setMinutes(movieProjectionTime.minutes);
-
-    const startOfProjection: Date = movieProjectionDay;
-    const indexOfMovieProjectionBeforeGivenDate = currentMoviesProjections.seances.findIndex(x => x.start > startOfProjection);
-    const endOfProjectionBasedOnGivenDate = this._luxonService.DateTime.fromISO(startOfProjection
-      .toISOString())
-      .plus({minutes: movieProjectionDuration + (breakBeforeAndAfterSeance * 2)});
-
-    if (indexOfMovieProjectionBeforeGivenDate < 0) {
-      return this._canMovieProjectionBeLastProjectionOfGaveDay(endOfProjectionBasedOnGivenDate, movieProjectionDuration);
+    if (seancesThisDay.seances.length <= 0) {
+      return true;
     }
 
-    if (indexOfMovieProjectionBeforeGivenDate === 0) {
-      return this._canMovieProjectionBeFirstProjectionOfGaveDay(
-        currentMoviesProjections, endOfProjectionBasedOnGivenDate, movieProjectionDuration);
+    seanceDay.setHours(seanceTime.hours);
+    seanceDay.setMinutes(seanceTime.minutes);
+
+    const seanceStart: Date = seanceDay;
+    const seanceEnd: DateTime = Luxon.toDateTime(seanceStart).plus({minutes: seanceDuration});
+
+    const indexOfSeanceBeforeValidatingSeance = seancesThisDay.seances.findIndex(currentSeance => currentSeance.start > seanceStart);
+    if (indexOfSeanceBeforeValidatingSeance < 0) {
+      return this._canSeanceBeLatest(
+        Luxon.toDateTime(seanceStart), seanceEnd, Luxon.toDateTime(seancesThisDay.seances[seancesThisDay.seances.length - 1].end));
+    }
+    if (indexOfSeanceBeforeValidatingSeance === 0) {
+      return this._canSeanceBeFirst(
+        Luxon.toDateTime(seanceStart), seanceEnd, Luxon.toDateTime(seancesThisDay.seances[0].start));
     }
 
-    const endOfMovieProjectionBeforeGivenDate = currentMoviesProjections.seances[indexOfMovieProjectionBeforeGivenDate - 1].end;
-    const startOfMovieProjectionAfterGivenDate = currentMoviesProjections.seances[indexOfMovieProjectionBeforeGivenDate].start;
-
-    return endOfMovieProjectionBeforeGivenDate < startOfProjection &&
-      startOfMovieProjectionAfterGivenDate > startOfProjection &&
-      this._luxonService.Interval
-        .fromDateTimes(endOfMovieProjectionBeforeGivenDate, startOfMovieProjectionAfterGivenDate)
-        .length('minutes') > movieProjectionDuration;
+    return this._isSeanceBetweenPreviousAndNextSeances(
+      seanceStart, Luxon.toDate(seanceEnd), seancesThisDay, indexOfSeanceBeforeValidatingSeance);
   }
 
-  private static _canMovieProjectionBeLastProjectionOfGaveDay(endOfProjectionBasedOnGivenDate: DateTime,
-                                                              movieProjectionDuration: number): boolean {
-    const daysEnd = new Date(endOfProjectionBasedOnGivenDate.toISODate());
-    daysEnd.setHours(23, 59, 59, 999);
-    const daysEndAsDateTime = this._luxonService.DateTime.fromISO(daysEnd.toISOString());
-
-    const x = daysEndAsDateTime > endOfProjectionBasedOnGivenDate;
-    const y = this._luxonService.Interval
-      .fromDateTimes(endOfProjectionBasedOnGivenDate, daysEndAsDateTime)
-      .length('minutes');
-
-    return daysEndAsDateTime > endOfProjectionBasedOnGivenDate &&
-      this._luxonService.Interval
-        .fromDateTimes(endOfProjectionBasedOnGivenDate, daysEndAsDateTime)
-        .length('minutes') > movieProjectionDuration;
+  private static _canSeanceBeLatest(seanceStart: DateTime, seanceEnd: DateTime, endOfseanceBeforeValidatingSeance: DateTime): boolean {
+    return seanceEnd < this._getDayEnd(seanceStart) && endOfseanceBeforeValidatingSeance < seanceStart;
   }
 
-  private static _canMovieProjectionBeFirstProjectionOfGaveDay(currentMoviesProjections: SelectedDaySeancesModel,
-                                                               endOfProjectionBasedOnGivenDate: DateTime,
-                                                               movieProjectionDuration: number): boolean {
-    const daysStart = new Date(endOfProjectionBasedOnGivenDate.toISODate());
-    daysStart.setHours(0, 0, 0, 0);
-    const daysStartAsDateTime = this._luxonService.DateTime.fromISO(daysStart.toISOString());
+  private static _canSeanceBeFirst(seanceStart: DateTime, seanceEnd: DateTime, startOfSeanceBeforeValidatingSeance: DateTime): boolean {
+    return seanceStart > this._getDayStart(seanceStart) && seanceEnd < startOfSeanceBeforeValidatingSeance;
+  }
 
-    const x = daysStartAsDateTime < endOfProjectionBasedOnGivenDate;
-    const y = this._luxonService.Interval
-      .fromDateTimes(daysStartAsDateTime, currentMoviesProjections.seances[0].start)
-      .length('minutes');
+  private static _isSeanceBetweenPreviousAndNextSeances(seanceStart: Date,
+                                                        seanceEnd: Date,
+                                                        seancesThisDay: SelectedDaySeancesModel,
+                                                        indexOfSeanceBeforeValidatingSeance: number): boolean {
+    const endOfSeanceBeforeValidatingSeance = seancesThisDay.seances[indexOfSeanceBeforeValidatingSeance - 1].end;
+    const startOfSeanceAfterValidatingSeance = seancesThisDay.seances[indexOfSeanceBeforeValidatingSeance].start;
 
-    return daysStartAsDateTime < endOfProjectionBasedOnGivenDate &&
-      this._luxonService.Interval
-        .fromDateTimes(daysStartAsDateTime, currentMoviesProjections.seances[0].start)
-        .length('minutes') > movieProjectionDuration;
+    return seanceStart > endOfSeanceBeforeValidatingSeance && seanceEnd < startOfSeanceAfterValidatingSeance;
+  }
+
+  private static _getDayStart(date: DateTime): DateTime {
+    const dayStart = Luxon.toDate(date);
+    dayStart.setHours(0, 0, 0, 0);
+    return Luxon.toDateTime(dayStart);
+  }
+
+  private static _getDayEnd(date: DateTime): DateTime {
+    const dayEnd = Luxon.toDate(date);
+    dayEnd.setHours(23, 59, 59, 999);
+    return Luxon.toDateTime(dayEnd);
   }
 }
