@@ -151,11 +151,16 @@
   padding-left: 15px;
 }
 
-.add-procjection-button {
+.add-seance-button {
   cursor: default;
 }
 
-.add-procjection-button-active {
+.add-seance-button-activated {
+  background-color: #ff8d1b !important;
   cursor: pointer;
-  background-color: #FF8D1B;
+}
+
+.delete-seance {
+  color: #dc3545;
+  cursor: pointer;
 }

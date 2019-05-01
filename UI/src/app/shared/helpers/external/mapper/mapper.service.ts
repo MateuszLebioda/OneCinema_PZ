@@ -12,6 +12,8 @@ import {ScreeningRoom} from '../../../../modules/booking/pages/booking-process/c
 import {ScreeningRoomPlanApiModel} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/models/api/screening-room-plan-api.model';
 import {SharedServicesModule} from '../../../shared-services.module';
 import {TranslatorService} from '../../internal/translator.service';
+import {SeanceApiModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/api/seance-api.model';
+import {AddMovieProjectionTimeApiModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/api/add-movie-projection-time-api.model';
 
 @Injectable({
   providedIn: SharedServicesModule
@@ -62,6 +64,12 @@ export class MapperService {
   public toScreeningRoom(source: ScreeningRoomPlanApiModel): ScreeningRoom {
     const destination: ScreeningRoom = automapper.map(ScreeningRoomPlanApiModel.name, ScreeningRoom.name, source);
     destination.rows = PropertiesMapper.getRows(source.rows);
+
+    return destination;
+  }
+
+  public toSeanceApiModel(source: AddMovieProjectionTimeApiModel): SeanceApiModel {
+    const destination: SeanceApiModel = automapper.map(AddMovieProjectionTimeApiModel.name, SeanceApiModel.name, source);
 
     return destination;
   }

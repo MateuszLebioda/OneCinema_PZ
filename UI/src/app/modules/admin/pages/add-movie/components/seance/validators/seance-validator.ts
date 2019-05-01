@@ -3,8 +3,11 @@ import {SelectedDaySeancesModel} from '../models/selected-day-seances.model';
 import {DateTime} from 'luxon';
 import {Time} from '@angular/common';
 import {Luxon} from '../../../../../../../shared/helpers/external/luxon';
+import {DateTimeService} from '../../../../../../../shared/helpers/internal/date-time.service';
 
 export class SeanceValidator {
+  private static _dateTimeService: DateTimeService = new DateTimeService();
+
   public static isValid(seanceDay: Date, seancesThisDay: SelectedDaySeancesModel, seanceDuration: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
       if (!seanceDuration || seanceDuration <= 0) {
@@ -18,27 +21,11 @@ export class SeanceValidator {
     };
   }
 
-  private static convertToTime(time: string): Time {
-    if (!time) {
-      return null;
-    }
-    const x = time.split(':');
-
-    if (x.length !== 2) {
-      return null;
-    }
-
-    return {
-      hours: Number(x[0].trim()),
-      minutes: Number(x[1].trim())
-    };
-  }
-
   private static _isValid(seanceStartHour: string,
                           seanceDay: Date,
                           seancesThisDay: SelectedDaySeancesModel,
                           seanceDuration: number): boolean {
-    const seanceTime: Time = this.convertToTime(seanceStartHour);
+    const seanceTime: Time = this._dateTimeService.convertToTime(seanceStartHour);
     if (!seanceTime) {
       return false;
     }

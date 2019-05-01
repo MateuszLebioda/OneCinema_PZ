@@ -27,7 +27,7 @@
           <button type="button" class="btn btn-default week-number"
                   [class.active-week-number]="data.selectedWeekNumber === weekIndex + 1"
                   (click)="selectWeek(weekIndex + 1)"
-                  *ngFor="let week of data.addMovieApiModel.weeks; let weekIndex = index">
+                  *ngFor="let week of addedSeances.weeks; let weekIndex = index">
             {{weekIndex + 1}}
           </button>
         </div>
@@ -47,8 +47,14 @@
       <div class="btn-toolbar selector" role="toolbar">
         <span class="selector-label">Typ projekcji</span>
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default week-number active-week-number">2D</button>
-          <button type="button" class="btn btn-default week-number">3D</button>
+          <button type="button" class="btn btn-default week-number"
+                  [class.active-week-number]="data.selectedProjectionType === ProjectionType.type2D"
+                  (click)="setProjectionType(ProjectionType.type2D)">2D
+          </button>
+          <button type="button" class="btn btn-default week-number"
+                  [class.active-week-number]="data.selectedProjectionType === ProjectionType.type3D"
+                  (click)="setProjectionType(ProjectionType.type3D)">3D
+          </button>
         </div>
       </div>
 
@@ -63,7 +69,8 @@
       </div>
 
       <div class="btn-toolbar selector" role="toolbar">
-        <input type="button" value="Dodaj projekcję" class="form-subbmit add-procjection-button">
+        <input type="button" value="Dodaj seans" class="form-subbmit add-seance-button"
+               [class.add-seance-button-activated]="canAddMovie()" (click)="addSeance()">
       </div>
 
     </div>
@@ -73,7 +80,9 @@
           <table id="table-breakpoint">
             <thead>
             <tr>
-              <th class="table-header">Aktualne projekcjie w wybranym dniu (plus margines)</th>
+              <th class="table-header">Aktualne seanse w wybranym dniu (plus
+                margines {{getSeanceRoomBreakBeforeAndAfterMovie()}} minut przed i po projekcji filmu)
+              </th>
             </tr>
             </thead>
             <tbody>
@@ -94,7 +103,7 @@
         </div>
       </div>
     </div>
-    <div class="tab-content tab-whole-line" *ngFor="let week of data.addMovieApiModel.weeks; let weekIndex = index">
+    <div class="tab-content tab-whole-line" *ngFor="let week of addedSeances.weeks; let weekIndex = index">
       <div role="tabpanel" class="tab-pane fade in active">
         <div class="agile-news-table">
           <table>
@@ -117,6 +126,7 @@
                   <p>
                     {{projectionTime.start | date: 'HH:mm'}} - {{projectionTime.end | date: 'HH:mm'}}
                     ({{projectionTime.projectionType}})
+                    <span class="delete-seance" (click)="removeSeance(projectionTime)">x</span>
                   </p>
                 </div>
               </td>

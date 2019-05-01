@@ -64,6 +64,7 @@ export class AddMovieService {
       'weeksCount': new FormControl(null, [Validators.required, Validators.min(1)]),
       'movieProjectionTime': new FormControl(null, [Validators.required]),
       'seanceRoom': new FormControl(null, [Validators.required]),
+      'addedSeances': new FormControl(null)
     }));
   }
 }

@@ -7,6 +7,8 @@ import {MovieApiModel} from '../../../../modules/movie/models/api/movie-api.mode
 import {Movie} from '../../../../modules/movie/models/movie.model';
 import {ScreeningRoomPlanApiModel} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/models/api/screening-room-plan-api.model';
 import {ScreeningRoom} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/models/screening-room';
+import {AddMovieProjectionTimeApiModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/api/add-movie-projection-time-api.model';
+import {SeanceApiModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/api/seance-api.model';
 
 export class AutomapperMaps {
   public static InitializeMaps(): void {
@@ -35,5 +37,7 @@ export class AutomapperMaps {
       .forSourceMember('rows', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => {
         opts.ignore();
       });
+
+    automapper.createMap(AddMovieProjectionTimeApiModel.name, SeanceApiModel.name);
   }
 }

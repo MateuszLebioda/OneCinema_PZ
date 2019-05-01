@@ -7,6 +7,10 @@ import {SharedServicesModule} from '../shared-services.module';
   providedIn: SharedServicesModule
 })
 export class FormValidatorService {
+  public isInvalid(form: FormGroup, formControlName: string): boolean {
+    return !form.get(formControlName).valid;
+  }
+
   public isInvalidAndTouched(form: FormGroup, formControlName: string): boolean {
     return !form.get(formControlName).valid && form.get(formControlName).touched;
   }
