@@ -19,6 +19,7 @@ import {AddSeanceToFormModel} from '../models/add-seance-to-form.model';
 import {DateTimeService} from '../../../../../../../shared/helpers/internal/date-time.service';
 import {RemoveSeanceFromFormModel} from '../models/remove-seance-from-form.model';
 import {MapperService} from '../../../../../../../shared/helpers/external/mapper/mapper.service';
+import {Lodash} from '../../../../../../../shared/helpers/external/lodash';
 
 @Injectable({
   providedIn: AdminServicesModule
@@ -38,7 +39,8 @@ export class SeanceService {
     result.seanceRooms = this._seanceService.getSeanceRooms();
     result.bookingForm.get('seanceRoom').setValue(result.seanceRooms[0]);
     result.bookingForm.get('addedSeances').setValue(new AddMovieApiModel());
-    result.selectedDaySeancesModel = this.getSelectedDaySeances(result.selectedWeekNumber, result.selectedDayNumber - 1);
+    result.selectedDaySeancesModel = this.getSelectedDaySeances(result.seanceRooms[0].id, result.selectedWeekNumber, result.selectedDayNumber);
+    result.selectedDaySeancesModel.seanceRoomId = result.seanceRooms[0].id;
     this.setSeanceTimeValidator(result);
 
     return result;
@@ -53,7 +55,7 @@ export class SeanceService {
         Validators.required,
         SeanceValidator.isValid(
           this.getDate(data.selectedWeekNumber, data.selectedDayNumber),
-          data.selectedDaySeancesModel,
+          data.selectedDaySeancesModel.seancesWithAddedByUser,
           movieDuration + selectedSeanceRoom.breakBeforeAndAfterMovie * 2)
       ]));
   }
@@ -66,11 +68,12 @@ export class SeanceService {
     return this._formValidatorService.isInvalidAndTouched(bookingForm, formControlName);
   }
 
-  public getSelectedDaySeances(weekNumber: number, dayNumber: number): SelectedDaySeancesModel {
+  public getSelectedDaySeances(seanceRoomId: string, weekNumber: number, dayNumber: number): SelectedDaySeancesModel {
     const result = new SelectedDaySeancesModel();
+    result.seanceRoomId = seanceRoomId;
     result.weekNumber = weekNumber;
     result.dayNumber = dayNumber;
-    result.seances = this._getMovieProjectionsForSelectedDay(weekNumber, dayNumber);
+    result.seances = this._getMovieProjectionsForSelectedDay(seanceRoomId, weekNumber, dayNumber);
 
     return result;
   }
@@ -144,13 +147,30 @@ export class SeanceService {
   public attachAddedSeancesToSelectedDaySeances(data: SeanceComponentDataModel): void {
     if (data.bookingForm.get('addedSeances')) {
       const addedSeances = data.bookingForm.get('addedSeances').value as AddMovieApiModel;
-      const seancesToAttach = addedSeances.weeks[data.selectedDaySeancesModel.weekNumber - 1].days[data.selectedDaySeancesModel.dayNumber - 1].projectionTimes;
 
+      if (!addedSeances.weeks[data.selectedDaySeancesModel.weekNumber - 1].days[data.selectedDaySeancesModel.dayNumber - 1]) {
+        return;
+      }
+      const seancesToAttach = addedSeances
+        .weeks[data.selectedDaySeancesModel.weekNumber - 1]
+        .days[data.selectedDaySeancesModel.dayNumber - 1]
+        .projectionTimes;
+      data.selectedDaySeancesModel.seancesWithAddedByUser = Lodash.utils.cloneDeep(data.selectedDaySeancesModel.seances);
+
+      if (seancesToAttach.length <= 0) {
+        return;
+      }
       seancesToAttach.forEach(seanceToAttach => {
-        data.selectedDaySeancesModel.seances.push(this._mapper.toSeanceApiModel(seanceToAttach));
+        data.selectedDaySeancesModel.seancesWithAddedByUser.push(this._mapper.toSeanceApiModel(seanceToAttach));
       });
 
-      data.selectedDaySeancesModel.seances.sort(x => x.start.getTime());
+      data.selectedDaySeancesModel.seancesWithAddedByUser = Lodash.utils.orderBy(data.selectedDaySeancesModel.seancesWithAddedByUser, [
+        a => {
+          return (a as SeanceApiModel).start;
+        }
+      ]);
+
+      this.setSeanceTimeValidator(data);
     }
   }
 
@@ -164,9 +184,9 @@ export class SeanceService {
     return result;
   }
 
-  private _getMovieProjectionsForSelectedDay(weekNumber: number, dayNumber: number): SeanceApiModel[] {
+  private _getMovieProjectionsForSelectedDay(seanceRoomId: string, weekNumber: number, dayNumber: number): SeanceApiModel[] {
     const request: SeanceRequestModel = new SeanceRequestModel();
-    request.seanceRoomId = 'sss';
+    request.seanceRoomId = seanceRoomId;
     request.date = this.getDate(weekNumber, dayNumber);
 
     return this._seanceService.getMoviesProjections(request);

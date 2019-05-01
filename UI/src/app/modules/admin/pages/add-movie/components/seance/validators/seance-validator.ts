@@ -1,14 +1,14 @@
 import {AbstractControl, ValidatorFn} from '@angular/forms';
-import {SelectedDaySeancesModel} from '../models/selected-day-seances.model';
 import {DateTime} from 'luxon';
 import {Time} from '@angular/common';
 import {Luxon} from '../../../../../../../shared/helpers/external/luxon';
 import {DateTimeService} from '../../../../../../../shared/helpers/internal/date-time.service';
+import {SeanceApiModel} from '../models/api/seance-api.model';
 
 export class SeanceValidator {
   private static _dateTimeService: DateTimeService = new DateTimeService();
 
-  public static isValid(seanceDay: Date, seancesThisDay: SelectedDaySeancesModel, seanceDuration: number): ValidatorFn {
+  public static isValid(seanceDay: Date, seancesThisDay: SeanceApiModel[], seanceDuration: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
       if (!seanceDuration || seanceDuration <= 0) {
         return {'emptySeanceDuration': true};
@@ -23,14 +23,14 @@ export class SeanceValidator {
 
   private static _isValid(seanceStartHour: string,
                           seanceDay: Date,
-                          seancesThisDay: SelectedDaySeancesModel,
+                          seancesThisDay: SeanceApiModel[],
                           seanceDuration: number): boolean {
     const seanceTime: Time = this._dateTimeService.convertToTime(seanceStartHour);
     if (!seanceTime) {
       return false;
     }
 
-    if (seancesThisDay.seances.length <= 0) {
+    if (seancesThisDay.length <= 0) {
       return true;
     }
 
@@ -40,14 +40,14 @@ export class SeanceValidator {
     const seanceStart: Date = seanceDay;
     const seanceEnd: DateTime = Luxon.toDateTime(seanceStart).plus({minutes: seanceDuration});
 
-    const indexOfSeanceBeforeValidatingSeance = seancesThisDay.seances.findIndex(currentSeance => currentSeance.start > seanceStart);
+    const indexOfSeanceBeforeValidatingSeance = seancesThisDay.findIndex(currentSeance => currentSeance.start > seanceStart);
     if (indexOfSeanceBeforeValidatingSeance < 0) {
       return this._canSeanceBeLatest(
-        Luxon.toDateTime(seanceStart), seanceEnd, Luxon.toDateTime(seancesThisDay.seances[seancesThisDay.seances.length - 1].end));
+        Luxon.toDateTime(seanceStart), seanceEnd, Luxon.toDateTime(seancesThisDay[seancesThisDay.length - 1].end));
     }
     if (indexOfSeanceBeforeValidatingSeance === 0) {
       return this._canSeanceBeFirst(
-        Luxon.toDateTime(seanceStart), seanceEnd, Luxon.toDateTime(seancesThisDay.seances[0].start));
+        Luxon.toDateTime(seanceStart), seanceEnd, Luxon.toDateTime(seancesThisDay[0].start));
     }
 
     return this._isSeanceBetweenPreviousAndNextSeances(
@@ -64,10 +64,10 @@ export class SeanceValidator {
 
   private static _isSeanceBetweenPreviousAndNextSeances(seanceStart: Date,
                                                         seanceEnd: Date,
-                                                        seancesThisDay: SelectedDaySeancesModel,
+                                                        seancesThisDay: SeanceApiModel[],
                                                         indexOfSeanceBeforeValidatingSeance: number): boolean {
-    const endOfSeanceBeforeValidatingSeance = seancesThisDay.seances[indexOfSeanceBeforeValidatingSeance - 1].end;
-    const startOfSeanceAfterValidatingSeance = seancesThisDay.seances[indexOfSeanceBeforeValidatingSeance].start;
+    const endOfSeanceBeforeValidatingSeance = seancesThisDay[indexOfSeanceBeforeValidatingSeance - 1].end;
+    const startOfSeanceAfterValidatingSeance = seancesThisDay[indexOfSeanceBeforeValidatingSeance].start;
 
     return seanceStart > endOfSeanceBeforeValidatingSeance && seanceEnd < startOfSeanceAfterValidatingSeance;
   }

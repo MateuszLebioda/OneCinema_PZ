@@ -34,14 +34,15 @@ export class SeanceComponent implements OnInit, OnDestroy {
   }
 
   public get seances(): SeanceApiModel[] {
-    if (this.data.selectedDaySeancesModel.weekNumber === this.data.selectedWeekNumber &&
-      this.data.selectedDaySeancesModel.dayNumber === this.data.selectedDayNumber) {
-      return this.data.selectedDaySeancesModel.seances;
+    if (this.data.selectedDaySeancesModel.weekNumber === this.data.selectedWeekNumber
+      && this.data.selectedDaySeancesModel.dayNumber === this.data.selectedDayNumber) {
+      return this.data.selectedDaySeancesModel.seancesWithAddedByUser;
     }
     this.data.selectedDaySeancesModel = this._seanceService.getSelectedDaySeances(
-      this.data.selectedWeekNumber, this.data.selectedDayNumber - 1);
+      this.data.selectedDaySeancesModel.seanceRoomId, this.data.selectedWeekNumber, this.data.selectedDayNumber);
+    this._seanceService.attachAddedSeancesToSelectedDaySeances(this.data);
 
-    return this.data.selectedDaySeancesModel.seances;
+    return this.data.selectedDaySeancesModel.seancesWithAddedByUser;
   }
 
   public get addedSeances(): AddMovieApiModel {
@@ -65,7 +66,6 @@ export class SeanceComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.data = this._seanceService.initComponent(<FormGroup>this._controlContainer.control);
-    console.log(this.data);
     this.movieDuration.subscribe(movieDuration => {
       this.data.movieDuration = movieDuration;
       this._seanceService.setSeanceTimeValidator(this.data);
@@ -75,7 +75,6 @@ export class SeanceComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.movieDuration.unsubscribe();
   }
-
 
   public isInvalid(formControlName: string): boolean {
     return this._seanceService.isInvalidAndTouched(formControlName, this.data.bookingForm);
@@ -113,6 +112,7 @@ export class SeanceComponent implements OnInit, OnDestroy {
     };
 
     this._seanceService.addSeanceToForm(data);
+    this._seanceService.attachAddedSeancesToSelectedDaySeances(this.data);
   }
 
   public removeSeance(seanceToRemove: AddMovieProjectionTimeApiModel): void {
@@ -124,6 +124,7 @@ export class SeanceComponent implements OnInit, OnDestroy {
     };
 
     this._seanceService.removeSeanceFromForm(data);
+    this._seanceService.attachAddedSeancesToSelectedDaySeances(this.data);
   }
 
   public canAddMovie(): boolean {
@@ -140,6 +141,15 @@ export class SeanceComponent implements OnInit, OnDestroy {
     if (this.data.bookingForm.get('seanceRoom')) {
       return (this.data.bookingForm.get('seanceRoom').value as SeanceRoomApiModel).breakBeforeAndAfterMovie;
     }
+  }
+
+  public resetAddedSeances(): void {
+    const seanceRoom = this.data.bookingForm.get('seanceRoom').value as SeanceRoomApiModel;
+
+    this.data.bookingForm.get('addedSeances').setValue(new AddMovieApiModel());
+
+    this.data.selectedDaySeancesModel = this._seanceService.getSelectedDaySeances(
+      seanceRoom.id, this.data.selectedWeekNumber, this.data.selectedDayNumber - 1);
   }
 }
 

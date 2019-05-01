@@ -67,7 +67,7 @@
 }
 
 .cinema-room-options {
-  border-color: #FF8D1B;
+  border-color: #d9d9d9;
   width: 75%;
   border-radius: 0;
   height: 41px;
@@ -106,7 +106,7 @@
 .movie-projection-time {
   float: left;
   text-align: center;
-  margin: 0 10px;
+  margin: 10px;
   width: 20% !important;
   text-align: center;
   padding: 0 !important;
@@ -163,4 +163,9 @@
 .delete-seance {
   color: #dc3545;
   cursor: pointer;
+}
+
+.help-block-right {
+  float: right;
+  font-size: 80%;
 }
