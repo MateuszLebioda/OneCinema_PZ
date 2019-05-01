@@ -31,7 +31,7 @@
           <button type="button" class="btn btn-default week-number"
                   [class.active-week-number]="data.selectedWeekNumber === weekIndex + 1"
                   (click)="selectWeek(weekIndex + 1)"
-                  *ngFor="let week of addedSeances.weeks; let weekIndex = index">
+                  *ngFor="let week of addedSeances; let weekIndex = index">
             {{weekIndex + 1}}
           </button>
         </div>
@@ -107,7 +107,7 @@
         </div>
       </div>
     </div>
-    <div class="tab-content tab-whole-line" *ngFor="let week of addedSeances.weeks; let weekIndex = index">
+    <div class="tab-content tab-whole-line" *ngFor="let week of addedSeances; let weekIndex = index">
       <div role="tabpanel" class="tab-pane fade in active">
         <div class="agile-news-table">
           <table>

@@ -44,8 +44,8 @@
                   <div class="form-right">
                     <div class="form-group movie-rate">
                       <div class="slidecontainer">
-                        <span class="movie-rate-text">Ocena filmu: {{addMovieModel.rate}} </span>
-                        <input type="range" min="1" max="5" value="{{addMovieModel.rate}}" step="0.5"
+                        <span class="movie-rate-text">Ocena filmu: {{rate}} </span>
+                        <input type="range" min="1" max="5" value="{{rate}}" step="0.5"
                                class="slider movie-rate-input"
                                (input)="valueChanged($event.target.value)">
                       </div>

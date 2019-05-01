@@ -1,13 +1,13 @@
 import {FormGroup} from '@angular/forms';
-import {AddMovieProjectionTimeApiModel} from './api/add-movie-projection-time-api.model';
+import { AddMovieProjectionTimeModel } from './add-movie-projection-time.model';
 
 export class RemoveSeanceFromFormModel {
   public form: FormGroup;
   public week: number;
   public day: number;
-  public seanceToRemove: AddMovieProjectionTimeApiModel;
+  public seanceToRemove: AddMovieProjectionTimeModel;
 
   constructor() {
-    this.seanceToRemove = new AddMovieProjectionTimeApiModel();
+    this.seanceToRemove = new AddMovieProjectionTimeModel();
   }
 }

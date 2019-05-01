@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ControlContainer, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {SeanceApiModel} from './models/api/seance-api.model';
@@ -8,9 +8,9 @@ import {Subject} from 'rxjs/internal/Subject';
 import {SeanceRoomApiModel} from './models/api/seance-room-api.model';
 import {AddSeanceToFormModel} from './models/add-seance-to-form.model';
 import {ProjectionType} from '../../../../../movie/enums/projection-type.enum';
-import {AddMovieApiModel} from './models/api/add-movie-api.model';
 import {RemoveSeanceFromFormModel} from './models/remove-seance-from-form.model';
-import {AddMovieProjectionTimeApiModel} from './models/api/add-movie-projection-time-api.model';
+import {AddMovieWeekModel} from './models/add-movie-week.model';
+import {AddMovieProjectionTimeModel} from './models/add-movie-projection-time.model';
 
 @Component({
   selector: 'app-seance',
@@ -45,9 +45,9 @@ export class SeanceComponent implements OnInit, OnDestroy {
     return this.data.selectedDaySeancesModel.seancesWithAddedByUser;
   }
 
-  public get addedSeances(): AddMovieApiModel {
+  public get addedSeances(): AddMovieWeekModel[] {
     if (this.data.bookingForm.get('addedSeances') && this.data.bookingForm.get('addedSeances').value) {
-      return this.data.bookingForm.get('addedSeances').value as AddMovieApiModel;
+      return this.data.bookingForm.get('addedSeances').value as AddMovieWeekModel[];
     }
 
     return this.emptyAddMovieApiModel;
@@ -56,7 +56,7 @@ export class SeanceComponent implements OnInit, OnDestroy {
   public data: SeanceComponentDataModel = new SeanceComponentDataModel();
   public ProjectionType = ProjectionType;
 
-  private readonly emptyAddMovieApiModel: AddMovieApiModel = new AddMovieApiModel();
+  private readonly emptyAddMovieApiModel: AddMovieWeekModel[] = [];
 
   constructor(
     private _controlContainer: ControlContainer,
@@ -103,11 +103,12 @@ export class SeanceComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const seanceRoom: SeanceRoomApiModel = this.data.bookingForm.get('seanceRoom').value;
     const data: AddSeanceToFormModel = {
       form: this.data.bookingForm,
       week: this.data.selectedWeekNumber,
       day: this.data.selectedDayNumber,
-      duration: this.data.movieDuration,
+      duration: this.data.movieDuration + seanceRoom.breakBeforeAndAfterMovie * 2,
       projectionType: this.data.selectedProjectionType
     };
 
@@ -115,7 +116,7 @@ export class SeanceComponent implements OnInit, OnDestroy {
     this._seanceService.attachAddedSeancesToSelectedDaySeances(this.data);
   }
 
-  public removeSeance(seanceToRemove: AddMovieProjectionTimeApiModel): void {
+  public removeSeance(seanceToRemove: AddMovieProjectionTimeModel): void {
     const data: RemoveSeanceFromFormModel = {
       form: this.data.bookingForm,
       week: this.data.selectedWeekNumber,
@@ -146,7 +147,8 @@ export class SeanceComponent implements OnInit, OnDestroy {
   public resetAddedSeances(): void {
     const seanceRoom = this.data.bookingForm.get('seanceRoom').value as SeanceRoomApiModel;
 
-    this.data.bookingForm.get('addedSeances').setValue(new AddMovieApiModel());
+    const seances: AddMovieWeekModel[] = [];
+    this.data.bookingForm.get('addedSeances').setValue(seances);
 
     this.data.selectedDaySeancesModel = this._seanceService.getSelectedDaySeances(
       seanceRoom.id, this.data.selectedWeekNumber, this.data.selectedDayNumber - 1);

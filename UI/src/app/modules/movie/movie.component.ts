@@ -21,7 +21,6 @@ export class MovieComponent implements OnInit, AfterViewInit {
 
   public ngOnInit(): void {
     this.movie = this._movieService.getMovie();
-    console.log(this.movie);
 
     this.movieId = this.route.snapshot.params.movieId;
   }
