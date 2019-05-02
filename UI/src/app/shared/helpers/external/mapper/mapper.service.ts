@@ -15,11 +15,11 @@ import {TranslatorService} from '../../internal/translator.service';
 import {SeanceApiModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/api/seance-api.model';
 import {AddMovieProjectionTimeModel} from 'src/app/modules/admin/pages/add-movie/components/seance/models/add-movie-projection-time.model';
 import {AddMovieWeekModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/add-movie-week.model';
-import {AddMovieRequestModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/requests/add-movie-request.model';
-import {AddSeanceWeekRequestModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/requests/add-seance-week-request.model';
-import {AddSeanceDayRequestModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/requests/add-seance-day-request.model';
+import {AddMovieRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-movie-request.model';
+import {AddSeanceWeekRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-seance-week-request.model';
+import {AddSeanceDayRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-seance-day-request.model';
 import {AddMovieDayModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/add-movie-day.model';
-import {AddSeanceTimeRequestModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/requests/add-seance-time-request.model';
+import {AddSeanceTimeRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-seance-time-request.model';
 
 @Injectable({
   providedIn: SharedServicesModule

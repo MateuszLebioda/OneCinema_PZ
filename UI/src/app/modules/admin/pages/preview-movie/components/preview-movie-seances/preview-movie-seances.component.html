@@ -1,0 +1,53 @@
+<div class="faq">
+
+  <select class="form-control cinema-room-options" (change)="setScreeningRoom($event.target.value)">
+    <option *ngFor="let screeningRoom of screeningRooms" [value]="screeningRoom.id">{{screeningRoom.name}}</option>
+  </select>
+
+  <div class="container" style="width: 100% !important;">
+    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active">
+          <div class="agile-news-table">
+            <div class="tab-content tab-whole-line" *ngFor="let week of seances; let weekIndex = index">
+              <div role="tabpanel" class="tab-pane fade in active">
+                <div class="agile-news-table">
+                  <table>
+                    <thead>
+                    <tr>
+                      <th colspan="2" class="table-header day-row">
+                        Tydzień
+                        <span class="week-name">
+                          {{week.weekRange.start | date: 'dd.MM.yyyy'}} - {{week.weekRange.end | date: 'dd.MM.yyyy'}}
+                        </span>
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let day of week.days; let dayIndex = index">
+                      <td class="day-row-header">
+                        <p>
+                          {{getPolishDayName(day.day)}}
+                        </p>
+                      </td>
+                      <td class="hours">
+                        <div class="movie-projection-time" *ngFor="let projectionTime of day.projectionTimes">
+                          <p>
+                            {{projectionTime.start | date: 'HH:mm'}} - {{projectionTime.end | date: 'HH:mm'}}
+                            ({{projectionTime.projectionType}})
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+.table-header {
+  text-transform: uppercase;
+  font-size: 1.3em;
+  color: #212121;
+  font-weight: bold;
+  padding-bottom: 1em;
+}
+
+.row-title {
+  color: #212121;
+  font-size: 14px;
+  font-weight: bold;
+  float: left;
+  width: 25%;
+}
+
+.row-content {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  float: left;
+  width: 25%;
+}
+
+.row-content > span {
+  padding-right: 5px;
+}
+
+table {
+  background-color: transparent !important;
+}
+
+table tr {
+  border: transparent solid 1px;
+  background-color: transparent !important;
+}
+
+table tr td {
+  border: transparent solid 1px;
+  background-color: transparent !important;
+}
+
+i {
+  color: white;
+}
+
+.stars {
+  width: 50% !important;
+}

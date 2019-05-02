@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AdminServicesModule} from '../../../admin-services.module';
-import {AddMovieRequestModel} from '../components/seance/models/requests/add-movie-request.model';
+import {AddMovieRequestModel} from '../models/requests/add-movie-request.model';
 
 @Injectable({
   providedIn: AdminServicesModule

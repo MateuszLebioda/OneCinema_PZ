@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {Movie} from '../../../movie/models/movie.model';
-import {MovieApiService} from '../../../movie/services/movie-api.service';
 import {ActivatedRoute} from '@angular/router';
+import {PreviewMovieApiModel} from './models/api/preview-movie-api.model';
+import {PreviewMovieApiService} from './services/preview-movie-api.service';
 
 declare function showVideoPlayer(): void;
 
@@ -11,18 +11,16 @@ declare function showVideoPlayer(): void;
   styleUrls: ['./preview-movie.component.css']
 })
 export class PreviewMovieComponent implements OnInit, AfterViewInit {
-  public movie: Movie;
-  public movieId: string;
+  public movie: PreviewMovieApiModel = new PreviewMovieApiModel();
+
 
   constructor(
-    private _movieService: MovieApiService,
+    private _previewMovieApiService: PreviewMovieApiService,
     private route: ActivatedRoute) {
   }
 
   public ngOnInit(): void {
-    this.movie = this._movieService.getMovie();
-
-    this.movieId = this.route.snapshot.params.movieId;
+    this.movie = this._previewMovieApiService.getMovie();
   }
 
   public ngAfterViewInit(): void {

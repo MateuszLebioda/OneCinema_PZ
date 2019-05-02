@@ -1,4 +1,4 @@
-import {ProjectionType} from '../../../../../../../movie/enums/projection-type.enum';
+import {ProjectionType} from '../../../../../movie/enums/projection-type.enum';
 
 export class AddSeanceTimeRequestModel {
   public projectionType: ProjectionType;

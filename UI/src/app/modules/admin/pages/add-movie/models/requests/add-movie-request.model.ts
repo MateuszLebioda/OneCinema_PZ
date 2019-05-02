@@ -1,4 +1,4 @@
-import {MovieGender} from '../../../../../../../movie/enums/movie-gender.enum';
+import {MovieGender} from '../../../../../movie/enums/movie-gender.enum';
 import {AddSeanceWeekRequestModel} from './add-seance-week-request.model';
 
 export class AddMovieRequestModel {

@@ -10,14 +10,14 @@ import {ScreeningRoom} from '../../../../modules/booking/pages/booking-process/c
 import {SeanceApiModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/api/seance-api.model';
 import { AddMovieProjectionTimeModel } from 'src/app/modules/admin/pages/add-movie/components/seance/models/add-movie-projection-time.model';
 import {AddMovieWeekModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/add-movie-week.model';
-import {AddSeanceWeekRequestModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/requests/add-seance-week-request.model';
+import {AddSeanceWeekRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-seance-week-request.model';
 import {AddMovieDayModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/add-movie-day.model';
-import {AddSeanceDayRequestModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/requests/add-seance-day-request.model';
+import {AddSeanceDayRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-seance-day-request.model';
 
 export class AutomapperMaps {
   public static InitializeMaps(): void {
     automapper.createMap(MovieProjectionApiModel.name, MovieProjection.name)
-      .forSourceMember('seances', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => {
+      .forSourceMember('screeningRooms', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => {
         opts.ignore();
       })
       .forSourceMember('movieGenders', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => {
@@ -25,7 +25,7 @@ export class AutomapperMaps {
       });
 
     automapper.createMap(DaySeancesApiModel.name, SeancesPerDay.name)
-      .forSourceMember('seances', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => {
+      .forSourceMember('screeningRooms', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => {
         opts.ignore();
       });
 

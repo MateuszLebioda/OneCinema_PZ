@@ -6,9 +6,9 @@ import {TranslatorService} from '../../../../../shared/helpers/internal/translat
 import {MovieGenderTranslateModel} from '../models/movie-gender-translate.model';
 import {MovieGender} from '../../../../movie/enums/movie-gender.enum';
 import {IMultipleSelectDropdownSettings} from '../../../../../shared/components/external/multiple-select-dropdown/interfaces/i-multiple-select-dropdown-settings';
-import {AddMovieRequestModel} from '../components/seance/models/requests/add-movie-request.model';
+import {AddMovieRequestModel} from '../models/requests/add-movie-request.model';
 import {AddMovieWeekModel} from '../components/seance/models/add-movie-week.model';
-import {AddSeanceWeekRequestModel} from '../components/seance/models/requests/add-seance-week-request.model';
+import {AddSeanceWeekRequestModel} from '../models/requests/add-seance-week-request.model';
 import {SeanceRoomApiModel} from '../components/seance/models/api/seance-room-api.model';
 import {MapperService} from '../../../../../shared/helpers/external/mapper/mapper.service';
 import {AddMovieApiService} from './add-movie-api.service';

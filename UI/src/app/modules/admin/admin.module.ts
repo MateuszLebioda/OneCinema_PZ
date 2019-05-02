@@ -14,6 +14,7 @@ import {EditPriceListComponent} from './pages/edit-price-list/edit-price-list.co
 import {CurrentPriceListComponent} from './pages/edit-price-list/components/current-price-list/current-price-list.component';
 import {TargetPriceListComponent} from './pages/edit-price-list/components/target-price-list/target-price-list.component';
 import {SharedModule} from '../../shared/shared.module';
+import {PreviewMovieSeancesComponent} from './pages/preview-movie/components/preview-movie-seances/preview-movie-seances.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {SharedModule} from '../../shared/shared.module';
     SeanceComponent,
     EditPriceListComponent,
     CurrentPriceListComponent,
-    TargetPriceListComponent
+    TargetPriceListComponent,
+    PreviewMovieSeancesComponent
   ],
   imports: [
     CommonModule,

@@ -33,17 +33,17 @@
                     <tr>
                       <td class="row-title">Ocena</td>
                       <td class="row-content stars">
-                        <a *ngFor="let star of getFakeTableForShowingStars(movie.rating)"><i class="fa fa-star"
+                        <a *ngFor="let star of getFakeTableForShowingStars(movie.rate)"><i class="fa fa-star"
                                                                                              aria-hidden="true"></i></a>
-                        <a *ngIf="ratingHasHalfPoint(movie.rating)"><i class="fa fa-star-half-o" aria-hidden="true"></i></a>
-                        <a *ngFor="let emptyStar of getFakeTableForShowingEmptyStars(movie.rating)"><i
+                        <a *ngIf="ratingHasHalfPoint(movie.rate)"><i class="fa fa-star-half-o" aria-hidden="true"></i></a>
+                        <a *ngFor="let emptyStar of getFakeTableForShowingEmptyStars(movie.rate)"><i
                           class="fa fa-star-o" aria-hidden="true"></i></a>
                       </td>
                     </tr>
                   </table>
 
                 </div>
-<!--                <app-movie-seances [seances2D]="movie.seances2D" [seances3D]="movie.seances3D"></app-movie-seances>-->
+                <app-preview-movie-seances [screeningRooms]="movie.screeningRooms"></app-preview-movie-seances>
               </div>
               <div class="clearfix"></div>
             </div>
