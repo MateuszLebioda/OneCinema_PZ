@@ -29,18 +29,18 @@ export class RepertoireApiService extends HttpBaseService {
       projectionType: ProjectionType.type2D,
       seances: [
         {
-          start: new Date('April 3, 2019 19:05:00'),
-          finish: new Date('April 3, 2019 23:05:00'),
+          start: new Date('May 2, 2019 19:05:00'),
+          finish: new Date('May 2, 2019 23:05:00'),
           id: '8823242'
         },
         {
-          start: new Date('April 3, 2019 20:05:00'),
-          finish: new Date('April 3, 2019 23:05:00'),
+          start: new Date('May 2, 2019 20:05:00'),
+          finish: new Date('May 2, 2019 23:05:00'),
           id: '54543242'
         },
         {
-          start: new Date('April 3, 2019 15:05:00'),
-          finish: new Date('April 3, 2019 18:05:00'),
+          start: new Date('May 2, 2019 15:05:00'),
+          finish: new Date('May 2, 2019 18:05:00'),
           id: '12223242'
         }
       ]

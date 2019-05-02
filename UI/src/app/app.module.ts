@@ -11,6 +11,7 @@ import {CinemaModule} from './modules/cinema/cinema.module';
 import {BookingModule} from './modules/booking/booking.module';
 import {AdminModule} from './modules/admin/admin.module';
 import {SharedModule} from './shared/shared.module';
+import {DeviceDetectorModule} from 'ngx-device-detector';
 
 registerLocaleData(localePL);
 
@@ -20,6 +21,7 @@ registerLocaleData(localePL);
   ],
   imports: [
     BrowserModule,
+    DeviceDetectorModule.forRoot(),
     SharedModule,
     HomeModule,
     RepertoireModule,
