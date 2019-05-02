@@ -19,6 +19,7 @@ import {MapperService} from '../../../../../../../shared/helpers/external/mapper
 import {Lodash} from '../../../../../../../shared/helpers/external/lodash';
 import {AddMovieWeekModel} from '../models/add-movie-week.model';
 import {AddMovieProjectionTimeModel} from '../models/add-movie-projection-time.model';
+import {CollectionValidator} from '../../../../../../../shared/validators/collection-validator';
 
 @Injectable({
   providedIn: AdminServicesModule
@@ -33,6 +34,10 @@ export class SeanceService {
 
   public initComponent(bookingForm: FormGroup, movieDuration: FormControl): SeanceComponentDataModel {
     const result = new SeanceComponentDataModel();
+
+    const curretDate = new Date();
+    result.currentDayNumber = curretDate.getDay() === 0 ? 7 : curretDate.getDay();
+    result.selectedDayNumber = result.currentDayNumber;
     result.movieDuration = movieDuration;
     result.bookingForm = bookingForm;
     result.bookingForm.get('weeksCount').setValue(1);
@@ -42,6 +47,7 @@ export class SeanceService {
     result.bookingForm.get('addedSeances').setValue(seances);
     result.selectedDaySeancesModel = this.getSelectedDaySeances(result.seanceRooms[0].id, result.selectedWeekNumber, result.selectedDayNumber);
     result.selectedDaySeancesModel.seanceRoomId = result.seanceRooms[0].id;
+
     this.setSeanceTimeValidator(result);
 
     return result;
@@ -125,7 +131,8 @@ export class SeanceService {
       const seanceEnd: DateTime = Luxon.toDateTime(seance.start).plus({minutes: data.duration});
       seance.end = Luxon.toDate(seanceEnd);
 
-      addedSeances[data.week - 1].days[data.day - 1].projectionTimes.push(seance);
+      addedSeances[data.week].weekNumber = data.week;
+      addedSeances[data.week].days[data.day - 1].projectionTimes.push(seance);
 
       data.form.get('addedSeances').setValue(addedSeances);
     }
@@ -135,11 +142,11 @@ export class SeanceService {
     if (data.form.get('addedSeances')) {
       const addedSeances = data.form.get('addedSeances').value as AddMovieWeekModel[];
 
-      const indexOfseanceToRemove = addedSeances[data.week - 1].days[data.day - 1].projectionTimes.findIndex(
+      const indexOfseanceToRemove = addedSeances[data.week].days[data.day - 1].projectionTimes.findIndex(
         projectionTime => projectionTime.start === data.seanceToRemove.start
           && projectionTime.end === data.seanceToRemove.end);
 
-      addedSeances[data.week - 1].days[data.day - 1].projectionTimes.splice(indexOfseanceToRemove, 1);
+      addedSeances[data.week].days[data.day - 1].projectionTimes.splice(indexOfseanceToRemove, 1);
 
       data.form.get('addedSeances').setValue(addedSeances);
     }
@@ -149,10 +156,10 @@ export class SeanceService {
     if (data.bookingForm.get('addedSeances')) {
       const addedSeances = data.bookingForm.get('addedSeances').value as AddMovieWeekModel[];
 
-      if (!addedSeances[data.selectedDaySeancesModel.weekNumber - 1].days[data.selectedDaySeancesModel.dayNumber - 1]) {
+      if (!addedSeances[data.selectedDaySeancesModel.weekNumber].days[data.selectedDaySeancesModel.dayNumber - 1]) {
         return;
       }
-      const seancesToAttach = addedSeances[data.selectedDaySeancesModel.weekNumber - 1]
+      const seancesToAttach = addedSeances[data.selectedDaySeancesModel.weekNumber]
         .days[data.selectedDaySeancesModel.dayNumber - 1]
         .projectionTimes;
       data.selectedDaySeancesModel.seancesWithAddedByUser = Lodash.utils.cloneDeep(data.selectedDaySeancesModel.seances);

@@ -169,3 +169,7 @@
   float: right;
   font-size: 80%;
 }
+
+.hide {
+  display: none;
+}

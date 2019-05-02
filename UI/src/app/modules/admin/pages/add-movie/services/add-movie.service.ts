@@ -71,12 +71,23 @@ export class AddMovieService {
     this._addMovieApiService.addMovie(this._createAddMovieRequest(selectedGenders, form));
   }
 
+  public isFormValid(bookingForm: FormGroup, selectedGenders: MovieGenderTranslateModel[]): boolean {
+    return selectedGenders.length > 0
+      && bookingForm.get('title').valid
+      && bookingForm.get('duration').valid
+      && bookingForm.get('rate').valid
+      && bookingForm.get('posterUrl').valid
+      && bookingForm.get('trailerUrl').valid;
+  }
+
   private _createAddMovieRequest(selectedGenders: MovieGenderTranslateModel[], form: FormGroup): AddMovieRequestModel {
     const genders: MovieGender[] = [];
     selectedGenders.forEach(gender => genders.push(gender.value));
     const seances = form.get('movieProjection').get('addedSeances').value as AddMovieWeekModel[];
     const castedSeances: AddSeanceWeekRequestModel[] = [];
     seances.forEach(q => castedSeances.push(this._mapper.toAddSeanceWeekRequestModel(q)));
+
+    this._removeEmptyWeeks(castedSeances);
 
     const result: AddMovieRequestModel = {
       title: form.get('title').value,
@@ -89,6 +100,7 @@ export class AddMovieService {
       seances: castedSeances
     };
 
+
     return result;
   }
 
@@ -99,5 +111,23 @@ export class AddMovieService {
       'seanceRoom': new FormControl(null, [Validators.required]),
       'addedSeances': new FormControl(null)
     }));
+  }
+
+  private _removeEmptyWeeks(weeks: AddSeanceWeekRequestModel[]): void {
+    for (let i = 0; i < weeks.length; i++) {
+      if (this._isWeekEmpty(weeks[i])) {
+        weeks.splice(weeks.indexOf(weeks[i]), 1);
+      }
+    }
+  }
+
+  private _isWeekEmpty(week: AddSeanceWeekRequestModel): boolean {
+    week.days.forEach(day => {
+      if (day.projectionTimes.length > 0) {
+        return false;
+      }
+    });
+
+    return true;
   }
 }

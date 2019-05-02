@@ -29,10 +29,10 @@
         <span class="selector-label">Tydzień</span>
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-default week-number"
-                  [class.active-week-number]="data.selectedWeekNumber === weekIndex + 1"
-                  (click)="selectWeek(weekIndex + 1)"
+                  [class.active-week-number]="data.selectedWeekNumber === weekIndex"
+                  (click)="selectWeek(weekIndex)"
                   *ngFor="let week of addedSeances; let weekIndex = index">
-            {{weekIndex + 1}}
+            {{weekIndex}}
           </button>
         </div>
       </div>
@@ -42,6 +42,7 @@
         <div class="btn-group" role="group">
           <button type="button" *ngFor="let day of data.weekDays"
                   [class.active-week-number]="data.selectedDayNumber === day"
+                  [class.hide]="data.selectedWeekNumber === 0 && day < data.currentDayNumber"
                   class="btn btn-default week-number"
                   (click)="selectDay(day)">{{day}}
           </button>
@@ -114,7 +115,7 @@
             <thead>
             <tr>
               <th colspan="2" class="table-header day-row">
-                Tydzień {{weekIndex + 1}}
+                Tydzień {{weekIndex}}
               </th>
             </tr>
             </thead>

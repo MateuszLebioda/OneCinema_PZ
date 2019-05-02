@@ -1,6 +1,7 @@
-import { AddMovieDayModel } from './add-movie-day.model';
+import {AddMovieDayModel} from './add-movie-day.model';
 
 export class AddMovieWeekModel {
+  public weekNumber: number;
   public days: AddMovieDayModel[];
 
   constructor() {

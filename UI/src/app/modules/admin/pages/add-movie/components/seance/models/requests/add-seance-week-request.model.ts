@@ -1,6 +1,7 @@
 import {AddSeanceDayRequestModel} from './add-seance-day-request.model';
 
 export class AddSeanceWeekRequestModel {
+  public weekNumber: number;
   public days: AddSeanceDayRequestModel[];
 
   constructor() {

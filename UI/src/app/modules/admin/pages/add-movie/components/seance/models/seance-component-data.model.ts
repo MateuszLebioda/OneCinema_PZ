@@ -12,10 +12,11 @@ export class SeanceComponentDataModel {
   public seanceRooms: SeanceRoomApiModel[];
   public weekDays: number[];
   public movieDuration: FormControl;
+  public currentDayNumber: number;
 
   constructor() {
     this.selectedDayNumber = 1;
-    this.selectedWeekNumber = 1;
+    this.selectedWeekNumber = 0;
     this.selectedProjectionType = ProjectionType.type2D;
     this.selectedDaySeancesModel = new SelectedDaySeancesModel();
 

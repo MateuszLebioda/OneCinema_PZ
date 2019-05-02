@@ -51,6 +51,11 @@ export class AddMovieComponent implements OnInit {
     this.clickedGenderSelector = true;
   }
 
+  public isFormValid(): boolean {
+    console.log(!this._addMovieService.isFormValid(this.bookingForm, this.selectedGenders));
+    return this._addMovieService.isFormValid(this.bookingForm, this.selectedGenders);
+  }
+
   public onSubmit(): void {
     this._addMovieService.addMovie(this.selectedGenders, this.bookingForm);
     // this._router.navigate(['/rezerwacja/potwierdzenie']);

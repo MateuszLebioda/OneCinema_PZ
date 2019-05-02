@@ -72,7 +72,8 @@
                 </app-seance>
                 <!--                <app-seance [formGroup]="bookingForm"></app-seance>-->
 
-                <input type="submit" value="Zarezerwuj" class="form-subbmit">
+                <input type="submit" value="Zarezerwuj" class="form-subbmit"
+                       [class.add-movie-button-activated]="isFormValid()">
 
                 <div class="clearfix"></div>
               </form>
