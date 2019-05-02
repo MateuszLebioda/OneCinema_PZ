@@ -33,14 +33,6 @@ body a:hover {
   text-decoration: none;
 }
 
-input[type="submit"], .agileinfo_chat a, .w3ls_footer_grid1_left p a, .w3l_sign_in_register ul li a, .w3ls_footer_grid1_right ul li a, .w3_customer_email_right a, ul.dropdown-menu.multi-column ul li a {
-  transition: .5s ease-in;
-  -webkit-transition: .5s ease-in;
-  -moz-transition: .5s ease-in;
-  -o-transition: .5s ease-in;
-  -ms-transition: .5s ease-in;
-}
-
 /*-- header --*/
 .header {
   padding: 1em 0;
@@ -116,7 +108,6 @@ input[type="submit"], .agileinfo_chat a, .w3ls_footer_grid1_left p a, .w3l_sign_
 .w3l_sign_in_register {
   float: right;
   margin-top: 1em;
-  width: 25%;
 }
 
 .w3l_sign_in_register ul li a {
@@ -355,11 +346,6 @@ p.fexi_header_para1 a i {
   -webkit-border-radius: 0 30px 30px 0;
   -moz-border-radius: 0 30px 30px 0;
   border-radius: 0 30px 30px 0;
-  -webkit-transition: all 1s;
-  -moz-transition: all 1s;
-  -ms-transition: all 1s;
-  -o-transition: all 1s;
-  transition: all 1s;
 }
 
 .w3_twitter {
@@ -419,11 +405,6 @@ p.fexi_header_para1 a i {
   -ms-transform: rotate(360deg);
   -o-transform: rotate(360deg);
   transform: rotate(360deg);
-  -webkit-transition: all 1s;
-  -moz-transition: all 1s;
-  -ms-transition: all 1s;
-  -o-transition: all 1s;
-  transition: all 1s;
 }
 
 .social ul li i {
@@ -1230,10 +1211,6 @@ h3.head {
 }
 
 @media (max-width: 1080px) {
-  .w3l_sign_in_register {
-    width: 30%;
-  }
-
   .w3_search {
     margin-left: 4em;
   }

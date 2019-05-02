@@ -52,7 +52,6 @@ export class AddMovieComponent implements OnInit {
   }
 
   public isFormValid(): boolean {
-    console.log(!this._addMovieService.isFormValid(this.bookingForm, this.selectedGenders));
     return this._addMovieService.isFormValid(this.bookingForm, this.selectedGenders);
   }
 

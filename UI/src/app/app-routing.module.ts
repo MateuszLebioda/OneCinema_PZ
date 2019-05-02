@@ -63,6 +63,10 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
+        path: '',
+        component: AdminPanelComponent
+      },
+      {
         path: 'panel',
         component: AdminPanelComponent,
         children: [
