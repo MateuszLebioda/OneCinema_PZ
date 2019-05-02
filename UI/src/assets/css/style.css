@@ -1821,3 +1821,7 @@ h3.head {
     font-size: 1.8em;
   }
 }
+
+.mobile-bookmark {
+  width: 100% !important;
+}

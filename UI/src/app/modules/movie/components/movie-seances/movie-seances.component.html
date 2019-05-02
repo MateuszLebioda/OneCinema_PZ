@@ -5,7 +5,8 @@
         <li
           role="presentation"
           *ngFor="let letter of bookmarkLetters; let dayNumber = index"
-          [class.active]="letter === 'a'">
+          [class.active]="letter === 'a'"
+          [class.mobile-bookmark]="isMobile">
           <a
             (click)="repertoireList(letter, dayNumber)"
             href="#{{letter}}"
