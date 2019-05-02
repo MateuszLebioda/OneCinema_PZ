@@ -7,13 +7,15 @@ import {LoginRegisterPopUpComponent} from './components/internal/login-register-
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {SharedServicesModule} from './shared-services.module';
+import {SafePipe} from './pipes/safe.pipe';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     NavbarComponent,
     FooterComponent,
-    LoginRegisterPopUpComponent
+    LoginRegisterPopUpComponent,
+    SafePipe
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import {SharedServicesModule} from './shared-services.module';
     HeaderComponent,
     NavbarComponent,
     FooterComponent,
-    LoginRegisterPopUpComponent
+    LoginRegisterPopUpComponent,
+    SafePipe
   ],
 })
 export class SharedModule {

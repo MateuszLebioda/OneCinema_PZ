@@ -72,7 +72,7 @@ td.w3-list-info a {
     text-align: center;
 }
 .nav-tabs > li {
-    margin: 0 .5em 0 0;
+    margin: 5px;
 }
 .nav-tabs > li > a:hover {
     color:#FFFFFF !important;

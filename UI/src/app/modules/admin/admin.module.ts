@@ -13,6 +13,7 @@ import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {EditPriceListComponent} from './pages/edit-price-list/edit-price-list.component';
 import {CurrentPriceListComponent} from './pages/edit-price-list/components/current-price-list/current-price-list.component';
 import {TargetPriceListComponent} from './pages/edit-price-list/components/target-price-list/target-price-list.component';
+import {SharedModule} from '../../shared/shared.module';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {TargetPriceListComponent} from './pages/edit-price-list/components/targe
     FormsModule,
     ReactiveFormsModule,
     AdminServicesModule,
-    NgMultiSelectDropDownModule
+    NgMultiSelectDropDownModule,
+    SharedModule
   ]
 })
 export class AdminModule {
