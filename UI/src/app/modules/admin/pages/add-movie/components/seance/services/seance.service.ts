@@ -17,8 +17,8 @@ import {DateTimeService} from '../../../../../../../shared/helpers/internal/date
 import {RemoveSeanceFromFormModel} from '../models/remove-seance-from-form.model';
 import {MapperService} from '../../../../../../../shared/helpers/external/mapper/mapper.service';
 import {Lodash} from '../../../../../../../shared/helpers/external/lodash';
-import { AddMovieWeekModel } from '../models/add-movie-week.model';
-import { AddMovieProjectionTimeModel } from '../models/add-movie-projection-time.model';
+import {AddMovieWeekModel} from '../models/add-movie-week.model';
+import {AddMovieProjectionTimeModel} from '../models/add-movie-projection-time.model';
 
 @Injectable({
   providedIn: AdminServicesModule
@@ -31,8 +31,9 @@ export class SeanceService {
     private _seanceService: SeanceApiService) {
   }
 
-  public initComponent(bookingForm: FormGroup): SeanceComponentDataModel {
+  public initComponent(bookingForm: FormGroup, movieDuration: FormControl): SeanceComponentDataModel {
     const result = new SeanceComponentDataModel();
+    result.movieDuration = movieDuration;
     result.bookingForm = bookingForm;
     result.bookingForm.get('weeksCount').setValue(1);
     result.seanceRooms = this._seanceService.getSeanceRooms();
@@ -48,7 +49,6 @@ export class SeanceService {
 
   public setSeanceTimeValidator(data: SeanceComponentDataModel): void {
     const selectedSeanceRoom: SeanceRoomApiModel = data.bookingForm.get('seanceRoom').value;
-    const movieDuration: number = data.movieDuration ? data.movieDuration : null;
     data.bookingForm.setControl('movieProjectionTime', new FormControl(
       null,
       [
@@ -56,7 +56,8 @@ export class SeanceService {
         SeanceValidator.isValid(
           this.getDate(data.selectedWeekNumber, data.selectedDayNumber),
           data.selectedDaySeancesModel.seancesWithAddedByUser,
-          movieDuration + selectedSeanceRoom.breakBeforeAndAfterMovie * 2)
+          data.movieDuration,
+          selectedSeanceRoom.breakBeforeAndAfterMovie)
       ]));
   }
 

@@ -1,4 +1,4 @@
-import {AbstractControl, ValidatorFn} from '@angular/forms';
+import {AbstractControl, FormControl, ValidatorFn} from '@angular/forms';
 import {DateTime} from 'luxon';
 import {Time} from '@angular/common';
 import {Luxon} from '../../../../../../../shared/helpers/external/luxon';
@@ -8,12 +8,16 @@ import {SeanceApiModel} from '../models/api/seance-api.model';
 export class SeanceValidator {
   private static _dateTimeService: DateTimeService = new DateTimeService();
 
-  public static isValid(seanceDay: Date, seancesThisDay: SeanceApiModel[], seanceDuration: number): ValidatorFn {
+  public static isValid(seanceDay: Date,
+                        seancesThisDay: SeanceApiModel[],
+                        movieDuration: FormControl,
+                        breakBeforeAndAfterSeanse: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
-      if (!seanceDuration || seanceDuration <= 0) {
+      if (movieDuration.invalid) {
         return {'emptySeanceDuration': true};
       }
-      if (control.value && !this._isValid(control.value, seanceDay, seancesThisDay, seanceDuration)) {
+      if (control.value && !this._isValid(
+        control.value, seanceDay, seancesThisDay, movieDuration.value + breakBeforeAndAfterSeanse * 2)) {
         return {'wrongTime': true};
       }
 

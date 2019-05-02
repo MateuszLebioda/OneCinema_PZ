@@ -3,7 +3,6 @@ import {FormGroup} from '@angular/forms';
 import {FormValidatorService} from '../../../../shared/services/form-validator.service';
 import {Router} from '@angular/router';
 import {AddMovieService} from './services/add-movie.service';
-import {Subject} from 'rxjs/internal/Subject';
 import {MovieGenderTranslateModel} from './models/movie-gender-translate.model';
 import {IMultipleSelectDropdownSettings} from '../../../../shared/components/external/multiple-select-dropdown/interfaces/i-multiple-select-dropdown-settings';
 
@@ -22,7 +21,6 @@ export class AddMovieComponent implements OnInit {
   }
 
   public bookingForm: FormGroup;
-  public movieDuration: Subject<number> = new Subject();
   public genders: MovieGenderTranslateModel[] = [];
   public selectedGenders: MovieGenderTranslateModel[] = [];
   public settings: IMultipleSelectDropdownSettings;
@@ -60,9 +58,5 @@ export class AddMovieComponent implements OnInit {
 
   public valueChanged(rate: number): void {
     this.bookingForm.get('rate').setValue(rate);
-  }
-
-  public emitNewMovieDuration(): void {
-    this.movieDuration.next(this.bookingForm.get('duration') ? this.bookingForm.get('duration').value : null);
   }
 }

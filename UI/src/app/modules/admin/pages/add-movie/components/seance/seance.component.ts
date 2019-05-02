@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {ControlContainer, FormGroup} from '@angular/forms';
+import {ControlContainer, FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {SeanceApiModel} from './models/api/seance-api.model';
 import {SeanceService} from './services/seance.service';
@@ -17,8 +17,8 @@ import {AddMovieProjectionTimeModel} from './models/add-movie-projection-time.mo
   templateUrl: './seance.component.html',
   styleUrls: ['./seance.component.css', '../../add-movie.component.css']
 })
-export class SeanceComponent implements OnInit, OnDestroy {
-  @Input() movieDuration: Subject<number>;
+export class SeanceComponent implements OnInit {
+  @Input() movieDuration: FormControl = new FormControl();
 
   public get formControls() {
     return this.data.bookingForm.controls;
@@ -65,15 +65,7 @@ export class SeanceComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.data = this._seanceService.initComponent(<FormGroup>this._controlContainer.control);
-    this.movieDuration.subscribe(movieDuration => {
-      this.data.movieDuration = movieDuration;
-      this._seanceService.setSeanceTimeValidator(this.data);
-    });
-  }
-
-  ngOnDestroy() {
-    this.movieDuration.unsubscribe();
+    this.data = this._seanceService.initComponent(<FormGroup>this._controlContainer.control, this.movieDuration);
   }
 
   public isInvalid(formControlName: string): boolean {
@@ -108,7 +100,7 @@ export class SeanceComponent implements OnInit, OnDestroy {
       form: this.data.bookingForm,
       week: this.data.selectedWeekNumber,
       day: this.data.selectedDayNumber,
-      duration: this.data.movieDuration + seanceRoom.breakBeforeAndAfterMovie * 2,
+      duration: this.data.movieDuration.value + seanceRoom.breakBeforeAndAfterMovie * 2,
       projectionType: this.data.selectedProjectionType
     };
 
@@ -152,6 +144,11 @@ export class SeanceComponent implements OnInit, OnDestroy {
 
     this.data.selectedDaySeancesModel = this._seanceService.getSelectedDaySeances(
       seanceRoom.id, this.data.selectedWeekNumber, this.data.selectedDayNumber - 1);
+  }
+
+
+  public getSelectedDayDate(): Date {
+    return this._seanceService.getDate(this.data.selectedDaySeancesModel.weekNumber, this.data.selectedDaySeancesModel.dayNumber);
   }
 }
 
