@@ -1234,7 +1234,6 @@ h3.head {
   .agile_tv_series_grid_right {
     min-height: 258px;
     padding: 2em 2em 0;
-    width: 48.6%;
   }
 
   p.fexi_header {
@@ -1266,10 +1265,6 @@ h3.head {
 @media (max-width: 991px) {
   .w3l_sign_in_register ul li:first-child {
     padding: 0;
-  }
-
-  .w3l_sign_in_register {
-    width: 33%;
   }
 
   .w3l_sign_in_register ul li {

@@ -10,6 +10,9 @@ import {AppRoutingModule} from '../../app-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AdminServicesModule} from './admin-services.module';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
+import {EditPriceListComponent} from './pages/edit-price-list/edit-price-list.component';
+import {CurrentPriceListComponent} from './pages/edit-price-list/components/current-price-list/current-price-list.component';
+import {TargetPriceListComponent} from './pages/edit-price-list/components/target-price-list/target-price-list.component';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
     AddMovieComponent,
     EditMovieComponent,
     PreviewMovieComponent,
-    SeanceComponent
+    SeanceComponent,
+    EditPriceListComponent,
+    CurrentPriceListComponent,
+    TargetPriceListComponent
   ],
   imports: [
     CommonModule,

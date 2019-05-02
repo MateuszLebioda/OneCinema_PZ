@@ -248,3 +248,7 @@
   background-color: #ff8d1b !important;
   cursor: pointer;
 }
+
+.page-header-text {
+  width: 300px !important;
+}

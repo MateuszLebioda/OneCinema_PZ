@@ -1,10 +1,9 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ControlContainer, FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {SeanceApiModel} from './models/api/seance-api.model';
 import {SeanceService} from './services/seance.service';
 import {SeanceComponentDataModel} from './models/seance-component-data.model';
-import {Subject} from 'rxjs/internal/Subject';
 import {SeanceRoomApiModel} from './models/api/seance-room-api.model';
 import {AddSeanceToFormModel} from './models/add-seance-to-form.model';
 import {ProjectionType} from '../../../../../movie/enums/projection-type.enum';

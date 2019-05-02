@@ -19,7 +19,6 @@ import {MapperService} from '../../../../../../../shared/helpers/external/mapper
 import {Lodash} from '../../../../../../../shared/helpers/external/lodash';
 import {AddMovieWeekModel} from '../models/add-movie-week.model';
 import {AddMovieProjectionTimeModel} from '../models/add-movie-projection-time.model';
-import {CollectionValidator} from '../../../../../../../shared/validators/collection-validator';
 
 @Injectable({
   providedIn: AdminServicesModule
