@@ -57,8 +57,10 @@ export class BookingFinalizationComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    this._bookingFinalizationService.bookSeats(this.seance, this.bookingForm, this.bookedSeats);
-    this._router.navigate(['/rezerwacja/potwierdzenie']);
+    if (this.isFormValid()) {
+      this._bookingFinalizationService.bookSeats(this.seance, this.bookingForm, this.bookedSeats);
+      this._router.navigate(['/rezerwacja/potwierdzenie']);
+    }
   }
 
   public setReducedPrice(seat: Seat): void {
@@ -68,5 +70,9 @@ export class BookingFinalizationComponent implements OnInit {
   public backToPreparation(): void {
     this._bookingFinalizationService.resetBookedSeats(this.bookedSeats);
     this.backToPreparationEvent.emit();
+  }
+
+  public isFormValid(): boolean {
+    return this.bookingForm.valid;
   }
 }

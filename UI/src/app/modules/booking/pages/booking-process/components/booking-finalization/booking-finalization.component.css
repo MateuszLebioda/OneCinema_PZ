@@ -56,3 +56,23 @@
   font-size: 26px;
   cursor: pointer;
 }
+
+.form-subbmit {
+  background-color: #919191 !important;
+  cursor: default !important;
+}
+
+.form-subbmit:hover {
+  background-color: #919191 !important;
+  cursor: default !important;
+}
+
+.add-movie-button-activated {
+  background-color: #ff8d1b !important;
+  cursor: pointer !important;
+}
+
+.add-movie-button-activated:hover {
+  background-color: #ff8d1b !important;
+  cursor: pointer !important;
+}
