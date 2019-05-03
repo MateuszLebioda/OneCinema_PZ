@@ -1,0 +1,70 @@
+.image {
+  width: 75%;
+  position: relative;
+  padding: 0 !important;
+  background-color: black;
+}
+
+.table-height {
+  height: 30vh;
+}
+
+.main-image-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 20px;
+  text-align: center;
+}
+
+.trailer {
+  width: 100%;
+  height: 60vh;
+  border: 0;
+}
+
+.next-movie-box {
+  background-color: rgb(26, 25, 32);
+  padding: 5px;
+  height: 25%;
+  border: 0;
+  border-bottom: 1px solid #FF8D1B;
+}
+
+.next-movie-image {
+  max-width: 100px;
+  width: 100%;
+  height: 18vh;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.next-movie-image-block {
+  width: 50%;
+  margin: 0 auto;
+  float: left;
+}
+
+.next-movie-info-box {
+  float: left;
+  display: block;
+  margin: 5vh 0;
+  color: white;
+}
+
+.next-movie-link {
+  padding: 10px 0;
+  color: #FF8D1B;
+}
+
+.middle-movie-info {
+  padding: 0 15px;
+}
+
+.mobile-version {
+  width: 100%;
+}

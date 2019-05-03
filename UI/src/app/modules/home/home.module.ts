@@ -6,6 +6,7 @@ import {SlideBannerComponent} from './components/slide-banner/slide-banner.compo
 import {TodaysRepertoireComponent} from './components/todays-repertoire/todays-repertoire.component';
 import {RouterModule} from '@angular/router';
 import {HomeServicesModule} from './home-services.module';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {HomeServicesModule} from './home-services.module';
   imports: [
     CommonModule,
     RouterModule,
-    HomeServicesModule
+    HomeServicesModule,
+    SharedModule
   ],
   exports: [
     HomeComponent
