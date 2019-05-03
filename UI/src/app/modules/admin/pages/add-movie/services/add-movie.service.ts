@@ -12,6 +12,9 @@ import {AddSeanceWeekRequestModel} from '../models/requests/add-seance-week-requ
 import {SeanceRoomApiModel} from '../components/seance/models/api/seance-room-api.model';
 import {MapperService} from '../../../../../shared/helpers/external/mapper/mapper.service';
 import {AddMovieApiService} from './add-movie-api.service';
+import {AddMovieScreeningRoomApiModel} from '../components/seance/models/api/add-movie-screening-room-api.model';
+import {AddMovieSreeningRoomRequestModel} from '../models/requests/add-movie-sreening-room-request.model';
+import {AddSeanceDayRequestModel} from '../models/requests/add-seance-day-request.model';
 
 @Injectable({
   providedIn: AdminServicesModule
@@ -83,11 +86,9 @@ export class AddMovieService {
   private _createAddMovieRequest(selectedGenders: MovieGenderTranslateModel[], form: FormGroup): AddMovieRequestModel {
     const genders: MovieGender[] = [];
     selectedGenders.forEach(gender => genders.push(gender.value));
-    const seances = form.get('movieProjection').get('addedSeances').value as AddMovieWeekModel[];
-    const castedSeances: AddSeanceWeekRequestModel[] = [];
-    seances.forEach(q => castedSeances.push(this._mapper.toAddSeanceWeekRequestModel(q)));
-
-    this._removeEmptyWeeks(castedSeances);
+    const screeningRooms = form.get('movieProjection').get('addedSeances').value as AddMovieScreeningRoomApiModel[];
+    const castedScreeningRooms: AddMovieSreeningRoomRequestModel[] = [];
+    screeningRooms.forEach(q => castedScreeningRooms.push(this._mapper.toAddMovieSreeningRoomRequestModel(q)));
 
     const result: AddMovieRequestModel = {
       title: form.get('title').value,
@@ -95,9 +96,8 @@ export class AddMovieService {
       duration: form.get('duration').value,
       posterUrl: form.get('posterUrl').value,
       trailerUrl: form.get('trailerUrl').value,
-      seanceRoomId: (form.get('movieProjection').get('seanceRoom').value as SeanceRoomApiModel).id,
       genders: genders,
-      seances: castedSeances
+      screeningRooms: this._getNotEmptyScreeningRooms(castedScreeningRooms)
     };
 
 
@@ -113,21 +113,23 @@ export class AddMovieService {
     }));
   }
 
-  private _removeEmptyWeeks(weeks: AddSeanceWeekRequestModel[]): void {
-    for (let i = 0; i < weeks.length; i++) {
-      if (this._isWeekEmpty(weeks[i])) {
-        weeks.splice(weeks.indexOf(weeks[i]), 1);
-      }
-    }
-  }
-
-  private _isWeekEmpty(week: AddSeanceWeekRequestModel): boolean {
-    week.days.forEach(day => {
-      if (day.projectionTimes.length > 0) {
-        return false;
-      }
+  private _getNotEmptyScreeningRooms(screeningRooms: AddMovieSreeningRoomRequestModel[]): AddMovieSreeningRoomRequestModel[] {
+    screeningRooms.forEach(w => {
+      w.weeks = this._getNotEmptyWeeks(w.weeks);
     });
 
-    return true;
+    return screeningRooms.filter(w => w.weeks.length > 0);
+  }
+
+  private _getNotEmptyWeeks(weeks: AddSeanceWeekRequestModel[]): AddSeanceWeekRequestModel[] {
+    weeks.forEach(w => {
+      w.days = this._getNotEmptyDays(w.days);
+    });
+
+    return weeks.filter(w => w.days.length > 0);
+  }
+
+  private _getNotEmptyDays(days: AddSeanceDayRequestModel[]): AddSeanceDayRequestModel[] {
+    return days.filter(d => d.projectionTimes.length > 0);
   }
 }

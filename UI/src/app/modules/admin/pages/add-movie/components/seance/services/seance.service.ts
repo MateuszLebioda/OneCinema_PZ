@@ -19,6 +19,7 @@ import {MapperService} from '../../../../../../../shared/helpers/external/mapper
 import {Lodash} from '../../../../../../../shared/helpers/external/lodash';
 import {AddMovieWeekModel} from '../models/add-movie-week.model';
 import {AddMovieProjectionTimeModel} from '../models/add-movie-projection-time.model';
+import {AddMovieScreeningRoomApiModel} from '../models/api/add-movie-screening-room-api.model';
 
 @Injectable({
   providedIn: AdminServicesModule
@@ -42,8 +43,7 @@ export class SeanceService {
     result.bookingForm.get('weeksCount').setValue(1);
     result.seanceRooms = this._seanceService.getSeanceRooms();
     result.bookingForm.get('seanceRoom').setValue(result.seanceRooms[0]);
-    const seances: AddMovieWeekModel[] = [];
-    result.bookingForm.get('addedSeances').setValue(seances);
+    result.bookingForm.get('addedSeances').setValue(this._getAddMovieScreeningRooms(result.seanceRooms));
     result.selectedDaySeancesModel = this.getSelectedDaySeances(result.seanceRooms[0].id, result.selectedWeekNumber, result.selectedDayNumber);
     result.selectedDaySeancesModel.seanceRoomId = result.seanceRooms[0].id;
 
@@ -121,7 +121,7 @@ export class SeanceService {
 
   public addSeanceToForm(data: AddSeanceToFormModel): void {
     if (data.form.get('addedSeances')) {
-      const addedSeances = data.form.get('addedSeances').value as AddMovieWeekModel[];
+      const addedSeances = data.form.get('addedSeances').value as AddMovieScreeningRoomApiModel[];
       const time = this._dateTimeService.convertToTime(data.form.get('movieProjectionTime').value);
       const seance = new AddMovieProjectionTimeModel();
       seance.projectionType = data.projectionType;
@@ -130,8 +130,9 @@ export class SeanceService {
       const seanceEnd: DateTime = Luxon.toDateTime(seance.start).plus({minutes: data.duration});
       seance.end = Luxon.toDate(seanceEnd);
 
-      addedSeances[data.week].weekNumber = data.week;
-      addedSeances[data.week].days[data.day - 1].projectionTimes.push(seance);
+      const index = addedSeances.findIndex(x => x.id === data.screeningRoomId);
+      addedSeances[index].weeks[data.week].weekNumber = data.week;
+      addedSeances[index].weeks[data.week].days[data.day - 1].projectionTimes.push(seance);
 
       data.form.get('addedSeances').setValue(addedSeances);
     }
@@ -139,13 +140,14 @@ export class SeanceService {
 
   public removeSeanceFromForm(data: RemoveSeanceFromFormModel): void {
     if (data.form.get('addedSeances')) {
-      const addedSeances = data.form.get('addedSeances').value as AddMovieWeekModel[];
+      const addedSeances = data.form.get('addedSeances').value as AddMovieScreeningRoomApiModel[];
+      const index = addedSeances.findIndex(x => x.id === data.screeningRoomId);
 
-      const indexOfseanceToRemove = addedSeances[data.week].days[data.day - 1].projectionTimes.findIndex(
+      const indexOfseanceToRemove = addedSeances[index].weeks[data.week].days[data.day - 1].projectionTimes.findIndex(
         projectionTime => projectionTime.start === data.seanceToRemove.start
           && projectionTime.end === data.seanceToRemove.end);
 
-      addedSeances[data.week].days[data.day - 1].projectionTimes.splice(indexOfseanceToRemove, 1);
+      addedSeances[index].weeks[data.week].days[data.day - 1].projectionTimes.splice(indexOfseanceToRemove, 1);
 
       data.form.get('addedSeances').setValue(addedSeances);
     }
@@ -153,12 +155,15 @@ export class SeanceService {
 
   public attachAddedSeancesToSelectedDaySeances(data: SeanceComponentDataModel): void {
     if (data.bookingForm.get('addedSeances')) {
-      const addedSeances = data.bookingForm.get('addedSeances').value as AddMovieWeekModel[];
+      const addedSeances = data.bookingForm.get('addedSeances').value as AddMovieScreeningRoomApiModel[];
+      const seanceRoom: SeanceRoomApiModel = data.bookingForm.get('seanceRoom').value;
+      const index = addedSeances.findIndex(x => x.id === seanceRoom.id);
 
-      if (!addedSeances[data.selectedDaySeancesModel.weekNumber].days[data.selectedDaySeancesModel.dayNumber - 1]) {
+      if (!addedSeances[index].weeks[data.selectedDaySeancesModel.weekNumber].days[data.selectedDaySeancesModel.dayNumber - 1]) {
         return;
       }
-      const seancesToAttach = addedSeances[data.selectedDaySeancesModel.weekNumber]
+      const seancesToAttach = addedSeances[index]
+        .weeks[data.selectedDaySeancesModel.weekNumber]
         .days[data.selectedDaySeancesModel.dayNumber - 1]
         .projectionTimes;
       data.selectedDaySeancesModel.seancesWithAddedByUser = Lodash.utils.cloneDeep(data.selectedDaySeancesModel.seances);
@@ -199,12 +204,13 @@ export class SeanceService {
   }
 
   private _removeWeek(data: SeanceComponentDataModel, weeksCount: number): void {
-    const addedSeances = data.bookingForm.get('addedSeances').value as AddMovieWeekModel[];
-    data.bookingForm.get('addedSeances').setValue(addedSeances);
+    const addedSeances = data.bookingForm.get('addedSeances').value as AddMovieScreeningRoomApiModel[];
+    const seanceRoom: SeanceRoomApiModel = data.bookingForm.get('seanceRoom').value;
+    const index = addedSeances.findIndex(x => x.id === seanceRoom.id);
 
-    if (addedSeances.length > weeksCount) {
-      while (addedSeances.length > weeksCount) {
-        addedSeances.pop();
+    if (addedSeances[index].weeks.length > weeksCount) {
+      while (addedSeances[index].weeks.length > weeksCount) {
+        addedSeances[index].weeks.pop();
       }
     }
 
@@ -212,14 +218,15 @@ export class SeanceService {
   }
 
   private _addWeek(data: SeanceComponentDataModel, weeksCount: number): void {
-    const addedSeances = data.bookingForm.get('addedSeances').value as AddMovieWeekModel[];
-    data.bookingForm.get('addedSeances').setValue(addedSeances);
+    const addedSeances = data.bookingForm.get('addedSeances').value as AddMovieScreeningRoomApiModel[];
 
-    if (addedSeances.length < weeksCount) {
-      while (addedSeances.length < weeksCount) {
-        addedSeances.push(new AddMovieWeekModel());
+    addedSeances.forEach(addedSeance => {
+      if (addedSeance.weeks.length < weeksCount) {
+        while (addedSeance.weeks.length < weeksCount) {
+          addedSeance.weeks.push(new AddMovieWeekModel());
+        }
       }
-    }
+    });
 
     data.bookingForm.get('addedSeances').setValue(addedSeances);
   }
@@ -235,5 +242,17 @@ export class SeanceService {
     const curretDate = new Date();
     const currentDayOfWeekNumber = curretDate.getDay() === 0 ? 7 : curretDate.getDay();
     return currentDayOfWeekNumber - 1;
+  }
+
+  private _getAddMovieScreeningRooms(screeningRooms: SeanceRoomApiModel[]): AddMovieScreeningRoomApiModel[] {
+    const addMovieScreeningRooms: AddMovieScreeningRoomApiModel[] = [];
+
+    screeningRooms.forEach(screeningRoom => {
+      const addMoviescreeningRoom: AddMovieScreeningRoomApiModel = new AddMovieScreeningRoomApiModel();
+      addMoviescreeningRoom.id = screeningRoom.id;
+      addMovieScreeningRooms.push(addMoviescreeningRoom);
+    });
+
+    return addMovieScreeningRooms;
   }
 }

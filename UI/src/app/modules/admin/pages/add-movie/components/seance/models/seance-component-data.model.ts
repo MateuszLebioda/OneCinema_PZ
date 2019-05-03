@@ -13,6 +13,7 @@ export class SeanceComponentDataModel {
   public weekDays: number[];
   public movieDuration: FormControl;
   public currentDayNumber: number;
+  public weekCount: number;
 
   constructor() {
     this.selectedDayNumber = 1;
@@ -23,5 +24,6 @@ export class SeanceComponentDataModel {
     this.seanceRooms = [];
     this.weekDays = [1, 2, 3, 4, 5, 6, 7];
     this.movieDuration = new FormControl();
+    this.weekCount = 1;
   }
 }

@@ -13,6 +13,8 @@ import {AddMovieWeekModel} from '../../../../modules/admin/pages/add-movie/compo
 import {AddSeanceWeekRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-seance-week-request.model';
 import {AddMovieDayModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/add-movie-day.model';
 import {AddSeanceDayRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-seance-day-request.model';
+import {AddMovieScreeningRoomApiModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/api/add-movie-screening-room-api.model';
+import {AddMovieSreeningRoomRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-movie-sreening-room-request.model';
 
 export class AutomapperMaps {
   public static InitializeMaps(): void {
@@ -45,5 +47,6 @@ export class AutomapperMaps {
     automapper.createMap(AddMovieProjectionTimeModel.name, SeanceApiModel.name);
     automapper.createMap(AddMovieWeekModel.name, AddSeanceWeekRequestModel.name);
     automapper.createMap(AddMovieDayModel.name, AddSeanceDayRequestModel.name);
+    automapper.createMap(AddMovieScreeningRoomApiModel.name, AddMovieSreeningRoomRequestModel.name);
   }
 }

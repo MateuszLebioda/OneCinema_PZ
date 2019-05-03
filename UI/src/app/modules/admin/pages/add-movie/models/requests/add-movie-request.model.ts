@@ -1,5 +1,5 @@
 import {MovieGender} from '../../../../../movie/enums/movie-gender.enum';
-import {AddSeanceWeekRequestModel} from './add-seance-week-request.model';
+import {AddMovieSreeningRoomRequestModel} from './add-movie-sreening-room-request.model';
 
 export class AddMovieRequestModel {
   public title: string;
@@ -8,11 +8,10 @@ export class AddMovieRequestModel {
   public posterUrl: string;
   public trailerUrl: string;
   public duration: number;
-  public seanceRoomId: string;
-  public seances: AddSeanceWeekRequestModel[];
+  public screeningRooms: AddMovieSreeningRoomRequestModel[];
 
   constructor() {
     this.genders = [];
-    this.seances = [];
+    this.screeningRooms = [];
   }
 }

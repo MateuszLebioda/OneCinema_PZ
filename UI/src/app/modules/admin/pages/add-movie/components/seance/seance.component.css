@@ -150,14 +150,15 @@
   padding-left: 15px;
 }
 
-.add-seance-button {
-  cursor: default;
-}
+/*.add-seance-button-activated {*/
+/*  background-color: #ff8d1b !important;*/
+/*  cursor: pointer !important;*/
+/*}*/
 
-.add-seance-button-activated {
-  background-color: #ff8d1b !important;
-  cursor: pointer;
-}
+/*.add-seance-button-activated:hover {*/
+/*  background-color: #ff8d1b !important;*/
+/*  cursor: pointer !important;*/
+/*}*/
 
 .delete-seance {
   color: #dc3545;
@@ -171,4 +172,14 @@
 
 .hide {
   display: none;
+}
+
+.form-subbmit2 {
+  /*background-color: #919191 !important;*/
+  cursor: default;
+}
+
+.form-subbmit2:hover {
+  background-color: #919191 !important;
+  cursor: default;
 }

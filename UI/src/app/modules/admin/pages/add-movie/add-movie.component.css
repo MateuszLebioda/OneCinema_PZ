@@ -235,16 +235,21 @@
 }
 
 .form-subbmit {
-  background-color: #919191 !important;
-  cursor: default !important;
+  /*background-color: #919191 !important;*/
+  cursor: default;
 }
 
 .form-subbmit:hover {
   background-color: #919191 !important;
-  cursor: default !important;
+  cursor: default;
 }
 
 .add-movie-button-activated {
+  background-color: #ff8d1b !important;
+  cursor: pointer;
+}
+
+.add-movie-button-activated:hover {
   background-color: #ff8d1b !important;
   cursor: pointer;
 }

@@ -3,6 +3,7 @@ import { AddMovieProjectionTimeModel } from './add-movie-projection-time.model';
 
 export class RemoveSeanceFromFormModel {
   public form: FormGroup;
+  public screeningRoomId: string;
   public week: number;
   public day: number;
   public seanceToRemove: AddMovieProjectionTimeModel;

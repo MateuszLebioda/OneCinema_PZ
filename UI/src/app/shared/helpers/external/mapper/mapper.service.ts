@@ -20,6 +20,8 @@ import {AddSeanceWeekRequestModel} from '../../../../modules/admin/pages/add-mov
 import {AddSeanceDayRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-seance-day-request.model';
 import {AddMovieDayModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/add-movie-day.model';
 import {AddSeanceTimeRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-seance-time-request.model';
+import {AddMovieScreeningRoomApiModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/api/add-movie-screening-room-api.model';
+import {AddMovieSreeningRoomRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-movie-sreening-room-request.model';
 
 @Injectable({
   providedIn: SharedServicesModule
@@ -93,6 +95,12 @@ export class MapperService {
 
   public toAddSeanceTimeRequestModel(source: AddMovieProjectionTimeModel): AddSeanceTimeRequestModel {
     const destination: AddSeanceTimeRequestModel = automapper.map(AddMovieProjectionTimeModel.name, AddSeanceTimeRequestModel.name, source);
+
+    return destination;
+  }
+
+  public toAddMovieSreeningRoomRequestModel(source: AddMovieScreeningRoomApiModel): AddMovieSreeningRoomRequestModel {
+    const destination: AddMovieSreeningRoomRequestModel = automapper.map(AddMovieScreeningRoomApiModel.name, AddMovieSreeningRoomRequestModel.name, source);
 
     return destination;
   }
