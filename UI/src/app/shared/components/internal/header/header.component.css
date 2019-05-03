@@ -1,3 +1,8 @@
-.float-right {
+.header-right-content {
   float: right;
+  padding: 0 10px;
+}
+
+.active-option {
+  background-color: #212121;
 }

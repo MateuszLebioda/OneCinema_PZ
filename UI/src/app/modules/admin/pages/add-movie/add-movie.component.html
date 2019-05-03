@@ -1,4 +1,8 @@
 <div class="faq">
+  <div class="page-header-block">
+    <h1 class="page-header-text">Dodawanie filmu</h1>
+  </div>
+
   <div class="container">
     <div class="single-page-agile-info">
       <div class="show-top-grids-w3lagile">
@@ -33,8 +37,7 @@
                     </div>
 
                     <div class="form-group">
-                      <input type="number" formControlName="duration" placeholder="Czas trwania filmu"
-                             (change)="emitNewMovieDuration()">
+                      <input type="number" formControlName="duration" placeholder="Czas trwania filmu">
                       <span *ngIf="isInvalid('duration')" class="error-font help-block">
                       <div *ngIf="formControls.duration.errors.required">To pole jest wymagane</div>
                       <div *ngIf="formControls.duration.errors.min">Czas filmu musi być dodatni</div>
@@ -44,8 +47,8 @@
                   <div class="form-right">
                     <div class="form-group movie-rate">
                       <div class="slidecontainer">
-                        <span class="movie-rate-text">Ocena filmu: {{addMovieModel.rate}} </span>
-                        <input type="range" min="1" max="5" value="{{addMovieModel.rate}}" step="0.5"
+                        <span class="movie-rate-text">Ocena filmu: {{rate}} </span>
+                        <input type="range" min="1" max="5" value="{{rate}}" step="0.5"
                                class="slider movie-rate-input"
                                (input)="valueChanged($event.target.value)">
                       </div>
@@ -68,11 +71,13 @@
                     </div>
                   </div>
                 </div>
-                <app-seance [movieDuration]="movieDuration" [formGroup]="bookingForm.controls.movieProjection">
+                <app-seance [movieDuration]="bookingForm.get('duration')"
+                            [formGroup]="bookingForm.controls.movieProjection">
                 </app-seance>
                 <!--                <app-seance [formGroup]="bookingForm"></app-seance>-->
 
-                <input type="submit" value="Zarezerwuj" class="form-subbmit">
+                <input type="submit" value="Zarezerwuj" class="form-subbmit"
+                       [class.add-movie-button-activated]="isFormValid()">
 
                 <div class="clearfix"></div>
               </form>

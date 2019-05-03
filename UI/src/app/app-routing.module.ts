@@ -14,6 +14,7 @@ import {AdminPanelComponent} from './modules/admin/pages/admin-panel/admin-panel
 import {AddMovieComponent} from './modules/admin/pages/add-movie/add-movie.component';
 import {PreviewMovieComponent} from './modules/admin/pages/preview-movie/preview-movie.component';
 import {EditMovieComponent} from './modules/admin/pages/edit-movie/edit-movie.component';
+import {EditPriceListComponent} from './modules/admin/pages/edit-price-list/edit-price-list.component';
 
 const routes: Routes = [
   {
@@ -63,6 +64,10 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
+        path: '',
+        component: AdminPanelComponent
+      },
+      {
         path: 'panel',
         component: AdminPanelComponent,
         children: [
@@ -88,6 +93,10 @@ const routes: Routes = [
       {
         path: 'film/edycja/:movieId',
         component: EditMovieComponent
+      },
+      {
+        path: 'edycja-cennika',
+        component: EditPriceListComponent
       },
     ]
   }

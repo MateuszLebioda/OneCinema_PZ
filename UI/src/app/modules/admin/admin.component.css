@@ -1,0 +1,10 @@
+.page-header-block {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.page-header-text {
+  border-bottom: 5px solid #ff8d1b;
+  width: 270px;
+  margin: 0 auto;
+}

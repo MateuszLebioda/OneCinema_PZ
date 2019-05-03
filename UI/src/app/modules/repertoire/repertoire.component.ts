@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {RepertoireApiService} from './services/repertoire-api.service';
 import {SeanceApiModel} from './models/api/seance-api.model';
 import {SeanceStatus} from './enums/seance-status.enum';
 import {Router} from '@angular/router';
 import {RepertoireService} from './services/repertoire.service';
 import {RepertoireComponentModel} from './models/repertoire-component.model';
+import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Component({
   selector: 'app-repertoire',
@@ -13,14 +13,17 @@ import {RepertoireComponentModel} from './models/repertoire-component.model';
 })
 export class RepertoireComponent implements OnInit {
   public data: RepertoireComponentModel = new RepertoireComponentModel();
+  public isMobile: boolean;
 
   constructor(
     private _repertoireService: RepertoireService,
+    private _deviceService: DeviceDetectorService,
     private _router: Router) {
   }
 
   public ngOnInit(): void {
     this.data = this._repertoireService.initComponent();
+    this.isMobile = this._deviceService.isMobile();
   }
 
   public repertoireList(bookmarkLetter: string, dayNumber: number): void {

@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {SeanceApiModel} from '../../../repertoire/models/api/seance-api.model';
 import {SeanceStatus} from '../../../repertoire/enums/seance-status.enum';
 import {RepertoireService} from '../../../repertoire/services/repertoire.service';
+import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Component({
   selector: 'app-todays-repertoire',
@@ -14,16 +15,19 @@ import {RepertoireService} from '../../../repertoire/services/repertoire.service
 export class TodaysRepertoireComponent implements OnInit {
   public repertoire: MovieProjection[];
   public repertoireDays: string[];
+  public isMobile: boolean;
 
   constructor(
     private _repertoireListService: RepertoireApiService,
     private _repertoireService: RepertoireService,
+    private _deviceService: DeviceDetectorService,
     private _router: Router) {
   }
 
   ngOnInit() {
     this.repertoire = this._repertoireListService.getRepertoire(1);
     this.repertoireDays = this._repertoireService.getRepertoireDaysSinceNow();
+    this.isMobile = this._deviceService.isMobile();
   }
 
   public getSeanceCssClass(seance: SeanceApiModel): string {

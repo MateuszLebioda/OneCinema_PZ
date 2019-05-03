@@ -18,7 +18,7 @@ export class SlideBannerApiService {
       title: 'Tytuł 1',
       rating: 3,
       yearOfPremiere: 2006,
-      description: 'opi super fajny i długi'
+      trailerUrl: ''
     });
 
     result.push({
@@ -27,7 +27,7 @@ export class SlideBannerApiService {
       title: 'Tytuł 2',
       rating: 4,
       yearOfPremiere: 2001,
-      description: 'opi super fajny i długi'
+      trailerUrl: ''
     });
 
     result.push({
@@ -36,7 +36,7 @@ export class SlideBannerApiService {
       title: 'Tytuł 3',
       rating: 5,
       yearOfPremiere: 2005,
-      description: 'opi super fajny i długi'
+      trailerUrl: ''
     });
 
     result.push({
@@ -45,7 +45,7 @@ export class SlideBannerApiService {
       title: 'Tytuł 4',
       rating: 4.5,
       yearOfPremiere: 2004,
-      description: 'opi super fajny i długi'
+      trailerUrl: ''
     });
 
     result.push({
@@ -54,7 +54,7 @@ export class SlideBannerApiService {
       title: 'Tytuł 5',
       rating: 1,
       yearOfPremiere: 2018,
-      description: 'opi super fajny i długi'
+      trailerUrl: ''
     });
 
     result.push({
@@ -63,7 +63,7 @@ export class SlideBannerApiService {
       title: 'Tytuł 6',
       rating: 2,
       yearOfPremiere: 2019,
-      description: 'opi super fajny i długi'
+      trailerUrl: ''
     });
 
     return result;

@@ -1,3 +1,25 @@
 .action {
   width: 20%;
 }
+
+.center {
+  text-align: center;
+}
+
+.function-button {
+  padding: 0 20px !important;
+}
+
+.function-button > a {
+  background-color: #919191 !important;
+}
+
+.function-button > a:hover {
+  background-color: #FF8D1B !important;
+}
+
+.w3l_sign_in_register {
+  float: none !important;
+  margin-top: 0;
+  margin-bottom: 20px;
+}

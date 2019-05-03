@@ -12,6 +12,14 @@ import {ScreeningRoom} from '../../../../modules/booking/pages/booking-process/c
 import {ScreeningRoomPlanApiModel} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/models/api/screening-room-plan-api.model';
 import {SharedServicesModule} from '../../../shared-services.module';
 import {TranslatorService} from '../../internal/translator.service';
+import {SeanceApiModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/api/seance-api.model';
+import {AddMovieProjectionTimeModel} from 'src/app/modules/admin/pages/add-movie/components/seance/models/add-movie-projection-time.model';
+import {AddMovieWeekModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/add-movie-week.model';
+import {AddMovieRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-movie-request.model';
+import {AddSeanceWeekRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-seance-week-request.model';
+import {AddSeanceDayRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-seance-day-request.model';
+import {AddMovieDayModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/add-movie-day.model';
+import {AddSeanceTimeRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-seance-time-request.model';
 
 @Injectable({
   providedIn: SharedServicesModule
@@ -30,7 +38,6 @@ export class MapperService {
       destination.movieGenders.push(this._translator.translateMovieGender(movieGender))
     );
 
-    console.log('xd', destination);
     return destination;
   }
 
@@ -62,6 +69,30 @@ export class MapperService {
   public toScreeningRoom(source: ScreeningRoomPlanApiModel): ScreeningRoom {
     const destination: ScreeningRoom = automapper.map(ScreeningRoomPlanApiModel.name, ScreeningRoom.name, source);
     destination.rows = PropertiesMapper.getRows(source.rows);
+
+    return destination;
+  }
+
+  public toSeanceApiModel(source: AddMovieProjectionTimeModel): SeanceApiModel {
+    const destination: SeanceApiModel = automapper.map(AddMovieProjectionTimeModel.name, SeanceApiModel.name, source);
+
+    return destination;
+  }
+
+  public toAddSeanceWeekRequestModel(source: AddMovieWeekModel): AddSeanceWeekRequestModel {
+    const destination: AddSeanceWeekRequestModel = automapper.map(AddMovieWeekModel.name, AddSeanceWeekRequestModel.name, source);
+
+    return destination;
+  }
+
+  public toAddSeanceDayRequestModel(source: AddMovieDayModel): AddSeanceDayRequestModel {
+    const destination: AddSeanceDayRequestModel = automapper.map(AddMovieDayModel.name, AddSeanceDayRequestModel.name, source);
+
+    return destination;
+  }
+
+  public toAddSeanceTimeRequestModel(source: AddMovieProjectionTimeModel): AddSeanceTimeRequestModel {
+    const destination: AddSeanceTimeRequestModel = automapper.map(AddMovieProjectionTimeModel.name, AddSeanceTimeRequestModel.name, source);
 
     return destination;
   }

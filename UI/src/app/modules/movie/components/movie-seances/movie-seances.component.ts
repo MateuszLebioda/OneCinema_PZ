@@ -6,6 +6,7 @@ import {SeanceStatus} from '../../../repertoire/enums/seance-status.enum';
 import {SeancesPerDay} from '../../models/seances-per-day.model';
 import {SeancesPerTimesOfDay} from '../../../repertoire/models/seances-per-times-of-day';
 import {RepertoireService} from '../../../repertoire/services/repertoire.service';
+import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Component({
   selector: 'app-movie-seances',
@@ -35,17 +36,20 @@ export class MovieSeancesComponent implements OnInit {
   public bookmarkLetters: string[] = ['a', 'b', 'c', 'd', 'e', 'formControls', 'g', 'h'];
   public bookmarkLetter = 'a';
   public repertoireDays: string[];
+  public isMobile: boolean;
 
   private _deyIndex = 0;
 
   constructor(
     private _repertoireListService: RepertoireApiService,
     private _repertoireService: RepertoireService,
+    private _deviceService: DeviceDetectorService,
     private _router: Router) {
   }
 
   public ngOnInit(): void {
     this.repertoireDays = this._repertoireService.getRepertoireDaysSinceNow();
+    this.isMobile = this._deviceService.isMobile();
   }
 
   public repertoireList(bookmarkLetter: string, dayNumber: number): void {

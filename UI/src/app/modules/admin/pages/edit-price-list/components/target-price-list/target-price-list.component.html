@@ -1,0 +1,109 @@
+<h4 class="no-bottom-margin latest-text w3_faq_latest_text w3_latest_text section-header">Docelowy</h4>
+<div class="container">
+  <div class="single-page-agile-info">
+    <div class="show-top-grids-w3lagile">
+      <div class="all-comments">
+        <div class="all-comments-info">
+
+          <div class="agile-info-wthree-box">
+            <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+              <table class="price-table">
+                <thead>
+                <tr>
+                  <th class="table-header no-border" scope="col"></th>
+                  <th class="text-center table-header border-right" colspan="2" scope="col">2D</th>
+                  <th class="text-center table-header" colspan="2" scope="col">3D</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <th class="table-header no-border" scope="row"></th>
+                  <td class="text-center">Poniedziałek - Czwartek</td>
+                  <td class="text-center border-right">Piątek - Niedziela</td>
+                  <td class="text-center">Poniedziałek - Czwartek</td>
+                  <td class="text-center">Piątek - Niedziela</td>
+                </tr>
+                <tr>
+                  <th class="text-center table-header" scope="row">Normalny</th>
+                  <td class="text-center">
+                    <input type="number" formControlName="normal2DMondayThursday" min="0" class="center-input"
+                           [value]="getControl('normal2DMondayThursday').value">
+                    <span *ngIf="isInvalid('normal2DMondayThursday')" class="error-font help-block">
+                      <div *ngIf="getControl('normal2DMondayThursday').errors.required">To pole jest wymagane</div>
+                      <div *ngIf="getControl('normal2DMondayThursday').errors.min">Cena nie może być ujemna</div>
+                    </span>
+                  </td>
+                  <td class="text-center border-right">
+                    <input type="number" formControlName="normal2DFridaySunday" min="0" class="center-input"
+                           [value]="getControl('normal2DFridaySunday').value">
+                    <span *ngIf="isInvalid('normal2DFridaySunday')" class="error-font help-block">
+                      <div *ngIf="getControl('normal2DFridaySunday').errors.required">To pole jest wymagane</div>
+                      <div *ngIf="getControl('normal2DFridaySunday').errors.min">Cena nie może być ujemna</div>
+                    </span>
+                  </td>
+                  <td class="text-center">
+                    <input type="number" formControlName="reduced2DMondayThursday" min="0" class="center-input"
+                           [value]="getControl('reduced2DMondayThursday').value">
+                    <span *ngIf="isInvalid('reduced2DMondayThursday')" class="error-font help-block">
+                      <div *ngIf="getControl('reduced2DMondayThursday').errors.required">To pole jest wymagane</div>
+                      <div *ngIf="getControl('reduced2DMondayThursday').errors.min">Cena nie może być ujemna</div>
+                    </span>
+                  </td>
+                  <td class="text-center">
+                    <input type="number" formControlName="reduced2DFridaySunday" min="0" class="center-input"
+                           [value]="getControl('reduced2DFridaySunday').value">
+                    <span *ngIf="isInvalid('reduced2DFridaySunday')" class="error-font help-block">
+                      <div *ngIf="getControl('reduced2DFridaySunday').errors.required">To pole jest wymagane</div>
+                      <div *ngIf="getControl('reduced2DFridaySunday').errors.min">Cena nie może być ujemna</div>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="text-center table-header no-bottom-border" scope="row">Ulgowy</th>
+                  <td class="text-center table-header no-bottom-border">
+                    <input type="number" formControlName="normal3DMondayThursday" min="0" class="center-input"
+                           [value]="getControl('normal3DMondayThursday').value">
+                    <span *ngIf="isInvalid('normal3DMondayThursday')" class="error-font help-block">
+                      <div *ngIf="getControl('normal3DMondayThursday').errors.required">To pole jest wymagane</div>
+                      <div *ngIf="getControl('normal3DMondayThursday').errors.min">Cena nie może być ujemna</div>
+                    </span>
+                  </td>
+                  <td class="text-center table-header no-bottom-border border-right">
+                    <input type="number" formControlName="normal3DFridaySunday" min="0" class="center-input"
+                           [value]="getControl('normal3DFridaySunday').value">
+                    <span *ngIf="isInvalid('normal3DFridaySunday')" class="error-font help-block">
+                      <div *ngIf="getControl('normal3DFridaySunday').errors.required">To pole jest wymagane</div>
+                      <div *ngIf="getControl('normal3DFridaySunday').errors.min">Cena nie może być ujemna</div>
+                    </span>
+                  </td>
+                  <td class="text-center table-header no-bottom-border">
+                    <input type="number" formControlName="reduced3DMondayThursday" min="0" class="center-input"
+                           [value]="getControl('reduced3DMondayThursday').value">
+                    <span *ngIf="isInvalid('reduced3DMondayThursday')" class="error-font help-block">
+                      <div *ngIf="getControl('reduced3DMondayThursday').errors.required">To pole jest wymagane</div>
+                      <div *ngIf="getControl('reduced3DMondayThursday').errors.min">Cena nie może być ujemna</div>
+                    </span>
+                  </td>
+                  <td class="text-center table-header no-bottom-border">
+                    <input type="number" formControlName="reduced3DFridaySunday" min="0" class="center-input"
+                           [value]="getControl('reduced3DFridaySunday').value">
+                    <span *ngIf="isInvalid('reduced3DFridaySunday')" class="error-font help-block">
+                      <div *ngIf="getControl('reduced3DFridaySunday').errors.required">To pole jest wymagane</div>
+                      <div *ngIf="getControl('reduced3DFridaySunday').errors.min">Cena nie może być ujemna</div>
+                    </span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+
+              <input type="submit" value="Edytuj" class="form-subbmit"
+                     [class.add-movie-button-activated]="isFormValid()">
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

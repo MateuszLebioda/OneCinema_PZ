@@ -1,5 +1,5 @@
 export class SeanceRoomApiModel {
   public id: string;
   public name: string;
-  public breakBeforeAndAfterSeance: number;
+  public breakBeforeAndAfterMovie: number;
 }

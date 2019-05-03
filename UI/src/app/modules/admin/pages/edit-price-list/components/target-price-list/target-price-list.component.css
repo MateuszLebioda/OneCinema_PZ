@@ -1,0 +1,30 @@
+.center-input {
+  text-align: center;
+}
+
+.error-font {
+  font-size: 80%;
+  color: #dc3545;
+}
+
+.form-subbmit {
+  background-color: #919191 !important;
+  cursor: default !important;
+  margin: 30px auto !important;
+  width: 20%;
+}
+
+.form-subbmit:hover {
+  background-color: #919191 !important;
+  cursor: default !important;
+}
+
+.add-movie-button-activated {
+  background-color: #ff8d1b !important;
+  cursor: pointer !important;
+}
+
+.add-movie-button-activated:hover {
+  background-color: #ff8d1b !important;
+  cursor: pointer !important;
+}

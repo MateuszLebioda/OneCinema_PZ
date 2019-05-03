@@ -233,3 +233,22 @@
   margin-top: 10px;
   margin-bottom: 57px;
 }
+
+.form-subbmit {
+  background-color: #919191 !important;
+  cursor: default !important;
+}
+
+.form-subbmit:hover {
+  background-color: #919191 !important;
+  cursor: default !important;
+}
+
+.add-movie-button-activated {
+  background-color: #ff8d1b !important;
+  cursor: pointer;
+}
+
+.page-header-text {
+  width: 300px !important;
+}

@@ -6,6 +6,12 @@ import {TranslatorService} from '../../../../../shared/helpers/internal/translat
 import {MovieGenderTranslateModel} from '../models/movie-gender-translate.model';
 import {MovieGender} from '../../../../movie/enums/movie-gender.enum';
 import {IMultipleSelectDropdownSettings} from '../../../../../shared/components/external/multiple-select-dropdown/interfaces/i-multiple-select-dropdown-settings';
+import {AddMovieRequestModel} from '../models/requests/add-movie-request.model';
+import {AddMovieWeekModel} from '../components/seance/models/add-movie-week.model';
+import {AddSeanceWeekRequestModel} from '../models/requests/add-seance-week-request.model';
+import {SeanceRoomApiModel} from '../components/seance/models/api/seance-room-api.model';
+import {MapperService} from '../../../../../shared/helpers/external/mapper/mapper.service';
+import {AddMovieApiService} from './add-movie-api.service';
 
 @Injectable({
   providedIn: AdminServicesModule
@@ -16,6 +22,8 @@ export class AddMovieService {
   constructor(
     private _translator: TranslatorService,
     private _formValidatorService: FormValidatorService,
+    private _mapper: MapperService,
+    private _addMovieApiService: AddMovieApiService,
     private fb: FormBuilder) {
   }
 
@@ -24,7 +32,7 @@ export class AddMovieService {
       'title': new FormControl(null, [Validators.required, Validators.maxLength(100)]),
       'gender': new FormControl(null),
       'duration': new FormControl(null, [Validators.required, Validators.min(1)]),
-      'rate': new FormControl(null, [Validators.required, Validators.min(1), Validators.max(5)]),
+      'rate': new FormControl(3, [Validators.required, Validators.min(1), Validators.max(5)]),
       'posterUrl': new FormControl(null, [Validators.required, this._formValidatorService.isUrl.bind(this)]),
       'trailerUrl': new FormControl(null, [Validators.required, this._formValidatorService.isUrl.bind(this)])
     });
@@ -59,11 +67,67 @@ export class AddMovieService {
     return result;
   }
 
+  public addMovie(selectedGenders: MovieGenderTranslateModel[], form: FormGroup): void {
+    this._addMovieApiService.addMovie(this._createAddMovieRequest(selectedGenders, form));
+  }
+
+  public isFormValid(bookingForm: FormGroup, selectedGenders: MovieGenderTranslateModel[]): boolean {
+    return selectedGenders.length > 0
+      && bookingForm.get('title').valid
+      && bookingForm.get('duration').valid
+      && bookingForm.get('rate').valid
+      && bookingForm.get('posterUrl').valid
+      && bookingForm.get('trailerUrl').valid;
+  }
+
+  private _createAddMovieRequest(selectedGenders: MovieGenderTranslateModel[], form: FormGroup): AddMovieRequestModel {
+    const genders: MovieGender[] = [];
+    selectedGenders.forEach(gender => genders.push(gender.value));
+    const seances = form.get('movieProjection').get('addedSeances').value as AddMovieWeekModel[];
+    const castedSeances: AddSeanceWeekRequestModel[] = [];
+    seances.forEach(q => castedSeances.push(this._mapper.toAddSeanceWeekRequestModel(q)));
+
+    this._removeEmptyWeeks(castedSeances);
+
+    const result: AddMovieRequestModel = {
+      title: form.get('title').value,
+      rate: form.get('rate').value,
+      duration: form.get('duration').value,
+      posterUrl: form.get('posterUrl').value,
+      trailerUrl: form.get('trailerUrl').value,
+      seanceRoomId: (form.get('movieProjection').get('seanceRoom').value as SeanceRoomApiModel).id,
+      genders: genders,
+      seances: castedSeances
+    };
+
+
+    return result;
+  }
+
   private _setMovieProjectionFormGroup(form: FormGroup): void {
     form.addControl('movieProjection', new FormGroup({
       'weeksCount': new FormControl(null, [Validators.required, Validators.min(1)]),
       'movieProjectionTime': new FormControl(null, [Validators.required]),
       'seanceRoom': new FormControl(null, [Validators.required]),
+      'addedSeances': new FormControl(null)
     }));
+  }
+
+  private _removeEmptyWeeks(weeks: AddSeanceWeekRequestModel[]): void {
+    for (let i = 0; i < weeks.length; i++) {
+      if (this._isWeekEmpty(weeks[i])) {
+        weeks.splice(weeks.indexOf(weeks[i]), 1);
+      }
+    }
+  }
+
+  private _isWeekEmpty(week: AddSeanceWeekRequestModel): boolean {
+    week.days.forEach(day => {
+      if (day.projectionTimes.length > 0) {
+        return false;
+      }
+    });
+
+    return true;
   }
 }

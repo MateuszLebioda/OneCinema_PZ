@@ -1,3 +1,7 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+.seance-time {
+  margin: 5px 0;
+}
