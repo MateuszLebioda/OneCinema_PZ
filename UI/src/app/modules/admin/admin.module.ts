@@ -1,10 +1,9 @@
 import {AdminComponent} from './admin.component';
 import {NgModule} from '@angular/core';
 import {AdminPanelComponent} from './pages/admin-panel/admin-panel.component';
-import {AddMovieComponent} from './pages/add-movie/add-movie.component';
-import {EditMovieComponent} from './pages/edit-movie/edit-movie.component';
-import {PreviewMovieComponent} from './pages/preview-movie/preview-movie.component';
-import {SeanceComponent} from './pages/add-movie/components/seance/seance.component';
+import {MovieProcessingComponent} from './pages/movie-processing/movie-processing.component';
+import {MoviePreviewComponent} from './pages/movie-preview/movie-preview.component';
+import {SeanceComponent} from './pages/movie-processing/components/seance/seance.component';
 import {CommonModule} from '@angular/common';
 import {AppRoutingModule} from '../../app-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -14,21 +13,20 @@ import {EditPriceListComponent} from './pages/edit-price-list/edit-price-list.co
 import {CurrentPriceListComponent} from './pages/edit-price-list/components/current-price-list/current-price-list.component';
 import {TargetPriceListComponent} from './pages/edit-price-list/components/target-price-list/target-price-list.component';
 import {SharedModule} from '../../shared/shared.module';
-import {PreviewMovieSeancesComponent} from './pages/preview-movie/components/preview-movie-seances/preview-movie-seances.component';
+import {MovieSeancesPreviewComponent} from './pages/movie-preview/components/movie-seances-preview/movie-seances-preview.component';
 
 
 @NgModule({
   declarations: [
     AdminComponent,
     AdminPanelComponent,
-    AddMovieComponent,
-    EditMovieComponent,
-    PreviewMovieComponent,
+    MovieProcessingComponent,
+    MoviePreviewComponent,
     SeanceComponent,
     EditPriceListComponent,
     CurrentPriceListComponent,
     TargetPriceListComponent,
-    PreviewMovieSeancesComponent
+    MovieSeancesPreviewComponent
   ],
   imports: [
     CommonModule,

@@ -1,19 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {MovieGenderTranslateModel} from '../movie-processing/models/movie-gender-translate.model';
-import {IMultipleSelectDropdownSettings} from '../../../../shared/components/external/multiple-select-dropdown/interfaces/i-multiple-select-dropdown-settings';
 import {FormValidatorService} from '../../../../shared/services/form-validator.service';
-import {MovieProcessingService} from '../movie-processing/services/movie-processing.service';
-import {Router} from '@angular/router';
-import {EditPriceListApiService} from './services/edit-price-list-api.service';
-import {PriceListApiModel} from '../../../../shared/components/internal/navbar/models/api-models/price-list-api.model';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MovieProcessingService} from './services/movie-processing.service';
+import {MovieGenderTranslateModel} from './models/movie-gender-translate.model';
+import {IMultipleSelectDropdownSettings} from '../../../../shared/components/external/multiple-select-dropdown/interfaces/i-multiple-select-dropdown-settings';
 
 @Component({
-  selector: 'app-edit-price-list',
-  templateUrl: './edit-price-list.component.html',
-  styleUrls: ['./edit-price-list.component.css', '../../admin.component.css']
+  selector: 'app-movie-processing',
+  templateUrl: './movie-processing.component.html',
+  styleUrls: ['./movie-processing.component.css', '../../admin.component.css']
 })
-export class EditPriceListComponent implements OnInit {
+export class MovieProcessingComponent implements OnInit {
   public get formControls() {
     return this.bookingForm.controls;
   }
@@ -26,21 +24,19 @@ export class EditPriceListComponent implements OnInit {
   public genders: MovieGenderTranslateModel[] = [];
   public selectedGenders: MovieGenderTranslateModel[] = [];
   public settings: IMultipleSelectDropdownSettings;
-  public priceList: PriceListApiModel = new PriceListApiModel();
 
+  private _movieId: string;
   private clickedGenderSelector = false;
 
   constructor(
     private _formValidatorService: FormValidatorService,
-    private _editPriceListApiService: EditPriceListApiService,
     private _addMovieService: MovieProcessingService,
-    private _router: Router) {
+    private route: ActivatedRoute) {
   }
 
   public ngOnInit(): void {
-    this.priceList = this._editPriceListApiService.getPriceList();
-
-    this.bookingForm = this._addMovieService.getForm('s');
+    this._movieId = this.route.snapshot.params.movieId;
+    this.bookingForm = this._addMovieService.getForm(this._movieId);
     this.settings = this._addMovieService.getMultiselectDropdownComponentSettings();
     this.genders = this._addMovieService.getGenders();
   }

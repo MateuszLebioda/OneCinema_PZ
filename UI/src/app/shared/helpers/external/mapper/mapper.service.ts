@@ -12,16 +12,16 @@ import {ScreeningRoom} from '../../../../modules/booking/pages/booking-process/c
 import {ScreeningRoomPlanApiModel} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/models/api/screening-room-plan-api.model';
 import {SharedServicesModule} from '../../../shared-services.module';
 import {TranslatorService} from '../../internal/translator.service';
-import {SeanceApiModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/api/seance-api.model';
-import {AddMovieProjectionTimeModel} from 'src/app/modules/admin/pages/add-movie/components/seance/models/add-movie-projection-time.model';
-import {AddMovieWeekModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/add-movie-week.model';
-import {AddMovieRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-movie-request.model';
-import {AddSeanceWeekRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-seance-week-request.model';
-import {AddSeanceDayRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-seance-day-request.model';
-import {AddMovieDayModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/add-movie-day.model';
-import {AddSeanceTimeRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-seance-time-request.model';
-import {AddMovieScreeningRoomApiModel} from '../../../../modules/admin/pages/add-movie/components/seance/models/api/add-movie-screening-room-api.model';
-import {AddMovieSreeningRoomRequestModel} from '../../../../modules/admin/pages/add-movie/models/requests/add-movie-sreening-room-request.model';
+import {SeanceApiModel} from '../../../../modules/admin/pages/movie-processing/components/seance/models/api/seance-api.model';
+import {MovieProcessingSeanceTimeModel} from 'src/app/modules/admin/pages/movie-processing/models/movie-processing-seance-time.model';
+import {MovieProcessingWeekModel} from '../../../../modules/admin/pages/movie-processing/models/movie-processing-week.model';
+import {MovieProcessingRequestModel} from '../../../../modules/admin/pages/movie-processing/models/requests/movie-processing-request.model';
+import {MovieProcessingWeekRequestModel} from '../../../../modules/admin/pages/movie-processing/models/requests/movie-processing-week-request.model';
+import {MovieProcessingDayRequestModel} from '../../../../modules/admin/pages/movie-processing/models/requests/movie-processing-day-request.model';
+import {MovieProcessingDayModel} from '../../../../modules/admin/pages/movie-processing/models/movie-processing-day.model';
+import {MovieProcessingSeanceTimeRequestModel} from '../../../../modules/admin/pages/movie-processing/models/requests/movie-processing-seance-time-request.model';
+import {MovieProcessingScreeningRoomModel} from '../../../../modules/admin/pages/movie-processing/models/movie-processing-screening-room.model';
+import {MovieProcessingSreeningRoomRequestModel} from '../../../../modules/admin/pages/movie-processing/models/requests/movie-processing-sreening-room-request.model';
 
 @Injectable({
   providedIn: SharedServicesModule
@@ -49,18 +49,6 @@ export class MapperService {
     return destination;
   }
 
-  public toMovie(source: MovieApiModel): Movie {
-    const destination: Movie = automapper.map(MovieApiModel.name, Movie.name, source);
-    destination.seances2D.forEach((value, index) => {
-      value = this.toDaySeances(source.seances2D[index]);
-    });
-    destination.seances3D.forEach((value, index) => {
-      value = this.toDaySeances(source.seances3D[index]);
-    });
-
-    return destination;
-  }
-
   public toDaySeances(source: DaySeancesApiModel): SeancesPerDay {
     const destination: SeancesPerDay = automapper.map(DaySeancesApiModel.name, SeancesPerDay.name, source);
     destination.seances = PropertiesMapper.getSeancesPerTimesOfDay(source.seances);
@@ -75,32 +63,8 @@ export class MapperService {
     return destination;
   }
 
-  public toSeanceApiModel(source: AddMovieProjectionTimeModel): SeanceApiModel {
-    const destination: SeanceApiModel = automapper.map(AddMovieProjectionTimeModel.name, SeanceApiModel.name, source);
-
-    return destination;
-  }
-
-  public toAddSeanceWeekRequestModel(source: AddMovieWeekModel): AddSeanceWeekRequestModel {
-    const destination: AddSeanceWeekRequestModel = automapper.map(AddMovieWeekModel.name, AddSeanceWeekRequestModel.name, source);
-
-    return destination;
-  }
-
-  public toAddSeanceDayRequestModel(source: AddMovieDayModel): AddSeanceDayRequestModel {
-    const destination: AddSeanceDayRequestModel = automapper.map(AddMovieDayModel.name, AddSeanceDayRequestModel.name, source);
-
-    return destination;
-  }
-
-  public toAddSeanceTimeRequestModel(source: AddMovieProjectionTimeModel): AddSeanceTimeRequestModel {
-    const destination: AddSeanceTimeRequestModel = automapper.map(AddMovieProjectionTimeModel.name, AddSeanceTimeRequestModel.name, source);
-
-    return destination;
-  }
-
-  public toAddMovieSreeningRoomRequestModel(source: AddMovieScreeningRoomApiModel): AddMovieSreeningRoomRequestModel {
-    const destination: AddMovieSreeningRoomRequestModel = automapper.map(AddMovieScreeningRoomApiModel.name, AddMovieSreeningRoomRequestModel.name, source);
+  public toSeanceApiModel(source: MovieProcessingSeanceTimeModel): SeanceApiModel {
+    const destination: SeanceApiModel = automapper.map(MovieProcessingSeanceTimeModel.name, SeanceApiModel.name, source);
 
     return destination;
   }
