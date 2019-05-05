@@ -29,53 +29,53 @@ export class SeanceComponent implements OnInit, OnDestroy {
     if (!this.data.bookingForm.get('weeksCount').value && !isNaN(this.data.bookingForm.get('weeksCount').value)) {
       return 0;
     }
-    this._seanceService.setAddMovieApiModel(this.data);
+    this._service.setAddMovieApiModel(this.data);
 
     return this.data.bookingForm.get('weeksCount').value;
   }
 
   public get seances(): SeanceApiModel[] {
-    if (this.data.selectedDaySeancesModel.weekNumber === this.data.selectedWeekNumber
-      && this.data.selectedDaySeancesModel.dayNumber === this.data.selectedDayNumber
+    if (this.data.selectedDaySeances.weekNumber === this.data.selectedWeekNumber
+      && this.data.selectedDaySeances.dayNumber === this.data.selectedDayNumber
       && this.weekCount === this.data.weekCount) {
-      return this.data.selectedDaySeancesModel.seancesWithAddedByUser;
+      return this.data.selectedDaySeances.seancesWithAddedByUser;
     }
-    this.data.selectedDaySeancesModel = this._seanceService.getSelectedDaySeances(
-      this.data.selectedDaySeancesModel.screeningRoomId, this.data.selectedWeekNumber, this.data.selectedDayNumber);
-    this._seanceService.attachAddedSeancesToSelectedDaySeances(this.data);
+    this.data.selectedDaySeances = this._service.getSelectedDaySeances(
+      this.data.selectedDaySeances.screeningRoomId, this.data.selectedWeekNumber, this.data.selectedDayNumber);
+    this._service.attachAddedSeancesToSelectedDaySeances(this.data);
 
     this.data.weekCount = this.weekCount;
 
-    return this.data.selectedDaySeancesModel.seancesWithAddedByUser;
+    return this.data.selectedDaySeances.seancesWithAddedByUser;
   }
 
   public get addedSeances(): MovieProcessingWeekModel[] {
     if (this.data.bookingForm.get('addedSeances') && this.data.bookingForm.get('addedSeances').value) {
-      const seanceRoom: ScreeningRoomApiModel = this.data.bookingForm.get('seanceRoom').value;
-      const index = (this.data.bookingForm.get('addedSeances').value as MovieProcessingScreeningRoomModel[]).findIndex(x => x.id === seanceRoom.id);
-      return (this.data.bookingForm.get('addedSeances').value as MovieProcessingScreeningRoomModel[])[index].weeks;
+      const screeningRoom: ScreeningRoomApiModel = this.data.bookingForm.get('screeningRoom').value;
+      const indexOfSellectedScreeningRoom = (this.data.bookingForm.get('addedSeances').value as MovieProcessingScreeningRoomModel[])
+        .findIndex(x => x.id === screeningRoom.id);
+      return (this.data.bookingForm.get('addedSeances').value as MovieProcessingScreeningRoomModel[])[indexOfSellectedScreeningRoom].weeks;
     }
 
-    return this.emptyAddMovieApiModel;
+    return this.emptyMovieProcessingWeekModel;
   }
 
   public data: SeanceComponentDataModel = new SeanceComponentDataModel();
   public ProjectionType = ProjectionType;
 
-  private readonly emptyAddMovieApiModel: MovieProcessingWeekModel[] = [];
+  private readonly emptyMovieProcessingWeekModel: MovieProcessingWeekModel[] = [];
   private _movieDurationListner: Subscription = new Subscription();
 
   constructor(
     private _controlContainer: ControlContainer,
-    private _seanceService: SeanceService,
-    private _router: Router) {
+    private _service: SeanceService) {
   }
 
   ngOnInit() {
-    this.data = this._seanceService.initComponent(<FormGroup>this._controlContainer.control, this.movieDuration);
+    this.data = this._service.initComponent(<FormGroup>this._controlContainer.control, this.movieDuration);
     this._movieDurationListner = this.movieDuration.valueChanges.subscribe(() => {
       if (this.movieDuration.valid) {
-        this._seanceService.setSeanceTimeValidator(this.data);
+        this._service.setSeanceTimeValidator(this.data);
       }
     });
   }
@@ -85,24 +85,24 @@ export class SeanceComponent implements OnInit, OnDestroy {
   }
 
   public isInvalid(formControlName: string): boolean {
-    return this._seanceService.isInvalidAndTouched(formControlName, this.data.bookingForm);
+    return this._service.isInvalidAndTouched(formControlName, this.data.bookingForm);
   }
 
   public getPolishDayName(day: number) {
-    return this._seanceService.convertToPolishDayName(day);
+    return this._service.convertToPolishDayName(day);
   }
 
   public selectWeek(weekNumber: number) {
     if (weekNumber !== this.data.selectedWeekNumber) {
       this.data.selectedWeekNumber = weekNumber;
-      this._seanceService.setSeanceTimeValidator(this.data);
+      this._service.setSeanceTimeValidator(this.data);
     }
   }
 
   public selectDay(dayNumber: number) {
     if (dayNumber !== this.data.selectedDayNumber) {
       this.data.selectedDayNumber = dayNumber;
-      this._seanceService.setSeanceTimeValidator(this.data);
+      this._service.setSeanceTimeValidator(this.data);
     }
   }
 
@@ -111,36 +111,36 @@ export class SeanceComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const seanceRoom: ScreeningRoomApiModel = this.data.bookingForm.get('seanceRoom').value;
+    const screeningRoom: ScreeningRoomApiModel = this.data.bookingForm.get('screeningRoom').value;
     const data: AddSeanceToFormModel = {
       form: this.data.bookingForm,
-      screeningRoomId: seanceRoom.id,
+      screeningRoomId: screeningRoom.id,
       week: this.data.selectedWeekNumber,
       day: this.data.selectedDayNumber,
-      duration: this.data.movieDuration.value + seanceRoom.breakBeforeAndAfterMovie * 2,
+      duration: this.data.movieDuration.value + screeningRoom.breakBeforeAndAfterMovie * 2,
       projectionType: this.data.selectedProjectionType
     };
 
-    this._seanceService.addSeanceToForm(data);
-    this._seanceService.attachAddedSeancesToSelectedDaySeances(this.data);
+    this._service.addSeanceToForm(data);
+    this._service.attachAddedSeancesToSelectedDaySeances(this.data);
   }
 
   public removeSeance(seanceToRemove: MovieProcessingSeanceTimeModel): void {
-    const seanceRoom: ScreeningRoomApiModel = this.data.bookingForm.get('seanceRoom').value;
+    const screeningRoom: ScreeningRoomApiModel = this.data.bookingForm.get('screeningRoom').value;
     const data: RemoveSeanceFromFormModel = {
       form: this.data.bookingForm,
-      screeningRoomId: seanceRoom.id,
+      screeningRoomId: screeningRoom.id,
       week: this.data.selectedWeekNumber,
       day: this.data.selectedDayNumber,
       seanceToRemove: seanceToRemove
     };
 
-    this._seanceService.removeSeanceFromForm(data);
-    this._seanceService.attachAddedSeancesToSelectedDaySeances(this.data);
+    this._service.removeSeanceFromForm(data);
+    this._service.attachAddedSeancesToSelectedDaySeances(this.data);
   }
 
   public canAddMovie(): boolean {
-    return !this._seanceService.isInvalid('movieProjectionTime', this.data.bookingForm);
+    return !this._service.isInvalid('movieProjectionTime', this.data.bookingForm);
   }
 
   public setProjectionType(projectionType: ProjectionType): void {
@@ -150,21 +150,20 @@ export class SeanceComponent implements OnInit, OnDestroy {
   }
 
   public getSeanceRoomBreakBeforeAndAfterMovie(): number {
-    if (this.data.bookingForm.get('seanceRoom')) {
-      return (this.data.bookingForm.get('seanceRoom').value as ScreeningRoomApiModel).breakBeforeAndAfterMovie;
+    if (this.data.bookingForm.get('screeningRoom')) {
+      return (this.data.bookingForm.get('screeningRoom').value as ScreeningRoomApiModel).breakBeforeAndAfterMovie;
     }
   }
 
   public resetAddedSeances(): void {
-    const seanceRoom = this.data.bookingForm.get('seanceRoom').value as ScreeningRoomApiModel;
+    const screeningRoom = this.data.bookingForm.get('screeningRoom').value as ScreeningRoomApiModel;
 
-    this.data.selectedDaySeancesModel = this._seanceService.getSelectedDaySeances(
-      seanceRoom.id, this.data.selectedWeekNumber, this.data.selectedDayNumber - 1);
+    this.data.selectedDaySeances = this._service.getSelectedDaySeances(
+      screeningRoom.id, this.data.selectedWeekNumber, this.data.selectedDayNumber - 1);
   }
 
-
   public getSelectedDayDate(): Date {
-    return this._seanceService.getDate(this.data.selectedDaySeancesModel.weekNumber, this.data.selectedDaySeancesModel.dayNumber);
+    return this._service.getDate(this.data.selectedDaySeances.weekNumber, this.data.selectedDaySeances.dayNumber);
   }
 }
 

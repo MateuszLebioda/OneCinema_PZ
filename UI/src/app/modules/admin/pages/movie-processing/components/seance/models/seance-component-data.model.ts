@@ -5,11 +5,11 @@ import {ProjectionType} from '../../../../../../movie/enums/projection-type.enum
 
 export class SeanceComponentDataModel {
   public bookingForm: FormGroup;
-  public selectedDaySeancesModel: SelectedDaySeancesModel;
+  public selectedDaySeances: SelectedDaySeancesModel;
   public selectedWeekNumber: number;
   public selectedDayNumber: number;
   public selectedProjectionType: ProjectionType;
-  public seanceRooms: ScreeningRoomApiModel[];
+  public screeningRooms: ScreeningRoomApiModel[];
   public weekDays: number[];
   public movieDuration: FormControl;
   public currentDayNumber: number;
@@ -19,9 +19,9 @@ export class SeanceComponentDataModel {
     this.selectedDayNumber = 1;
     this.selectedWeekNumber = 0;
     this.selectedProjectionType = ProjectionType.type2D;
-    this.selectedDaySeancesModel = new SelectedDaySeancesModel();
+    this.selectedDaySeances = new SelectedDaySeancesModel();
 
-    this.seanceRooms = [];
+    this.screeningRooms = [];
     this.weekDays = [1, 2, 3, 4, 5, 6, 7];
     this.movieDuration = new FormControl();
     this.weekCount = 1;

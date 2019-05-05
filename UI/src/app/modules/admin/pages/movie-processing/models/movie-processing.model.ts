@@ -2,6 +2,7 @@ import {MovieGender} from '../../../../movie/enums/movie-gender.enum';
 import {MovieProcessingScreeningRoomModel} from './movie-processing-screening-room.model';
 
 export class MovieProcessingModel {
+  public id: string;
   public title: string;
   public genders: MovieGender[];
   public duration: number;

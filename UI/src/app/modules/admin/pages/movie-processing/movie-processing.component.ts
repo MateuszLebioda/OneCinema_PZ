@@ -29,17 +29,17 @@ export class MovieProcessingComponent implements OnInit {
 
   constructor(
     private _formValidatorService: FormValidatorService,
-    private _addMovieService: MovieProcessingService,
-    private route: ActivatedRoute) {
+    private _service: MovieProcessingService,
+    private _route: ActivatedRoute) {
   }
 
   public ngOnInit(): void {
-    const movieId = this.route.snapshot.params.movieId;
-    const movie = this._addMovieService.getMovie('ssss');
-    this.bookingForm = this._addMovieService.getForm(movie);
-    this.settings = this._addMovieService.getMultiselectDropdownComponentSettings();
-    this.genders = this._addMovieService.getGenders();
-    this.selectedGenders = this._addMovieService.getSelectedGendersIfMovieExisist(movie);
+    const movieId = this._route.snapshot.params.movieId;
+    const movie = this._service.getMovie('ssss');
+    this.bookingForm = this._service.getForm(movie);
+    this.settings = this._service.getMultiselectDropdownComponentSettings();
+    this.genders = this._service.getGenders();
+    this.selectedGenders = this._service.getSelectedGendersIfEditMovie(movie);
   }
 
   public isInvalid(formControlName: string): boolean {
@@ -55,11 +55,12 @@ export class MovieProcessingComponent implements OnInit {
   }
 
   public isFormValid(): boolean {
-    return this._addMovieService.isFormValid(this.bookingForm, this.selectedGenders);
+    return this._service.isFormValid(this.bookingForm, this.selectedGenders);
   }
 
   public onSubmit(): void {
-    this._addMovieService.addMovie(this.selectedGenders, this.bookingForm);
+    //TODO: zmienić (add lub edit)
+    this._service.addMovie(this.selectedGenders, this.bookingForm);
     // this._router.navigate(['/rezerwacja/potwierdzenie']);
   }
 

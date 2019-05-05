@@ -82,7 +82,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'film/dodaj-edytuj',
+        path: 'film/dodaj',
         component: MovieProcessingComponent
       },
       {
@@ -90,7 +90,7 @@ const routes: Routes = [
         component: MoviePreviewComponent
       },
       {
-        path: 'film/dodaj-edytuj/:movieId',
+        path: 'film/edytuj/:movieId',
         component: MovieProcessingComponent
       },
       {

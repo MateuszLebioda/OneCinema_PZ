@@ -13,7 +13,7 @@ export class SeanceApiService {
   constructor() {
   }
 
-  public getSeanceRooms(): ScreeningRoomApiModel[] {
+  public getScreeningRooms(): ScreeningRoomApiModel[] {
     return [
       {
         id: 'sfdsfffasdsdfa',

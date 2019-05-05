@@ -8,7 +8,6 @@
       <div class="show-top-grids-w3lagile">
         <div class="all-comments">
           <div class="all-comments-info">
-            <!--            <h1>Dodawanie filmu</h1>-->
             <div class="agile-info-wthree-box">
               <form class="form-module form" [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
                 <div class="form-inputs">
@@ -73,7 +72,6 @@
                 <app-seance [movieDuration]="bookingForm.get('duration')"
                             [formGroup]="bookingForm.controls.movieProjection">
                 </app-seance>
-                <!--                <app-seance [formGroup]="bookingForm"></app-seance>-->
 
                 <input type="submit" value="Zarezerwuj" class="form-subbmit"
                        [class.add-movie-button-activated]="isFormValid()">

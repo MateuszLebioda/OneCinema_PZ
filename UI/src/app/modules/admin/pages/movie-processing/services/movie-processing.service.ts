@@ -25,23 +25,21 @@ export class MovieProcessingService {
     private _translator: TranslatorService,
     private _formValidatorService: FormValidatorService,
     private _mapper: AdminMapperService,
-    private _addMovieApiService: MovieProcessingApiService) {
+    private _apiService: MovieProcessingApiService) {
   }
 
   public getMovie(movieId: string): MovieProcessingApiModel {
     let movie: MovieProcessingApiModel = null;
 
     if (movieId && movieId.length > 0) {
-      movie = this._addMovieApiService.getMovie(movieId);
+      movie = this._apiService.getMovie(movieId);
     }
 
     return movie;
   }
 
   public getForm(movie: MovieProcessingApiModel): FormGroup {
-    const form = movie ? this._getFilledForm(movie) : this._getCleanForm();
-
-    return form;
+    return movie ? this._getFilledForm(movie) : this._getCleanForm();
   }
 
   public getMultiselectDropdownComponentSettings(): IMultipleSelectDropdownSettings {
@@ -70,9 +68,8 @@ export class MovieProcessingService {
     return result;
   }
 
-  public getSelectedGendersIfMovieExisist(movie: MovieProcessingApiModel): MovieGenderTranslateModel[] {
+  public getSelectedGendersIfEditMovie(movie: MovieProcessingApiModel): MovieGenderTranslateModel[] {
     const result: MovieGenderTranslateModel[] = [];
-    console.log(movie);
     movie.genders.forEach(gender => {
       const translatedText = this._translator.translateMovieGender(gender);
       if (translatedText) {
@@ -84,7 +81,7 @@ export class MovieProcessingService {
   }
 
   public addMovie(selectedGenders: MovieGenderTranslateModel[], form: FormGroup): void {
-    this._addMovieApiService.addMovie(this._createAddMovieRequest(selectedGenders, form));
+    this._apiService.addMovie(this._createMovieProcessingRequest(selectedGenders, form));
   }
 
   public isFormValid(bookingForm: FormGroup, selectedGenders: MovieGenderTranslateModel[]): boolean {
@@ -96,7 +93,7 @@ export class MovieProcessingService {
       && bookingForm.get('trailerUrl').valid;
   }
 
-  private _createAddMovieRequest(selectedGenders: MovieGenderTranslateModel[], form: FormGroup): MovieProcessingRequestModel {
+  private _createMovieProcessingRequest(selectedGenders: MovieGenderTranslateModel[], form: FormGroup): MovieProcessingRequestModel {
     const genders: MovieGender[] = [];
     selectedGenders.forEach(gender => genders.push(gender.value));
     const screeningRooms = form.get('movieProjection').get('addedSeances').value as MovieProcessingScreeningRoomModel[];
@@ -104,6 +101,7 @@ export class MovieProcessingService {
     screeningRooms.forEach(q => castedScreeningRooms.push(this._mapper.toAddMovieSreeningRoomRequestModel(q)));
 
     const result: MovieProcessingRequestModel = {
+      id: form.get('id').value,
       title: form.get('title').value,
       rating: form.get('rating').value,
       duration: form.get('duration').value,
@@ -112,7 +110,6 @@ export class MovieProcessingService {
       genders: genders,
       screeningRooms: this._getNotEmptyScreeningRooms(castedScreeningRooms)
     };
-
 
     return result;
   }
@@ -139,6 +136,7 @@ export class MovieProcessingService {
 
   private _getCleanForm(): FormGroup {
     const form = new FormGroup({
+      'id': new FormControl(null),
       'title': new FormControl(null, [Validators.required, Validators.maxLength(100)]),
       'duration': new FormControl(null, [Validators.required, Validators.min(1)]),
       'gender': new FormControl(null),
@@ -150,7 +148,7 @@ export class MovieProcessingService {
     form.addControl('movieProjection', new FormGroup({
       'weeksCount': new FormControl(null, [Validators.required, Validators.min(1)]),
       'movieProjectionTime': new FormControl(null, [Validators.required]),
-      'seanceRoom': new FormControl(null, [Validators.required]),
+      'screeningRoom': new FormControl(null, [Validators.required]),
       'addedSeances': new FormControl(null)
     }));
 
@@ -161,6 +159,7 @@ export class MovieProcessingService {
     const castedMovie = this._mapper.toMovieProcessingModel(movie);
 
     const form = new FormGroup({
+      'id': new FormControl(castedMovie.id),
       'title': new FormControl(castedMovie.title, [Validators.required, Validators.maxLength(100)]),
       'duration': new FormControl(castedMovie.duration, [Validators.required, Validators.min(1)]),
       'gender': new FormControl(null),
@@ -173,7 +172,7 @@ export class MovieProcessingService {
       form.addControl('movieProjection', new FormGroup({
         'weeksCount': new FormControl(castedMovie.screeningRooms[0].weeks.length, [Validators.required, Validators.min(1)]),
         'movieProjectionTime': new FormControl(null, [Validators.required]),
-        'seanceRoom': new FormControl(castedMovie.screeningRooms[0].id, [Validators.required]),
+        'screeningRoom': new FormControl(castedMovie.screeningRooms[0].id, [Validators.required]),
         'addedSeances': new FormControl(castedMovie.screeningRooms)
       }));
     }

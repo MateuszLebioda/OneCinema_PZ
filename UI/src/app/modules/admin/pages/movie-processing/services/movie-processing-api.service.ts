@@ -15,7 +15,12 @@ export class MovieProcessingApiService {
   }
 
   public addMovie(request: MovieProcessingRequestModel): void {
+    request.id = null;
     console.log('addMovie request', request);
+  }
+
+  public updateMovie(request: MovieProcessingRequestModel): void {
+    console.log('updateMovie request', request);
   }
 
   public getMovie(movieId: string): MovieProcessingApiModel {

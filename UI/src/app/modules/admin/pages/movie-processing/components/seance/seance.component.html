@@ -4,7 +4,7 @@
       <label class="cinema-room-label">Sala kinowa</label>
       <select formControlName="seanceRoom" class="form-control cinema-room-options"
               (change)="resetAddedSeances()">
-        <option *ngFor="let seanceRoom of data.seanceRooms" [ngValue]="seanceRoom">{{seanceRoom.name}}</option>
+        <option *ngFor="let seanceRoom of data.screeningRooms" [ngValue]="seanceRoom">{{seanceRoom.name}}</option>
       </select>
       <span class="help-block help-block-right">
           <div>*zmiana sali spowoduje usunięcie dodanych seansów</div>
