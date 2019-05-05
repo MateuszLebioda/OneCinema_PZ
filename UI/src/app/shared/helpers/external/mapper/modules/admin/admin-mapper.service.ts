@@ -18,12 +18,10 @@ export class AdminMapperService {
   }
 
   public toAddMovieSreeningRoomRequestModel(source: MovieProcessingScreeningRoomModel): MovieProcessingSreeningRoomRequestModel {
-    const destination: MovieProcessingSreeningRoomRequestModel = automapper.map(MovieProcessingScreeningRoomModel.name, MovieProcessingSreeningRoomRequestModel.name, source);
-    return destination;
+    return automapper.map(MovieProcessingScreeningRoomModel.name, MovieProcessingSreeningRoomRequestModel.name, source);
   }
 
   public toMovieProcessingModel(source: MovieProcessingApiModel): MovieProcessingModel {
-    const destination: MovieProcessingModel = automapper.map(MovieProcessingApiModel.name, MovieProcessingModel.name, source);
-    return destination;
+    return automapper.map(MovieProcessingApiModel.name, MovieProcessingModel.name, source);
   }
 }

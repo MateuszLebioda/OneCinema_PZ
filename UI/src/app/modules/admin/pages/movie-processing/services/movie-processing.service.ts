@@ -70,12 +70,15 @@ export class MovieProcessingService {
 
   public getSelectedGendersIfEditMovie(movie: MovieProcessingApiModel): MovieGenderTranslateModel[] {
     const result: MovieGenderTranslateModel[] = [];
-    movie.genders.forEach(gender => {
-      const translatedText = this._translator.translateMovieGender(gender);
-      if (translatedText) {
-        result.push({value: gender, translatedText: translatedText});
-      }
-    });
+
+    if (movie) {
+      movie.genders.forEach(gender => {
+        const translatedText = this._translator.translateMovieGender(gender);
+        if (translatedText) {
+          result.push({value: gender, translatedText: translatedText});
+        }
+      });
+    }
 
     return result;
   }

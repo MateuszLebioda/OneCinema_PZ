@@ -24,6 +24,7 @@ export class MovieProcessingComponent implements OnInit {
   public genders: MovieGenderTranslateModel[] = [];
   public selectedGenders: MovieGenderTranslateModel[] = [];
   public settings: IMultipleSelectDropdownSettings;
+  public pageTitle = 'Dodawanie filmu';
 
   private clickedGenderSelector = false;
 
@@ -34,12 +35,14 @@ export class MovieProcessingComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    const movieId = this._route.snapshot.params.movieId;
-    const movie = this._service.getMovie('ssss');
+    const movie = this._service.getMovie(this._route.snapshot.params.movieId);
     this.bookingForm = this._service.getForm(movie);
     this.settings = this._service.getMultiselectDropdownComponentSettings();
     this.genders = this._service.getGenders();
     this.selectedGenders = this._service.getSelectedGendersIfEditMovie(movie);
+    if (movie) {
+      this.pageTitle = 'Edycja filmu';
+    }
   }
 
   public isInvalid(formControlName: string): boolean {

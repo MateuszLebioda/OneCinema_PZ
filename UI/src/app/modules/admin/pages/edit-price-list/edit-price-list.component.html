@@ -5,5 +5,5 @@
   <div class="section-margin">
     <app-current-price-list [priceList]="priceList"></app-current-price-list>
   </div>
-  <app-target-price-list [priceList]="priceList"></app-target-price-list>
+  <app-target-price-list [priceList]="priceList" (priceListForm)="editPriceList($event)"></app-target-price-list>
 </div>

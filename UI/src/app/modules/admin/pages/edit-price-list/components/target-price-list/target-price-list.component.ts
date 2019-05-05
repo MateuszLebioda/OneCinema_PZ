@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormValidatorService} from '../../../../../../shared/services/form-validator.service';
 import {PriceListApiModel} from '../../../../../../shared/components/internal/navbar/models/api-models/price-list-api.model';
@@ -10,6 +10,7 @@ import {PriceListApiModel} from '../../../../../../shared/components/internal/na
 })
 export class TargetPriceListComponent implements OnInit {
   @Input() priceList: PriceListApiModel = new PriceListApiModel();
+  @Output() priceListForm: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   public form: FormGroup;
 
@@ -46,6 +47,8 @@ export class TargetPriceListComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    // this._router.navigate(['/rezerwacja/potwierdzenie']);
+    if (this.isFormValid()) {
+      this.priceListForm.emit(this.form);
+    }
   }
 }
