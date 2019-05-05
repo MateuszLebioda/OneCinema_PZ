@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormValidatorService} from '../../../../shared/services/form-validator.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {MovieProcessingService} from './services/movie-processing.service';
 import {MovieGenderTranslateModel} from './models/movie-gender-translate.model';
 import {IMultipleSelectDropdownSettings} from '../../../../shared/components/external/multiple-select-dropdown/interfaces/i-multiple-select-dropdown-settings';
@@ -16,8 +16,8 @@ export class MovieProcessingComponent implements OnInit {
     return this.bookingForm.controls;
   }
 
-  public get rate(): null {
-    return this.bookingForm.get('rate').value;
+  public get rating(): null {
+    return this.bookingForm.get('rating').value;
   }
 
   public bookingForm: FormGroup;
@@ -25,7 +25,6 @@ export class MovieProcessingComponent implements OnInit {
   public selectedGenders: MovieGenderTranslateModel[] = [];
   public settings: IMultipleSelectDropdownSettings;
 
-  private _movieId: string;
   private clickedGenderSelector = false;
 
   constructor(
@@ -35,10 +34,12 @@ export class MovieProcessingComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this._movieId = this.route.snapshot.params.movieId;
-    this.bookingForm = this._addMovieService.getForm(this._movieId);
+    const movieId = this.route.snapshot.params.movieId;
+    const movie = this._addMovieService.getMovie('ssss');
+    this.bookingForm = this._addMovieService.getForm(movie);
     this.settings = this._addMovieService.getMultiselectDropdownComponentSettings();
     this.genders = this._addMovieService.getGenders();
+    this.selectedGenders = this._addMovieService.getSelectedGendersIfMovieExisist(movie);
   }
 
   public isInvalid(formControlName: string): boolean {
@@ -63,6 +64,6 @@ export class MovieProcessingComponent implements OnInit {
   }
 
   public valueChanged(rate: number): void {
-    this.bookingForm.get('rate').setValue(rate);
+    this.bookingForm.get('rating').setValue(rate);
   }
 }

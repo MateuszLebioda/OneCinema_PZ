@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormValidatorService} from '../../../../../shared/services/form-validator.service';
 import {AdminServicesModule} from '../../../admin-services.module';
 import {TranslatorService} from '../../../../../shared/helpers/internal/translator.service';
@@ -12,7 +12,8 @@ import {MovieProcessingApiService} from './movie-processing-api.service';
 import {MovieProcessingScreeningRoomModel} from '../models/movie-processing-screening-room.model';
 import {MovieProcessingSreeningRoomRequestModel} from '../models/requests/movie-processing-sreening-room-request.model';
 import {MovieProcessingDayRequestModel} from '../models/requests/movie-processing-day-request.model';
-import { AdminMapperService } from 'src/app/shared/helpers/external/mapper/modules/admin/admin-mapper.service';
+import {AdminMapperService} from 'src/app/shared/helpers/external/mapper/modules/admin/admin-mapper.service';
+import {MovieProcessingApiModel} from '../models/api/movie-processing-api.model';
 
 @Injectable({
   providedIn: AdminServicesModule
@@ -24,20 +25,21 @@ export class MovieProcessingService {
     private _translator: TranslatorService,
     private _formValidatorService: FormValidatorService,
     private _mapper: AdminMapperService,
-    private _addMovieApiService: MovieProcessingApiService,
-    private fb: FormBuilder) {
+    private _addMovieApiService: MovieProcessingApiService) {
   }
 
-  public getForm(movieId: string): FormGroup {
-    const form = new FormGroup({
-      'title': new FormControl(null, [Validators.required, Validators.maxLength(100)]),
-      'gender': new FormControl(null),
-      'duration': new FormControl(null, [Validators.required, Validators.min(1)]),
-      'rate': new FormControl(3, [Validators.required, Validators.min(1), Validators.max(5)]),
-      'posterUrl': new FormControl(null, [Validators.required, this._formValidatorService.isUrl.bind(this)]),
-      'trailerUrl': new FormControl(null, [Validators.required, this._formValidatorService.isUrl.bind(this)])
-    });
-    this._setMovieProjectionFormGroup(form);
+  public getMovie(movieId: string): MovieProcessingApiModel {
+    let movie: MovieProcessingApiModel = null;
+
+    if (movieId && movieId.length > 0) {
+      movie = this._addMovieApiService.getMovie(movieId);
+    }
+
+    return movie;
+  }
+
+  public getForm(movie: MovieProcessingApiModel): FormGroup {
+    const form = movie ? this._getFilledForm(movie) : this._getCleanForm();
 
     return form;
   }
@@ -64,6 +66,19 @@ export class MovieProcessingService {
         }
       }
     }
+
+    return result;
+  }
+
+  public getSelectedGendersIfMovieExisist(movie: MovieProcessingApiModel): MovieGenderTranslateModel[] {
+    const result: MovieGenderTranslateModel[] = [];
+    console.log(movie);
+    movie.genders.forEach(gender => {
+      const translatedText = this._translator.translateMovieGender(gender);
+      if (translatedText) {
+        result.push({value: gender, translatedText: translatedText});
+      }
+    });
 
     return result;
   }
@@ -102,15 +117,6 @@ export class MovieProcessingService {
     return result;
   }
 
-  private _setMovieProjectionFormGroup(form: FormGroup): void {
-    form.addControl('movieProjection', new FormGroup({
-      'weeksCount': new FormControl(null, [Validators.required, Validators.min(1)]),
-      'movieProjectionTime': new FormControl(null, [Validators.required]),
-      'seanceRoom': new FormControl(null, [Validators.required]),
-      'addedSeances': new FormControl(null)
-    }));
-  }
-
   private _getNotEmptyScreeningRooms(screeningRooms: MovieProcessingSreeningRoomRequestModel[]): MovieProcessingSreeningRoomRequestModel[] {
     screeningRooms.forEach(w => {
       w.weeks = this._getNotEmptyWeeks(w.weeks);
@@ -129,5 +135,48 @@ export class MovieProcessingService {
 
   private _getNotEmptyDays(days: MovieProcessingDayRequestModel[]): MovieProcessingDayRequestModel[] {
     return days.filter(d => d.seancesTimes.length > 0);
+  }
+
+  private _getCleanForm(): FormGroup {
+    const form = new FormGroup({
+      'title': new FormControl(null, [Validators.required, Validators.maxLength(100)]),
+      'duration': new FormControl(null, [Validators.required, Validators.min(1)]),
+      'gender': new FormControl(null),
+      'rating': new FormControl(3, [Validators.required, Validators.min(1), Validators.max(5)]),
+      'posterUrl': new FormControl(null, [Validators.required, this._formValidatorService.isUrl.bind(this)]),
+      'trailerUrl': new FormControl(null, [Validators.required, this._formValidatorService.isUrl.bind(this)])
+    });
+
+    form.addControl('movieProjection', new FormGroup({
+      'weeksCount': new FormControl(null, [Validators.required, Validators.min(1)]),
+      'movieProjectionTime': new FormControl(null, [Validators.required]),
+      'seanceRoom': new FormControl(null, [Validators.required]),
+      'addedSeances': new FormControl(null)
+    }));
+
+    return form;
+  }
+
+  private _getFilledForm(movie: MovieProcessingApiModel): FormGroup {
+    const castedMovie = this._mapper.toMovieProcessingModel(movie);
+
+    const form = new FormGroup({
+      'title': new FormControl(castedMovie.title, [Validators.required, Validators.maxLength(100)]),
+      'duration': new FormControl(castedMovie.duration, [Validators.required, Validators.min(1)]),
+      'gender': new FormControl(null),
+      'rating': new FormControl(castedMovie.rating, [Validators.required, Validators.min(1), Validators.max(5)]),
+      'posterUrl': new FormControl(castedMovie.posterUrl, [Validators.required, this._formValidatorService.isUrl.bind(this)]),
+      'trailerUrl': new FormControl(castedMovie.trailerUrl, [Validators.required, this._formValidatorService.isUrl.bind(this)])
+    });
+
+    if (castedMovie.screeningRooms.length > 0) {
+      form.addControl('movieProjection', new FormGroup({
+        'weeksCount': new FormControl(castedMovie.screeningRooms[0].weeks.length, [Validators.required, Validators.min(1)]),
+        'movieProjectionTime': new FormControl(null, [Validators.required]),
+        'seanceRoom': new FormControl(castedMovie.screeningRooms[0], [Validators.required]),
+        'addedSeances': new FormControl(castedMovie.screeningRooms)
+      }));
+    }
+    return form;
   }
 }

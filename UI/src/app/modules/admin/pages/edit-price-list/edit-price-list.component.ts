@@ -1,10 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {MovieGenderTranslateModel} from '../movie-processing/models/movie-gender-translate.model';
-import {IMultipleSelectDropdownSettings} from '../../../../shared/components/external/multiple-select-dropdown/interfaces/i-multiple-select-dropdown-settings';
 import {FormValidatorService} from '../../../../shared/services/form-validator.service';
-import {MovieProcessingService} from '../movie-processing/services/movie-processing.service';
-import {Router} from '@angular/router';
 import {EditPriceListApiService} from './services/edit-price-list-api.service';
 import {PriceListApiModel} from '../../../../shared/components/internal/navbar/models/api-models/price-list-api.model';
 
@@ -18,55 +14,19 @@ export class EditPriceListComponent implements OnInit {
     return this.bookingForm.controls;
   }
 
-  public get rate(): null {
-    return this.bookingForm.get('rate').value;
-  }
-
   public bookingForm: FormGroup;
-  public genders: MovieGenderTranslateModel[] = [];
-  public selectedGenders: MovieGenderTranslateModel[] = [];
-  public settings: IMultipleSelectDropdownSettings;
   public priceList: PriceListApiModel = new PriceListApiModel();
-
-  private clickedGenderSelector = false;
 
   constructor(
     private _formValidatorService: FormValidatorService,
-    private _editPriceListApiService: EditPriceListApiService,
-    private _addMovieService: MovieProcessingService,
-    private _router: Router) {
+    private _editPriceListApiService: EditPriceListApiService) {
   }
 
   public ngOnInit(): void {
     this.priceList = this._editPriceListApiService.getPriceList();
-
-    this.bookingForm = this._addMovieService.getForm('s');
-    this.settings = this._addMovieService.getMultiselectDropdownComponentSettings();
-    this.genders = this._addMovieService.getGenders();
   }
 
   public isInvalid(formControlName: string): boolean {
     return this._formValidatorService.isInvalidAndTouched(this.bookingForm, formControlName);
-  }
-
-  public isInvalidGenderSelector(): boolean {
-    return this.clickedGenderSelector && this.selectedGenders.length <= 0;
-  }
-
-  public markGenderSelectorAsClicked(): void {
-    this.clickedGenderSelector = true;
-  }
-
-  public isFormValid(): boolean {
-    return this._addMovieService.isFormValid(this.bookingForm, this.selectedGenders);
-  }
-
-  public onSubmit(): void {
-    this._addMovieService.addMovie(this.selectedGenders, this.bookingForm);
-    // this._router.navigate(['/rezerwacja/potwierdzenie']);
-  }
-
-  public valueChanged(rate: number): void {
-    this.bookingForm.get('rate').setValue(rate);
   }
 }
