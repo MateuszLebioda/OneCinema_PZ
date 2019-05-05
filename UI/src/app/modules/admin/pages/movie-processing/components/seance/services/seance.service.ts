@@ -40,13 +40,20 @@ export class SeanceService {
     result.selectedDayNumber = result.currentDayNumber;
     result.movieDuration = movieDuration;
     result.bookingForm = bookingForm;
-    result.bookingForm.get('weeksCount').setValue(1);
     result.seanceRooms = this._seanceService.getSeanceRooms();
-    result.bookingForm.get('seanceRoom').setValue(result.seanceRooms[0]);
-    result.bookingForm.get('addedSeances').setValue(this._getAddMovieScreeningRooms(result.seanceRooms));
+
+    if (!result.bookingForm.get('weeksCount').value) {
+      result.bookingForm.get('weeksCount').setValue(1);
+      result.bookingForm.get('seanceRoom').setValue(result.seanceRooms[0]);
+      result.bookingForm.get('addedSeances').setValue(this._getAddMovieScreeningRooms(result.seanceRooms));
+    } else {
+      const screeningRoomId = result.bookingForm.get('seanceRoom').value;
+      const screeningRoom: ScreeningRoomApiModel = result.seanceRooms.find(sr => sr.id === screeningRoomId);
+      result.bookingForm.get('seanceRoom').setValue(screeningRoom);
+    }
+
     result.selectedDaySeancesModel = this.getSelectedDaySeances(result.seanceRooms[0].id, result.selectedWeekNumber, result.selectedDayNumber);
     result.selectedDaySeancesModel.screeningRoomId = result.seanceRooms[0].id;
-
     this.setSeanceTimeValidator(result);
 
     return result;

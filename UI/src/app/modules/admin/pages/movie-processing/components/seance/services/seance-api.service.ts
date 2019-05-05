@@ -16,7 +16,7 @@ export class SeanceApiService {
   public getSeanceRooms(): ScreeningRoomApiModel[] {
     return [
       {
-        id: 'xxxq',
+        id: 'sfdsfffasdsdfa',
         name: 'super sala',
         breakBeforeAndAfterMovie: 15
       },

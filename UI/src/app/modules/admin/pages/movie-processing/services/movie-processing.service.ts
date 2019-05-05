@@ -173,7 +173,7 @@ export class MovieProcessingService {
       form.addControl('movieProjection', new FormGroup({
         'weeksCount': new FormControl(castedMovie.screeningRooms[0].weeks.length, [Validators.required, Validators.min(1)]),
         'movieProjectionTime': new FormControl(null, [Validators.required]),
-        'seanceRoom': new FormControl(castedMovie.screeningRooms[0], [Validators.required]),
+        'seanceRoom': new FormControl(castedMovie.screeningRooms[0].id, [Validators.required]),
         'addedSeances': new FormControl(castedMovie.screeningRooms)
       }));
     }
