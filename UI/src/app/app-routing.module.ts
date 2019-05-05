@@ -11,9 +11,8 @@ import {BookingConfirmationFinishComponent} from './modules/booking/pages/bookin
 import {BookingConfirmationComponent} from './modules/booking/pages/booking-confirmation/booking-confirmation.component';
 import {AdminComponent} from './modules/admin/admin.component';
 import {AdminPanelComponent} from './modules/admin/pages/admin-panel/admin-panel.component';
-import {AddMovieComponent} from './modules/admin/pages/add-movie/add-movie.component';
-import {PreviewMovieComponent} from './modules/admin/pages/preview-movie/preview-movie.component';
-import {EditMovieComponent} from './modules/admin/pages/edit-movie/edit-movie.component';
+import {MovieProcessingComponent} from './modules/admin/pages/movie-processing/movie-processing.component';
+import {MoviePreviewComponent} from './modules/admin/pages/movie-preview/movie-preview.component';
 import {EditPriceListComponent} from './modules/admin/pages/edit-price-list/edit-price-list.component';
 
 const routes: Routes = [
@@ -84,15 +83,15 @@ const routes: Routes = [
       },
       {
         path: 'film/dodaj',
-        component: AddMovieComponent
+        component: MovieProcessingComponent
       },
       {
         path: 'film/podglad/:movieId',
-        component: PreviewMovieComponent
+        component: MoviePreviewComponent
       },
       {
-        path: 'film/edycja/:movieId',
-        component: EditMovieComponent
+        path: 'film/edytuj/:movieId',
+        component: MovieProcessingComponent
       },
       {
         path: 'edycja-cennika',

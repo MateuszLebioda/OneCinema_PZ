@@ -1,0 +1,88 @@
+<div class="faq">
+  <div class="page-header-block">
+    <h1 class="page-header-text">{{pageTitle}}</h1>
+  </div>
+
+  <div class="container">
+    <div class="single-page-agile-info">
+      <div class="show-top-grids-w3lagile">
+        <div class="all-comments">
+          <div class="all-comments-info">
+            <div class="agile-info-wthree-box">
+              <form class="form-module form" [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+                <div class="form-inputs">
+                  <div class="form-left">
+                    <div class="form-group">
+                      <input type="text" formControlName="title" placeholder="Tytuł">
+                      <span *ngIf="isInvalid('title')" class="error-font help-block">
+                      <div *ngIf="formControls.title.errors.required">To pole jest wymagane</div>
+                      <div *ngIf="formControls.title.errors.maxlength">Maksymalna długość tytułu to 100 znaków</div>
+                    </span>
+                    </div>
+
+                    <div class="form-group" (click)="markGenderSelectorAsClicked()">
+                      <ng-multiselect-dropdown
+                        name="gender"
+                        formControlName="gender"
+                        [placeholder]="'Wybierz gatunek'"
+                        [data]="genders"
+                        [(ngModel)]="selectedGenders"
+                        [settings]="settings">
+                      </ng-multiselect-dropdown>
+                      <span *ngIf="isInvalidGenderSelector()" class="error-font help-block">
+                        <div>To pole jest wymagane</div>
+                      </span>
+                    </div>
+
+                    <div class="form-group">
+                      <input type="number" formControlName="duration" placeholder="Czas trwania filmu">
+                      <span *ngIf="isInvalid('duration')" class="error-font help-block">
+                      <div *ngIf="formControls.duration.errors.required">To pole jest wymagane</div>
+                      <div *ngIf="formControls.duration.errors.min">Czas filmu musi być dodatni</div>
+                    </span>
+                    </div>
+                  </div>
+                  <div class="form-right">
+                    <div class="form-group movie-rate">
+                      <div class="slidecontainer">
+                        <span class="movie-rate-text">Ocena filmu: {{rating}} </span>
+                        <input type="range" min="1" max="5" value="{{rating}}" step="0.5"
+                               class="slider movie-rate-input"
+                               (input)="valueChanged($event.target.value)">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <input type="url" formControlName="posterUrl" placeholder="Link do plakatu">
+                      <span *ngIf="isInvalid('posterUrl')" class="error-font help-block">
+                      <div *ngIf="formControls.posterUrl.errors.required">To pole jest wymagane</div>
+                      <div *ngIf="formControls.posterUrl.errors.url">To nie jest poprawny link</div>
+                    </span>
+                    </div>
+
+                    <div class="form-group">
+                      <input type="url" formControlName="trailerUrl" placeholder="Link do zwiastunu">
+                      <span *ngIf="isInvalid('trailerUrl')" class="error-font help-block">
+                      <div *ngIf="formControls.trailerUrl.errors.required">To pole jest wymagane</div>
+                      <div *ngIf="formControls.trailerUrl.errors.url">To nie jest poprawny link</div>
+                    </span>
+                    </div>
+                  </div>
+                </div>
+                <app-seance [movieDuration]="bookingForm.get('duration')"
+                            [formGroup]="bookingForm.controls.movieProjection">
+                </app-seance>
+
+                <input type="submit" value="Zarezerwuj" class="form-subbmit"
+                       [class.add-movie-button-activated]="isFormValid()">
+
+                <div class="clearfix"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
