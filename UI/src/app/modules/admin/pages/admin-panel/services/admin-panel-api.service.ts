@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {MovieApiModel} from '../api-models/movie-api.model';
 import {AdminServicesModule} from '../../../admin-services.module';
-import {HttpBaseService} from '../../../../../shared/services/http-base.service';
+import {HttpBaseService} from '../../../../../core/services/http-base.service';
 import {Observable} from 'rxjs/internal/Observable';
 
 @Injectable({

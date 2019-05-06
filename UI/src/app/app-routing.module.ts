@@ -14,7 +14,7 @@ import {AdminPanelComponent} from './modules/admin/pages/admin-panel/admin-panel
 import {MovieProcessingComponent} from './modules/admin/pages/movie-processing/movie-processing.component';
 import {MoviePreviewComponent} from './modules/admin/pages/movie-preview/movie-preview.component';
 import {EditPriceListComponent} from './modules/admin/pages/edit-price-list/edit-price-list.component';
-import {ErrorPageComponent} from './shared/components/internal/error-page/error-page.component';
+import {ErrorPageComponent} from './core/errors/error-page/error-page.component';
 
 const routes: Routes = [
   {

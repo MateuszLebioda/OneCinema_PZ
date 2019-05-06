@@ -13,16 +13,18 @@ import {AdminModule} from './modules/admin/admin.module';
 import {SharedModule} from './shared/shared.module';
 import {DeviceDetectorModule} from 'ngx-device-detector';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {GlobalErrorHandlerService} from './shared/services/errors/global-error-handler.service';
-import {ServerErrorInterceptorService} from './shared/services/errors/server-error.interceptor.service';
+import {GlobalErrorHandlerService} from './core/errors/global-error-handler.service';
+import {ServerErrorInterceptorService} from './core/errors/server-error.interceptor.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material';
+import {ErrorPageComponent} from './core/errors/error-page/error-page.component';
 
 registerLocaleData(localePL);
 
 @NgModule({
   declarations: [
     AppComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,

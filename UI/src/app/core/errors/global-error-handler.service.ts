@@ -1,6 +1,6 @@
 import {ErrorHandler, Injectable, Injector, NgZone} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {NotificationService} from '../notification.service';
+import {NotificationService} from '../services/notification.service';
 import {ErrorService} from './error.service';
 import {Router} from '@angular/router';
 

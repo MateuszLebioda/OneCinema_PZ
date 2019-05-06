@@ -15,7 +15,6 @@ import {TargetPriceListComponent} from './pages/edit-price-list/components/targe
 import {SharedModule} from '../../shared/shared.module';
 import {MovieSeancesPreviewComponent} from './pages/movie-preview/components/movie-seances-preview/movie-seances-preview.component';
 
-
 @NgModule({
   declarations: [
     AdminComponent,
