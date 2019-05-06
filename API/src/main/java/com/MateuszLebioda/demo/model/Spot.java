@@ -5,7 +5,6 @@ package com.MateuszLebioda.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 
 @Entity
@@ -31,6 +30,9 @@ public class Spot {
     @ManyToOne
     @JoinColumn(name = "id_sala")
     private Room room;
+
+    @Column(name = "jest_miejscem")
+    private boolean isPlace;
 
     public String getId() {
         return id;
