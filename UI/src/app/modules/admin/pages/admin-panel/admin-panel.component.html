@@ -33,7 +33,7 @@
               <a routerLink="/admin/film/edytuj/{{movie.id}}">Edytuj</a>
             </td>
             <td class="action">
-              <a routerLink="">Usuń</a>
+              <a class="link" (click)="deleteMovie(movie.id)">Usuń</a>
             </td>
           </tr>
           </tbody>

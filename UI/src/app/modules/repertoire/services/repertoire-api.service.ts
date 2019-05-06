@@ -1,20 +1,21 @@
 import {Injectable} from '@angular/core';
 import {MovieProjectionApiModel} from '../models/api/movie-projection-api.model';
-import {HttpClient} from '@angular/common/http';
-import {HttpBaseService} from '../../../shared/services/http-base.service';
 import {MovieProjection} from '../models/movie-projection.model';
 import {MapperService} from '../../../shared/helpers/external/mapper/mapper.service';
 import {RepertoireServicesModule} from '../repertoire-services.module';
 import {MovieGender} from '../../movie/enums/movie-gender.enum';
 import {ProjectionType} from '../../movie/enums/projection-type.enum';
+import {HttpBaseService} from '../../../core/services/http-base.service';
+import {Observable} from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: RepertoireServicesModule
 })
-export class RepertoireApiService extends HttpBaseService {
+export class RepertoireApiService {
 
-  constructor(private http: HttpClient, private _mapper: MapperService) {
-    super(http);
+  constructor(
+    private _httpService: HttpBaseService,
+    private _mapper: MapperService) {
   }
 
   public getRepertoire(dayNumber: number): MovieProjection[] {
@@ -65,6 +66,10 @@ export class RepertoireApiService extends HttpBaseService {
     }
 
     return this._mapper.toMovieProjectionCollection(repertoire);
+  }
+
+  public getRepertoire2(dayNumber: number): Observable<MovieProjection[]> {
+    return this._httpService.get<MovieProjection[]>('');
   }
 
   // private temp() {

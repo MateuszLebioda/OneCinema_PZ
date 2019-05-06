@@ -15,7 +15,7 @@ import {SafePipe} from './pipes/safe.pipe';
     NavbarComponent,
     FooterComponent,
     LoginRegisterPopUpComponent,
-    SafePipe
+    SafePipe,
   ],
   imports: [
     CommonModule,

@@ -38,7 +38,7 @@ export class BookingFinalizationComponent implements OnInit {
   private _ticketPrice: TicketPrice = new TicketPrice();
 
   constructor(
-    private _bookingFinalizationService: BookingFinalizationService,
+    private _service: BookingFinalizationService,
     private _router: Router) {
   }
 
@@ -49,16 +49,16 @@ export class BookingFinalizationComponent implements OnInit {
       'email': new FormControl(null, [Validators.required, Validators.email]),
     });
 
-    this._ticketPrice = this._bookingFinalizationService.getTicketPrices(this.seance);
+    this._ticketPrice = this._service.getTicketPrices(this.seance);
   }
 
   public isInvalid(formControlName: string): boolean {
-    return this._bookingFinalizationService.isInvalid(this.bookingForm, formControlName);
+    return this._service.isInvalid(this.bookingForm, formControlName);
   }
 
   public onSubmit(): void {
     if (this.isFormValid()) {
-      this._bookingFinalizationService.bookSeats(this.seance, this.bookingForm, this.bookedSeats);
+      this._service.bookSeats(this.seance, this.bookingForm, this.bookedSeats);
       this._router.navigate(['/rezerwacja/potwierdzenie']);
     }
   }
@@ -68,7 +68,7 @@ export class BookingFinalizationComponent implements OnInit {
   }
 
   public backToPreparation(): void {
-    this._bookingFinalizationService.resetBookedSeats(this.bookedSeats);
+    this._service.resetBookedSeats(this.bookedSeats);
     this.backToPreparationEvent.emit();
   }
 

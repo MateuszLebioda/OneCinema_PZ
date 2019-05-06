@@ -5,22 +5,28 @@ import {MovieProcessingApiModel} from '../models/api/movie-processing-api.model'
 import {MovieGender} from '../../../../movie/enums/movie-gender.enum';
 import {WeekDays} from '../components/seance/enums/week-days.enum';
 import {ProjectionType} from '../../../../movie/enums/projection-type.enum';
+import {Observable} from 'rxjs/internal/Observable';
+import {HttpBaseService} from '../../../../../core/services/http-base.service';
 
 @Injectable({
   providedIn: AdminServicesModule
 })
 export class MovieProcessingApiService {
 
-  constructor() {
+  constructor(private _httpService: HttpBaseService) {
   }
 
-  public addMovie(request: MovieProcessingRequestModel): void {
+  public addMovie(request: MovieProcessingRequestModel): Observable<any> {
     request.id = null;
-    console.log('addMovie request', request);
+    return this._httpService.post<any>('', request);
   }
 
-  public updateMovie(request: MovieProcessingRequestModel): void {
-    console.log('updateMovie request', request);
+  public updateMovie(request: MovieProcessingRequestModel): Observable<any> {
+    return this._httpService.post<any>('', request);
+  }
+
+  public getMovie2(movieId: string): Observable<MovieProcessingApiModel> {
+    return this._httpService.get<MovieProcessingApiModel>('');
   }
 
   public getMovie(movieId: string): MovieProcessingApiModel {

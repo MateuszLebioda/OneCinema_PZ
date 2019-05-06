@@ -1824,3 +1824,26 @@ h3.head {
 .mobile-bookmark {
   width: 100% !important;
 }
+
+.error {
+  background-color: red;
+  color: white;
+}
+
+.error button {
+  background-color:orangered;
+  color: white;
+}
+
+.cdk-live-announcer-element.cdk-visually-hidden {
+  visibility: hidden !important;
+}
+
+.cdk-overlay-container {
+  position: absolute;
+  top: 0;
+}
+
+.mat-snack-bar-container {
+ max-width: 100vw !important;
+}

@@ -4,13 +4,15 @@ import {BookedSeatsApiModel} from '../models/api/booked-seats/booked-seats-api.m
 import {ScreeningRoomPlanRowApiModel} from '../models/api/screening-room-plan-row-api.model';
 import {ScreeningRoomPlanSeatApiModel} from '../models/api/screening-room-plan-seat-api.model';
 import {BookingServicesModule} from '../../../../../../../booking-services.module';
+import {HttpBaseService} from '../../../../../../../../../core/services/http-base.service';
+import {Observable} from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: BookingServicesModule
 })
 export class ScreeningRoomApiService {
 
-  constructor() {
+  constructor(private _httpService: HttpBaseService) {
   }
 
   public getScreeningRoomPlan(screeningRoomId: string): ScreeningRoomPlanApiModel {
@@ -29,6 +31,14 @@ export class ScreeningRoomApiService {
         '44'
       ]
     };
+  }
+
+  public getScreeningRoomPlan2(screeningRoomId: string): Observable<ScreeningRoomPlanApiModel> {
+    return this._httpService.get<ScreeningRoomPlanApiModel>('');
+  }
+
+  public getBookedSeats2(seanceId: string): Observable<BookedSeatsApiModel> {
+    return this._httpService.get<BookedSeatsApiModel>('');
   }
 
   private _randomSeats(): ScreeningRoomPlanRowApiModel[] {

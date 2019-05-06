@@ -4,13 +4,19 @@ import {RepertoireApiService} from '../../repertoire/services/repertoire-api.ser
 import {MapperService} from '../../../shared/helpers/external/mapper/mapper.service';
 import {DaySeancesApiModel} from '../models/api/day-seances-api.model';
 import {MovieServicesModule} from '../movie-services.module';
+import {HttpBaseService} from '../../../core/services/http-base.service';
+import {Observable} from 'rxjs/internal/Observable';
+import {MovieApiModel} from '../models/api/movie-api.model';
 
 @Injectable({
   providedIn: MovieServicesModule
 })
 export class MovieApiService {
 
-  constructor(private _temp: RepertoireApiService, private _mapper: MapperService) {
+  constructor(
+    private _repertoireApiService: RepertoireApiService,
+    private _httpService: HttpBaseService,
+    private _mapper: MapperService) {
   }
 
   public getMovie(): Movie {
@@ -54,5 +60,9 @@ export class MovieApiService {
       seances2D: [this._mapper.toDaySeances(x1), this._mapper.toDaySeances(x2)],
       seances3D: [this._mapper.toDaySeances(x1)]
     };
+  }
+
+  public getMovie2(): Observable<MovieApiModel> {
+    return this._httpService.get<MovieApiModel>('');
   }
 }

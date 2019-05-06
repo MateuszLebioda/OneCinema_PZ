@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {MovieShortInfoApiModel} from '../../../models/api/movie-short-info-api.model';
 import {HomeServicesModule} from '../../../home-services.module';
+import {HttpBaseService} from '../../../../../core/services/http-base.service';
+import {Observable} from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: HomeServicesModule
 })
 export class SlideBannerApiService {
 
-  constructor() {
+  constructor(private _httpService: HttpBaseService) {
   }
 
   public getMovies(): MovieShortInfoApiModel[] {
@@ -67,5 +69,9 @@ export class SlideBannerApiService {
     });
 
     return result;
+  }
+
+  public getMovies2(): Observable<MovieShortInfoApiModel[]> {
+    return this._httpService.get<MovieShortInfoApiModel[]>('');
   }
 }
