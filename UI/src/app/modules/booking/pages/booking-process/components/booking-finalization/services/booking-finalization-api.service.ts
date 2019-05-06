@@ -1,14 +1,16 @@
 import {Injectable} from '@angular/core';
 import {PriceListApiModel} from '../../../../../../../shared/components/internal/navbar/models/api-models/price-list-api.model';
-import {BookingApiModel} from '../models/api/booking-api.model';
+import {BookingRequestModel} from '../models/requests/booking-request.model';
 import {BookingServicesModule} from '../../../../../booking-services.module';
+import {HttpBaseService} from '../../../../../../../core/services/http-base.service';
+import {Observable} from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: BookingServicesModule
 })
 export class BookingFinalizationApiService {
 
-  constructor() {
+  constructor(private _httpService: HttpBaseService) {
   }
 
   public getPriceList(): PriceListApiModel {
@@ -36,7 +38,11 @@ export class BookingFinalizationApiService {
     };
   }
 
-  public bookSeats(bookingApiModel: BookingApiModel): void {
-    console.log('wysłano rezerwację biletów');
+  public bookSeats(bookingApiModel: BookingRequestModel): Observable<any> {
+    return this._httpService.post<any>('', bookingApiModel);
+  }
+
+  public getPriceList2(): Observable<PriceListApiModel> {
+    return this._httpService.get<PriceListApiModel>('');
   }
 }

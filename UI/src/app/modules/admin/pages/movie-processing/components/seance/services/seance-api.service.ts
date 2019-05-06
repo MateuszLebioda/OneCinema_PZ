@@ -4,13 +4,15 @@ import {SeanceApiModel} from '../models/api/seance-api.model';
 import {ProjectionType} from '../../../../../../movie/enums/projection-type.enum';
 import {SeancesRequestModel} from '../models/requests/seances-request.model';
 import {ScreeningRoomApiModel} from '../models/api/screening-room-api.model';
+import {Observable} from 'rxjs/internal/Observable';
+import {HttpBaseService} from '../../../../../../../core/services/http-base.service';
 
 @Injectable({
   providedIn: AdminServicesModule
 })
 export class SeanceApiService {
 
-  constructor() {
+  constructor(private _httpService: HttpBaseService) {
   }
 
   public getScreeningRooms(): ScreeningRoomApiModel[] {
@@ -55,5 +57,13 @@ export class SeanceApiService {
         end: new Date('May 6, 2019 22:35:00')
       },
     ];
+  }
+
+  public getScreeningRooms2(): Observable<ScreeningRoomApiModel[]> {
+    return this._httpService.get<ScreeningRoomApiModel[]>('');
+  }
+
+  public getMoviesProjections2(date: SeancesRequestModel): Observable<SeanceApiModel[]> {
+    return this._httpService.get<SeanceApiModel[]>('');
   }
 }

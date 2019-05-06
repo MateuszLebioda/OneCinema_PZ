@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminPanelApiService} from './services/admin-panel-api.service';
-import {MovieApiModel} from './api-models/movie-api.model';
+import {MovieApiModel} from './models/api/movie-api.model';
 import {HttpClient} from '@angular/common/http';
 
 @Component({

@@ -19,7 +19,7 @@ export abstract class HttpBaseService {
   }
 
   public post<T>(url: string, model: any): Observable<T> {
-    return this._http.post<T>(this.getRealUrl(url), model, this._httpOptions);
+    return this._http.post<T>(this.getRealUrl(url), JSON.stringify(model), this._httpOptions);
   }
 
   public delete<T>(url: string): Observable<T> {

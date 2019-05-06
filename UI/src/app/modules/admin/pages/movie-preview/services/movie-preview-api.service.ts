@@ -4,13 +4,15 @@ import {PreviewMovieApiModel} from '../models/api/preview-movie-api.model';
 import {MovieGender} from '../../../../movie/enums/movie-gender.enum';
 import {WeekDays} from '../../movie-processing/components/seance/enums/week-days.enum';
 import {ProjectionType} from '../../../../movie/enums/projection-type.enum';
+import {HttpBaseService} from '../../../../../core/services/http-base.service';
+import {Observable} from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: AdminServicesModule
 })
 export class MoviePreviewApiService {
 
-  constructor() {
+  constructor(private _httpService: HttpBaseService) {
   }
 
   public getMovie(): PreviewMovieApiModel {
@@ -149,5 +151,9 @@ export class MoviePreviewApiService {
         }
       ]
     };
+  }
+
+  public getMovie2(movieId: string): Observable<PreviewMovieApiModel> {
+    return this._httpService.get<PreviewMovieApiModel>('');
   }
 }

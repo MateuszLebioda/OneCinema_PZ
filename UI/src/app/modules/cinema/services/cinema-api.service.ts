@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {CinemaApiModel} from '../models/api/cinema-api.model';
 import {CinemaServicesModule} from '../cinema-services.module';
+import {HttpBaseService} from '../../../core/services/http-base.service';
+import {Observable} from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: CinemaServicesModule
 })
 export class CinemaApiService {
 
-  constructor() {
+  constructor(private _httpService: HttpBaseService) {
   }
 
   public getCinemaInfo(): CinemaApiModel {
@@ -26,5 +28,9 @@ export class CinemaApiService {
         '                  elementum nibh, at commodo lorem orci sed nulla. Pellentesque eu velit pulvinar, scelerisque lacus ut,\n' +
         '                  semper dolor.'
     };
+  }
+
+  public getCinemaInfo2(): Observable<CinemaApiModel> {
+    return this._httpService.get<CinemaApiModel>('');
   }
 }

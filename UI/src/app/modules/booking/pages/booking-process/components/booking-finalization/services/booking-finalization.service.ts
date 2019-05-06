@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {BookingServicesModule} from '../../../../../booking-services.module';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {FormValidatorService} from '../../../../../../../shared/services/form-validator.service';
 import {BookingFinalizationApiService} from './booking-finalization-api.service';
 import {Seat} from '../../booking-preparation/models/seat';
 import {SeanceApiModel} from '../../booking-preparation/models/api/seance-api.model';
-import {BookingApiModel} from '../models/api/booking-api.model';
+import {BookingRequestModel} from '../models/requests/booking-request.model';
 import {TicketPrice} from '../models/ticket-price';
 import {ProjectionType} from '../../../../../../movie/enums/projection-type.enum';
 
@@ -15,18 +15,7 @@ import {ProjectionType} from '../../../../../../movie/enums/projection-type.enum
 export class BookingFinalizationService {
   constructor(
     public formValidatorService: FormValidatorService,
-    private _BookingFinalizationService: BookingFinalizationService,
-    private _bookingFinalizationApiService: BookingFinalizationApiService) {
-  }
-
-  public initForm(): FormGroup {
-    const result: FormGroup = new FormGroup({
-      'firstname': new FormControl(null, [Validators.required, Validators.maxLength(35)]),
-      'surname': new FormControl(null, [Validators.required, Validators.maxLength(100)]),
-      'email': new FormControl(null, [Validators.required, Validators.email]),
-    });
-
-    return result;
+    private _apiService: BookingFinalizationApiService) {
   }
 
   public isInvalid(form: FormGroup, formControlName: string): boolean {
@@ -34,8 +23,8 @@ export class BookingFinalizationService {
   }
 
   public bookSeats(seance: SeanceApiModel, form: FormGroup, bookedSeats: Seat[]): void {
-    const bookingApiModel = this._createBookingApiModel(bookedSeats, seance, form);
-    this._bookingFinalizationApiService.bookSeats(bookingApiModel);
+    const bookingApiModel = this._createBookingRequest(bookedSeats, seance, form);
+    this._apiService.bookSeats(bookingApiModel);
   }
 
   public resetBookedSeats(bookedSeats: Seat[]): void {
@@ -45,7 +34,7 @@ export class BookingFinalizationService {
   }
 
   public getTicketPrices(seance: SeanceApiModel): TicketPrice {
-    const prices = this._bookingFinalizationApiService.getPriceList();
+    const prices = this._apiService.getPriceList();
     const result = new TicketPrice();
     if (seance.seanceType === ProjectionType.type2D) {
       if (seance.date.getDay() >= 1 && seance.date.getDay() <= 4) {
@@ -68,8 +57,8 @@ export class BookingFinalizationService {
     return result;
   }
 
-  private _createBookingApiModel(bookedSeats: Seat[], seance: SeanceApiModel, form: FormGroup): BookingApiModel {
-    const bookingApiModel = new BookingApiModel();
+  private _createBookingRequest(bookedSeats: Seat[], seance: SeanceApiModel, form: FormGroup): BookingRequestModel {
+    const bookingApiModel = new BookingRequestModel();
     bookingApiModel.seanceId = seance.id;
     bookingApiModel.clientFirstname = form.get('firstname').value;
     bookingApiModel.clientSurname = form.get('surname').value;
