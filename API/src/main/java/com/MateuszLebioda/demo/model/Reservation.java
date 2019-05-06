@@ -7,8 +7,8 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "miejsce_seans")
-public class SpotSeance  {
+@Table(name = "rezerwacja")
+public class Reservation {
 
     @Id
     @Column(name = "id")
