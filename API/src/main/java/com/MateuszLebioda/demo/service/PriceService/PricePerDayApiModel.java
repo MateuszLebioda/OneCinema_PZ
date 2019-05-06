@@ -3,24 +3,22 @@ package com.MateuszLebioda.demo.service.PriceService;
 
 import com.MateuszLebioda.demo.model.Price;
 
-import java.io.Serializable;
-
 public class PricePerDayApiModel{
 
     PricePerDayApiModel(Price price){
-        mondayThusday = price.getMondayThursday();
+        mondayThursday = price.getMondayThursday();
         fridaySunday = price.getFridaySunday();
     }
 
-    private int mondayThusday;
+    private int mondayThursday;
     private int fridaySunday;
 
-    public int getMondayThusday() {
-        return mondayThusday;
+    public int getMondayThursday() {
+        return mondayThursday;
     }
 
-    public void setMondayThusday(int mondayThusday) {
-        this.mondayThusday = mondayThusday;
+    public void setMondayThursday(int mondayThursday) {
+        this.mondayThursday = mondayThursday;
     }
 
     public int getFridaySunday() {

@@ -29,7 +29,7 @@ public class Price {
     @Column(name = "seans")
     String seance;
 
-    public int gestMondayThursday() {
+    public int getMondayThursday() {
         return mondayThursday;
     }
 
