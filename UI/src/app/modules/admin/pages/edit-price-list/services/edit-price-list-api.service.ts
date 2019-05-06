@@ -13,37 +13,37 @@ export class EditPriceListApiService {
   constructor(private _httpService: HttpBaseService) {
   }
 
-  public getPriceList(): PriceListApiModel {
-    return {
-      price2D: {
-        normal: {
-          mondayThursday: 11,
-          fridaySunday: 12
-        },
-        reduced: {
-          mondayThursday: 13,
-          fridaySunday: 14
-        }
-      },
-      price3D: {
-        normal: {
-          mondayThursday: 15,
-          fridaySunday: 16
-        },
-        reduced: {
-          mondayThursday: 17,
-          fridaySunday: 18
-        }
-      }
-    };
-  }
+  // public getPriceList(): PriceListApiModel {
+  //   return {
+  //     price2D: {
+  //       normal: {
+  //         mondayThursday: 11,
+  //         fridaySunday: 12
+  //       },
+  //       reduced: {
+  //         mondayThursday: 13,
+  //         fridaySunday: 14
+  //       }
+  //     },
+  //     price3D: {
+  //       normal: {
+  //         mondayThursday: 15,
+  //         fridaySunday: 16
+  //       },
+  //       reduced: {
+  //         mondayThursday: 17,
+  //         fridaySunday: 18
+  //       }
+  //     }
+  //   };
+  // }
 
   public editPriceList(request: EditPriceListRequestModel): void {
     console.log('updated price list');
   }
 
-  public getPriceList2(): Observable<PriceListApiModel> {
-    return this._httpService.get<PriceListApiModel>('');
+  public getPriceList(): Observable<PriceListApiModel> {
+    return this._httpService.get<PriceListApiModel>('price');
   }
 
   public editPriceList2(request: EditPriceListRequestModel): Observable<any> {
