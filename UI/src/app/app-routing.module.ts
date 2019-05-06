@@ -14,6 +14,7 @@ import {AdminPanelComponent} from './modules/admin/pages/admin-panel/admin-panel
 import {MovieProcessingComponent} from './modules/admin/pages/movie-processing/movie-processing.component';
 import {MoviePreviewComponent} from './modules/admin/pages/movie-preview/movie-preview.component';
 import {EditPriceListComponent} from './modules/admin/pages/edit-price-list/edit-price-list.component';
+import {ErrorPageComponent} from './shared/components/internal/error-page/error-page.component';
 
 const routes: Routes = [
   {
@@ -69,17 +70,6 @@ const routes: Routes = [
       {
         path: 'panel',
         component: AdminPanelComponent,
-        children: [
-          // {
-          //   path: '',
-          //   component: BookingConfirmationStartComponent,
-          //   pathMatch: 'full',
-          // },
-          // {
-          //   path: ':bookingId',
-          //   component: BookingConfirmationFinishComponent,
-          // }
-        ]
       },
       {
         path: 'film/dodaj',
@@ -98,7 +88,11 @@ const routes: Routes = [
         component: EditPriceListComponent
       },
     ]
-  }
+  },
+  {
+    path: 'blad',
+    component: ErrorPageComponent
+  },
 ];
 
 @NgModule({

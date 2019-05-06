@@ -10,3 +10,8 @@
 .text {
   font-size: 18px;
 }
+
+.error-block {
+  margin: 10% 0;
+  text-align: center;
+}

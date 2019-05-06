@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {MovieApiModel} from '../api-models/movie-api.model';
 import {AdminServicesModule} from '../../../admin-services.module';
+import {HttpBaseService} from '../../../../../shared/services/http-base.service';
+import {Observable} from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: AdminServicesModule
 })
 export class AdminPanelApiService {
 
-  constructor() {
+  constructor(private _httpService: HttpBaseService) {
   }
 
   public getMovies(): MovieApiModel[] {
@@ -21,5 +23,13 @@ export class AdminPanelApiService {
         title: 'Jaś Fasola'
       }
     ];
+  }
+
+  public getMovies2(): Observable<MovieApiModel[]> {
+    return this._httpService.get('');
+  }
+
+  public deleteMovie(movieId: string): Observable<void> {
+    return this._httpService.delete('');
   }
 }

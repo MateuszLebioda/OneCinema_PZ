@@ -8,6 +8,7 @@ import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {SharedServicesModule} from './shared-services.module';
 import {SafePipe} from './pipes/safe.pipe';
+import {ErrorPageComponent} from './components/internal/error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {SafePipe} from './pipes/safe.pipe';
     NavbarComponent,
     FooterComponent,
     LoginRegisterPopUpComponent,
-    SafePipe
+    SafePipe,
+    ErrorPageComponent
   ],
   imports: [
     CommonModule,

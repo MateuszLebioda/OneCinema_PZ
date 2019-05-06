@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {HomeModule} from './modules/home/home.module';
 import {AppRoutingModule} from './app-routing.module';
@@ -12,15 +12,23 @@ import {BookingModule} from './modules/booking/booking.module';
 import {AdminModule} from './modules/admin/admin.module';
 import {SharedModule} from './shared/shared.module';
 import {DeviceDetectorModule} from 'ngx-device-detector';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {GlobalErrorHandlerService} from './shared/services/errors/global-error-handler.service';
+import {ServerErrorInterceptorService} from './shared/services/errors/server-error.interceptor.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatSnackBarModule} from '@angular/material';
 
 registerLocaleData(localePL);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule,
     DeviceDetectorModule.forRoot(),
     SharedModule,
     HomeModule,
@@ -33,7 +41,9 @@ registerLocaleData(localePL);
   ],
   providers: [
     {provide: APP_BASE_HREF, useValue: '/'},
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
+    {provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
 })
