@@ -3,6 +3,7 @@ package com.MateuszLebioda.demo.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name = "film")
 public class Film {
+
 
     @Id
     @Column(name = "id")
@@ -43,8 +45,8 @@ public class Film {
     @Column(name = "Czas_trwania")
     int duration;
 
-    @Column(name = "url")
-    String url;
+    @Column(name = "url_grafika")
+    String graphic;
 
     public String getId() {
         return id;
@@ -84,14 +86,6 @@ public class Film {
 
     public void setDuration(int duratation) {
         this.duration = duratation;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public Set<TsType> getTypes() {

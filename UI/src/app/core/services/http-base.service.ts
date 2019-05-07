@@ -7,7 +7,7 @@ import {HttpOptions} from '../configurations/http-options';
   providedIn: 'root'
 })
 export abstract class HttpBaseService {
-  private readonly baseUrl = 'bazowy url/';
+  private readonly baseUrl = 'http://localhost:8080/';
   private readonly _httpOptions: HttpOptions;
 
   protected constructor(private _http: HttpClient) {
@@ -27,7 +27,7 @@ export abstract class HttpBaseService {
   }
 
   public getRealUrl(url: string): string {
-    return `${this.baseUrl}${this.baseUrl}`;
+    return `${this.baseUrl}${url}`;
   }
 
   public getBaseUrl(): string {

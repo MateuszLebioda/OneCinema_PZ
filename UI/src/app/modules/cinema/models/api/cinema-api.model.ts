@@ -5,6 +5,6 @@ export class CinemaApiModel {
   public addres: string;
   public phoneNumber: string;
   public email: string;
-  public numberOfcinemaHalls: number;
-  public numberOfseats: number;
+  public screeningRoomsCount: number;
+  public seatsCount: number;
 }
