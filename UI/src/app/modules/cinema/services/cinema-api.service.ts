@@ -17,8 +17,8 @@ export class CinemaApiService {
       name: 'Fajne kino',
       addres: 'Dąbrowa górnicza ul. 11 Listopada 145',
       email: 'kino@kino.pl',
-      numberOfcinemaHalls: 4,
-      numberOfseats: 123,
+      screeningRoomsCount: 4,
+      seatsCount: 123,
       phoneNumber: '145 245 478',
       photoUrl: 'https://pik.wroclaw.pl/wp-content/uploads/2019/01/Kino-Cinema-City-Wroclavia-%E2%80%93-IMAX-Wroc%C5%82aw-4DX.jpg',
       description: 'Pellentesque vel urna accumsan, dictum sapien vitae, condimentum tellus. Nulla fermentum enim vitae\n' +
