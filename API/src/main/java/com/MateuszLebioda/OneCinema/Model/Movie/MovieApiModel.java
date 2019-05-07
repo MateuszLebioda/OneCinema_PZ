@@ -1,5 +1,6 @@
 package com.MateuszLebioda.OneCinema.Model.Movie;
 
+import com.MateuszLebioda.OneCinema.entity.Film;
 import com.MateuszLebioda.OneCinema.entity.Type;
 
 import java.util.ArrayList;
@@ -16,6 +17,16 @@ public class MovieApiModel {
     private int rating;
 
     //TODO: Seances
+
+    public MovieApiModel(Film film){
+        setId(film.getId());
+        setTitle(film.getTitle());
+        setPosterUrl(film.getGraphic());
+        setTrailerUrl(film.getTrailer());
+        setDuration(film.getDuration());
+        setGendersByTypeSet(film.getTypes());
+        setRating(film.getRating());
+    }
 
     public String getId() {
         return id;

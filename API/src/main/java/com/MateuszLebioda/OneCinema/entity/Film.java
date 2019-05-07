@@ -47,6 +47,12 @@ public class Film {
     @Column(name = "url_grafika")
     String graphic;
 
+    @Column(name = "url_zwiastun")
+    String trailer;
+
+    @Column(name = "ocena")
+    int rating;
+
     public String getId() {
         return id;
     }
@@ -83,8 +89,8 @@ public class Film {
         return duration;
     }
 
-    public void setDuration(int duratation) {
-        this.duration = duratation;
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public Set<Type> getTypes() {
@@ -109,5 +115,29 @@ public class Film {
 
     public void setSeances(Set<Seance> seances) {
         this.seances = seances;
+    }
+
+    public String getGraphic() {
+        return graphic;
+    }
+
+    public void setGraphic(String graphic) {
+        this.graphic = graphic;
+    }
+
+    public String getTrailer() {
+        return trailer;
+    }
+
+    public void setTrailer(String trailer) {
+        this.trailer = trailer;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 }
