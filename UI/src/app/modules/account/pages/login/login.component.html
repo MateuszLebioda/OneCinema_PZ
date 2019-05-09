@@ -1,0 +1,42 @@
+<div class="faq">
+  <div class="page-header-block">
+    <h1 class="page-header-text">Logowanie</h1>
+  </div>
+
+  <div class="container">
+    <div class="single-page-agile-info">
+      <div class="show-top-grids-w3lagile">
+        <div class="all-comments">
+          <div class="all-comments-info login-panel">
+            <div class="agile-info-wthree-box">
+              <form class="form-module form" [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="form-inputs">
+
+                  <div class="form-group">
+                    <input type="text" formControlName="login" placeholder="Login">
+                    <span *ngIf="isInvalid('login')" class="error-font help-block">
+                      <div *ngIf="formControls.login.errors.required">To pole jest wymagane</div>
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="password" formControlName="password" placeholder="Hasło">
+                    <span *ngIf="isInvalid('password')" class="error-font help-block">
+                      <div *ngIf="formControls.password.errors.required">To pole jest wymagane</div>
+                    </span>
+                  </div>
+
+                  <input type="submit" value="Zarezerwuj" class="form-subbmit"
+                         [class.add-movie-button-activated]="isFormValid()">
+
+                  <div class="clearfix"></div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

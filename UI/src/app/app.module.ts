@@ -18,6 +18,7 @@ import {ServerErrorInterceptorService} from './core/errors/server-error.intercep
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material';
 import {ErrorPageComponent} from './core/errors/error-page/error-page.component';
+import {AccountModule} from './modules/account/account.module';
 
 registerLocaleData(localePL);
 
@@ -39,6 +40,7 @@ registerLocaleData(localePL);
     AppRoutingModule,
     CinemaModule,
     BookingModule,
+    AccountModule,
     AdminModule
   ],
   providers: [
