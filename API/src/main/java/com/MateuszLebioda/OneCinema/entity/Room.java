@@ -17,8 +17,6 @@ public class Room {
     )
     private String id;
 
-
-
     @OneToMany(mappedBy = "room")
     private Set<Spot> spots;
 

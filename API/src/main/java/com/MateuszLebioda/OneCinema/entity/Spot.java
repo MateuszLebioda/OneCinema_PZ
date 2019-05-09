@@ -21,12 +21,11 @@ public class Spot {
     private String id;
 
     @Column(name = "pozycja")
-    int position;
+    private int position;
 
     @Column(name = "rzad")
-    int raw;
+    private int raw;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_sala")
     private Room room;
@@ -64,5 +63,13 @@ public class Spot {
 
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+    public boolean isPlace() {
+        return isPlace;
+    }
+
+    public void setPlace(boolean place) {
+        isPlace = place;
     }
 }

@@ -34,9 +34,18 @@ public class Cinema {
   @Column (name = "e_mail")
   private String eMail;
 
+  @Column (name = "nazwa")
+  private String name;
+
   @JsonIgnore
   @OneToMany(mappedBy = "cinema")
   private Set<Room> rooms;
+
+  @Column(name = "url_zdjecie")
+  private String photo;
+
+  @Column(name = "opis")
+  private String description;
 
   public String getId() {
     return id;
@@ -84,5 +93,37 @@ public class Cinema {
 
   public void seteMail(String eMail) {
     this.eMail = eMail;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public Set<Room> getRooms() {
+    return rooms;
+  }
+
+  public void setRooms(Set<Room> rooms) {
+    this.rooms = rooms;
+  }
+
+  public String getPhoto() {
+    return photo;
+  }
+
+  public void setPhoto(String photo) {
+    this.photo = photo;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 }
