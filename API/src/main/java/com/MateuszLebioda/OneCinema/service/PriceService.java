@@ -1,4 +1,4 @@
-package com.MateuszLebioda.OneCinema.service.PriceService;
+package com.MateuszLebioda.OneCinema.service;
 
 import com.MateuszLebioda.OneCinema.Model.Price.PriceApiModel;
 import com.MateuszLebioda.OneCinema.Model.Price.PriceListApiModel;
