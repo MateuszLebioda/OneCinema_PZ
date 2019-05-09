@@ -150,17 +150,23 @@ export class SeanceService {
       const addedSeances = data.form.get('addedSeances').value as MovieProcessingScreeningRoomModel[];
       const index = addedSeances.findIndex(x => x.id === data.screeningRoomId);
 
-      const indexOfseanceToRemove = addedSeances[index].weeks[data.week].days[data.day - 1].seancesTimes.findIndex(
+      const seancesOnDayFromWhichIndicatedSeanceWillBeRemoved = addedSeances[index].weeks[data.week].days[data.day];
+      const indexOfseanceToRemove = seancesOnDayFromWhichIndicatedSeanceWillBeRemoved.seancesTimes.findIndex(
         projectionTime => projectionTime.start === data.seanceToRemove.start
           && projectionTime.end === data.seanceToRemove.end);
 
-      addedSeances[index].weeks[data.week].days[data.day - 1].seancesTimes.splice(indexOfseanceToRemove, 1);
+      const seanceToRemove = seancesOnDayFromWhichIndicatedSeanceWillBeRemoved.seancesTimes[indexOfseanceToRemove];
+      if (seanceToRemove.seanceId && seanceToRemove.seanceId.length > 0) {
+        data.removedSeances.push(seanceToRemove.seanceId);
+      }
+
+      seancesOnDayFromWhichIndicatedSeanceWillBeRemoved.seancesTimes.splice(indexOfseanceToRemove, 1);
 
       data.form.get('addedSeances').setValue(addedSeances);
     }
   }
 
-  public attachAddedSeancesToSelectedDaySeances(data: SeanceComponentDataModel): void {
+  public attachAddedAndDetachRemovedSeancesToSelectedDaySeances(data: SeanceComponentDataModel): void {
     if (data.bookingForm.get('addedSeances')) {
       const addedSeances = data.bookingForm.get('addedSeances').value as MovieProcessingScreeningRoomModel[];
       const seanceRoom: ScreeningRoomApiModel = data.bookingForm.get('screeningRoom').value;
@@ -175,11 +181,10 @@ export class SeanceService {
         .seancesTimes;
       data.selectedDaySeances.seancesWithAddedByUser = Lodash.utils.cloneDeep(data.selectedDaySeances.seances);
 
-      if (seancesToAttach.length <= 0) {
-        return;
-      }
       seancesToAttach.forEach(seanceToAttach => {
-        data.selectedDaySeances.seancesWithAddedByUser.push(this._mapper.toSeanceApiModel(seanceToAttach));
+        if (!data.selectedDaySeances.seancesWithAddedByUser.find(s => s.seanceId === seanceToAttach.seanceId)) {
+          data.selectedDaySeances.seancesWithAddedByUser.push(this._mapper.toSeanceApiModel(seanceToAttach));
+        }
       });
 
       data.selectedDaySeances.seancesWithAddedByUser = Lodash.utils.orderBy(data.selectedDaySeances.seancesWithAddedByUser, [
@@ -187,6 +192,10 @@ export class SeanceService {
           return (a as SeanceApiModel).start;
         }
       ]);
+
+      data.selectedDaySeances.seancesWithAddedByUser = data.selectedDaySeances.seancesWithAddedByUser.filter(s => {
+        return !data.removedSeances.includes(s.seanceId);
+      });
 
       this.setSeanceTimeValidator(data);
     }

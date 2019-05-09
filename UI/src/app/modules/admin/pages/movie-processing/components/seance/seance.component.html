@@ -131,7 +131,7 @@
                   <p>
                     {{projectionTime.start | date: 'HH:mm'}} - {{projectionTime.end | date: 'HH:mm'}}
                     ({{projectionTime.projectionType}})
-                    <span class="delete-seance" (click)="removeSeance(projectionTime)">x</span>
+                    <span class="delete-seance" (click)="removeSeance(projectionTime, weekIndex, dayIndex)">x</span>
                   </p>
                 </div>
               </td>
