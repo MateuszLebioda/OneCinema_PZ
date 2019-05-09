@@ -3,6 +3,7 @@ import {SeanceApiModel} from '../models/api/seance-api.model';
 import {BookingServicesModule} from '../../../../../booking-services.module';
 import {HttpBaseService} from '../../../../../../../core/services/http-base.service';
 import {Observable} from 'rxjs/internal/Observable';
+import {ProjectionType} from '../../../../../../movie/enums/projection-type.enum';
 
 @Injectable({
   providedIn: BookingServicesModule
@@ -19,7 +20,7 @@ export class BookingPreparationApiService {
       movieTitle: 'Jaś Fasola',
       date: new Date(),
       screeningRoomName: 'Super sala',
-      seanceType: '3D'
+      seanceType: ProjectionType.type3D
     };
   }
 

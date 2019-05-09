@@ -33,28 +33,32 @@ export class SeanceApiService {
   public getMoviesProjections(date: SeancesRequestModel): SeanceApiModel[] {
     return [
       {
+        seanceId: 'qwscvfv5',
         title: 'Jaś fasola',
         projectionType: ProjectionType.type2D,
-        start: new Date('May 6, 2019 8:05:00'),
-        end: new Date('May 6, 2019 10:05:00')
+        start: new Date('May 13, 2019 8:05:00'),
+        end: new Date('May 13, 2019 10:05:00')
       },
       {
+        seanceId: 'wsx2',
         title: 'The Avengers',
         projectionType: ProjectionType.type2D,
-        start: new Date('May 6, 2019 10:30:00'),
-        end: new Date('May 6, 2019 12:05:00')
+        start: new Date('May 13, 2019 10:30:00'),
+        end: new Date('May 13, 2019 12:05:00')
       },
       {
+        seanceId: 'edc3',
         title: 'Wróg u bram',
         projectionType: ProjectionType.type2D,
-        start: new Date('May 6, 2019 13:05:00'),
-        end: new Date('May 6, 2019 15:35:00')
+        start: new Date('May 13, 2019 13:05:00'),
+        end: new Date('May 13, 2019 15:35:00')
       },
       {
+        seanceId: 'id1',
         title: 'Linia Jordana',
         projectionType: ProjectionType.type2D,
-        start: new Date('May 6, 2019 20:05:00'),
-        end: new Date('May 6, 2019 22:35:00')
+        start: new Date('May 13, 2019 20:05:00'),
+        end: new Date('May 13, 2019 22:35:00')
       },
     ];
   }

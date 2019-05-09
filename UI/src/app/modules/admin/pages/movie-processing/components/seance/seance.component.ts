@@ -1,6 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ControlContainer, FormControl, FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
 import {SeanceApiModel} from './models/api/seance-api.model';
 import {SeanceService} from './services/seance.service';
 import {SeanceComponentDataModel} from './models/seance-component-data.model';
@@ -42,7 +41,7 @@ export class SeanceComponent implements OnInit, OnDestroy {
     }
     this.data.selectedDaySeances = this._service.getSelectedDaySeances(
       this.data.selectedDaySeances.screeningRoomId, this.data.selectedWeekNumber, this.data.selectedDayNumber);
-    this._service.attachAddedSeancesToSelectedDaySeances(this.data);
+    this._service.attachAddedAndDetachRemovedSeancesToSelectedDaySeances(this.data);
 
     this.data.weekCount = this.weekCount;
 
@@ -122,21 +121,22 @@ export class SeanceComponent implements OnInit, OnDestroy {
     };
 
     this._service.addSeanceToForm(data);
-    this._service.attachAddedSeancesToSelectedDaySeances(this.data);
+    this._service.attachAddedAndDetachRemovedSeancesToSelectedDaySeances(this.data);
   }
 
-  public removeSeance(seanceToRemove: MovieProcessingSeanceTimeModel): void {
+  public removeSeance(seanceToRemove: MovieProcessingSeanceTimeModel, weekIndex: number, dayIndex): void {
     const screeningRoom: ScreeningRoomApiModel = this.data.bookingForm.get('screeningRoom').value;
     const data: RemoveSeanceFromFormModel = {
       form: this.data.bookingForm,
       screeningRoomId: screeningRoom.id,
-      week: this.data.selectedWeekNumber,
-      day: this.data.selectedDayNumber,
-      seanceToRemove: seanceToRemove
+      week: weekIndex,
+      day: dayIndex,
+      seanceToRemove: seanceToRemove,
+      removedSeances: this.data.removedSeances
     };
 
     this._service.removeSeanceFromForm(data);
-    this._service.attachAddedSeancesToSelectedDaySeances(this.data);
+    this._service.attachAddedAndDetachRemovedSeancesToSelectedDaySeances(this.data);
   }
 
   public canAddMovie(): boolean {

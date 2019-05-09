@@ -46,9 +46,21 @@ export class MovieProcessingApiService {
               weekNumber: 1,
               days: [
                 {
+                  day: WeekDays.Monday,
+                  seancesTimes: [
+                    {
+                      seanceId: 'id1',
+                      projectionType: ProjectionType.type2D,
+                      start: new Date('May 13, 2019 20:05:00'),
+                      end: new Date('May 13, 2019 22:35:00')
+                    }
+                  ]
+                },
+                {
                   day: WeekDays.Friday,
                   seancesTimes: [
                     {
+                      seanceId: 'zxc1',
                       projectionType: ProjectionType.type2D,
                       start: new Date(),
                       end: new Date()
@@ -59,6 +71,7 @@ export class MovieProcessingApiService {
                   day: WeekDays.Sunday,
                   seancesTimes: [
                     {
+                      seanceId: 'asd2',
                       projectionType: ProjectionType.type3D,
                       start: new Date(),
                       end: new Date()
@@ -74,6 +87,7 @@ export class MovieProcessingApiService {
                   day: WeekDays.Monday,
                   seancesTimes: [
                     {
+                      seanceId: 'qwe3',
                       projectionType: ProjectionType.type2D,
                       start: new Date(),
                       end: new Date()
@@ -84,6 +98,7 @@ export class MovieProcessingApiService {
                   day: WeekDays.Thursday,
                   seancesTimes: [
                     {
+                      seanceId: 'vbn4',
                       projectionType: ProjectionType.type3D,
                       start: new Date(),
                       end: new Date()
@@ -104,6 +119,7 @@ export class MovieProcessingApiService {
                   day: WeekDays.Monday,
                   seancesTimes: [
                     {
+                      seanceId: 'fgh5',
                       projectionType: ProjectionType.type2D,
                       start: new Date(),
                       end: new Date()
@@ -114,6 +130,7 @@ export class MovieProcessingApiService {
                   day: WeekDays.Tuesday,
                   seancesTimes: [
                     {
+                      seanceId: 'plk7',
                       projectionType: ProjectionType.type3D,
                       start: new Date(),
                       end: new Date()
@@ -129,6 +146,7 @@ export class MovieProcessingApiService {
                   day: WeekDays.Wednesday,
                   seancesTimes: [
                     {
+                      seanceId: 'pwh8',
                       projectionType: ProjectionType.type2D,
                       start: new Date(),
                       end: new Date()
@@ -139,6 +157,7 @@ export class MovieProcessingApiService {
                   day: WeekDays.Thursday,
                   seancesTimes: [
                     {
+                      seanceId: 'lzg9',
                       projectionType: ProjectionType.type3D,
                       start: new Date(),
                       end: new Date()
