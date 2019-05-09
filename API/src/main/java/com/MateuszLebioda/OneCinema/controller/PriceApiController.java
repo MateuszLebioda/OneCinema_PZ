@@ -1,9 +1,8 @@
 package com.MateuszLebioda.OneCinema.controller;
 
 import com.MateuszLebioda.OneCinema.service.Formatter;
-import com.MateuszLebioda.OneCinema.service.PriceService.PriceService;
+import com.MateuszLebioda.OneCinema.service.PriceService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.wordnik.swagger.annotations.ApiModelProperty;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
