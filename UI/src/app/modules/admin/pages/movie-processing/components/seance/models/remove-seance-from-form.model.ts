@@ -7,6 +7,7 @@ export class RemoveSeanceFromFormModel {
   public week: number;
   public day: number;
   public seanceToRemove: MovieProcessingSeanceTimeModel;
+  public removedSeances: string[];
 
   constructor() {
     this.seanceToRemove = new MovieProcessingSeanceTimeModel();

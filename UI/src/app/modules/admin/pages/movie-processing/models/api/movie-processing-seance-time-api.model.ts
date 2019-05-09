@@ -1,6 +1,7 @@
 import {ProjectionType} from '../../../../../movie/enums/projection-type.enum';
 
 export class MovieProcessingSeanceTimeApiModel {
+  public seanceId: string;
   public projectionType: ProjectionType;
   public start: Date;
   public end: Date;

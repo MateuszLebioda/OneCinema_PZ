@@ -16,7 +16,9 @@ export class BookingPreparationComponent implements OnInit {
 
   public seance: SeanceApiModel = new SeanceApiModel();
 
-  constructor(private _bookingService: BookingPreparationApiService, private _route: ActivatedRoute) {
+  constructor(
+    private _bookingService: BookingPreparationApiService,
+    private _route: ActivatedRoute) {
   }
 
   ngOnInit() {
