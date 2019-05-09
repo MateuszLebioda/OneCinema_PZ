@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-
 @Service
 public class FilmService {
 
@@ -16,13 +15,17 @@ public class FilmService {
     FilmRepository filmRepository;
 
     public MovieApiModel getFilmDescriptionById(String id){
-        Optional<Film> film =  filmRepository.findById(id);
-        MovieApiModel movieApiModel;
-        if(film.isPresent()){
-            return new MovieApiModel(film.get());
+        Optional<Film> optionalFilm =  filmRepository.findById(id);
+        if(optionalFilm.isPresent()){
+            Film film = optionalFilm.get();
+            return new MovieApiModel(film);
         }else {
             return  null;
         }
+    }
+
+    public void saveFilm(Film film){
+        filmRepository.save(film);
     }
 
 }
