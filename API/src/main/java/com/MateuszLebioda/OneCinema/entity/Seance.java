@@ -28,7 +28,7 @@ public class Seance {
     private Set<Reservation> reservations;
 
     @Column(name = "czy_3d")
-    boolean is3D;
+    private boolean is3D;
 
     @ManyToOne()
     @JoinColumn(name = "id_film")

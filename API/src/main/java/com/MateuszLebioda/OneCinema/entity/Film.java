@@ -3,9 +3,12 @@ package com.MateuszLebioda.OneCinema.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -51,7 +54,39 @@ public class Film {
     String trailer;
 
     @Column(name = "ocena")
-    int rating;
+    double rating;
+
+    public Set<Seance> get3DSeances(){
+        Set<Seance> seances;
+        seances = this.seances.stream().filter(Seance::isIs3D).collect(Collectors.toSet());
+        return seances;
+    }
+
+    public Set<Seance> get2DSeances(){
+        Set<Seance> seances;
+        seances = this.seances.stream().filter(s -> !s.isIs3D()).collect(Collectors.toSet());
+        return seances;
+    }
+
+    public Set<Seance> get2DCurrentSeances(){
+        Set<Seance> seances = new HashSet<>();
+        Date currentDate = new Date();
+        for(Seance seance:get2DSeances()){
+            if(seance.getStart().compareTo(currentDate)>=0)
+                seances.add(seance);
+        }
+        return seances;
+    }
+
+    public Set<Seance> get3DCurrentSeances(){
+        Set<Seance> seances = new HashSet<>();
+        Date currentDate = new Date();
+        for(Seance seance:get3DSeances()){
+            if(seance.getStart().compareTo(currentDate)>=0)
+                seances.add(seance);
+        }
+        return seances;
+    }
 
     public String getId() {
         return id;
@@ -133,11 +168,11 @@ public class Film {
         this.trailer = trailer;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 }
