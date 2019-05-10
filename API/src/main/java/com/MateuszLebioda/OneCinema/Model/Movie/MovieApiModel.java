@@ -29,8 +29,31 @@ public class MovieApiModel {
         setDuration(film.getDuration());
         setGendersByTypeSet(film.getTypes());
         setRating(film.getRating());
-        setSeances2DBySeance(film.get2DCurrentSeances());
-        setSeances3DBySeance(film.get3DCurrentSeances());
+        setSeances2DBySeance(film.getSeances2D());
+        setSeances3DBySeance(film.getSeances3D());
+    }
+
+    public void setSeances2DBySeance(Set<Seance> seances2D) {
+        Set<DaySeancesApiModel> seances = new HashSet<>();
+        for(Seance seance:seances2D){
+            seances.add(new DaySeancesApiModel(seance));
+        }
+        this.seances2D = seances;
+    }
+
+    public void setSeances3DBySeance(Set<Seance> seances3D) {
+        Set<DaySeancesApiModel> seances = new HashSet<>();
+        for(Seance seance:seances3D){
+            seances.add(new DaySeancesApiModel(seance));
+        }
+        this.seances3D = seances;
+    }
+
+    public void setGendersByTypeSet(Set<Type> genders) {
+        this.genders = new ArrayList<>();
+        for(Type gender:genders){
+            this.genders.add(gender.getName());
+        }
     }
 
     public String getId() {
@@ -74,12 +97,6 @@ public class MovieApiModel {
     public void setGenders(List<String> genders) {
         this.genders = genders;
     }
-    public void setGendersByTypeSet(Set<Type> genders) {
-        this.genders = new ArrayList<>();
-        for(Type gender:genders){
-            this.genders.add(gender.getName());
-        }
-    }
 
     public double getRating() {
         return rating;
@@ -95,24 +112,6 @@ public class MovieApiModel {
     public void setSeances2D(Set<DaySeancesApiModel> seances2D) {
         this.seances2D = seances2D;
     }
-
-    public void setSeances2DBySeance(Set<Seance> seances2D) {
-        Set<DaySeancesApiModel> seances = new HashSet<>();
-        for(Seance seance:seances2D){
-            seances.add(new DaySeancesApiModel(seance));
-        }
-        this.seances2D = seances;
-    }
-
-    public void setSeances3DBySeance(Set<Seance> seances3D) {
-        Set<DaySeancesApiModel> seances = new HashSet<>();
-        for(Seance seance:seances3D){
-            seances.add(new DaySeancesApiModel(seance));
-        }
-        this.seances3D = seances;
-    }
-
-
 
     public Set<DaySeancesApiModel> getSeances3D() {
         return seances3D;
