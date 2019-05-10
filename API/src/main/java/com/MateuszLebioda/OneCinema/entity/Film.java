@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 @Table(name = "film")
 public class Film {
 
-
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "UUID")
@@ -26,10 +25,10 @@ public class Film {
     private String id;
 
     @Column(name = "tytul")
-    String title;
+    private String title;
 
     @Column(name = "rezyser")
-    String director;
+    private String director;
 
     @OneToMany(mappedBy = "film")
     private Set<Seance> seances;
@@ -39,54 +38,28 @@ public class Film {
             name = "gatunek_film",
             joinColumns = @JoinColumn(name = "id_film"),
             inverseJoinColumns = @JoinColumn(name = "id_ts_gatunek"))
-    Set<Type> types;
+    private Set<Type> types;
 
     @Column(name = "premiera")
-    Date premiere;
+    private Date premiere;
 
     @Column(name = "Czas_trwania")
-    int duration;
+    private int duration;
 
     @Column(name = "url_grafika")
-    String graphic;
+    private String graphic;
 
     @Column(name = "url_zwiastun")
-    String trailer;
+    private String trailer;
 
     @Column(name = "ocena")
-    double rating;
+    private double rating;
 
-    public Set<Seance> get3DSeances(){
-        Set<Seance> seances;
-        seances = this.seances.stream().filter(Seance::isIs3D).collect(Collectors.toSet());
-        return seances;
-    }
+    @Transient
+    private Set<Seance>seances3D;
 
-    public Set<Seance> get2DSeances(){
-        Set<Seance> seances;
-        seances = this.seances.stream().filter(s -> !s.isIs3D()).collect(Collectors.toSet());
-        return seances;
-    }
-
-    public Set<Seance> get2DCurrentSeances(){
-        Set<Seance> seances = new HashSet<>();
-        Date currentDate = new Date();
-        for(Seance seance:get2DSeances()){
-            if(seance.getStart().compareTo(currentDate)>=0)
-                seances.add(seance);
-        }
-        return seances;
-    }
-
-    public Set<Seance> get3DCurrentSeances(){
-        Set<Seance> seances = new HashSet<>();
-        Date currentDate = new Date();
-        for(Seance seance:get3DSeances()){
-            if(seance.getStart().compareTo(currentDate)>=0)
-                seances.add(seance);
-        }
-        return seances;
-    }
+    @Transient
+    private Set<Seance>seances2D;
 
     public String getId() {
         return id;
@@ -174,5 +147,21 @@ public class Film {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public Set<Seance> getSeances3D() {
+        return seances3D;
+    }
+
+    public void setSeances3D(Set<Seance> seances3D) {
+        this.seances3D = seances3D;
+    }
+
+    public Set<Seance> getSeances2D() {
+        return seances2D;
+    }
+
+    public void setSeances2D(Set<Seance> seances2D) {
+        this.seances2D = seances2D;
     }
 }
