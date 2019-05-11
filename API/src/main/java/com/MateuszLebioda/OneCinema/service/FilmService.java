@@ -1,6 +1,7 @@
 package com.MateuszLebioda.OneCinema.service;
 
 import com.MateuszLebioda.OneCinema.Model.Movie.MovieApiModel;
+import com.MateuszLebioda.OneCinema.Model.Movie.MovieProcessingRequestModel;
 import com.MateuszLebioda.OneCinema.Model.Movie.SimpleMovieApiModel;
 import com.MateuszLebioda.OneCinema.Model.Sence.Dimension;
 import com.MateuszLebioda.OneCinema.entity.Film;
@@ -41,5 +42,9 @@ public class FilmService {
             simpleMovieApiModelSet.add(new SimpleMovieApiModel(film));
         }
         return simpleMovieApiModelSet;
+    }
+
+    public boolean validateMovieProcessingRequestModel(MovieProcessingRequestModel movieProcessingRequestModel){
+        return  movieProcessingRequestModel.validate();
     }
 }
