@@ -23,4 +23,11 @@ public class FilmController {
     public String spot(@PathVariable String id) throws JsonProcessingException {
         return  formatter.returnJson(filmService.getFilmDescriptionById(id));
     }
+
+    @ApiOperation(value = "Return simple set of film")
+    @RequestMapping(value = "/simpleMovieList", method = RequestMethod.GET)
+    @ResponseBody
+    public String getSimpleFilms() throws JsonProcessingException {
+        return  formatter.returnJson(filmService.getAllSimpleMovieApiModel());
+    }
 }
