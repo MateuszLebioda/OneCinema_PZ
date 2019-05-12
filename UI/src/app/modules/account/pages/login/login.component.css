@@ -1,0 +1,72 @@
+.btn span.glyphicon {
+  opacity: 0;
+}
+
+.btn.active span.glyphicon {
+  opacity: 1;
+}
+
+.agile-info-wthree-box form {
+  margin: 1em auto;
+}
+
+.form-module {
+  border-top: none;
+  box-shadow: none;
+}
+
+.error-font {
+  font-size: 80%;
+  color: #dc3545;
+}
+
+.form {
+  margin: 0 !important;
+  max-width: none;
+}
+
+.form-inputs {
+  display: block;
+  min-height: 250px;
+}
+
+.form-subbmit {
+  width: 30%;
+  margin: 0 auto;
+  cursor: default;
+}
+
+.form-subbmit:hover {
+  background-color: #919191 !important;
+  cursor: default;
+}
+
+.add-movie-button-activated {
+  background-color: #ff8d1b !important;
+  cursor: pointer;
+}
+
+.add-movie-button-activated:hover {
+  background-color: #ff8d1b !important;
+  cursor: pointer;
+}
+
+.page-header-text {
+  width: 300px !important;
+}
+
+.page-header-block {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.page-header-text {
+  border-bottom: 5px solid #ff8d1b;
+  width: 270px;
+  margin: 0 auto;
+}
+
+.login-panel {
+  width: 50%;
+  margin: 0 auto;
+}

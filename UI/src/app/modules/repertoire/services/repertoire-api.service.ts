@@ -3,7 +3,6 @@ import {MovieProjectionApiModel} from '../models/api/movie-projection-api.model'
 import {MovieProjection} from '../models/movie-projection.model';
 import {MapperService} from '../../../shared/helpers/external/mapper/mapper.service';
 import {RepertoireServicesModule} from '../repertoire-services.module';
-import {MovieGender} from '../../movie/enums/movie-gender.enum';
 import {ProjectionType} from '../../movie/enums/projection-type.enum';
 import {HttpBaseService} from '../../../core/services/http-base.service';
 import {Observable} from 'rxjs/internal/Observable';
@@ -23,7 +22,7 @@ export class RepertoireApiService {
 
     repertoire.push({
       movieId: 'id1',
-      movieGenders: [MovieGender.Action, MovieGender.Adventure],
+      movieGenders: ['Action', 'Adventure'],
       movieDuration: 120,
       moviePosterUrl: 'https://static.pressfrom.info/upload/images/real/2019/03/14/fans-angry-danai-gurira-s-name-isn-t-atop-avengers-endgame-poster__701824_.jpg?content=1',
       movieTitle: 'Avengers',
@@ -50,7 +49,7 @@ export class RepertoireApiService {
     if (dayNumber === 2) {
       repertoire.push({
         movieId: 'id2',
-        movieGenders: [MovieGender.Historical],
+        movieGenders: ['Historical'],
         movieDuration: 150,
         moviePosterUrl: 'https://static.posters.cz/image/750/plakaty/kac-vegas-ii-plakat-i12276.jpg',
         movieTitle: 'Jaś fasola',

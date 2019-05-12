@@ -15,6 +15,7 @@ import {MovieProcessingComponent} from './modules/admin/pages/movie-processing/m
 import {MoviePreviewComponent} from './modules/admin/pages/movie-preview/movie-preview.component';
 import {EditPriceListComponent} from './modules/admin/pages/edit-price-list/edit-price-list.component';
 import {ErrorPageComponent} from './core/errors/error-page/error-page.component';
+import {LoginComponent} from './modules/account/pages/login/login.component';
 
 const routes: Routes = [
   {
@@ -86,13 +87,17 @@ const routes: Routes = [
       {
         path: 'edycja-cennika',
         component: EditPriceListComponent
-      },
+      }
     ]
   },
   {
     path: 'blad',
     component: ErrorPageComponent
   },
+  {
+    path: '91b77f0c-ce91-42c1-a507-02893d97027d',
+    component: LoginComponent
+  }
 ];
 
 @NgModule({

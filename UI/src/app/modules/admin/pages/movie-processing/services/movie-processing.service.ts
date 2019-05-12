@@ -4,13 +4,12 @@ import {FormValidatorService} from '../../../../../shared/services/form-validato
 import {AdminServicesModule} from '../../../admin-services.module';
 import {TranslatorService} from '../../../../../shared/helpers/internal/translator.service';
 import {MovieGenderTranslateModel} from '../models/movie-gender-translate.model';
-import {MovieGender} from '../../../../movie/enums/movie-gender.enum';
 import {IMultipleSelectDropdownSettings} from '../../../../../shared/components/external/multiple-select-dropdown/interfaces/i-multiple-select-dropdown-settings';
 import {MovieProcessingRequestModel} from '../models/requests/movie-processing-request.model';
 import {MovieProcessingWeekRequestModel} from '../models/requests/movie-processing-week-request.model';
 import {MovieProcessingApiService} from './movie-processing-api.service';
 import {MovieProcessingScreeningRoomModel} from '../models/movie-processing-screening-room.model';
-import {MovieProcessingSreeningRoomRequestModel} from '../models/requests/movie-processing-sreening-room-request.model';
+import {MovieProcessingScreeningRoomRequestModel} from '../models/requests/movie-processing-screening-room-request.model';
 import {MovieProcessingDayRequestModel} from '../models/requests/movie-processing-day-request.model';
 import {AdminMapperService} from 'src/app/shared/helpers/external/mapper/modules/admin/admin-mapper.service';
 import {MovieProcessingApiModel} from '../models/api/movie-processing-api.model';
@@ -19,8 +18,6 @@ import {MovieProcessingApiModel} from '../models/api/movie-processing-api.model'
   providedIn: AdminServicesModule
 })
 export class MovieProcessingService {
-  private MovieGender = MovieGender;
-
   constructor(
     private _translator: TranslatorService,
     private _formValidatorService: FormValidatorService,
@@ -54,16 +51,14 @@ export class MovieProcessingService {
 
   public getGenders(): MovieGenderTranslateModel[] {
     const result: MovieGenderTranslateModel[] = [];
+    const movieGenders = this._apiService.getGenders();
 
-    for (const movieGenderName in this.MovieGender) {
-      const movieGender = movieGenderName as MovieGender;
-      if (movieGender) {
-        const translatedText = this._translator.translateMovieGender(movieGender);
-        if (translatedText) {
-          result.push({value: movieGender, translatedText: translatedText});
-        }
+    movieGenders.forEach(movieGender => {
+      const translatedText = this._translator.translateMovieGender(movieGender);
+      if (translatedText) {
+        result.push({value: movieGender, translatedText: translatedText});
       }
-    }
+    });
 
     return result;
   }
@@ -97,10 +92,10 @@ export class MovieProcessingService {
   }
 
   private _createMovieProcessingRequest(selectedGenders: MovieGenderTranslateModel[], form: FormGroup): MovieProcessingRequestModel {
-    const genders: MovieGender[] = [];
+    const genders: string[] = [];
     selectedGenders.forEach(gender => genders.push(gender.value));
     const screeningRooms = form.get('movieProjection').get('addedSeances').value as MovieProcessingScreeningRoomModel[];
-    const castedScreeningRooms: MovieProcessingSreeningRoomRequestModel[] = [];
+    const castedScreeningRooms: MovieProcessingScreeningRoomRequestModel[] = [];
     screeningRooms.forEach(q => castedScreeningRooms.push(this._mapper.toAddMovieSreeningRoomRequestModel(q)));
 
     const result: MovieProcessingRequestModel = {
@@ -117,7 +112,7 @@ export class MovieProcessingService {
     return result;
   }
 
-  private _getNotEmptyScreeningRooms(screeningRooms: MovieProcessingSreeningRoomRequestModel[]): MovieProcessingSreeningRoomRequestModel[] {
+  private _getNotEmptyScreeningRooms(screeningRooms: MovieProcessingScreeningRoomRequestModel[]): MovieProcessingScreeningRoomRequestModel[] {
     screeningRooms.forEach(w => {
       w.weeks = this._getNotEmptyWeeks(w.weeks);
     });

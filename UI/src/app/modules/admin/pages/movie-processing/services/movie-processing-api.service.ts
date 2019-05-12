@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {AdminServicesModule} from '../../../admin-services.module';
 import {MovieProcessingRequestModel} from '../models/requests/movie-processing-request.model';
 import {MovieProcessingApiModel} from '../models/api/movie-processing-api.model';
-import {MovieGender} from '../../../../movie/enums/movie-gender.enum';
 import {WeekDays} from '../components/seance/enums/week-days.enum';
 import {ProjectionType} from '../../../../movie/enums/projection-type.enum';
 import {Observable} from 'rxjs/internal/Observable';
@@ -33,7 +32,7 @@ export class MovieProcessingApiService {
     return {
       id: 'efhfqhowfiehofw',
       duration: 120,
-      genders: [MovieGender.Thriller, MovieGender.Speculative],
+      genders: ['Thriller', 'Speculative'],
       posterUrl: 'https://www.vintagemovieposters.co.uk/wp-content/uploads/2018/04/IMG_3059-482x714.jpg',
       trailerUrl: 'https://www.youtube.com/embed/TcMBFSGVi1c',
       rating: 4.5,
@@ -170,5 +169,18 @@ export class MovieProcessingApiService {
         }
       ]
     };
+  }
+
+  public getGenders(): string[] {
+    return [
+      'Horror',
+      'Adventure',
+      'Drama',
+      'Historical'
+    ];
+  }
+
+  public getGenders2(): Observable<string[]> {
+    return null;
   }
 }
