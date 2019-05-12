@@ -6,13 +6,12 @@ import com.MateuszLebioda.OneCinema.Model.Movie.SimpleMovieApiModel;
 import com.MateuszLebioda.OneCinema.Model.Sence.Dimension;
 import com.MateuszLebioda.OneCinema.entity.Film;
 import com.MateuszLebioda.OneCinema.entity.FilmRepository;
+import com.MateuszLebioda.OneCinema.entity.Type;
+import com.MateuszLebioda.OneCinema.entity.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class FilmService {
@@ -22,6 +21,9 @@ public class FilmService {
 
     @Autowired
     SeanceService seanceService;
+
+    @Autowired
+    TypeRepository typeRepository;
 
     public MovieApiModel getFilmDescriptionById(String id){
         Optional<Film> optionalFilm =  filmRepository.findById(id);
@@ -45,6 +47,11 @@ public class FilmService {
     }
 
     public boolean validateMovieProcessingRequestModel(MovieProcessingRequestModel movieProcessingRequestModel){
-        return  movieProcessingRequestModel.validate();
+        List<String> genders = new ArrayList<>();
+        List<Type> types = typeRepository.findAll();
+        for(Type type:types){
+            genders.add(type.getName());
+        }
+        return  movieProcessingRequestModel.validate(genders);
     }
 }

@@ -1,30 +1,40 @@
 package com.MateuszLebioda.OneCinema.Model.Movie;
 
-import com.MateuszLebioda.OneCinema.Model.Gender.MovieGender;
 import com.MateuszLebioda.OneCinema.Model.ScreeningRoom.MovieProcessingScreeningRoomRequestModel;
 import org.apache.commons.validator.UrlValidator;
 
+import java.util.List;
 import java.util.Set;
 
 public class MovieProcessingRequestModel {
     private String title;
     private int rating;
-    private Set<MovieGender> gender;
+    private List<String> genders;
     private String posterUrl;
     private String trailerUrl;
     private int duration;
     private Set<MovieProcessingScreeningRoomRequestModel> screeningRoom;
 
-    public boolean validate(){
+    public boolean validate(List<String>genders){
         return  validateTitle() &&
                 validateDuration() &&
-                validateGender() &&
                 validateRating() &&
                 validateGraphic() &&
-                validateTrailer();
-                //TODO: validation screeningRoom
+                validateTrailer() &&
+                validateGender(genders);
     }
 
+    private boolean validateGender(List<String>genders){
+        if(this.genders != null && genders.size()>0){
+            for(String movieGender:this.genders){
+                if(!genders.contains(movieGender))
+                    return false;
+            }
+            return true;
+        }
+        return false;
+    }
+    
     private boolean validateTrailer(){
         return  validateURL(trailerUrl);
     }
@@ -39,11 +49,6 @@ public class MovieProcessingRequestModel {
 
     private boolean validateDuration(){
         return duration > 1;
-    }
-
-    private boolean validateGender(){
-        //return gender.size() >= 1;
-        return true;
     }
 
     private boolean validateRating(){
@@ -71,12 +76,12 @@ public class MovieProcessingRequestModel {
         this.rating = rating;
     }
 
-    public Set<MovieGender> getGender() {
-        return gender;
+    public List<String> getGenders() {
+        return genders;
     }
 
-    public void setGender(Set<MovieGender> gender) {
-        this.gender = gender;
+    public void setGenders(List<String> genders) {
+        this.genders = genders;
     }
 
     public String getPosterUrl() {
