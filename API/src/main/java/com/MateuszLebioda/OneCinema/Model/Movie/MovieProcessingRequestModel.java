@@ -3,8 +3,8 @@ package com.MateuszLebioda.OneCinema.Model.Movie;
 import com.MateuszLebioda.OneCinema.Model.ScreeningRoom.MovieProcessingScreeningRoomRequestModel;
 import org.apache.commons.validator.UrlValidator;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class MovieProcessingRequestModel {
     private String title;
@@ -13,15 +13,16 @@ public class MovieProcessingRequestModel {
     private String posterUrl;
     private String trailerUrl;
     private int duration;
-    private Set<MovieProcessingScreeningRoomRequestModel> screeningRoom;
+    private List<MovieProcessingScreeningRoomRequestModel> screeningRooms;
 
-    public boolean validate(List<String>genders){
+    public boolean validate(List<String>genders,List<String> screenigRooms){
         return  validateTitle() &&
                 validateDuration() &&
                 validateRating() &&
                 validateGraphic() &&
                 validateTrailer() &&
-                validateGender(genders);
+                validateGender(genders) &&
+                validateScreeningRooms(screenigRooms);
     }
 
     private boolean validateGender(List<String>genders){
@@ -34,6 +35,40 @@ public class MovieProcessingRequestModel {
         }
         return false;
     }
+
+    private boolean validateScreeningRooms(List<String> seancesId){
+        if(this.screeningRooms!= null) {
+            return  validateScreeningRoomsWithDatabase(seancesId) && validateScreeningRoomsWithItself();
+        }
+        return true;
+    }
+
+    private List<String> getScreeningRoomsIdList(){
+        List<String> screeningRoomsIdList = new ArrayList<>();
+        for (MovieProcessingScreeningRoomRequestModel model: this.screeningRooms){
+            screeningRoomsIdList.add(model.getId());
+        }
+        return screeningRoomsIdList;
+    }
+    private boolean validateScreeningRoomsWithDatabase(List<String> seancesId){
+        for (String screeningRoomsId : getScreeningRoomsIdList()) {
+            if (!seancesId.contains(screeningRoomsId))
+                return false;
+        }
+        return true;
+    }
+    private boolean validateScreeningRoomsWithItself(){
+
+        for(int i = 0;i<screeningRooms.size();i++){
+            for(int j = 0;j<screeningRooms.size();j++){
+               if(i!=j && screeningRooms.get(i).getId().equals(screeningRooms.get(j).getId()))
+                   return false;
+            }
+        }
+        return true;
+    }
+
+
     
     private boolean validateTrailer(){
         return  validateURL(trailerUrl);
@@ -108,11 +143,11 @@ public class MovieProcessingRequestModel {
         this.duration = duration;
     }
 
-    public Set<MovieProcessingScreeningRoomRequestModel> getScreeningRoom() {
-        return screeningRoom;
+    public List<MovieProcessingScreeningRoomRequestModel> getScreeningRooms() {
+        return screeningRooms;
     }
 
-    public void setScreeningRoom(Set<MovieProcessingScreeningRoomRequestModel> screeningRoom) {
-        this.screeningRoom = screeningRoom;
+    public void setScreeningRooms(List<MovieProcessingScreeningRoomRequestModel> screeningRooms) {
+        this.screeningRooms = screeningRooms;
     }
 }

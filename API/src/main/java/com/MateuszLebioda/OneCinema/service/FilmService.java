@@ -4,10 +4,7 @@ import com.MateuszLebioda.OneCinema.Model.Movie.MovieApiModel;
 import com.MateuszLebioda.OneCinema.Model.Movie.MovieProcessingRequestModel;
 import com.MateuszLebioda.OneCinema.Model.Movie.SimpleMovieApiModel;
 import com.MateuszLebioda.OneCinema.Model.Sence.Dimension;
-import com.MateuszLebioda.OneCinema.entity.Film;
-import com.MateuszLebioda.OneCinema.entity.FilmRepository;
-import com.MateuszLebioda.OneCinema.entity.Type;
-import com.MateuszLebioda.OneCinema.entity.TypeRepository;
+import com.MateuszLebioda.OneCinema.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +20,11 @@ public class FilmService {
     SeanceService seanceService;
 
     @Autowired
-    TypeRepository typeRepository;
+    TypeService typeService;
+
+    @Autowired
+    RoomService roomService;
+
 
     public MovieApiModel getFilmDescriptionById(String id){
         Optional<Film> optionalFilm =  filmRepository.findById(id);
@@ -47,11 +48,9 @@ public class FilmService {
     }
 
     public boolean validateMovieProcessingRequestModel(MovieProcessingRequestModel movieProcessingRequestModel){
-        List<String> genders = new ArrayList<>();
-        List<Type> types = typeRepository.findAll();
-        for(Type type:types){
-            genders.add(type.getName());
-        }
-        return  movieProcessingRequestModel.validate(genders);
+        List<String> genders = typeService.getTypeList();
+        List<String> roomsId = roomService.getAllRoomsId();
+        return  movieProcessingRequestModel.validate(genders,roomsId);
     }
+
 }
