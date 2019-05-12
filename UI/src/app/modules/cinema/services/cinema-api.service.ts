@@ -15,7 +15,7 @@ export class CinemaApiService {
   public getCinemaInfo(): CinemaApiModel {
     return {
       name: 'Fajne kino',
-      addres: 'Dąbrowa górnicza ul. 11 Listopada 145',
+      address: 'Dąbrowa górnicza ul. 11 Listopada 145',
       email: 'kino@kino.pl',
       screeningRoomsCount: 4,
       seatsCount: 123,
