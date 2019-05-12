@@ -25,7 +25,7 @@ public class MovieProcessingRequestModel {
     }
 
     private boolean validateGender(List<String>genders){
-        if(this.genders != null && genders.size()>0){
+        if(this.genders != null && this.genders.size()>0){
             for(String movieGender:this.genders){
                 if(!genders.contains(movieGender))
                     return false;
