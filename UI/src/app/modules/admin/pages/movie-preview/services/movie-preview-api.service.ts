@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AdminServicesModule} from '../../../admin-services.module';
 import {PreviewMovieApiModel} from '../models/api/preview-movie-api.model';
-import {MovieGender} from '../../../../movie/enums/movie-gender.enum';
 import {WeekDays} from '../../movie-processing/components/seance/enums/week-days.enum';
 import {ProjectionType} from '../../../../movie/enums/projection-type.enum';
 import {HttpBaseService} from '../../../../../core/services/http-base.service';
@@ -19,7 +18,7 @@ export class MoviePreviewApiService {
     return {
       id: 'efhfqhowfiehofw',
       duration: 120,
-      genders: [MovieGender.Thriller, MovieGender.Speculative],
+      genders: ['Thriller', 'Speculative'],
       posterUrl: 'https://www.vintagemovieposters.co.uk/wp-content/uploads/2018/04/IMG_3059-482x714.jpg',
       trailerUrl: 'https://www.youtube.com/embed/TcMBFSGVi1c',
       rate: 4.5,
