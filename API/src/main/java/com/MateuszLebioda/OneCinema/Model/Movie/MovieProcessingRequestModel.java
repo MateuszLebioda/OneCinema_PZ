@@ -2,6 +2,8 @@ package com.MateuszLebioda.OneCinema.Model.Movie;
 
 import com.MateuszLebioda.OneCinema.Model.Gender.MovieGender;
 import com.MateuszLebioda.OneCinema.Model.ScreeningRoom.MovieProcessingScreeningRoomRequestModel;
+import org.apache.commons.validator.UrlValidator;
+
 import java.util.Set;
 
 public class MovieProcessingRequestModel {
@@ -14,10 +16,43 @@ public class MovieProcessingRequestModel {
     private Set<MovieProcessingScreeningRoomRequestModel> screeningRoom;
 
     public boolean validate(){
-        if(title.length()<15)
-            return true;
-        else
-            return false;
+        return  validateTitle() &&
+                validateDuration() &&
+                validateGender() &&
+                validateRating() &&
+                validateGraphic() &&
+                validateTrailer();
+                //TODO: validation screeningRoom
+    }
+
+    private boolean validateTrailer(){
+        return  validateURL(trailerUrl);
+    }
+
+    private boolean validateGraphic() {
+        return validateURL(posterUrl);
+    }
+
+    private boolean validateTitle(){
+        return title.length() > 0 && title.length()<100;
+    }
+
+    private boolean validateDuration(){
+        return duration > 1;
+    }
+
+    private boolean validateGender(){
+        //return gender.size() >= 1;
+        return true;
+    }
+
+    private boolean validateRating(){
+        return rating >= 1.0 && rating <= 5.0;
+    }
+
+    private boolean validateURL(String url){
+        UrlValidator  urlValidator = new UrlValidator();
+        return urlValidator.isValid(url);
     }
 
     public String getTitle() {
