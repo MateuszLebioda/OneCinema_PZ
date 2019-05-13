@@ -5,7 +5,6 @@ import java.util.List;
 public class MovieProcessingScreeningRoomRequestModel {
     private String id;
     private List<MovieProcessingWeekRequestModel> weeks;
-
     public String getId() {
         return id;
     }

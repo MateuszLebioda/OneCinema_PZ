@@ -15,14 +15,14 @@ public class MovieProcessingRequestModel {
     private int duration;
     private List<MovieProcessingScreeningRoomRequestModel> screeningRooms;
 
-    public boolean validate(List<String>genders,List<String> screenigRooms){
+    public boolean validate(List<String>genders,List<String> screeningRooms){
         return  validateTitle() &&
                 validateDuration() &&
                 validateRating() &&
                 validateGraphic() &&
                 validateTrailer() &&
                 validateGender(genders) &&
-                validateScreeningRooms(screenigRooms);
+                validateScreeningRooms(screeningRooms);
     }
 
     private boolean validateGender(List<String>genders){
@@ -50,6 +50,7 @@ public class MovieProcessingRequestModel {
         }
         return screeningRoomsIdList;
     }
+
     private boolean validateScreeningRoomsWithDatabase(List<String> seancesId){
         for (String screeningRoomsId : getScreeningRoomsIdList()) {
             if (!seancesId.contains(screeningRoomsId))
@@ -57,6 +58,7 @@ public class MovieProcessingRequestModel {
         }
         return true;
     }
+
     private boolean validateScreeningRoomsWithItself(){
 
         for(int i = 0;i<screeningRooms.size();i++){
@@ -68,8 +70,6 @@ public class MovieProcessingRequestModel {
         return true;
     }
 
-
-    
     private boolean validateTrailer(){
         return  validateURL(trailerUrl);
     }
