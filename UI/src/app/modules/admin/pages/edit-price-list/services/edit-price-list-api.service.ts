@@ -43,7 +43,7 @@ export class EditPriceListApiService {
   }
 
   public getPriceList(): Observable<PriceListApiModel> {
-    return this._httpService.get<PriceListApiModel>('price');
+    return this._httpService.get<PriceListApiModel>('get');
   }
 
   public editPriceList2(request: EditPriceListRequestModel): Observable<any> {
