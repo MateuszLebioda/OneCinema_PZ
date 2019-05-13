@@ -33,7 +33,7 @@ export class SeanceComponent implements OnInit, OnDestroy {
       return this.data.bookingForm.get('weeksCount').value;
     }
 
-    this._service.setAddMovieApiModel(this.data);
+    this._service.setAddedSeances(this.data);
 
     return this.data.bookingForm.get('weeksCount').value;
   }
@@ -161,9 +161,9 @@ export class SeanceComponent implements OnInit, OnDestroy {
     }
   }
 
-  public resetAddedSeances(): void {
+  public setScrreningRoomSeances(): void {
     const screeningRoom = this.data.bookingForm.get('screeningRoom').value as ScreeningRoomApiModel;
-    this._service.setAddMovieApiModel(this.data);
+    this._service.setAddedSeances(this.data);
     this.data.selectedDaySeances = this._service.getSelectedDaySeances(
       screeningRoom.id, this.data.selectedWeekNumber, this.data.selectedDayNumber - 1);
   }

@@ -3,7 +3,7 @@
     <div class="form-group cinema-room">
       <label class="cinema-room-label">Sala kinowa</label>
       <select formControlName="screeningRoom" class="form-control cinema-room-options"
-              (change)="resetAddedSeances()">
+              (change)="setScrreningRoomSeances()">
         <option *ngFor="let seanceRoom of data.screeningRooms" [ngValue]="seanceRoom">{{seanceRoom.name}}</option>
       </select>
       <span class="help-block help-block-right">
