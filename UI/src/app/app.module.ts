@@ -46,8 +46,8 @@ registerLocaleData(localePL);
   providers: [
     {provide: APP_BASE_HREF, useValue: '/'},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
-    {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
-    {provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptorService, multi: true}
+    // {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
+    // {provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
 })

@@ -42,6 +42,10 @@ export class SeanceValidator {
     seanceDay.setMinutes(seanceTime.minutes);
 
     const seanceStart: Date = seanceDay;
+    if (seanceStart < new Date()) {
+      return false;
+    }
+
     const seanceEnd: DateTime = Luxon.toDateTime(seanceStart).plus({minutes: seanceDuration});
 
     const indexOfSeanceBeforeValidatingSeance = seancesThisDay.findIndex(currentSeance => currentSeance.start > seanceStart);

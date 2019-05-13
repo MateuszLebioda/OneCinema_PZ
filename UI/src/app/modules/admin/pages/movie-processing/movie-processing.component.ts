@@ -26,7 +26,9 @@ export class MovieProcessingComponent implements OnInit {
   public settings: IMultipleSelectDropdownSettings;
   public pageTitle = 'Dodawanie filmu';
 
+  private readonly editPageTitle = 'Edycja filmu';
   private clickedGenderSelector = false;
+
 
   constructor(
     private _formValidatorService: FormValidatorService,
@@ -41,7 +43,7 @@ export class MovieProcessingComponent implements OnInit {
     this.genders = this._service.getGenders();
     this.selectedGenders = this._service.getSelectedGendersIfEditMovie(movie);
     if (movie) {
-      this.pageTitle = 'Edycja filmu';
+      this.pageTitle = this.editPageTitle;
     }
   }
 
@@ -62,8 +64,11 @@ export class MovieProcessingComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    //TODO: zmienić (add lub edit)
-    this._service.addMovie(this.selectedGenders, this.bookingForm);
+    if (this.pageTitle === this.editPageTitle) {
+      this._service.editMovie(this.selectedGenders, this.bookingForm);
+    } else {
+      this._service.addMovie(this.selectedGenders, this.bookingForm);
+    }
     // this._router.navigate(['/rezerwacja/potwierdzenie']);
   }
 
