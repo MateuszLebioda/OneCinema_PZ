@@ -15,9 +15,9 @@ export class MovieProcessingApiService {
   constructor(private _httpService: HttpBaseService) {
   }
 
-  public addMovie(request: MovieProcessingRequestModel): Observable<any> {
+  public addMovie(request: MovieProcessingRequestModel): void {
     request.id = null;
-    return this._httpService.post<any>('', request);
+    this._httpService.post<any>('films/addFilm', request).subscribe();
   }
 
   public updateMovie(request: MovieProcessingRequestModel): Observable<any> {
