@@ -20,8 +20,9 @@ export class MovieProcessingApiService {
     this._httpService.post<any>('films/addFilm', request).subscribe();
   }
 
-  public updateMovie(request: MovieProcessingRequestModel): Observable<any> {
-    return this._httpService.post<any>('', request);
+  public editMovie(request: MovieProcessingRequestModel): void {
+    console.log(request);
+    // this._httpService.post<any>('films/addFilm', request).subscribe();
   }
 
   public getMovie2(movieId: string): Observable<MovieProcessingApiModel> {
@@ -108,65 +109,65 @@ export class MovieProcessingApiService {
             }
           ]
         },
-        {
-          id: 'qwqqwewqqew',
-          weeks: [
-            {
-              weekNumber: 1,
-              days: [
-                {
-                  day: WeekDays.Monday,
-                  seancesTimes: [
-                    {
-                      seanceId: 'fgh5',
-                      projectionType: ProjectionType.type2D,
-                      start: new Date(),
-                      end: new Date()
-                    }
-                  ]
-                },
-                {
-                  day: WeekDays.Tuesday,
-                  seancesTimes: [
-                    {
-                      seanceId: 'plk7',
-                      projectionType: ProjectionType.type3D,
-                      start: new Date(),
-                      end: new Date()
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              weekNumber: 2,
-              days: [
-                {
-                  day: WeekDays.Wednesday,
-                  seancesTimes: [
-                    {
-                      seanceId: 'pwh8',
-                      projectionType: ProjectionType.type2D,
-                      start: new Date(),
-                      end: new Date()
-                    }
-                  ]
-                },
-                {
-                  day: WeekDays.Thursday,
-                  seancesTimes: [
-                    {
-                      seanceId: 'lzg9',
-                      projectionType: ProjectionType.type3D,
-                      start: new Date(),
-                      end: new Date()
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
+        // {
+        //   id: 'wifvicvwibie',
+        //   weeks: [
+        //     {
+        //       weekNumber: 1,
+        //       days: [
+        //         {
+        //           day: WeekDays.Monday,
+        //           seancesTimes: [
+        //             {
+        //               seanceId: 'fgh5',
+        //               projectionType: ProjectionType.type2D,
+        //               start: new Date(),
+        //               end: new Date()
+        //             }
+        //           ]
+        //         },
+        //         {
+        //           day: WeekDays.Tuesday,
+        //           seancesTimes: [
+        //             {
+        //               seanceId: 'plk7',
+        //               projectionType: ProjectionType.type3D,
+        //               start: new Date(),
+        //               end: new Date()
+        //             }
+        //           ]
+        //         }
+        //       ]
+        //     },
+        //     {
+        //       weekNumber: 2,
+        //       days: [
+        //         {
+        //           day: WeekDays.Wednesday,
+        //           seancesTimes: [
+        //             {
+        //               seanceId: 'pwh8',
+        //               projectionType: ProjectionType.type2D,
+        //               start: new Date(),
+        //               end: new Date()
+        //             }
+        //           ]
+        //         },
+        //         {
+        //           day: WeekDays.Thursday,
+        //           seancesTimes: [
+        //             {
+        //               seanceId: 'lzg9',
+        //               projectionType: ProjectionType.type3D,
+        //               start: new Date(),
+        //               end: new Date()
+        //             }
+        //           ]
+        //         }
+        //       ]
+        //     }
+        //   ]
+        // }
       ]
     };
   }

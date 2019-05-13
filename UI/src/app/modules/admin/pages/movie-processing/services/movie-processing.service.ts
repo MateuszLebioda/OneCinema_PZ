@@ -80,6 +80,10 @@ export class MovieProcessingService {
     this._apiService.addMovie(this._createMovieProcessingRequest(selectedGenders, form));
   }
 
+  public editMovie(selectedGenders: MovieGenderTranslateModel[], form: FormGroup): void {
+    this._apiService.editMovie(this._createMovieProcessingRequest(selectedGenders, form));
+  }
+
   public isFormValid(bookingForm: FormGroup, selectedGenders: MovieGenderTranslateModel[]): boolean {
     return selectedGenders.length > 0
       && bookingForm.get('title').valid

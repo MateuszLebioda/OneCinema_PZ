@@ -28,6 +28,11 @@ export class SeanceComponent implements OnInit, OnDestroy {
     if (!this.data.bookingForm.get('weeksCount').value && !isNaN(this.data.bookingForm.get('weeksCount').value)) {
       return 0;
     }
+
+    if (this.data.weekCount === this.data.bookingForm.get('weeksCount').value) {
+      return this.data.bookingForm.get('weeksCount').value;
+    }
+
     this._service.setAddMovieApiModel(this.data);
 
     return this.data.bookingForm.get('weeksCount').value;
@@ -53,7 +58,8 @@ export class SeanceComponent implements OnInit, OnDestroy {
       const screeningRoom: ScreeningRoomApiModel = this.data.bookingForm.get('screeningRoom').value;
       const indexOfSellectedScreeningRoom = (this.data.bookingForm.get('addedSeances').value as MovieProcessingScreeningRoomModel[])
         .findIndex(x => x.id === screeningRoom.id);
-      return (this.data.bookingForm.get('addedSeances').value as MovieProcessingScreeningRoomModel[])[indexOfSellectedScreeningRoom].weeks;
+      const seances = (this.data.bookingForm.get('addedSeances').value as MovieProcessingScreeningRoomModel[])[indexOfSellectedScreeningRoom];
+      return seances ? seances.weeks : this.emptyMovieProcessingWeekModel;
     }
 
     return this.emptyMovieProcessingWeekModel;
@@ -157,7 +163,7 @@ export class SeanceComponent implements OnInit, OnDestroy {
 
   public resetAddedSeances(): void {
     const screeningRoom = this.data.bookingForm.get('screeningRoom').value as ScreeningRoomApiModel;
-
+    this._service.setAddMovieApiModel(this.data);
     this.data.selectedDaySeances = this._service.getSelectedDaySeances(
       screeningRoom.id, this.data.selectedWeekNumber, this.data.selectedDayNumber - 1);
   }
