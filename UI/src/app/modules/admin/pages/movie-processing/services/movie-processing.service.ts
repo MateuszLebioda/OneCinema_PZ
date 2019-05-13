@@ -6,11 +6,9 @@ import {TranslatorService} from '../../../../../shared/helpers/internal/translat
 import {MovieGenderTranslateModel} from '../models/movie-gender-translate.model';
 import {IMultipleSelectDropdownSettings} from '../../../../../shared/components/external/multiple-select-dropdown/interfaces/i-multiple-select-dropdown-settings';
 import {MovieProcessingRequestModel} from '../models/requests/movie-processing-request.model';
-import {MovieProcessingWeekRequestModel} from '../models/requests/movie-processing-week-request.model';
 import {MovieProcessingApiService} from './movie-processing-api.service';
 import {MovieProcessingScreeningRoomModel} from '../models/movie-processing-screening-room.model';
 import {MovieProcessingScreeningRoomRequestModel} from '../models/requests/movie-processing-screening-room-request.model';
-import {MovieProcessingDayRequestModel} from '../models/requests/movie-processing-day-request.model';
 import {AdminMapperService} from 'src/app/shared/helpers/external/mapper/modules/admin/admin-mapper.service';
 import {MovieProcessingApiModel} from '../models/api/movie-processing-api.model';
 
@@ -95,9 +93,9 @@ export class MovieProcessingService {
     const genders: string[] = [];
     selectedGenders.forEach(gender => genders.push(gender.value));
     const screeningRooms = form.get('movieProjection').get('addedSeances').value as MovieProcessingScreeningRoomModel[];
-    const castedScreeningRooms: MovieProcessingScreeningRoomRequestModel[] = [];
+    let castedScreeningRooms: MovieProcessingScreeningRoomRequestModel[] = [];
     screeningRooms.forEach(q => castedScreeningRooms.push(this._mapper.toAddMovieSreeningRoomRequestModel(q)));
-
+    castedScreeningRooms = castedScreeningRooms.filter(sr => sr.seances);
     const result: MovieProcessingRequestModel = {
       id: form.get('id').value,
       title: form.get('title').value,
@@ -106,30 +104,10 @@ export class MovieProcessingService {
       posterUrl: form.get('posterUrl').value,
       trailerUrl: form.get('trailerUrl').value,
       genders: genders,
-      screeningRooms: this._getNotEmptyScreeningRooms(castedScreeningRooms)
+      screeningRooms: castedScreeningRooms
     };
 
     return result;
-  }
-
-  private _getNotEmptyScreeningRooms(screeningRooms: MovieProcessingScreeningRoomRequestModel[]): MovieProcessingScreeningRoomRequestModel[] {
-    screeningRooms.forEach(w => {
-      w.weeks = this._getNotEmptyWeeks(w.weeks);
-    });
-
-    return screeningRooms.filter(w => w.weeks.length > 0);
-  }
-
-  private _getNotEmptyWeeks(weeks: MovieProcessingWeekRequestModel[]): MovieProcessingWeekRequestModel[] {
-    weeks.forEach(w => {
-      w.days = this._getNotEmptyDays(w.days);
-    });
-
-    return weeks.filter(w => w.days.length > 0);
-  }
-
-  private _getNotEmptyDays(days: MovieProcessingDayRequestModel[]): MovieProcessingDayRequestModel[] {
-    return days.filter(d => d.seancesTimes.length > 0);
   }
 
   private _getCleanForm(): FormGroup {
