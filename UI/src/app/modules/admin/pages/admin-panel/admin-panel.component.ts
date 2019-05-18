@@ -9,17 +9,23 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./admin-panel.component.css']
 })
 export class AdminPanelComponent implements OnInit {
-  public movies: MovieApiModel[] = [];
+  public get movies(): MovieApiModel[] {
+    return this._movies;
+  }
+
+  private _movies: MovieApiModel[] = [];
 
   constructor(private _apiService: AdminPanelApiService, private http: HttpClient) {
   }
 
   public ngOnInit(): void {
-    this.movies = this._apiService.getMovies();
+    this._apiService.getMovies().subscribe(movies => {
+      this._movies = movies;
+    });
   }
 
   public deleteMovie(movieId: string): void {
-    this.http.get('urlhere').subscribe();
+    // this.http.get('urlhere').subscribe();
     // this._apiService.deleteMovie(movieId);
   }
 }

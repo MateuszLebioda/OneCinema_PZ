@@ -13,36 +13,36 @@ export class BookingFinalizationApiService {
   constructor(private _httpService: HttpBaseService) {
   }
 
-  public getPriceList(): PriceListApiModel {
-    return {
-      price2D: {
-        normal: {
-          mondayThursday: 13,
-          fridaySunday: 14
-        },
-        reduced: {
-          mondayThursday: 11,
-          fridaySunday: 12
-        }
-      },
-      price3D: {
-        normal: {
-          mondayThursday: 15,
-          fridaySunday: 20
-        },
-        reduced: {
-          mondayThursday: 14,
-          fridaySunday: 18
-        }
-      }
-    };
-  }
+  // public getPriceList(): PriceListApiModel {
+  //   return {
+  //     price2D: {
+  //       normal: {
+  //         mondayThursday: 13,
+  //         fridaySunday: 14
+  //       },
+  //       reduced: {
+  //         mondayThursday: 11,
+  //         fridaySunday: 12
+  //       }
+  //     },
+  //     price3D: {
+  //       normal: {
+  //         mondayThursday: 15,
+  //         fridaySunday: 20
+  //       },
+  //       reduced: {
+  //         mondayThursday: 14,
+  //         fridaySunday: 18
+  //       }
+  //     }
+  //   };
+  // }
 
   public bookSeats(bookingApiModel: BookingRequestModel): Observable<any> {
     return this._httpService.post<any>('', bookingApiModel);
   }
 
-  public getPriceList2(): Observable<PriceListApiModel> {
-    return this._httpService.get<PriceListApiModel>('');
+  public getPriceList(): Observable<PriceListApiModel> {
+    return this._httpService.get<PriceListApiModel>('get');
   }
 }

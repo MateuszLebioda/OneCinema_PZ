@@ -19,12 +19,10 @@
           </thead>
           <tbody>
           <tr *ngFor="let movie of movies ">
-            <td class="w3-list-img image-column-size">
+            <td class="w3-list-img image-column-size" colspan="2">
               <a class="cursor-pointer">
                 <span>{{movie.title}}</span>
               </a>
-            </td>
-            <td>
             </td>
             <td class="action">
               <a routerLink="/admin/film/podglad/{{movie.id}}">Podgląd</a>

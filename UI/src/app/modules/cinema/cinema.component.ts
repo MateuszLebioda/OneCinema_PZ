@@ -14,7 +14,9 @@ export class CinemaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cinema = this._cinemaService.getCinemaInfo();
+    this._cinemaService.getCinemaInfo().subscribe(cinema => {
+      this.cinema = cinema;
+    });
   }
 
 }

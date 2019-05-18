@@ -7,13 +7,18 @@ import {CinemaApiService} from '../../../../modules/cinema/services/cinema-api.s
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  public cinemPhoneNumber: string;
+  public get cinemPhoneNumber(): string {
+    return this._cinemPhoneNumber;
+  }
+
+  private _cinemPhoneNumber: string;
 
   constructor(private _cinemaService: CinemaApiService) {
   }
 
   public ngOnInit(): void {
-    const cinema = this._cinemaService.getCinemaInfo();
-    this.cinemPhoneNumber = cinema.phoneNumber;
+    this._cinemaService.getCinemaInfo().subscribe(cinema => {
+      this._cinemPhoneNumber = cinema.phoneNumber;
+    });
   }
 }

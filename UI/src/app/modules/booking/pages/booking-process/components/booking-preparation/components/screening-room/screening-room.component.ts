@@ -43,9 +43,12 @@ export class ScreeningRoomComponent implements OnInit {
     const _alreadyBookedSeatsForThisMoment = this._screeningRoomService.getAlreadyBookedSeatsForThisMoment(this.seance.id);
     if (!this._screeningRoomService.areArraysEqual(_alreadyBookedSeatsForThisMoment, this._alreadyBookedSeats)) {
       this._alreadyBookedSeats = Object.assign([], _alreadyBookedSeatsForThisMoment);
-      this._screeningRoomService.setAlreadyBookedSeatsOnPlaneAndRemoveThemFromBookedSeatsCollection(
+      const removedSeat = this._screeningRoomService.setAlreadyBookedSeatsOnPlaneAndRemoveThemFromBookedSeatsCollection(
         this.screeningRoom, _alreadyBookedSeatsForThisMoment, this.bookedSeats);
-      this._notificationService.showError('Wybrane przez ciebie miejsce zostało już zarezerwowane przez inną osobę więc zostało usunięte z listy wybranych przez ciebie miejsc');
+
+      if (removedSeat) {
+        this._notificationService.showError('Wybrane przez ciebie miejsce zostało już zarezerwowane przez inną osobę więc zostało usunięte z listy wybranych przez ciebie miejsc');
+      }
     }
   }
 }

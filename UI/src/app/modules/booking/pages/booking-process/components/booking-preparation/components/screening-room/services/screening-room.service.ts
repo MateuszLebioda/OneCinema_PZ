@@ -42,13 +42,15 @@ export class ScreeningRoomService {
 
   public setAlreadyBookedSeatsOnPlaneAndRemoveThemFromBookedSeatsCollection(screeningRoom: ScreeningRoom,
                                                                             alreadyBookedSeats: string[],
-                                                                            bookedSeats: Seat[]): void {
+                                                                            bookedSeats: Seat[]): boolean {
+    let removedSeat = false;
     screeningRoom.rows.forEach(row => {
       row.forEach(seat => {
         if (alreadyBookedSeats.includes(seat.id)) {
           const alreadyBookedSeatIndex = bookedSeats.findIndex(
             alreadyBookedSeatSeat => alreadyBookedSeatSeat.id === seat.id);
           if (alreadyBookedSeatIndex >= 0) {
+            removedSeat = true;
             bookedSeats.splice(alreadyBookedSeatIndex, 1);
           }
           seat.selected = false;
@@ -56,6 +58,8 @@ export class ScreeningRoomService {
         }
       });
     });
+
+    return removedSeat;
   }
 
   public areArraysEqual(firstArray: string[], secondArray: string[]): boolean {
