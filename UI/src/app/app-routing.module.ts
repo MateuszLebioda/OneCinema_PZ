@@ -16,6 +16,7 @@ import {MoviePreviewComponent} from './modules/admin/pages/movie-preview/movie-p
 import {EditPriceListComponent} from './modules/admin/pages/edit-price-list/edit-price-list.component';
 import {ErrorPageComponent} from './core/errors/error-page/error-page.component';
 import {LoginComponent} from './modules/account/pages/login/login.component';
+import {AuthenticationGuardService} from './core/services/authentication/authentication-guard.service';
 
 const routes: Routes = [
   {
@@ -63,6 +64,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate: [AuthenticationGuardService],
     children: [
       {
         path: '',

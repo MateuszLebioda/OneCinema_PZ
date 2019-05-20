@@ -7,7 +7,7 @@
     </div>
     <div class="w3l_sign_in_register right-section-size">
       <ul>
-        <li class="header-right-content"><a href="#" data-toggle="modal" data-target="#myModal">Wyloguj</a></li>
+        <li class="header-right-content" *ngIf="logoutButton"><a (click)="logout()">Wyloguj</a></li>
         <li class="header-right-content">
           <a routerLink="/admin" routerLinkActive="active-option">Panel administratora</a>
         </li>
