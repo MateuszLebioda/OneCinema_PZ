@@ -6,6 +6,26 @@ public class MovieProcessingDayRequestModel {
     private WeekDays day;
     private List<MovieProcessingSeanceTimeRequestModel> seancesTimes;
 
+    public boolean validate(){
+        return validateDay() &&
+                validateEveryOneSeancesTime();
+    }
+
+    private boolean validateEveryOneSeancesTime(){
+        for(MovieProcessingSeanceTimeRequestModel mode: seancesTimes){
+            if(!mode.validate())
+                return false;
+        }
+        return true;
+    }
+
+    private boolean validateDay(){
+        return day != null;
+    }
+
+    private boolean validateSeancesTimes(){
+        return  seancesTimes.size() > 0;
+    }
 
     public WeekDays getDay() {
         return day;

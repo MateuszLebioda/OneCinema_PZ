@@ -20,12 +20,18 @@ public class Room {
     @OneToMany(mappedBy = "room")
     private Set<Spot> spots;
 
+    @OneToMany(mappedBy = "room")
+    private Set<Seance> seances;
+
     @Column(name = "nazwa")
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "id_kino")
     private Cinema cinema;
+
+    @Column(name = "przygotowanie")
+    private int preparationTime;
 
     public String getId() {
         return id;
@@ -57,5 +63,21 @@ public class Room {
 
     public void setSpots(Set<Spot> spots) {
         this.spots = spots;
+    }
+
+    public int getPreparationTime() {
+        return preparationTime;
+    }
+
+    public void setPreparationTime(int preparationTime) {
+        this.preparationTime = preparationTime;
+    }
+
+    public Set<Seance> getSeances() {
+        return seances;
+    }
+
+    public void setSeances(Set<Seance> seances) {
+        this.seances = seances;
     }
 }

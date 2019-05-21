@@ -12,4 +12,5 @@ import java.util.Set;
 public interface SeanceRepository extends JpaRepository<Seance,String> {
     List<Seance> findAll();
     Set<Seance> findByFilmAndIs3DAndStartBetween(Film film,boolean is3D, Date startDate, Date endDate);
+    Set<Seance> findByRoomIdAndStartAfter(String roomId,Date start);
 }

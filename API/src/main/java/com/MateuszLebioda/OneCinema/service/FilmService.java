@@ -1,10 +1,11 @@
 package com.MateuszLebioda.OneCinema.service;
 
 import com.MateuszLebioda.OneCinema.Model.Movie.MovieApiModel;
-import com.MateuszLebioda.OneCinema.Model.Movie.MovieProcessingRequestModel;
+import com.MateuszLebioda.OneCinema.Model.Movie.MovieProcessingAddMovieFilmRequestMode;
 import com.MateuszLebioda.OneCinema.Model.Movie.SimpleMovieApiModel;
 import com.MateuszLebioda.OneCinema.Model.Sence.Dimension;
 import com.MateuszLebioda.OneCinema.entity.*;
+import com.MateuszLebioda.OneCinema.service.validator.MovieProcessingValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class FilmService {
 
     @Autowired
     RoomService roomService;
+
+    @Autowired
+    MovieProcessingValidator movieProcessingValidator;
 
 
     public MovieApiModel getFilmDescriptionById(String id){
@@ -47,10 +51,10 @@ public class FilmService {
         return simpleMovieApiModelSet;
     }
 
-    public boolean validateMovieProcessingRequestModel(MovieProcessingRequestModel movieProcessingRequestModel){
-        List<String> genders = typeService.getTypeList();
-        List<String> roomsId = roomService.getAllRoomsId();
-        return  movieProcessingRequestModel.validate(genders,roomsId);
+    public void validateMovieProcessingRequestModel(MovieProcessingAddMovieFilmRequestMode movieProcessingRequestModel){
+        //Map<ValidationTypesElements,List<String>> validationMap = new HashMap<>();
+
+        movieProcessingValidator.validateMovieProcessingAddMovie(movieProcessingRequestModel);
     }
 
 }

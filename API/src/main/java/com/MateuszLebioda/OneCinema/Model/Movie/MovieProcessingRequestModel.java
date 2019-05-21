@@ -1,9 +1,10 @@
 package com.MateuszLebioda.OneCinema.Model.Movie;
 
-import com.MateuszLebioda.OneCinema.Model.ScreeningRoom.MovieProcessingScreeningRoomRequestModel;
+import com.MateuszLebioda.OneCinema.service.validator.ValidationErrors;
+import com.MateuszLebioda.OneCinema.service.validator.ValidatorStatus;
 import org.apache.commons.validator.UrlValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MovieProcessingRequestModel {
@@ -13,81 +14,46 @@ public class MovieProcessingRequestModel {
     private String posterUrl;
     private String trailerUrl;
     private int duration;
-    private List<MovieProcessingScreeningRoomRequestModel> screeningRooms;
 
-    public boolean validate(List<String>genders,List<String> screeningRooms){
-        return  validateTitle() &&
-                validateDuration() &&
-                validateRating() &&
-                validateGraphic() &&
-                validateTrailer() &&
-                validateGender(genders) &&
-                validateScreeningRooms(screeningRooms);
+    @Autowired
+    ValidatorStatus validatorStatus;
+
+    public void validate(){
+        validateTitle();
+        validateDuration();
+        validateRating();
+        validateGraphic();
+        validateTrailer();
     }
 
-    private boolean validateGender(List<String>genders){
-        if(this.genders != null && this.genders.size()>0){
-            for(String movieGender:this.genders){
-                if(!genders.contains(movieGender))
-                    return false;
-            }
-            return true;
+    private void validateTrailer(){
+        if(!(validateURL(trailerUrl))){
+            validatorStatus.addError(ValidationErrors.WRONG_TRAILER_URL);
         }
-        return false;
     }
 
-    private boolean validateScreeningRooms(List<String> seancesId){
-        if(this.screeningRooms!= null) {
-            return  validateScreeningRoomsWithDatabase(seancesId) && validateScreeningRoomsWithItself();
+    private void validateGraphic() {
+        if(!(validateURL(posterUrl))){
+            validatorStatus.addError(ValidationErrors.WRONG_POSTER_URL);
         }
-        return true;
     }
 
-    private List<String> getScreeningRoomsIdList(){
-        List<String> screeningRoomsIdList = new ArrayList<>();
-        for (MovieProcessingScreeningRoomRequestModel model: this.screeningRooms){
-            screeningRoomsIdList.add(model.getId());
+    private void validateTitle(){
+        if(!(title.length() > 0 && title.length()<100)){
+            validatorStatus.addError(ValidationErrors.WRONG_LENGTH_OF_TITLE);
         }
-        return screeningRoomsIdList;
     }
 
-    private boolean validateScreeningRoomsWithDatabase(List<String> seancesId){
-        for (String screeningRoomsId : getScreeningRoomsIdList()) {
-            if (!seancesId.contains(screeningRoomsId))
-                return false;
+    private void validateDuration(){
+        if(!(duration > 1)){
+            validatorStatus.addError(ValidationErrors.TO_SHORT_DURATION);
         }
-        return true;
     }
 
-    private boolean validateScreeningRoomsWithItself(){
-
-        for(int i = 0;i<screeningRooms.size();i++){
-            for(int j = 0;j<screeningRooms.size();j++){
-               if(i!=j && screeningRooms.get(i).getId().equals(screeningRooms.get(j).getId()))
-                   return false;
-            }
+    private void validateRating(){
+        if(!(rating >= 1.0 && rating <= 5.0)){
+            validatorStatus.addError(ValidationErrors.RATING_IS_NOT_IN_THE_RANGE);
         }
-        return true;
-    }
-
-    private boolean validateTrailer(){
-        return  validateURL(trailerUrl);
-    }
-
-    private boolean validateGraphic() {
-        return validateURL(posterUrl);
-    }
-
-    private boolean validateTitle(){
-        return title.length() > 0 && title.length()<100;
-    }
-
-    private boolean validateDuration(){
-        return duration > 1;
-    }
-
-    private boolean validateRating(){
-        return rating >= 1.0 && rating <= 5.0;
     }
 
     private boolean validateURL(String url){
@@ -143,11 +109,11 @@ public class MovieProcessingRequestModel {
         this.duration = duration;
     }
 
-    public List<MovieProcessingScreeningRoomRequestModel> getScreeningRooms() {
+    /*public List<MovieProcessingScreeningRoomRequestModel> getScreeningRooms() {
         return screeningRooms;
     }
 
     public void setScreeningRooms(List<MovieProcessingScreeningRoomRequestModel> screeningRooms) {
         this.screeningRooms = screeningRooms;
-    }
+    }*/
 }

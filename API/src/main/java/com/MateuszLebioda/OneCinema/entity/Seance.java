@@ -34,6 +34,11 @@ public class Seance {
     @JoinColumn(name = "id_film")
     private Film film;
 
+    @ManyToOne()
+    @JoinColumn(name = "id_sala")
+    private Room room;
+
+
     public String getId() {
         return id;
     }

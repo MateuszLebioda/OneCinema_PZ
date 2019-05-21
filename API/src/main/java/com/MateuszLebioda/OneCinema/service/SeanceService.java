@@ -31,4 +31,9 @@ public class SeanceService {
         }
     }
 
+    public Set<Seance> getFutureSeancesByRoomId(String id){
+        return seanceRepository.findByRoomIdAndStartAfter(id,new Date());
+    }
+
+
 }
