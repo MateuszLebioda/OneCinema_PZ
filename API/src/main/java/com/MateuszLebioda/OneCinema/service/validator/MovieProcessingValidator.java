@@ -33,11 +33,13 @@ public class MovieProcessingValidator {
     FilmService filmService;
 
     public void validateMovieProcessingAddMovie(MovieProcessingAddMovieFilmRequestMode addMovieModel){
-          addMovieModel.validate();
-                validateMovieTitle(addMovieModel);
-                validateGender(addMovieModel.getGenders(),typeService.getTypeList());
-                validateScreeningRooms(addMovieModel.getScreeningRoomsIdList(),roomService.getAllRoomsId());
-                validateSeancesDate(addMovieModel.getDuration(),addMovieModel.getDateSeancesTime());
+        addMovieModel.validate();
+        validateMovieTitle(addMovieModel);
+        validateGender(addMovieModel.getGenders(),typeService.getTypeList());
+        if(addMovieModel.getScreeningRooms() != null) {
+            validateScreeningRooms(addMovieModel.getScreeningRoomsIdList(), roomService.getAllRoomsId());
+            validateSeancesDate(addMovieModel.getDuration(), addMovieModel.getDateSeancesTime());
+        }
     }
 
     private void validateMovieTitle(MovieProcessingAddMovieFilmRequestMode addMovieModel) {

@@ -54,7 +54,8 @@ public class FilmService {
 
        film.setTypes(typeService.getTypesById(movieProcessingAddMovieFilmRequestMode.getGenders()));
 
-       film.setSeances(seanceService.createSeancesFromMovieProcessing(film,movieProcessingAddMovieFilmRequestMode));
+       if(movieProcessingAddMovieFilmRequestMode.getScreeningRooms()!= null)
+            film.setSeances(seanceService.createSeancesFromMovieProcessing(film,movieProcessingAddMovieFilmRequestMode));
 
        filmRepository.save(film);
     }
@@ -82,11 +83,24 @@ public class FilmService {
         }
     }
 
-    public void checkIfFilmExist(String name) throws CannotFindObjectException {
-        Optional<Film> film = filmRepository.findByTitle(name);
+    public void checkIfFilmExist(String title) throws CannotFindObjectException {
+        Optional<Film> film = filmRepository.findByTitle(title);
         if(film.isPresent()){
             throw new CannotFindObjectException();
         }
+    }
+
+    public DeleteStatus deleteFilm(String id){
+        DeleteStatus status = new DeleteStatus();
+
+        Optional<Film> film = filmRepository.findById(id);
+        if(film.isPresent() && film.get().getSeances().isEmpty()){
+            filmRepository.delete(film.get());
+            status.setStatus(Status.OK);
+        }else {
+            status.setStatus(Status.WRONG);
+        }
+        return status;
     }
 
 }
