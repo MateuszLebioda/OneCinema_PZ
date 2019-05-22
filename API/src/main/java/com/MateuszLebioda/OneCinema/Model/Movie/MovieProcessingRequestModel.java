@@ -1,53 +1,59 @@
 package com.MateuszLebioda.OneCinema.Model.Movie;
 
-import com.MateuszLebioda.OneCinema.Model.Gender.MovieGender;
-import com.MateuszLebioda.OneCinema.Model.ScreeningRoom.MovieProcessingScreeningRoomRequestModel;
+import com.MateuszLebioda.OneCinema.service.validator.ValidationErrors;
+import com.MateuszLebioda.OneCinema.service.validator.ValidatorStatus;
 import org.apache.commons.validator.UrlValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Set;
+import java.util.List;
 
 public class MovieProcessingRequestModel {
     private String title;
     private int rating;
-    private Set<MovieGender> gender;
+    private List<String> genders;
     private String posterUrl;
     private String trailerUrl;
     private int duration;
-    private Set<MovieProcessingScreeningRoomRequestModel> screeningRoom;
 
-    public boolean validate(){
-        return  validateTitle() &&
-                validateDuration() &&
-                validateGender() &&
-                validateRating() &&
-                validateGraphic() &&
-                validateTrailer();
-                //TODO: validation screeningRoom
+    @Autowired
+    ValidatorStatus validatorStatus;
+
+    public void validate(){
+        validateTitle();
+        validateDuration();
+        validateRating();
+        validateGraphic();
+        validateTrailer();
     }
 
-    private boolean validateTrailer(){
-        return  validateURL(trailerUrl);
+    private void validateTrailer(){
+        if(!(validateURL(trailerUrl))){
+            validatorStatus.addError(ValidationErrors.WRONG_TRAILER_URL);
+        }
     }
 
-    private boolean validateGraphic() {
-        return validateURL(posterUrl);
+    private void validateGraphic() {
+        if(!(validateURL(posterUrl))){
+            validatorStatus.addError(ValidationErrors.WRONG_POSTER_URL);
+        }
     }
 
-    private boolean validateTitle(){
-        return title.length() > 0 && title.length()<100;
+    private void validateTitle(){
+        if(!(title.length() > 0 && title.length()<100)){
+            validatorStatus.addError(ValidationErrors.WRONG_LENGTH_OF_TITLE);
+        }
     }
 
-    private boolean validateDuration(){
-        return duration > 1;
+    private void validateDuration(){
+        if(!(duration > 1)){
+            validatorStatus.addError(ValidationErrors.TO_SHORT_DURATION);
+        }
     }
 
-    private boolean validateGender(){
-        //return gender.size() >= 1;
-        return true;
-    }
-
-    private boolean validateRating(){
-        return rating >= 1.0 && rating <= 5.0;
+    private void validateRating(){
+        if(!(rating >= 1.0 && rating <= 5.0)){
+            validatorStatus.addError(ValidationErrors.RATING_IS_NOT_IN_THE_RANGE);
+        }
     }
 
     private boolean validateURL(String url){
@@ -71,12 +77,12 @@ public class MovieProcessingRequestModel {
         this.rating = rating;
     }
 
-    public Set<MovieGender> getGender() {
-        return gender;
+    public List<String> getGenders() {
+        return genders;
     }
 
-    public void setGender(Set<MovieGender> gender) {
-        this.gender = gender;
+    public void setGenders(List<String> genders) {
+        this.genders = genders;
     }
 
     public String getPosterUrl() {
@@ -103,11 +109,11 @@ public class MovieProcessingRequestModel {
         this.duration = duration;
     }
 
-    public Set<MovieProcessingScreeningRoomRequestModel> getScreeningRoom() {
-        return screeningRoom;
+    /*public List<MovieProcessingScreeningRoomRequestModel> getScreeningRooms() {
+        return screeningRooms;
     }
 
-    public void setScreeningRoom(Set<MovieProcessingScreeningRoomRequestModel> screeningRoom) {
-        this.screeningRoom = screeningRoom;
-    }
+    public void setScreeningRooms(List<MovieProcessingScreeningRoomRequestModel> screeningRooms) {
+        this.screeningRooms = screeningRooms;
+    }*/
 }

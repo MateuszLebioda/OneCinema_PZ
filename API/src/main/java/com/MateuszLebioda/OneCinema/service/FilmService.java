@@ -1,18 +1,17 @@
 package com.MateuszLebioda.OneCinema.service;
 
 import com.MateuszLebioda.OneCinema.Model.Movie.MovieApiModel;
-import com.MateuszLebioda.OneCinema.Model.Movie.MovieProcessingRequestModel;
+import com.MateuszLebioda.OneCinema.Model.Movie.MovieProcessingAddMovieFilmRequestMode;
 import com.MateuszLebioda.OneCinema.Model.Movie.SimpleMovieApiModel;
 import com.MateuszLebioda.OneCinema.Model.Sence.Dimension;
-import com.MateuszLebioda.OneCinema.entity.Film;
-import com.MateuszLebioda.OneCinema.entity.FilmRepository;
+import com.MateuszLebioda.OneCinema.entity.*;
+import com.MateuszLebioda.OneCinema.exception.CannotFindObjectException;
+import com.MateuszLebioda.OneCinema.service.validator.MovieProcessingValidator;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class FilmService {
@@ -22,6 +21,16 @@ public class FilmService {
 
     @Autowired
     SeanceService seanceService;
+
+    @Autowired
+    TypeService typeService;
+
+    @Autowired
+    RoomService roomService;
+
+    @Autowired
+    MovieProcessingValidator movieProcessingValidator;
+
 
     public MovieApiModel getFilmDescriptionById(String id){
         Optional<Film> optionalFilm =  filmRepository.findById(id);
@@ -35,6 +44,22 @@ public class FilmService {
         }
     }
 
+    public void addFilmFromMovieProcessing(MovieProcessingAddMovieFilmRequestMode movieProcessingAddMovieFilmRequestMode) throws CannotFindObjectException {
+       Film film = new Film();
+       film.setTitle(movieProcessingAddMovieFilmRequestMode.getTitle());
+       film.setDuration(movieProcessingAddMovieFilmRequestMode.getDuration());
+       film.setGraphic(movieProcessingAddMovieFilmRequestMode.getPosterUrl());
+       film.setTrailer(movieProcessingAddMovieFilmRequestMode.getTrailerUrl());
+       film.setRating(movieProcessingAddMovieFilmRequestMode.getRating());
+
+       film.setTypes(typeService.getTypesById(movieProcessingAddMovieFilmRequestMode.getGenders()));
+
+       film.setSeances(seanceService.createSeancesFromMovieProcessing(film,movieProcessingAddMovieFilmRequestMode));
+
+       filmRepository.save(film);
+    }
+
+
     public Set<SimpleMovieApiModel> getAllSimpleMovieApiModel(){
         List<Film> films = filmRepository.findAll();
         Set<SimpleMovieApiModel> simpleMovieApiModelSet = new HashSet<>();
@@ -44,7 +69,24 @@ public class FilmService {
         return simpleMovieApiModelSet;
     }
 
-    public boolean validateMovieProcessingRequestModel(MovieProcessingRequestModel movieProcessingRequestModel){
-        return  movieProcessingRequestModel.validate();
+    public void validateMovieProcessingRequestModel(MovieProcessingAddMovieFilmRequestMode movieProcessingRequestModel){
+            movieProcessingValidator.validateMovieProcessingAddMovie(movieProcessingRequestModel);
     }
+
+    public Film getFilmByTitle(String name) throws CannotFindObjectException {
+        Optional<Film> film = filmRepository.findByTitle(name);
+        if(film.isPresent()){
+            return film.get();
+        }else {
+            throw new CannotFindObjectException();
+        }
+    }
+
+    public void checkIfFilmExist(String name) throws CannotFindObjectException {
+        Optional<Film> film = filmRepository.findByTitle(name);
+        if(film.isPresent()){
+            throw new CannotFindObjectException();
+        }
+    }
+
 }
