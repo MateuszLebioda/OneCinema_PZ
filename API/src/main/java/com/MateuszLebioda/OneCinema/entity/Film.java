@@ -1,5 +1,6 @@
 package com.MateuszLebioda.OneCinema.entity;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -30,7 +31,7 @@ public class Film {
     @Column(name = "rezyser")
     private String director;
 
-    @OneToMany(mappedBy = "film")
+    @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
     private Set<Seance> seances;
 
     @ManyToMany
