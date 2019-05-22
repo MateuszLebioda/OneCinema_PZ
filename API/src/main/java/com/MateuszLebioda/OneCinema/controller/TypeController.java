@@ -22,7 +22,7 @@ public class TypeController {
     @ApiOperation(value = "Return all genders")
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
-    public List<String> getGenders() throws JsonProcessingException {
+    public List<String> getGenders() {
         List<String> genders = new ArrayList<>();
         for (Type type:typeRepository.findAll()){
             genders.add(type.getName());

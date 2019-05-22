@@ -17,14 +17,16 @@ public class MovieProcessingAddMovieFilmRequestMode extends MovieProcessingReque
     @Override
     public void validate() {
          super.validate();
-                validateScreeningRooms();
-                validateScreeningRoomsIdInSet();
+         if(screeningRooms!=null) {
+             validateScreeningRooms();
+             validateScreeningRoomsIdInSet();
+         }
     }
 
 
 
     private void validateScreeningRooms(){
-        for(MovieProcessingSimplyScreeningRoomRequestModel mode: screeningRooms){
+        for (MovieProcessingSimplyScreeningRoomRequestModel mode : screeningRooms) {
             mode.validate();
         }
     }
