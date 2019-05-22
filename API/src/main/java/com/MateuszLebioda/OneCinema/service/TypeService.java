@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TypeService {
@@ -21,5 +22,13 @@ public class TypeService {
             genders.add(type.getName());
         }
         return genders;
+    }
+
+    public Type getTypeById(String name){
+        return  typeRepository.findByName(name);
+    }
+
+    public Set<Type> getTypesById(List<String> names){
+        return  typeRepository.findByNameIn(names);
     }
 }

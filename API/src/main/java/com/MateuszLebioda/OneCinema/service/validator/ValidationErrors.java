@@ -13,8 +13,9 @@ public enum ValidationErrors {
     SEANCE_OVERLAP_IN_EXISTING_SEANCE("seance overlap on existing seance"),
     SEANCE_DATE_ERROR("Seance date error"),
     SEANCE_HAVE_TO_HAS_UNIQUE_ID("Seance have to has unique id"),
-    WRONG_SEANCE_TIME("Wrong seance time");
-
+    WRONG_SEANCE_TIME("Wrong seance time"),
+    FILM_WITH_THAT_TITLE_EXIST("Film with this title already exist"),
+    CANNOT_ADD_FILM("Cannot add film");
 
     String message;
     ValidationErrors(String message){

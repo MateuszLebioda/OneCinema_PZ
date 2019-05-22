@@ -1,8 +1,10 @@
 package com.MateuszLebioda.OneCinema.controller;
 
 import com.MateuszLebioda.OneCinema.Model.Movie.MovieProcessingAddMovieFilmRequestMode;
+import com.MateuszLebioda.OneCinema.exception.CannotFindObjectException;
 import com.MateuszLebioda.OneCinema.service.FilmService;
 import com.MateuszLebioda.OneCinema.service.Formatter;
+import com.MateuszLebioda.OneCinema.service.validator.ValidationErrors;
 import com.MateuszLebioda.OneCinema.service.validator.ValidatorStatus;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -44,6 +46,13 @@ public class FilmController {
     public ValidatorStatus addFilm(@RequestBody MovieProcessingAddMovieFilmRequestMode movieProcessingRequestModel) throws URISyntaxException {
         validatorStatus.clear();
         filmService.validateMovieProcessingRequestModel(movieProcessingRequestModel);
+        if(validatorStatus.isCorrect()) {
+            try {
+                filmService.addFilmFromMovieProcessing(movieProcessingRequestModel);
+            } catch (CannotFindObjectException e) {
+                validatorStatus.addError(ValidationErrors.CANNOT_ADD_FILM);
+            }
+        }
         return validatorStatus;
     }
 }

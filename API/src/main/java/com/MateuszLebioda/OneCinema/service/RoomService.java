@@ -33,4 +33,12 @@ public class RoomService {
         throw new CannotFindObjectException();
     }
 
+    public Room getRoomById(String id) throws CannotFindObjectException {
+        Optional<Room> room = roomRepository.findById(id);
+        if(room.isPresent()){
+            return  room.get();
+        }
+        throw new CannotFindObjectException();
+    }
+
 }

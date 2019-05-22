@@ -5,6 +5,7 @@ import com.MateuszLebioda.OneCinema.Model.Sence.SeancesTime;
 import com.MateuszLebioda.OneCinema.entity.Seance;
 import com.MateuszLebioda.OneCinema.exception.CannotFindObjectException;
 import com.MateuszLebioda.OneCinema.exception.WrongTimeException;
+import com.MateuszLebioda.OneCinema.service.FilmService;
 import com.MateuszLebioda.OneCinema.service.RoomService;
 import com.MateuszLebioda.OneCinema.service.SeanceService;
 import com.MateuszLebioda.OneCinema.service.TypeService;
@@ -12,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-
-import static com.MateuszLebioda.OneCinema.service.validator.ValidationErrors.THAT_ROOM_DOES_NOT_EXIST;
 
 @Service
 public class MovieProcessingValidator {
@@ -30,11 +29,23 @@ public class MovieProcessingValidator {
     @Autowired
     ValidatorStatus validatorStatus;
 
+    @Autowired
+    FilmService filmService;
+
     public void validateMovieProcessingAddMovie(MovieProcessingAddMovieFilmRequestMode addMovieModel){
           addMovieModel.validate();
+                validateMovieTitle(addMovieModel);
                 validateGender(addMovieModel.getGenders(),typeService.getTypeList());
                 validateScreeningRooms(addMovieModel.getScreeningRoomsIdList(),roomService.getAllRoomsId());
                 validateSeancesDate(addMovieModel.getDuration(),addMovieModel.getDateSeancesTime());
+    }
+
+    private void validateMovieTitle(MovieProcessingAddMovieFilmRequestMode addMovieModel) {
+        try {
+            filmService.checkIfFilmExist(addMovieModel.getTitle());
+        } catch (CannotFindObjectException e) {
+            validatorStatus.addError(ValidationErrors.FILM_WITH_THAT_TITLE_EXIST);
+        }
     }
 
     private void validateScreeningRooms(List<String> movieProcessingScreeningRooms, List<String> dataScreeningRooms){
