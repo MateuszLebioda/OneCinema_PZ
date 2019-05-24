@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {MovieProcessingService} from './services/movie-processing.service';
 import {MovieGenderTranslateModel} from './models/movie-gender-translate.model';
 import {IMultipleSelectDropdownSettings} from '../../../../shared/components/external/multiple-select-dropdown/interfaces/i-multiple-select-dropdown-settings';
+import {MovieProcessingApiService} from './services/movie-processing-api.service';
 
 @Component({
   selector: 'app-movie-processing',
@@ -33,6 +34,7 @@ export class MovieProcessingComponent implements OnInit {
   constructor(
     private _formValidatorService: FormValidatorService,
     private _service: MovieProcessingService,
+    private _apiService: MovieProcessingApiService,
     private _route: ActivatedRoute) {
   }
 
@@ -40,7 +42,9 @@ export class MovieProcessingComponent implements OnInit {
     const movie = this._service.getMovie(this._route.snapshot.params.movieId);
     this.bookingForm = this._service.getForm(movie);
     this.settings = this._service.getMultiselectDropdownComponentSettings();
-    this.genders = this._service.getGenders();
+    this._apiService.getGenders().subscribe(g => {
+      this.genders = this._service.getTranslatedGenders(g);
+    });
     this.selectedGenders = this._service.getSelectedGendersIfEditMovie(movie);
     if (movie) {
       this.pageTitle = this.editPageTitle;

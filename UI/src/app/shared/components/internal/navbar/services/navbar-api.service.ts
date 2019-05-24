@@ -13,6 +13,6 @@ export class NavbarApiService {
   }
 
   public getPriceList(): Observable<PriceListApiModel> {
-    return this._httpService.get<PriceListApiModel>('get');
+    return this._httpService.get<PriceListApiModel>('price/get');
   }
 }

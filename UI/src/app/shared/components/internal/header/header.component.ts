@@ -9,7 +9,7 @@ import {LocalStorageKey} from '../../../../core/enums/local-storage-key';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  public get logoutButton(): boolean {
+  public get isAdmin(): boolean {
     return !!localStorage.getItem(LocalStorageKey.AuthToken);
   }
 

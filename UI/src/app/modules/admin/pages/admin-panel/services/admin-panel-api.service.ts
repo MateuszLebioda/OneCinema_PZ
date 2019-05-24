@@ -30,6 +30,6 @@ export class AdminPanelApiService {
   }
 
   public deleteMovie(movieId: string): Observable<void> {
-    return this._httpService.delete('');
+    return this._httpService.delete(`/delete/${movieId}`);
   }
 }

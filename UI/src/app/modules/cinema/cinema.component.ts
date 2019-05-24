@@ -8,13 +8,14 @@ import {CinemaApiModel} from './models/api/cinema-api.model';
   styleUrls: ['./cinema.component.css']
 })
 export class CinemaComponent implements OnInit {
-  public cinema: CinemaApiModel;
+  private cinema: CinemaApiModel = new CinemaApiModel();
 
   constructor(private _cinemaService: CinemaApiService) {
   }
 
   ngOnInit() {
     this._cinemaService.getCinemaInfo().subscribe(cinema => {
+      console.log(cinema);
       this.cinema = cinema;
     });
   }

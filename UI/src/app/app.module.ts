@@ -53,11 +53,11 @@ registerLocaleData(localePL);
     AngularFireAuth,
     {provide: APP_BASE_HREF, useValue: '/'},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthenticationInterceptorService,
-      multi: true
-    }
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthenticationInterceptorService,
+    //   multi: true
+    // }
     // {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
     // {provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptorService, multi: true}
   ],

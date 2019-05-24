@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {AdminServicesModule} from '../../../admin-services.module';
-import {MovieProcessingRequestModel} from '../models/requests/movie-processing-request.model';
+import {UpdateMovieRequestModel} from '../models/requests/update-movie-request.model';
 import {MovieProcessingApiModel} from '../models/api/movie-processing-api.model';
 import {WeekDays} from '../components/seance/enums/week-days.enum';
 import {ProjectionType} from '../../../../movie/enums/projection-type.enum';
 import {Observable} from 'rxjs/internal/Observable';
 import {HttpBaseService} from '../../../../../core/services/http-base.service';
+import {AddMovieRequestModel} from '../models/requests/add-movie-request.model';
 
 @Injectable({
   providedIn: AdminServicesModule
@@ -15,12 +16,12 @@ export class MovieProcessingApiService {
   constructor(private _httpService: HttpBaseService) {
   }
 
-  public addMovie(request: MovieProcessingRequestModel): void {
-    request.id = null;
-    this._httpService.post<any>('films/addFilm', request).subscribe();
+  public addMovie(request: AddMovieRequestModel): void {
+    console.log(request);
+    this._httpService.post<any>('films/addFilm', JSON.stringify(request)).subscribe();
   }
 
-  public editMovie(request: MovieProcessingRequestModel): void {
+  public editMovie(request: UpdateMovieRequestModel): void {
     console.log(request);
     // this._httpService.post<any>('films/addFilm', request).subscribe();
   }
@@ -172,16 +173,16 @@ export class MovieProcessingApiService {
     };
   }
 
-  public getGenders(): string[] {
-    return [
-      'Horror',
-      'Adventure',
-      'Drama',
-      'Historical'
-    ];
-  }
+  // public getTranslatedGenders(): string[] {
+  //   return [
+  //     'Horror',
+  //     'Adventure',
+  //     'Drama',
+  //     'Historical'
+  //   ];
+  // }
 
-  public getGenders2(): Observable<string[]> {
-    return null;
+  public getGenders(): Observable<string[]> {
+    return this._httpService.get<string[]>('genders/getAll');
   }
 }

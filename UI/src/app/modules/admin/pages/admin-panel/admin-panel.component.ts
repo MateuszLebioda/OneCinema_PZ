@@ -25,7 +25,6 @@ export class AdminPanelComponent implements OnInit {
   }
 
   public deleteMovie(movieId: string): void {
-    // this.http.get('urlhere').subscribe();
-    // this._apiService.deleteMovie(movieId);
+    this._apiService.deleteMovie(movieId).subscribe();
   }
 }

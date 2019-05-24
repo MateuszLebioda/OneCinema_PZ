@@ -5,12 +5,13 @@ import {AdminServicesModule} from '../../../admin-services.module';
 import {TranslatorService} from '../../../../../shared/helpers/internal/translator.service';
 import {MovieGenderTranslateModel} from '../models/movie-gender-translate.model';
 import {IMultipleSelectDropdownSettings} from '../../../../../shared/components/external/multiple-select-dropdown/interfaces/i-multiple-select-dropdown-settings';
-import {MovieProcessingRequestModel} from '../models/requests/movie-processing-request.model';
+import {UpdateMovieRequestModel} from '../models/requests/update-movie-request.model';
 import {MovieProcessingApiService} from './movie-processing-api.service';
 import {MovieProcessingScreeningRoomModel} from '../models/movie-processing-screening-room.model';
 import {MovieProcessingScreeningRoomRequestModel} from '../models/requests/movie-processing-screening-room-request.model';
 import {AdminMapperService} from 'src/app/shared/helpers/external/mapper/modules/admin/admin-mapper.service';
 import {MovieProcessingApiModel} from '../models/api/movie-processing-api.model';
+import {AddMovieRequestModel} from '../models/requests/add-movie-request.model';
 
 @Injectable({
   providedIn: AdminServicesModule
@@ -47,11 +48,10 @@ export class MovieProcessingService {
     };
   }
 
-  public getGenders(): MovieGenderTranslateModel[] {
+  public getTranslatedGenders(genders: string[]): MovieGenderTranslateModel[] {
     const result: MovieGenderTranslateModel[] = [];
-    const movieGenders = this._apiService.getGenders();
 
-    movieGenders.forEach(movieGender => {
+    genders.forEach(movieGender => {
       const translatedText = this._translator.translateMovieGender(movieGender);
       if (translatedText) {
         result.push({value: movieGender, translatedText: translatedText});
@@ -77,11 +77,11 @@ export class MovieProcessingService {
   }
 
   public addMovie(selectedGenders: MovieGenderTranslateModel[], form: FormGroup): void {
-    this._apiService.addMovie(this._createMovieProcessingRequest(selectedGenders, form));
+    this._apiService.addMovie(this._createAddMovieRequest(selectedGenders, form));
   }
 
   public editMovie(selectedGenders: MovieGenderTranslateModel[], form: FormGroup): void {
-    this._apiService.editMovie(this._createMovieProcessingRequest(selectedGenders, form));
+    this._apiService.editMovie(this._createUpdateMovieRequest(selectedGenders, form));
   }
 
   public isFormValid(bookingForm: FormGroup, selectedGenders: MovieGenderTranslateModel[]): boolean {
@@ -93,14 +93,28 @@ export class MovieProcessingService {
       && bookingForm.get('trailerUrl').valid;
   }
 
-  private _createMovieProcessingRequest(selectedGenders: MovieGenderTranslateModel[], form: FormGroup): MovieProcessingRequestModel {
+  private _createAddMovieRequest(selectedGenders: MovieGenderTranslateModel[], form: FormGroup): AddMovieRequestModel {
+    const updateMoveRequest = this._createUpdateMovieRequest(selectedGenders, form);
+
+    return {
+      title: updateMoveRequest.title,
+      genders: updateMoveRequest.genders,
+      trailerUrl: updateMoveRequest.trailerUrl,
+      posterUrl: updateMoveRequest.posterUrl,
+      duration: updateMoveRequest.duration,
+      rating: updateMoveRequest.rating,
+      screeningRooms: updateMoveRequest.screeningRooms
+    };
+  }
+
+  private _createUpdateMovieRequest(selectedGenders: MovieGenderTranslateModel[], form: FormGroup): UpdateMovieRequestModel {
     const genders: string[] = [];
     selectedGenders.forEach(gender => genders.push(gender.value));
     const screeningRooms = form.get('movieProjection').get('addedSeances').value as MovieProcessingScreeningRoomModel[];
     let castedScreeningRooms: MovieProcessingScreeningRoomRequestModel[] = [];
     screeningRooms.forEach(q => castedScreeningRooms.push(this._mapper.toAddMovieSreeningRoomRequestModel(q)));
     castedScreeningRooms = castedScreeningRooms.filter(sr => sr.seances);
-    const result: MovieProcessingRequestModel = {
+    const result: UpdateMovieRequestModel = {
       id: form.get('id').value,
       title: form.get('title').value,
       rating: form.get('rating').value,

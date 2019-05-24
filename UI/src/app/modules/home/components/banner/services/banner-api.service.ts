@@ -15,7 +15,7 @@ export class BannerApiService {
   public getMovies(): MovieShortInfoApiModel[] {
     const result = new Array<MovieShortInfoApiModel>();
     result.push({
-      id: 'sdjdsjsd',
+      id: '8aa478dd-eeff-43fb-a7ab-f9cbb8809996',
       posterUrl: 'https://www.washingtonpost.com/graphics/2019/entertainment/oscar-nominees-movie-poster-design/img/black-panther-web.jpg',
       title: 'Tytuł 1',
       rating: 3,
@@ -24,7 +24,7 @@ export class BannerApiService {
     });
 
     result.push({
-      id: 'podrpropffd',
+      id: '8aa478dd-eeff-43fb-a7ab-f9cbb8809996',
       posterUrl: 'https://media0ch-a.akamaihd.net/10/14/1707fa9400271dbe6431ee6deb8d2d69.jpg',
       title: 'Tytuł 2',
       rating: 3,
@@ -33,7 +33,7 @@ export class BannerApiService {
     });
 
     result.push({
-      id: 'mcbvmcbwwr',
+      id: '8aa478dd-eeff-43fb-a7ab-f9cbb8809996',
       posterUrl: 'http://www.fubiz.net/wp-content/uploads/2016/02/mixedblockbusters-2-900x1273.jpg',
       title: 'Tytuł 3',
       rating: 3,
@@ -42,7 +42,7 @@ export class BannerApiService {
     });
 
     result.push({
-      id: 'qasueefvvd',
+      id: '8aa478dd-eeff-43fb-a7ab-f9cbb8809996',
       posterUrl: 'https://dl9fvu4r30qs1.cloudfront.net/46/bc/85b27c604bbf9579d36ab4a1e023/macbeth-poster.jpg',
       title: 'Tytuł 4',
       rating: 3,

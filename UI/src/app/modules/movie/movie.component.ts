@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {MovieApiService} from './services/movie-api.service';
 import {Movie} from './models/movie.model';
 import {ActivatedRoute} from '@angular/router';
+import {MapperService} from '../../shared/helpers/external/mapper/mapper.service';
 
 declare function showVideoPlayer(): void;
 
@@ -11,18 +12,22 @@ declare function showVideoPlayer(): void;
   styleUrls: ['./movie.component.css']
 })
 export class MovieComponent implements OnInit, AfterViewInit {
-  public movie: Movie;
+  public movie: Movie = new Movie();
   public movieId: string;
 
   constructor(
     private _movieService: MovieApiService,
+    private _mapper: MapperService,
     private route: ActivatedRoute) {
   }
 
   public ngOnInit(): void {
-    this.movie = this._movieService.getMovie();
-
     this.movieId = this.route.snapshot.params.movieId;
+
+    this._movieService.getMovie(this.movieId).subscribe(movie => {
+      this.movie = this._mapper.toMovie(movie);
+      this.movie.rating = 3;
+    });
   }
 
   public ngAfterViewInit(): void {

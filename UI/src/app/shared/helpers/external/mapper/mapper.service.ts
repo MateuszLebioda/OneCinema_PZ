@@ -12,6 +12,9 @@ import {SharedServicesModule} from '../../../shared-services.module';
 import {TranslatorService} from '../../internal/translator.service';
 import {SeanceApiModel} from '../../../../modules/admin/pages/movie-processing/components/seance/models/api/seance-api.model';
 import {MovieProcessingSeanceTimeModel} from 'src/app/modules/admin/pages/movie-processing/models/movie-processing-seance-time.model';
+import {MovieProcessingApiModel} from '../../../../modules/admin/pages/movie-processing/models/api/movie-processing-api.model';
+import {MovieApiModel} from '../../../../modules/movie/models/api/movie-api.model';
+import {Movie} from '../../../../modules/movie/models/movie.model';
 
 @Injectable({
   providedIn: SharedServicesModule
@@ -55,6 +58,12 @@ export class MapperService {
 
   public toSeanceApiModel(source: MovieProcessingSeanceTimeModel): SeanceApiModel {
     const destination: SeanceApiModel = automapper.map(MovieProcessingSeanceTimeModel.name, SeanceApiModel.name, source);
+
+    return destination;
+  }
+
+  public toMovie(source: MovieApiModel): Movie {
+    const destination: Movie = automapper.map(MovieApiModel.name, Movie.name, source);
 
     return destination;
   }

@@ -11,12 +11,12 @@ import {MovieProcessingSeanceTimeApiModel} from '../../../../../../modules/admin
 import {MovieProcessingApiModel} from '../../../../../../modules/admin/pages/movie-processing/models/api/movie-processing-api.model';
 import {MovieProcessingModel} from '../../../../../../modules/admin/pages/movie-processing/models/movie-processing.model';
 import {SeanceApiModel} from '../../../../../../modules/admin/pages/movie-processing/components/seance/models/api/seance-api.model';
-import {MovieProcessingRequestModel} from '../../../../../../modules/admin/pages/movie-processing/models/requests/movie-processing-request.model';
+import {UpdateMovieRequestModel} from '../../../../../../modules/admin/pages/movie-processing/models/requests/update-movie-request.model';
 import {MovieProcessingSeanceTimeRequestModel} from '../../../../../../modules/admin/pages/movie-processing/models/requests/movie-processing-seance-time-request.model';
 
 export class AdminAutomapperMaps {
   public static InitializeMaps(): void {
-    automapper.createMap(MovieProcessingModel.name, MovieProcessingRequestModel.name);
+    automapper.createMap(MovieProcessingModel.name, UpdateMovieRequestModel.name);
     automapper.createMap(MovieProcessingSeanceTimeModel.name, SeanceApiModel.name);
 
     automapper.createMap(MovieProcessingDayApiModel.name, MovieProcessingDayModel.name);
