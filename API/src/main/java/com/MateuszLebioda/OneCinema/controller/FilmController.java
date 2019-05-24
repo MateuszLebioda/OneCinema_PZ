@@ -33,6 +33,14 @@ public class FilmController {
         return  formatter.returnJson(filmService.getFilmDescriptionById(id));
     }
 
+    @ApiOperation(value = "Delete film by id")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public String deleteFilm(@PathVariable String id) throws JsonProcessingException {
+        return  formatter.returnJson(filmService.deleteFilm(id));
+    }
+
+
     @ApiOperation(value = "Return simple set of film")
     @RequestMapping(value = "/simpleMovieList", method = RequestMethod.GET)
     @ResponseBody
