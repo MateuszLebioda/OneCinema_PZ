@@ -29,8 +29,6 @@ public class Reservation {
     @JoinColumn(name = "id_seans")
     private Seance seance;
 
-    @Column(name = "zajete")
-    boolean occupied;
 
     public String getId() {
         return id;
@@ -54,13 +52,5 @@ public class Reservation {
 
     public void setSeance(Seance seance) {
         this.seance = seance;
-    }
-
-    public boolean isOccupied() {
-        return occupied;
-    }
-
-    public void setOccupied(boolean occupied) {
-        this.occupied = occupied;
     }
 }

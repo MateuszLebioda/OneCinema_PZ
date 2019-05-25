@@ -1,6 +1,8 @@
 package com.MateuszLebioda.OneCinema.controller;
 
 import com.MateuszLebioda.OneCinema.Model.Sence.SeanceRequestModel;
+import com.MateuszLebioda.OneCinema.entity.*;
+import com.MateuszLebioda.OneCinema.exception.CannotFindObjectException;
 import com.MateuszLebioda.OneCinema.service.RoomService;
 import com.MateuszLebioda.OneCinema.utils.formatters.Formatter;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -30,7 +32,6 @@ public class RoomController {
     @RequestMapping(value = "/getSeances", method = RequestMethod.POST)
     @ResponseBody
     public String getSeances(@RequestBody SeanceRequestModel seanceRequestModel) throws JsonProcessingException {
-        return  formatter.returnJson(roomService.getSeancesFromSeanceRequestModel(seanceRequestModel));
+        return formatter.returnJson(roomService.getSeancesFromSeanceRequestModel(seanceRequestModel));
     }
-
 }

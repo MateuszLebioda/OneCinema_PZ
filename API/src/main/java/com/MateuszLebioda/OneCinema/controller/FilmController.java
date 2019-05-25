@@ -63,4 +63,12 @@ public class FilmController {
         }
         return validatorStatus;
     }
+
+    @ApiOperation(value = "preview about film")
+    @RequestMapping(value = "preview/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public String previewFilm(@PathVariable String id){
+
+        return null;
+    }
 }
