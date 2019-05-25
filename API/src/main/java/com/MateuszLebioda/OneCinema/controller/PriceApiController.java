@@ -1,6 +1,6 @@
 package com.MateuszLebioda.OneCinema.controller;
 
-import com.MateuszLebioda.OneCinema.service.Formatter;
+import com.MateuszLebioda.OneCinema.utils.Formatter;
 import com.MateuszLebioda.OneCinema.service.PriceService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wordnik.swagger.annotations.ApiOperation;

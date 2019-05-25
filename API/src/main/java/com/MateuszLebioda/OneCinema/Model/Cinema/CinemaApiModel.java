@@ -12,7 +12,7 @@ public class CinemaApiModel {
     private String address;
     private String phoneNumber;
     private String email;
-    private int screeningInRoomsCount;
+    private int screeningRoomsCount;
     private int seatsCount;
 
     public CinemaApiModel(Cinema cinema) {
@@ -22,7 +22,7 @@ public class CinemaApiModel {
         setAddress(cinema.getCity() + " " + cinema.getStreet() + " " + cinema.getNumber());
         setPhoneNumber(cinema.getPhone());
         setEmail(cinema.geteMail());
-        setScreeningInRoomsCount(cinema.getRooms().size());
+        setScreeningRoomsCount(cinema.getRooms().size());
         setSeatsCount(cinema.getRooms());
     }
 
@@ -74,12 +74,12 @@ public class CinemaApiModel {
         this.email = email;
     }
 
-    public int getScreeningInRoomsCount() {
-        return screeningInRoomsCount;
+    public int getScreeningRoomsCount() {
+        return screeningRoomsCount;
     }
 
-    public void setScreeningInRoomsCount(int screeningInRoomsCount) {
-        this.screeningInRoomsCount = screeningInRoomsCount;
+    public void setScreeningRoomsCount(int screeningRoomsCount) {
+        this.screeningRoomsCount = screeningRoomsCount;
     }
 
     public int getSeatsCount() {
