@@ -4,7 +4,6 @@ import com.MateuszLebioda.OneCinema.Model.Movie.MovieProcessingAddMovieFilmReque
 import com.MateuszLebioda.OneCinema.Model.Movie.MovieShortInfoApiModel;
 import com.MateuszLebioda.OneCinema.entity.Film;
 import com.MateuszLebioda.OneCinema.exception.CannotFindObjectException;
-import com.MateuszLebioda.OneCinema.service.FilmService;
 import com.MateuszLebioda.OneCinema.service.SeanceService;
 import com.MateuszLebioda.OneCinema.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;

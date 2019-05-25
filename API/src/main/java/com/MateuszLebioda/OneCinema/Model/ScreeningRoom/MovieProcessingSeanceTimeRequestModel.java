@@ -1,7 +1,7 @@
 package com.MateuszLebioda.OneCinema.Model.ScreeningRoom;
 
 import com.MateuszLebioda.OneCinema.Model.Sence.Dimension;
-import com.MateuszLebioda.OneCinema.utils.DateFormat;
+import com.MateuszLebioda.OneCinema.utils.formatters.DateFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Calendar;
 import java.util.Date;

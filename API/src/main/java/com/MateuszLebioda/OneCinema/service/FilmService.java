@@ -7,7 +7,7 @@ import com.MateuszLebioda.OneCinema.Model.Movie.SimpleMovieApiModel;
 import com.MateuszLebioda.OneCinema.Model.Sence.Dimension;
 import com.MateuszLebioda.OneCinema.entity.*;
 import com.MateuszLebioda.OneCinema.exception.CannotFindObjectException;
-import com.MateuszLebioda.OneCinema.service.validator.MovieProcessingValidator;
+import com.MateuszLebioda.OneCinema.utils.validators.MovieProcessingValidator;
 import com.MateuszLebioda.OneCinema.utils.mappers.MovieMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
