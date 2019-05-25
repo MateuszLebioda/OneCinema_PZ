@@ -106,4 +106,31 @@ public class FilmService {
         return  moves;
     }
 
+    public List<Film> getActualList(){
+        return filmRepository.findCurrentFilms();
+    }
+
+    public List<MovieShortInfoApiModel> get4RandomActualFilm(){
+        final int COUNTER = 4;
+
+        List<Film> films = getActualList();
+        List<MovieShortInfoApiModel> moves = new ArrayList<>();
+
+        if(films.size()>=COUNTER){
+            List<Film> temporaryFilms = new ArrayList<>();
+            Collections.shuffle(films);
+            for(int i=0;i<COUNTER;i++){
+                temporaryFilms.add(films.get(i));
+            }
+            films = temporaryFilms;
+        }
+
+        for(Film film:films){
+            moves.add(movieMapper.mapToMovieShortInfoApiModel(film));
+        }
+
+
+        return  moves;
+    }
+
 }

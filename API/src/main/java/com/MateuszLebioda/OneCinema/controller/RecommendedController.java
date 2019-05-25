@@ -26,4 +26,14 @@ public class RecommendedController {
     public String getSimpleFilms() throws JsonProcessingException {
         return  formatter.returnJson(filmService.get8LatestFilms());
     }
+
+    @ApiOperation(value = "List of 4 random MovieShortInfoApiModel")
+    @RequestMapping(value = "/get4Random", method = RequestMethod.GET)
+    @ResponseBody
+    public String getRandom() throws JsonProcessingException {
+        return  formatter.returnJson(filmService.get4RandomActualFilm());
+    }
+
+
+
 }
