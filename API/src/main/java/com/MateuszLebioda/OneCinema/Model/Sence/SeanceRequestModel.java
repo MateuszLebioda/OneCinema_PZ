@@ -39,7 +39,7 @@ public class SeanceRequestModel {
 
     public Date getMidnight(int hour){
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH,-1);
+        calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY,hour);
         calendar.set(Calendar.MINUTE,0);
         calendar.set(Calendar.SECOND,0);
