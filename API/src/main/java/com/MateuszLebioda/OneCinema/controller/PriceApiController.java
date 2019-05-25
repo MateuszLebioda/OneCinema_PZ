@@ -1,5 +1,6 @@
 package com.MateuszLebioda.OneCinema.controller;
 
+import com.MateuszLebioda.OneCinema.Model.Price.PriceListApiModel;
 import com.MateuszLebioda.OneCinema.utils.formatters.Formatter;
 import com.MateuszLebioda.OneCinema.service.PriceService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,6 +24,13 @@ public class PriceApiController {
     @ResponseBody
     public String spot() throws JsonProcessingException {
         return  formatter.returnJson(priceService.getPriceList());
+    }
+
+    @ApiOperation(value = "Change price")
+    @RequestMapping(value = "/change", method = RequestMethod.POST)
+    @ResponseBody
+    public String changePrice(@RequestBody PriceListApiModel priceListApiModel) throws JsonProcessingException {
+        return  formatter.returnJson(priceService.changePrice(priceListApiModel));
     }
 
 }

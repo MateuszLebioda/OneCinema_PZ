@@ -7,9 +7,15 @@ import java.util.List;
 
 public class PriceApiModel {
 
-    private final String NORMAL = "Normalny";
-    private final String REDUCED = "Ulgowy";
+    public static final String NORMAL = "Normalny";
+    public static final String REDUCED = "Ulgowy";
 
+    private PricePerDayApiModel reduced;
+    private PricePerDayApiModel normal;
+
+    public PriceApiModel(){
+
+    }
 
     public PriceApiModel(List<Price> priceList) {
         for (Price price : priceList) {
@@ -26,7 +32,7 @@ public class PriceApiModel {
         }
     }
 
-    private PricePerDayApiModel normal;
+
 
     public PricePerDayApiModel getNormal() {
         return normal;
@@ -44,5 +50,5 @@ public class PriceApiModel {
         this.reduced = reduced;
     }
 
-    private PricePerDayApiModel reduced;
+
 }
