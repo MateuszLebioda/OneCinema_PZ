@@ -1,6 +1,7 @@
 package com.MateuszLebioda.OneCinema.Model.ScreeningRoom;
 
 import com.MateuszLebioda.OneCinema.Model.Sence.Dimension;
+import com.MateuszLebioda.OneCinema.utils.DateFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,7 +10,7 @@ public class MovieProcessingSeanceTimeRequestModel {
 
     private Dimension projectionType;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm", timezone = "CET")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateFormat.FORMAT, timezone = "CET")
     private Date start;
 
     public boolean validate(){

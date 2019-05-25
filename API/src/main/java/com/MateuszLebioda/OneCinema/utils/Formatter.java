@@ -1,4 +1,4 @@
-package com.MateuszLebioda.OneCinema.service;
+package com.MateuszLebioda.OneCinema.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 

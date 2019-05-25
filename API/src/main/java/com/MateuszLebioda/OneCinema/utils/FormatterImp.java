@@ -1,4 +1,4 @@
-package com.MateuszLebioda.OneCinema.service;
+package com.MateuszLebioda.OneCinema.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,7 +11,7 @@ public class FormatterImp implements Formatter {
 
     public  <T> String returnJson(T obj) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        String format = "dd-MM-yyyy hh:mm";
+        String format = DateFormat.FORMAT;
         objectMapper.setDateFormat(new SimpleDateFormat(format));
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
     }

@@ -3,7 +3,7 @@ package com.MateuszLebioda.OneCinema.controller;
 import com.MateuszLebioda.OneCinema.Model.Movie.MovieProcessingAddMovieFilmRequestMode;
 import com.MateuszLebioda.OneCinema.exception.CannotFindObjectException;
 import com.MateuszLebioda.OneCinema.service.FilmService;
-import com.MateuszLebioda.OneCinema.service.Formatter;
+import com.MateuszLebioda.OneCinema.utils.Formatter;
 import com.MateuszLebioda.OneCinema.service.validator.ValidationErrors;
 import com.MateuszLebioda.OneCinema.service.validator.ValidatorStatus;
 import com.fasterxml.jackson.core.JsonProcessingException;
