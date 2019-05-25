@@ -1,7 +1,7 @@
 package com.MateuszLebioda.OneCinema.controller;
 
 import com.MateuszLebioda.OneCinema.service.CinemaService;
-import com.MateuszLebioda.OneCinema.utils.Formatter;
+import com.MateuszLebioda.OneCinema.utils.formatters.Formatter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

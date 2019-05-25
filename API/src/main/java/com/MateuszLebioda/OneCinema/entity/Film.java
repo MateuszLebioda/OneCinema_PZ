@@ -56,6 +56,9 @@ public class Film {
     @Column(name = "ocena")
     private double rating;
 
+    @Column(name = "data_dodania")
+    private Date addDate;
+
     @Transient
     private Set<Seance>seances3D;
 
@@ -164,5 +167,13 @@ public class Film {
 
     public void setSeances2D(Set<Seance> seances2D) {
         this.seances2D = seances2D;
+    }
+
+    public Date getAddDate() {
+        return addDate;
+    }
+
+    public void setAddDate(Date addDate) {
+        this.addDate = addDate;
     }
 }

@@ -1,5 +1,7 @@
 package com.MateuszLebioda.OneCinema.service;
 
+import com.MateuszLebioda.OneCinema.utils.Status;
+
 public class DeleteStatus {
     Status status;
 

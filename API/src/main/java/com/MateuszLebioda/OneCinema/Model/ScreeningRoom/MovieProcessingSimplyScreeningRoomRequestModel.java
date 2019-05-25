@@ -1,7 +1,7 @@
 package com.MateuszLebioda.OneCinema.Model.ScreeningRoom;
 
-import com.MateuszLebioda.OneCinema.service.validator.ValidationErrors;
-import com.MateuszLebioda.OneCinema.service.validator.ValidatorStatus;
+import com.MateuszLebioda.OneCinema.utils.validators.ValidationErrors;
+import com.MateuszLebioda.OneCinema.utils.validators.ValidatorStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
