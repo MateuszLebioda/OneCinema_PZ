@@ -2,12 +2,13 @@ package com.MateuszLebioda.OneCinema.service;
 
 import com.MateuszLebioda.OneCinema.Model.Movie.MovieApiModel;
 import com.MateuszLebioda.OneCinema.Model.Movie.MovieProcessingAddMovieFilmRequestMode;
+import com.MateuszLebioda.OneCinema.Model.Movie.MovieShortInfoApiModel;
 import com.MateuszLebioda.OneCinema.Model.Movie.SimpleMovieApiModel;
 import com.MateuszLebioda.OneCinema.Model.Sence.Dimension;
 import com.MateuszLebioda.OneCinema.entity.*;
 import com.MateuszLebioda.OneCinema.exception.CannotFindObjectException;
 import com.MateuszLebioda.OneCinema.service.validator.MovieProcessingValidator;
-import org.hibernate.ObjectNotFoundException;
+import com.MateuszLebioda.OneCinema.utils.mappers.MovieMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,9 @@ public class FilmService {
     @Autowired
     MovieProcessingValidator movieProcessingValidator;
 
+    @Autowired
+    MovieMapper movieMapper;
+
 
     public MovieApiModel getFilmDescriptionById(String id){
         Optional<Film> optionalFilm =  filmRepository.findById(id);
@@ -45,19 +49,9 @@ public class FilmService {
     }
 
     public void addFilmFromMovieProcessing(MovieProcessingAddMovieFilmRequestMode movieProcessingAddMovieFilmRequestMode) throws CannotFindObjectException {
-       Film film = new Film();
-       film.setTitle(movieProcessingAddMovieFilmRequestMode.getTitle());
-       film.setDuration(movieProcessingAddMovieFilmRequestMode.getDuration());
-       film.setGraphic(movieProcessingAddMovieFilmRequestMode.getPosterUrl());
-       film.setTrailer(movieProcessingAddMovieFilmRequestMode.getTrailerUrl());
-       film.setRating(movieProcessingAddMovieFilmRequestMode.getRating());
+            Film film = movieMapper.mapMovieProcessingAddMovie(movieProcessingAddMovieFilmRequestMode);
+            filmRepository.save(film);
 
-       film.setTypes(typeService.getTypesById(movieProcessingAddMovieFilmRequestMode.getGenders()));
-
-       if(movieProcessingAddMovieFilmRequestMode.getScreeningRooms()!= null)
-            film.setSeances(seanceService.createSeancesFromMovieProcessing(film,movieProcessingAddMovieFilmRequestMode));
-
-       filmRepository.save(film);
     }
 
 
@@ -101,6 +95,15 @@ public class FilmService {
             status.setStatus(Status.WRONG);
         }
         return status;
+    }
+
+    public List<MovieShortInfoApiModel> get8LatestFilms(){
+        List<Film> films = filmRepository.findTop10ByOrderByAddDateDesc();
+        List<MovieShortInfoApiModel> moves = new ArrayList<>();
+        for(Film film:films){
+            moves.add(movieMapper.mapToMovieShortInfoApiModel(film));
+        }
+        return  moves;
     }
 
 }

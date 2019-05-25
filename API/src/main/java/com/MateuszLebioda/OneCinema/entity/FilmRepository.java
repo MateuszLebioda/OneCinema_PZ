@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface FilmRepository extends JpaRepository<Film,String> {
     List<Film> findAll();
     Optional<Film> findByTitle(String title);
+    List<Film> findTop10ByOrderByAddDateDesc();
 }
