@@ -1,21 +1,23 @@
 package com.MateuszLebioda.OneCinema.service;
 
 import com.MateuszLebioda.OneCinema.Model.Movie.MovieProcessingAddMovieFilmRequestMode;
+import com.MateuszLebioda.OneCinema.Model.Movie.MovieProjectionApiModel;
 import com.MateuszLebioda.OneCinema.Model.ScreeningRoom.MovieProcessingSeanceTimeRequestModel;
 import com.MateuszLebioda.OneCinema.Model.ScreeningRoom.MovieProcessingSimplyScreeningRoomRequestModel;
 import com.MateuszLebioda.OneCinema.Model.Sence.Dimension;
+import com.MateuszLebioda.OneCinema.Model.Sence.SeancesApiModelWithProjectionType;
 import com.MateuszLebioda.OneCinema.entity.Film;
 import com.MateuszLebioda.OneCinema.entity.Room;
 import com.MateuszLebioda.OneCinema.entity.Seance;
 import com.MateuszLebioda.OneCinema.entity.SeanceRepository;
 import com.MateuszLebioda.OneCinema.exception.CannotFindObjectException;
+import com.MateuszLebioda.OneCinema.exception.WrongTimeException;
+import com.MateuszLebioda.OneCinema.utils.mappers.MovieMapper;
+import com.MateuszLebioda.OneCinema.utils.mappers.SeanceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class SeanceService {
@@ -25,6 +27,12 @@ public class SeanceService {
 
     @Autowired
     RoomService roomService;
+
+    @Autowired
+    MovieMapper movieMapper;
+    @Autowired
+    SeanceMapper seanceMapper;
+
 
     public Set<Seance> getCurrentSeances(Film film, Dimension dimension){
         Calendar calendar = Calendar.getInstance();
@@ -60,5 +68,49 @@ public class SeanceService {
         return seances;
     }
 
+
+    public List<MovieProjectionApiModel> getMovieProjectionApiModelList(int dayNumber) throws WrongTimeException {
+        if(dayNumber > 7) throw new WrongTimeException();
+
+        List<MovieProjectionApiModel> movieProjectionApiModel = new ArrayList<>();
+        Date start = prepareDate(dayNumber,0);
+        Date end = prepareDate(dayNumber,24);
+        Set<Seance> seances = seanceRepository.findByStartBetween(start,end);
+        Set<Film> films = prepareFilmSetFromSeancesSet(seances);
+
+        for(Film film: films){
+            movieProjectionApiModel.add(movieMapper.mapToMovieProjectionApiModel(film));
+        }
+        
+        for(Seance seance: seances){
+            for(MovieProjectionApiModel movie: movieProjectionApiModel) {
+                if (seance.getFilm().getTitle().equals(movie.getMovieTitle()))
+                    movie.addToSeanceApiModelList(seanceMapper.mapToSeancesApiModelWithProjectionType(seance));
+            }
+        }
+
+        return movieProjectionApiModel;
+    }
+
+    private Date prepareDate(int dayNumber, int hour){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY,hour);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+        calendar.set(Calendar.DAY_OF_MONTH,calendar.get(Calendar.DAY_OF_MONTH) + dayNumber);
+        return calendar.getTime();
+    }
+
+    private Set<Film> prepareFilmSetFromSeancesSet(Set<Seance> seances){
+        Set<Film> films = new HashSet<>();
+
+        for(Seance seance:seances){
+            films.add(seance.getFilm());
+        }
+
+        return films;
+    }
 
 }

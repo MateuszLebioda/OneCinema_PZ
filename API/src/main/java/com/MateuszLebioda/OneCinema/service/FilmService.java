@@ -1,9 +1,6 @@
 package com.MateuszLebioda.OneCinema.service;
 
-import com.MateuszLebioda.OneCinema.Model.Movie.MovieApiModel;
-import com.MateuszLebioda.OneCinema.Model.Movie.MovieProcessingAddMovieFilmRequestMode;
-import com.MateuszLebioda.OneCinema.Model.Movie.MovieShortInfoApiModel;
-import com.MateuszLebioda.OneCinema.Model.Movie.SimpleMovieApiModel;
+import com.MateuszLebioda.OneCinema.Model.Movie.*;
 import com.MateuszLebioda.OneCinema.Model.Sence.Dimension;
 import com.MateuszLebioda.OneCinema.entity.*;
 import com.MateuszLebioda.OneCinema.exception.CannotFindObjectException;
@@ -36,7 +33,6 @@ public class FilmService {
     @Autowired
     MovieMapper movieMapper;
 
-
     public MovieApiModel getFilmDescriptionById(String id){
         Optional<Film> optionalFilm =  filmRepository.findById(id);
         if(optionalFilm.isPresent()){
@@ -54,7 +50,6 @@ public class FilmService {
             filmRepository.save(film);
 
     }
-
 
     public Set<SimpleMovieApiModel> getAllSimpleMovieApiModel(){
         List<Film> films = filmRepository.findAll();
