@@ -21,7 +21,6 @@ public class SwaggerConfiguration implements WebMvcConfigurer{
     public Docket productApi(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                //.apis(RequestHandlerSelectors.basePackage("com.MateuszLebioda.OneCinema.controller"))
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
