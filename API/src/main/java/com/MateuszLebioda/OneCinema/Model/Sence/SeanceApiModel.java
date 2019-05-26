@@ -9,6 +9,10 @@ public class SeanceApiModel {
     public Date start;
     public Date finish;
 
+    public SeanceApiModel(){
+
+    };
+
     public SeanceApiModel(Seance seances) {
         setId(seances.getId());
         setStart(seances.getStart());
@@ -38,4 +42,5 @@ public class SeanceApiModel {
     public void setFinish(Date finish) {
         this.finish = finish;
     }
+
 }
