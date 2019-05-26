@@ -1,6 +1,7 @@
 package com.MateuszLebioda.OneCinema.service;
 
 import com.MateuszLebioda.OneCinema.Model.ScreeningRoom.ScreeningRoomApiModel;
+import com.MateuszLebioda.OneCinema.Model.Sence.SeanceAndRoomApiModel;
 import com.MateuszLebioda.OneCinema.Model.Sence.SeanceApiModel;
 import com.MateuszLebioda.OneCinema.Model.Sence.SeanceApiModelFull;
 import com.MateuszLebioda.OneCinema.Model.Sence.SeanceRequestModel;
@@ -73,17 +74,24 @@ public class RoomService {
         List<SeanceApiModelFull> seanceApiModelFulls = new ArrayList<>();
         seanceRequestModel.getMidNightStartDate();
 
-
-
         Set<Seance> seances = seanceRepository.findByRoomIdAndStartBetween(seanceRequestModel.getScreeningRoomId(),
                                                             seanceRequestModel.getMidNightStartDate(),
                                                             seanceRequestModel.getMidNightEndDate());
-
         for (Seance seance:seances){
             seanceApiModelFulls.add(seanceMapper.mapToSeanceApiModelFull(seance));
         }
-
         return seanceApiModelFulls;
+    }
+
+    public SeanceAndRoomApiModel getSeanceAndRoomBySeanceId(String id) throws CannotFindObjectException {
+
+        Optional<Seance> seance = seanceRepository.findById(id);
+        if(seance.isPresent()){
+            return seanceMapper.mapToSeanceAndRoomApiModel(seance.get());
+
+        }else {
+            throw new CannotFindObjectException();
+        }
     }
 
 }
