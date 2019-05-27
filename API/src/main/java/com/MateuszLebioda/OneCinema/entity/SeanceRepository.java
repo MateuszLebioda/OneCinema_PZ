@@ -13,4 +13,6 @@ public interface SeanceRepository extends JpaRepository<Seance,String> {
     List<Seance> findAll();
     Set<Seance> findByFilmAndIs3DAndStartBetween(Film film,boolean is3D, Date startDate, Date endDate);
     Set<Seance> findByRoomIdAndStartAfter(String roomId,Date start);
+    Set<Seance> findByRoomIdAndStartBetween(String roomId,Date start,Date finish);
+    Set<Seance> findByStartBetween(Date startDate, Date endDate);
 }

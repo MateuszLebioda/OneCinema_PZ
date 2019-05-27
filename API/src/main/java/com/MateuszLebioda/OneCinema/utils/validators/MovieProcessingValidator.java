@@ -1,4 +1,4 @@
-package com.MateuszLebioda.OneCinema.service.validator;
+package com.MateuszLebioda.OneCinema.utils.validators;
 
 import com.MateuszLebioda.OneCinema.Model.Movie.MovieProcessingAddMovieFilmRequestMode;
 import com.MateuszLebioda.OneCinema.Model.Sence.SeancesTime;

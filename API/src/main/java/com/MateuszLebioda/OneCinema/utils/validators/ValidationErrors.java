@@ -1,4 +1,4 @@
-package com.MateuszLebioda.OneCinema.service.validator;
+package com.MateuszLebioda.OneCinema.utils.validators;
 
 public enum ValidationErrors {
 

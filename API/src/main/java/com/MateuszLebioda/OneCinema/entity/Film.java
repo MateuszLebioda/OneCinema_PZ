@@ -5,10 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -55,6 +52,9 @@ public class Film {
 
     @Column(name = "ocena")
     private double rating;
+
+    @Column(name = "data_dodania")
+    private Date addDate;
 
     @Transient
     private Set<Seance>seances3D;
@@ -164,5 +164,21 @@ public class Film {
 
     public void setSeances2D(Set<Seance> seances2D) {
         this.seances2D = seances2D;
+    }
+
+    public Date getAddDate() {
+        return addDate;
+    }
+
+    public void setAddDate(Date addDate) {
+        this.addDate = addDate;
+    }
+
+    public List<String> getGendersStringList(){
+        List<String> genders = new ArrayList<>();
+        for(Type type:types){
+            genders.add(type.getName());
+        }
+        return genders;
     }
 }

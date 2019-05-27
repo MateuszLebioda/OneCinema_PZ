@@ -3,9 +3,9 @@ package com.MateuszLebioda.OneCinema.controller;
 import com.MateuszLebioda.OneCinema.Model.Movie.MovieProcessingAddMovieFilmRequestMode;
 import com.MateuszLebioda.OneCinema.exception.CannotFindObjectException;
 import com.MateuszLebioda.OneCinema.service.FilmService;
-import com.MateuszLebioda.OneCinema.service.Formatter;
-import com.MateuszLebioda.OneCinema.service.validator.ValidationErrors;
-import com.MateuszLebioda.OneCinema.service.validator.ValidatorStatus;
+import com.MateuszLebioda.OneCinema.utils.formatters.Formatter;
+import com.MateuszLebioda.OneCinema.utils.validators.ValidationErrors;
+import com.MateuszLebioda.OneCinema.utils.validators.ValidatorStatus;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +62,13 @@ public class FilmController {
             }
         }
         return validatorStatus;
+    }
+
+    @ApiOperation(value = "preview about film")
+    @RequestMapping(value = "preview/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public String previewFilm(@PathVariable String id){
+
+        return null;
     }
 }

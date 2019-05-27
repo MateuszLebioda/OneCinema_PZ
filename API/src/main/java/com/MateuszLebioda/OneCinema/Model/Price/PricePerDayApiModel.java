@@ -5,6 +5,10 @@ import com.MateuszLebioda.OneCinema.entity.Price;
 
 public class PricePerDayApiModel{
 
+    PricePerDayApiModel(){
+
+    }
+
     PricePerDayApiModel(Price price){
         mondayThursday = price.getMondayThursday();
         fridaySunday = price.getFridaySunday();
