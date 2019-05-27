@@ -27,7 +27,7 @@ export class TodaysRepertoireComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._repertoireListService.getRepertoire(1).subscribe(r => {
+    this._repertoireListService.getRepertoire(0).subscribe(r => {
       console.log('przed', r);
       this.repertoire = this._mapper.toMovieProjectionCollection(r);
       console.log('po', this.repertoire);

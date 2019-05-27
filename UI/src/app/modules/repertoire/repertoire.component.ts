@@ -28,7 +28,7 @@ export class RepertoireComponent implements OnInit {
 
   public ngOnInit(): void {
     this.data = this._repertoireService.initComponent();
-    this._repertoireListService.getRepertoire(1).subscribe(r => {
+    this._repertoireListService.getRepertoire(0).subscribe(r => {
       this.data.repertoireList.repertoire = this._mapper.toMovieProjectionCollection(r);
     });
     this.isMobile = this._deviceService.isMobile();
@@ -36,9 +36,12 @@ export class RepertoireComponent implements OnInit {
 
   public repertoireList(bookmarkLetter: string, dayNumber: number): void {
     this._repertoireListService.getRepertoire(dayNumber).subscribe(r => {
+      console.log('xd', r);
       const result = new RepertoireListModel();
       result.bookmarkLetter = bookmarkLetter;
       result.repertoire = this._mapper.toMovieProjectionCollection(r);
+      this.data.repertoireList = result;
+      console.log('reportuarrryk', this.data.repertoireList);
     });
   }
 

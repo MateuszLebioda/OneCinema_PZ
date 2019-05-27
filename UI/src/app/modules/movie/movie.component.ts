@@ -26,6 +26,8 @@ export class MovieComponent implements OnInit, AfterViewInit {
 
     this._movieService.getMovie(this.movieId).subscribe(movie => {
       this.movie = this._mapper.toMovie(movie);
+      console.log(movie);
+      console.log(this.movie);
       this.movie.rating = 3;
     });
   }

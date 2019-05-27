@@ -4,6 +4,9 @@ import {ScreeningRoom} from './models/screening-room';
 import {SeanceApiModel} from '../../models/api/seance-api.model';
 import {ScreeningRoomService} from './services/screening-room.service';
 import {NotificationService} from '../../../../../../../../core/services/notification.service';
+import {ScreeningRoomApiService} from './services/screening-room-api.service';
+import {MapperService} from '../../../../../../../../shared/helpers/external/mapper/mapper.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-screening-room',
@@ -21,17 +24,27 @@ export class ScreeningRoomComponent implements OnInit {
 
   constructor(
     private _screeningRoomService: ScreeningRoomService,
+    private _screeningRoomApiService: ScreeningRoomApiService,
+    private _mapper: MapperService,
+    private route: ActivatedRoute,
     private _notificationService: NotificationService) {
   }
 
   ngOnInit() {
-    this.screeningRoom = this._screeningRoomService.getScreeningRoom(this.seance.screeningRoomId);
-    this._setScreeningRoomPlane();
-    this._screeningRoomService.setBookedSeats(this.screeningRoom, this.bookedSeats);
+    console.log('na pocz', this.route.snapshot.params.seanceId);
+    this.seance.screeningRoomId = this.route.snapshot.params.seanceId;
+    this._screeningRoomApiService.getScreeningRoomPlan(this.seance.screeningRoomId).subscribe(p => {
+      console.log('przed', p);
+      this.screeningRoom = this._mapper.toScreeningRoom(p);
+      console.log('inittt', this.screeningRoom);
 
-    setInterval(() => {
       this._setScreeningRoomPlane();
-    }, 1000 * 5);
+      this._screeningRoomService.setBookedSeats(this.screeningRoom, this.bookedSeats);
+
+      setInterval(() => {
+        this._setScreeningRoomPlane();
+      }, 1000 * 5);
+    });
   }
 
   public bookSeat(seat: Seat): void {
@@ -40,15 +53,16 @@ export class ScreeningRoomComponent implements OnInit {
   }
 
   private _setScreeningRoomPlane(): void {
-    const _alreadyBookedSeatsForThisMoment = this._screeningRoomService.getAlreadyBookedSeatsForThisMoment(this.seance.id);
-    if (!this._screeningRoomService.areArraysEqual(_alreadyBookedSeatsForThisMoment, this._alreadyBookedSeats)) {
-      this._alreadyBookedSeats = Object.assign([], _alreadyBookedSeatsForThisMoment);
-      const removedSeat = this._screeningRoomService.setAlreadyBookedSeatsOnPlaneAndRemoveThemFromBookedSeatsCollection(
-        this.screeningRoom, _alreadyBookedSeatsForThisMoment, this.bookedSeats);
+    this._screeningRoomApiService.getBookedSeats(this.seance.id).subscribe(alreadyBookedSeats => {
+      if (!this._screeningRoomService.areArraysEqual(alreadyBookedSeats, this._alreadyBookedSeats)) {
+        this._alreadyBookedSeats = Object.assign([], alreadyBookedSeats);
+        const removedSeat = this._screeningRoomService.setAlreadyBookedSeatsOnPlaneAndRemoveThemFromBookedSeatsCollection(
+          this.screeningRoom, alreadyBookedSeats, this.bookedSeats);
 
-      if (removedSeat) {
-        this._notificationService.showError('Wybrane przez ciebie miejsce zostało już zarezerwowane przez inną osobę więc zostało usunięte z listy wybranych przez ciebie miejsc');
+        if (removedSeat) {
+          this._notificationService.showError('Wybrane przez ciebie miejsce zostało już zarezerwowane przez inną osobę więc zostało usunięte z listy wybranych przez ciebie miejsc');
+        }
       }
-    }
+    });
   }
 }

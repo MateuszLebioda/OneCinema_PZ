@@ -10,15 +10,9 @@ export class PropertiesMapper {
 
   public static getSeancesPerTimesOfDay(source: SeanceApiModel[]): SeancesPerTimesOfDay {
     const destination: SeancesPerTimesOfDay = new SeancesPerTimesOfDay();
-
+    console.log('LECI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', source);
     for (const seance of source) {
-      console.log(seance.start);
-      console.log('nowa', JSON.stringify(new Date(new Date().toUTCString())));
-      console.log('UTC', new Date().toUTCString());
-      console.log('UTC', new Date().toUTCString());
-      console.log('UTC po formacie', new Date(new Date().toUTCString()));
-      console.log('ss', seance.start.toString());
-      console.log(Luxon.utils.DateTime.fromISO(seance.start.toString()));
+      console.log('polecialo', seance);
       seance.start = new Date(seance.start);
       seance.finish = new Date(seance.finish);
 
@@ -27,17 +21,18 @@ export class PropertiesMapper {
       untilNoon.setMinutes(0);
       untilNoon.setMilliseconds(0);
 
-      const evening = new Date(untilNoon);
-      untilNoon.setHours(18);
+      const afterNoon = new Date(untilNoon);
+      afterNoon.setHours(18);
 
       if (seance.start <= untilNoon) {
         destination.seancesUntilNoon.push(seance);
-      } else if (seance.start <= evening) {
+      } else if (seance.start <= afterNoon) {
         destination.seancesAfternoon.push(seance);
       } else {
         destination.seancesEvening.push(seance);
       }
     }
+
     return destination;
   }
 

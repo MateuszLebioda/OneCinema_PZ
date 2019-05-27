@@ -27,12 +27,10 @@ export class AutomapperMaps {
     automapper.createMap(MovieApiModel.name, Movie.name)
       .forMember('seances2D', (opts: AutoMapperJs.IMemberConfigurationOptions) => {
         const source = opts.sourceObject[opts.sourcePropertyName] as DaySeancesApiModel[];
-
         return this.toSeancesPerDayCollection(source);
       })
       .forMember('seances3D', (opts: AutoMapperJs.IMemberConfigurationOptions) => {
         const source = opts.sourceObject[opts.sourcePropertyName] as DaySeancesApiModel[];
-
         return this.toSeancesPerDayCollection(source);
       });
 
@@ -44,7 +42,7 @@ export class AutomapperMaps {
 
   private static toSeancesPerDayCollection(source: DaySeancesApiModel[]): SeancesPerDay[] {
     const destination: SeancesPerDay[] = [];
-
+    console.log('toSeancesPerDayCollection', source);
     source.forEach(s => {
       const dest = automapper.map(DaySeancesApiModel.name, SeancesPerDay.name, s);
       dest.seances = PropertiesMapper.getSeancesPerTimesOfDay(s.seances);
