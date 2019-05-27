@@ -29,7 +29,7 @@ public class FilmController {
     @ApiOperation(value = "Return description of film")
     @RequestMapping(value = "/description/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public String spot(@PathVariable String id) throws JsonProcessingException {
+    public String spot(@PathVariable String id) throws JsonProcessingException, CannotFindObjectException {
         return  formatter.returnJson(filmService.getFilmDescriptionById(id));
     }
 

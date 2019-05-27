@@ -1,18 +1,18 @@
 package com.MateuszLebioda.OneCinema.Model.Sence;
 
-import com.MateuszLebioda.OneCinema.entity.Seance;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class DaySeancesApiModel {
 
     private int day;
-    private SeanceApiModel seances;
+    private List<SeanceApiModel> seances;
 
-    public DaySeancesApiModel(Seance seances) {
-        setDay(seances.getStart());
-        setSeances(new SeanceApiModel(seances));
+    public DaySeancesApiModel(){
+
     }
+
 
     private void setDay(Date day) {
         Calendar nowCalendar = Calendar.getInstance();
@@ -29,13 +29,11 @@ public class DaySeancesApiModel {
         this.day = day;
     }
 
-    public SeanceApiModel getSeances() {
+    public List<SeanceApiModel> getSeances() {
         return seances;
     }
 
-    public void setSeances(SeanceApiModel seances) {
+    public void setSeances(List<SeanceApiModel> seances) {
         this.seances = seances;
     }
-
-
 }

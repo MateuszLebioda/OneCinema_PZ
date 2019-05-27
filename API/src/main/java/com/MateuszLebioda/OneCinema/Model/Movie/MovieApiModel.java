@@ -21,34 +21,6 @@ public class MovieApiModel {
     private Set<DaySeancesApiModel> seances2D;
     private Set<DaySeancesApiModel> seances3D;
 
-    public MovieApiModel(Film film){
-        setId(film.getId());
-        setTitle(film.getTitle());
-        setPosterUrl(film.getGraphic());
-        setTrailerUrl(film.getTrailer());
-        setDuration(film.getDuration());
-        setGendersByTypeSet(film.getTypes());
-        setRating(film.getRating());
-        setSeances2DBySeance(film.getSeances2D());
-        setSeances3DBySeance(film.getSeances3D());
-    }
-
-    public void setSeances2DBySeance(Set<Seance> seances2D) {
-        Set<DaySeancesApiModel> seances = new HashSet<>();
-        for(Seance seance:seances2D){
-            seances.add(new DaySeancesApiModel(seance));
-        }
-        this.seances2D = seances;
-    }
-
-    public void setSeances3DBySeance(Set<Seance> seances3D) {
-        Set<DaySeancesApiModel> seances = new HashSet<>();
-        for(Seance seance:seances3D){
-            seances.add(new DaySeancesApiModel(seance));
-        }
-        this.seances3D = seances;
-    }
-
     public void setGendersByTypeSet(Set<Type> genders) {
         this.genders = new ArrayList<>();
         for(Type gender:genders){

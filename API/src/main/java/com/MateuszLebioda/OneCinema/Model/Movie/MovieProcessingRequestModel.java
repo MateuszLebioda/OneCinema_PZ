@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MovieProcessingRequestModel {
     private String title;
-    private int rating;
+    private double rating;
     private List<String> genders;
     private String posterUrl;
     private String trailerUrl;
@@ -53,6 +53,8 @@ public class MovieProcessingRequestModel {
     private void validateRating(){
         if(!(rating >= 1.0 && rating <= 5.0)){
             validatorStatus.addError(ValidationErrors.RATING_IS_NOT_IN_THE_RANGE);
+        }else if(rating % 0.5 != 0){
+            validatorStatus.addError(ValidationErrors.RATING_IS_NOT_IN_THE_RANGE);
         }
     }
 
@@ -69,11 +71,11 @@ public class MovieProcessingRequestModel {
         this.title = title;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
