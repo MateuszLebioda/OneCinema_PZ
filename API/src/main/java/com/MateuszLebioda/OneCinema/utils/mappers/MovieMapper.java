@@ -1,8 +1,10 @@
 package com.MateuszLebioda.OneCinema.utils.mappers;
 
+import com.MateuszLebioda.OneCinema.Model.Movie.MovieApiModel;
 import com.MateuszLebioda.OneCinema.Model.Movie.MovieProcessingAddMovieFilmRequestMode;
 import com.MateuszLebioda.OneCinema.Model.Movie.MovieProjectionApiModel;
 import com.MateuszLebioda.OneCinema.Model.Movie.MovieShortInfoApiModel;
+import com.MateuszLebioda.OneCinema.Model.Sence.DaySeancesApiModel;
 import com.MateuszLebioda.OneCinema.Model.Sence.Dimension;
 import com.MateuszLebioda.OneCinema.entity.Film;
 import com.MateuszLebioda.OneCinema.entity.Seance;
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class MovieMapper {
@@ -22,6 +26,9 @@ public class MovieMapper {
 
     @Autowired
     SeanceService seanceService;
+
+    @Autowired
+    SeanceMapper seanceMapper;
 
     public Film mapMovieProcessingAddMovie(MovieProcessingAddMovieFilmRequestMode  movieProcessingAddMovieFilmRequestMode) throws CannotFindObjectException {
         Film film = new Film();
@@ -60,5 +67,25 @@ public class MovieMapper {
         movieApiMode.setSeances(new ArrayList<>());
 
         return movieApiMode;
+    }
+
+    public MovieApiModel mapToMovieApiModel(Film film){
+        MovieApiModel movieApiModel = new MovieApiModel();
+
+        movieApiModel.setId(film.getId());
+        movieApiModel.setTitle(film.getTitle());
+        movieApiModel.setPosterUrl(film.getGraphic());
+        movieApiModel.setTrailerUrl(film.getTrailer());
+        movieApiModel.setDuration(film.getDuration());
+        movieApiModel.setGendersByTypeSet(film.getTypes());
+        movieApiModel.setRating(film.getRating());
+
+        Set<DaySeancesApiModel> seancesApiModel2D =  seanceMapper.mapToSetDaySeancesApiModel(film.getSeances2D());
+        Set<DaySeancesApiModel> seancesApiModel3D =  seanceMapper.mapToSetDaySeancesApiModel(film.getSeances3D());
+
+        movieApiModel.setSeances2D(seancesApiModel2D);
+        movieApiModel.setSeances3D(seancesApiModel3D);
+
+        return movieApiModel;
     }
 }

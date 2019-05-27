@@ -36,13 +36,19 @@ public class SeanceService {
 
     public Set<Seance> getCurrentSeances(Film film, Dimension dimension){
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH,7);
+
+        calendar.setTime(new Date());
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        Date start  = calendar.getTime();
+
+        calendar.add(Calendar.DAY_OF_MONTH,8);
         Date end  = calendar.getTime();
+
         switch (dimension){
             case _2D:
-                return  seanceRepository.findByFilmAndIs3DAndStartBetween(film,false,new Date(),end);
+                return  seanceRepository.findByFilmAndIs3DAndStartBetween(film,false,start,end);
             case _3D:
-                return seanceRepository.findByFilmAndIs3DAndStartBetween(film,true,new Date(),end);
+                return seanceRepository.findByFilmAndIs3DAndStartBetween(film,true,start,end);
             default:
                 return null;
         }
