@@ -48,24 +48,15 @@ export class SeanceComponent implements OnInit, OnDestroy {
       return this.data.selectedDaySeances.seancesWithAddedByUser;
     }
 
-    const request: SeancesRequestModel = new SeancesRequestModel();
-    request.screeningRoomId = this.data.selectedDaySeances.screeningRoomId;
-    request.date = this._service.getDate(this.data.selectedWeekNumber, this.data.selectedDayNumber);
-    this._apiService.getMoviesProjections(request).subscribe(m => {
-      const selectedDaySeancesModel = new SelectedDaySeancesModel();
-      selectedDaySeancesModel.screeningRoomId = request.screeningRoomId;
-      selectedDaySeancesModel.weekNumber = this.data.selectedWeekNumber;
-      selectedDaySeancesModel.dayNumber = this.data.selectedDayNumber;
-      selectedDaySeancesModel.seances = m;
+    const request = this._getSeancesRequestModel(this.data.selectedDaySeances.screeningRoomId, this.data.selectedWeekNumber, this.data.selectedDayNumber);
+    this._apiService.getMoviesProjections(request).subscribe(seances => {
 
-      this.data.selectedDaySeances = selectedDaySeancesModel;
-
+      this.data.selectedDaySeances = this._getSelectedDaySeancesModel(
+        this.data.selectedDaySeances.screeningRoomId, this.data.selectedWeekNumber, this.data.selectedDayNumber, seances);
       this._service.attachAddedAndDetachRemovedSeancesToSelectedDaySeances(this.data);
-
       this.data.weekCount = this.weekCount;
+      return this.data.selectedDaySeances.seancesWithAddedByUser;
     });
-
-    return this.data.selectedDaySeances.seancesWithAddedByUser;
   }
 
   public get addedSeances(): MovieProcessingWeekModel[] {
@@ -82,6 +73,7 @@ export class SeanceComponent implements OnInit, OnDestroy {
 
   public data: SeanceComponentDataModel = new SeanceComponentDataModel();
   public ProjectionType = ProjectionType;
+  public initComponent = false;
 
   private readonly emptyMovieProcessingWeekModel: MovieProcessingWeekModel[] = [];
   private _movieDurationListner: Subscription = new Subscription();
@@ -94,23 +86,17 @@ export class SeanceComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._apiService.getScreeningRooms().subscribe(s => {
-      const request: SeancesRequestModel = new SeancesRequestModel();
-      request.screeningRoomId = s[0].id;
-      request.date = this._service.getDate(0, 1);
-      this._apiService.getMoviesProjections(request).subscribe(m => {
-        const selectedDaySeancesModel = new SelectedDaySeancesModel();
-        selectedDaySeancesModel.screeningRoomId = request.screeningRoomId;
-        selectedDaySeancesModel.weekNumber = 0;
-        selectedDaySeancesModel.dayNumber = 1;
-
-        this.data = this._service.initComponent(<FormGroup>this._controlContainer.control, this.movieDuration, s, selectedDaySeancesModel);
+      const request = this._getSeancesRequestModel(s[0].id, 0, 1);
+      this._apiService.getMoviesProjections(request).subscribe(x => {
+        const selectedDaySeances = this._getSelectedDaySeancesModel(s[0].id, 0, 1, x);
+        this.data = this._service.initComponent(<FormGroup>this._controlContainer.control, this.movieDuration, s, selectedDaySeances);
+        this._movieDurationListner = this.movieDuration.valueChanges.subscribe(() => {
+          if (this.movieDuration.valid) {
+            this._service.setSeanceTimeValidator(this.data);
+          }
+        });
+        this.initComponent = true;
       });
-    });
-
-    this._movieDurationListner = this.movieDuration.valueChanges.subscribe(() => {
-      if (this.movieDuration.valid) {
-        this._service.setSeanceTimeValidator(this.data);
-      }
     });
   }
 
@@ -194,23 +180,40 @@ export class SeanceComponent implements OnInit, OnDestroy {
     const screeningRoom = this.data.bookingForm.get('screeningRoom').value as ScreeningRoomApiModel;
     this._service.setAddedSeances(this.data);
 
-    const request: SeancesRequestModel = new SeancesRequestModel();
-    request.screeningRoomId = screeningRoom.id;
-    request.date = this._service.getDate(this.data.selectedWeekNumber, this.data.selectedDayNumber);
-    this._apiService.getMoviesProjections(request).subscribe(m => {
-      const selectedDaySeancesModel = new SelectedDaySeancesModel();
-      selectedDaySeancesModel.screeningRoomId = request.screeningRoomId;
-      selectedDaySeancesModel.weekNumber = this.data.selectedWeekNumber;
-      selectedDaySeancesModel.dayNumber = this.data.selectedDayNumber;
-      selectedDaySeancesModel.seances = m;
-      console.log(selectedDaySeancesModel.seances);
 
-      this.data.selectedDaySeances = selectedDaySeancesModel;
+    const request = this._getSeancesRequestModel(screeningRoom.id, this.data.selectedWeekNumber, this.data.selectedDayNumber);
+    this._apiService.getMoviesProjections(request).subscribe(x => {
+      this.data.selectedDaySeances = this._getSelectedDaySeancesModel(screeningRoom.id, this.data.selectedWeekNumber, this.data.selectedDayNumber, x);
     });
+
+    // this.data.selectedDaySeances = this._service.getSelectedDaySeances(
+    //   screeningRoom.id, this.data.selectedWeekNumber, this.data.selectedDayNumber - 1);
   }
 
   public getSelectedDayDate(): Date {
     return this._service.getDate(this.data.selectedDaySeances.weekNumber, this.data.selectedDaySeances.dayNumber);
+  }
+
+  private _getSelectedDaySeancesModel(seanceRoomId: string, weekNumber: number, dayNumber: number, seances: SeanceApiModel[]): SelectedDaySeancesModel {
+    const result = new SelectedDaySeancesModel();
+    result.screeningRoomId = seanceRoomId;
+    result.weekNumber = weekNumber;
+    result.dayNumber = dayNumber;
+
+    seances.forEach(w => {
+      w.start = new Date(w.start);
+      w.finish = new Date(w.finish);
+    });
+
+    result.seances = seances;
+    return result;
+  }
+
+  private _getSeancesRequestModel(seanceRoomId: string, weekNumber: number, dayNumber: number): SeancesRequestModel {
+    const request: SeancesRequestModel = new SeancesRequestModel();
+    request.screeningRoomId = seanceRoomId;
+    request.date = this._service.getDate(weekNumber, dayNumber);
+    return request;
   }
 }
 

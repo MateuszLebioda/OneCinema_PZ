@@ -35,7 +35,7 @@ export class SeanceService {
   public initComponent(bookingForm: FormGroup,
                        movieDuration: FormControl,
                        screeningRooms: ScreeningRoomApiModel[],
-                       selectedDaySeancesModel: SelectedDaySeancesModel): SeanceComponentDataModel {
+                       x: SelectedDaySeancesModel): SeanceComponentDataModel {
     const result = new SeanceComponentDataModel();
 
     const curretDate = new Date();
@@ -55,7 +55,7 @@ export class SeanceService {
       result.bookingForm.get('screeningRoom').setValue(screeningRoom);
     }
 
-    result.selectedDaySeances = selectedDaySeancesModel;
+    result.selectedDaySeances = x;
     result.selectedDaySeances.screeningRoomId = result.screeningRooms[0].id;
     this.setSeanceTimeValidator(result);
 
@@ -74,6 +74,7 @@ export class SeanceService {
           data.movieDuration,
           selectedScreeningRoom.breakBeforeAndAfterMovie)
       ]));
+
   }
 
   public isInvalid(formControlName: string, bookingForm: FormGroup): boolean {
@@ -84,11 +85,12 @@ export class SeanceService {
     return this._formValidatorService.isInvalidAndTouched(bookingForm, formControlName);
   }
 
-  // public getSelectedDaySeances(seanceRoomId: string, weekNumber: number, dayNumber: number): SelectedDaySeancesModel {
+  // public async getSelectedDaySeances(seanceRoomId: string, weekNumber: number, dayNumber: number): SelectedDaySeancesModel {
   //   const result = new SelectedDaySeancesModel();
   //   result.screeningRoomId = seanceRoomId;
   //   result.weekNumber = weekNumber;
   //   result.dayNumber = dayNumber;
+  //   result.seances = await this._getMovieProjectionsForSelectedDay(seanceRoomId, weekNumber, dayNumber);
   //
   //   return result;
   // }
@@ -115,7 +117,6 @@ export class SeanceService {
   public setAddedSeances(data: SeanceComponentDataModel): void {
     const weeksCount = data.bookingForm.get('weeksCount').value;
     if (!this._movieHasSelectedScreeningRoom(data)) {
-      console.log('wpaadło');
       this._addNewScreeningRoom(data);
     } else {
       this._removeWeek(data, weeksCount);
@@ -142,7 +143,7 @@ export class SeanceService {
       seance.start = this._getDateWithTime(data.week, data.day, time);
 
       const seanceEnd: DateTime = Luxon.toDateTime(seance.start).plus({minutes: data.duration});
-      seance.end = Luxon.toDate(seanceEnd);
+      seance.finish = Luxon.toDate(seanceEnd);
 
       const index = addedSeances.findIndex(x => x.id === data.screeningRoomId);
       addedSeances[index].weeks[data.week].weekNumber = data.week;
@@ -160,7 +161,7 @@ export class SeanceService {
       const seancesOnDayFromWhichIndicatedSeanceWillBeRemoved = addedSeances[index].weeks[data.week].days[data.day];
       const indexOfseanceToRemove = seancesOnDayFromWhichIndicatedSeanceWillBeRemoved.seancesTimes.findIndex(
         projectionTime => projectionTime.start === data.seanceToRemove.start
-          && projectionTime.end === data.seanceToRemove.end);
+          && projectionTime.finish === data.seanceToRemove.finish);
 
       const seanceToRemove = seancesOnDayFromWhichIndicatedSeanceWillBeRemoved.seancesTimes[indexOfseanceToRemove];
       if (seanceToRemove.seanceId && seanceToRemove.seanceId.length > 0) {
@@ -223,18 +224,13 @@ export class SeanceService {
     return result;
   }
 
-  // private async _getMovieProjectionsForSelectedDay(seanceRoomId: string, weekNumber: number, dayNumber: number): Promise<SeanceApiModel[]> {
-  //   const request: SeancesRequestModel = new SeancesRequestModel();
-  //   request.screeningRoomId = seanceRoomId;
-  //   request.date = this.getDate(weekNumber, dayNumber);
-  //
-  //   let result = null;
-  //   this._apiService.getMoviesProjections(request).subscribe(s => {
-  //     result = s;
-  //   });
-  //
-  //   return await this._apiService.getMoviesProjections(request).toPromise();
-  // }
+  private async _getMovieProjectionsForSelectedDay(seanceRoomId: string, weekNumber: number, dayNumber: number): Promise<SeanceApiModel[]> {
+    const request: SeancesRequestModel = new SeancesRequestModel();
+    request.screeningRoomId = seanceRoomId;
+    request.date = this.getDate(weekNumber, dayNumber);
+
+    return await this._apiService.getMoviesProjections(request).toPromise();
+  }
 
   private _addNewScreeningRoom(data: SeanceComponentDataModel): void {
     const addedSeances = data.bookingForm.get('addedSeances').value as MovieProcessingScreeningRoomModel[];
@@ -313,6 +309,7 @@ export class SeanceService {
     screeningRooms.forEach(screeningRoom => {
       const addMoviescreeningRoom: MovieProcessingScreeningRoomModel = new MovieProcessingScreeningRoomModel();
       addMoviescreeningRoom.id = screeningRoom.id;
+      addMoviescreeningRoom.weeks.push(new MovieProcessingWeekModel())
       result.push(addMoviescreeningRoom);
     });
 

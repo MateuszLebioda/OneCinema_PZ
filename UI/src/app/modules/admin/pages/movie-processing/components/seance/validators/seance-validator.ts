@@ -13,6 +13,7 @@ export class SeanceValidator {
                         movieDuration: FormControl,
                         breakBeforeAndAfterSeanse: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
+      console.log('walidacja');
       if (movieDuration.invalid) {
         return {'emptySeanceDuration': true};
       }
@@ -51,7 +52,7 @@ export class SeanceValidator {
     const indexOfSeanceBeforeValidatingSeance = seancesThisDay.findIndex(currentSeance => currentSeance.start > seanceStart);
     if (indexOfSeanceBeforeValidatingSeance < 0) {
       return this._canSeanceBeLatest(
-        Luxon.toDateTime(seanceStart), seanceEnd, Luxon.toDateTime(seancesThisDay[seancesThisDay.length - 1].end));
+        Luxon.toDateTime(seanceStart), seanceEnd, Luxon.toDateTime(seancesThisDay[seancesThisDay.length - 1].finish));
     }
     if (indexOfSeanceBeforeValidatingSeance === 0) {
       return this._canSeanceBeFirst(
@@ -74,7 +75,7 @@ export class SeanceValidator {
                                                         seanceEnd: Date,
                                                         seancesThisDay: SeanceApiModel[],
                                                         indexOfSeanceBeforeValidatingSeance: number): boolean {
-    const endOfSeanceBeforeValidatingSeance = seancesThisDay[indexOfSeanceBeforeValidatingSeance - 1].end;
+    const endOfSeanceBeforeValidatingSeance = seancesThisDay[indexOfSeanceBeforeValidatingSeance - 1].finish;
     const startOfSeanceAfterValidatingSeance = seancesThisDay[indexOfSeanceBeforeValidatingSeance].start;
 
     return seanceStart > endOfSeanceBeforeValidatingSeance && seanceEnd < startOfSeanceAfterValidatingSeance;

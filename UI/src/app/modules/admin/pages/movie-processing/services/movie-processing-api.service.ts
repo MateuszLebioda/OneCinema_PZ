@@ -123,7 +123,7 @@ export class MovieProcessingApiService {
         //               seanceId: 'fgh5',
         //               projectionType: ProjectionType.type2D,
         //               start: new Date(),
-        //               end: new Date()
+        //               finish: new Date()
         //             }
         //           ]
         //         },
@@ -134,7 +134,7 @@ export class MovieProcessingApiService {
         //               seanceId: 'plk7',
         //               projectionType: ProjectionType.type3D,
         //               start: new Date(),
-        //               end: new Date()
+        //               finish: new Date()
         //             }
         //           ]
         //         }
@@ -150,7 +150,7 @@ export class MovieProcessingApiService {
         //               seanceId: 'pwh8',
         //               projectionType: ProjectionType.type2D,
         //               start: new Date(),
-        //               end: new Date()
+        //               finish: new Date()
         //             }
         //           ]
         //         },
@@ -161,7 +161,7 @@ export class MovieProcessingApiService {
         //               seanceId: 'lzg9',
         //               projectionType: ProjectionType.type3D,
         //               start: new Date(),
-        //               end: new Date()
+        //               finish: new Date()
         //             }
         //           ]
         //         }
