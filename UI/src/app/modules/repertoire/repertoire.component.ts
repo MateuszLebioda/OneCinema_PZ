@@ -5,6 +5,9 @@ import {Router} from '@angular/router';
 import {RepertoireService} from './services/repertoire.service';
 import {RepertoireComponentModel} from './models/repertoire-component.model';
 import {DeviceDetectorService} from 'ngx-device-detector';
+import {RepertoireApiService} from './services/repertoire-api.service';
+import {MapperService} from '../../shared/helpers/external/mapper/mapper.service';
+import {RepertoireListModel} from './models/repertoire-list.model';
 
 @Component({
   selector: 'app-repertoire',
@@ -16,18 +19,27 @@ export class RepertoireComponent implements OnInit {
   public isMobile: boolean;
 
   constructor(
+    private _repertoireListService: RepertoireApiService,
     private _repertoireService: RepertoireService,
+    private _mapper: MapperService,
     private _deviceService: DeviceDetectorService,
     private _router: Router) {
   }
 
   public ngOnInit(): void {
     this.data = this._repertoireService.initComponent();
+    this._repertoireListService.getRepertoire(1).subscribe(r => {
+      this.data.repertoireList.repertoire = this._mapper.toMovieProjectionCollection(r);
+    });
     this.isMobile = this._deviceService.isMobile();
   }
 
   public repertoireList(bookmarkLetter: string, dayNumber: number): void {
-    this.data.repertoireList = this._repertoireService.getRepertoireList(bookmarkLetter, dayNumber);
+    this._repertoireListService.getRepertoire(dayNumber).subscribe(r => {
+      const result = new RepertoireListModel();
+      result.bookmarkLetter = bookmarkLetter;
+      result.repertoire = this._mapper.toMovieProjectionCollection(r);
+    });
   }
 
   public getSeanceCssClass(seance: SeanceApiModel): string {

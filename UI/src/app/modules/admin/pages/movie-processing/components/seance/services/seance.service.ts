@@ -32,7 +32,10 @@ export class SeanceService {
     private _apiService: SeanceApiService) {
   }
 
-  public initComponent(bookingForm: FormGroup, movieDuration: FormControl): SeanceComponentDataModel {
+  public initComponent(bookingForm: FormGroup,
+                       movieDuration: FormControl,
+                       screeningRooms: ScreeningRoomApiModel[],
+                       selectedDaySeancesModel: SelectedDaySeancesModel): SeanceComponentDataModel {
     const result = new SeanceComponentDataModel();
 
     const curretDate = new Date();
@@ -40,7 +43,7 @@ export class SeanceService {
     result.selectedDayNumber = result.currentDayNumber;
     result.movieDuration = movieDuration;
     result.bookingForm = bookingForm;
-    result.screeningRooms = this._apiService.getScreeningRooms();
+    result.screeningRooms = screeningRooms;
 
     if (!result.bookingForm.get('weeksCount').value) {
       result.bookingForm.get('weeksCount').setValue(1);
@@ -52,7 +55,7 @@ export class SeanceService {
       result.bookingForm.get('screeningRoom').setValue(screeningRoom);
     }
 
-    result.selectedDaySeances = this.getSelectedDaySeances(result.screeningRooms[0].id, result.selectedWeekNumber, result.selectedDayNumber);
+    result.selectedDaySeances = selectedDaySeancesModel;
     result.selectedDaySeances.screeningRoomId = result.screeningRooms[0].id;
     this.setSeanceTimeValidator(result);
 
@@ -81,15 +84,14 @@ export class SeanceService {
     return this._formValidatorService.isInvalidAndTouched(bookingForm, formControlName);
   }
 
-  public getSelectedDaySeances(seanceRoomId: string, weekNumber: number, dayNumber: number): SelectedDaySeancesModel {
-    const result = new SelectedDaySeancesModel();
-    result.screeningRoomId = seanceRoomId;
-    result.weekNumber = weekNumber;
-    result.dayNumber = dayNumber;
-    result.seances = this._getMovieProjectionsForSelectedDay(seanceRoomId, weekNumber, dayNumber);
-
-    return result;
-  }
+  // public getSelectedDaySeances(seanceRoomId: string, weekNumber: number, dayNumber: number): SelectedDaySeancesModel {
+  //   const result = new SelectedDaySeancesModel();
+  //   result.screeningRoomId = seanceRoomId;
+  //   result.weekNumber = weekNumber;
+  //   result.dayNumber = dayNumber;
+  //
+  //   return result;
+  // }
 
   public convertToPolishDayName(day: number) {
     switch (day) {
@@ -221,13 +223,18 @@ export class SeanceService {
     return result;
   }
 
-  private _getMovieProjectionsForSelectedDay(seanceRoomId: string, weekNumber: number, dayNumber: number): SeanceApiModel[] {
-    const request: SeancesRequestModel = new SeancesRequestModel();
-    request.screeningRoomId = seanceRoomId;
-    request.date = this.getDate(weekNumber, dayNumber);
-
-    return this._apiService.getMoviesProjections(request);
-  }
+  // private async _getMovieProjectionsForSelectedDay(seanceRoomId: string, weekNumber: number, dayNumber: number): Promise<SeanceApiModel[]> {
+  //   const request: SeancesRequestModel = new SeancesRequestModel();
+  //   request.screeningRoomId = seanceRoomId;
+  //   request.date = this.getDate(weekNumber, dayNumber);
+  //
+  //   let result = null;
+  //   this._apiService.getMoviesProjections(request).subscribe(s => {
+  //     result = s;
+  //   });
+  //
+  //   return await this._apiService.getMoviesProjections(request).toPromise();
+  // }
 
   private _addNewScreeningRoom(data: SeanceComponentDataModel): void {
     const addedSeances = data.bookingForm.get('addedSeances').value as MovieProcessingScreeningRoomModel[];

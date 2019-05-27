@@ -11,6 +11,9 @@ import {MovieProcessingWeekModel} from '../../models/movie-processing-week.model
 import {MovieProcessingSeanceTimeModel} from '../../models/movie-processing-seance-time.model';
 import {MovieProcessingScreeningRoomModel} from '../../models/movie-processing-screening-room.model';
 import {Subscription} from 'rxjs/internal/Subscription';
+import {SeanceApiService} from './services/seance-api.service';
+import {SeancesRequestModel} from './models/requests/seances-request.model';
+import {SelectedDaySeancesModel} from './models/selected-day-seances.model';
 
 @Component({
   selector: 'app-seance',
@@ -44,11 +47,23 @@ export class SeanceComponent implements OnInit, OnDestroy {
       && this.weekCount === this.data.weekCount) {
       return this.data.selectedDaySeances.seancesWithAddedByUser;
     }
-    this.data.selectedDaySeances = this._service.getSelectedDaySeances(
-      this.data.selectedDaySeances.screeningRoomId, this.data.selectedWeekNumber, this.data.selectedDayNumber);
-    this._service.attachAddedAndDetachRemovedSeancesToSelectedDaySeances(this.data);
 
-    this.data.weekCount = this.weekCount;
+    const request: SeancesRequestModel = new SeancesRequestModel();
+    request.screeningRoomId = this.data.selectedDaySeances.screeningRoomId;
+    request.date = this._service.getDate(this.data.selectedWeekNumber, this.data.selectedDayNumber);
+    this._apiService.getMoviesProjections(request).subscribe(m => {
+      const selectedDaySeancesModel = new SelectedDaySeancesModel();
+      selectedDaySeancesModel.screeningRoomId = request.screeningRoomId;
+      selectedDaySeancesModel.weekNumber = this.data.selectedWeekNumber;
+      selectedDaySeancesModel.dayNumber = this.data.selectedDayNumber;
+      selectedDaySeancesModel.seances = m;
+
+      this.data.selectedDaySeances = selectedDaySeancesModel;
+
+      this._service.attachAddedAndDetachRemovedSeancesToSelectedDaySeances(this.data);
+
+      this.data.weekCount = this.weekCount;
+    });
 
     return this.data.selectedDaySeances.seancesWithAddedByUser;
   }
@@ -73,11 +88,25 @@ export class SeanceComponent implements OnInit, OnDestroy {
 
   constructor(
     private _controlContainer: ControlContainer,
+    private _apiService: SeanceApiService,
     private _service: SeanceService) {
   }
 
   ngOnInit() {
-    this.data = this._service.initComponent(<FormGroup>this._controlContainer.control, this.movieDuration);
+    this._apiService.getScreeningRooms().subscribe(s => {
+      const request: SeancesRequestModel = new SeancesRequestModel();
+      request.screeningRoomId = s[0].id;
+      request.date = this._service.getDate(0, 1);
+      this._apiService.getMoviesProjections(request).subscribe(m => {
+        const selectedDaySeancesModel = new SelectedDaySeancesModel();
+        selectedDaySeancesModel.screeningRoomId = request.screeningRoomId;
+        selectedDaySeancesModel.weekNumber = 0;
+        selectedDaySeancesModel.dayNumber = 1;
+
+        this.data = this._service.initComponent(<FormGroup>this._controlContainer.control, this.movieDuration, s, selectedDaySeancesModel);
+      });
+    });
+
     this._movieDurationListner = this.movieDuration.valueChanges.subscribe(() => {
       if (this.movieDuration.valid) {
         this._service.setSeanceTimeValidator(this.data);
@@ -164,8 +193,20 @@ export class SeanceComponent implements OnInit, OnDestroy {
   public setScrreningRoomSeances(): void {
     const screeningRoom = this.data.bookingForm.get('screeningRoom').value as ScreeningRoomApiModel;
     this._service.setAddedSeances(this.data);
-    this.data.selectedDaySeances = this._service.getSelectedDaySeances(
-      screeningRoom.id, this.data.selectedWeekNumber, this.data.selectedDayNumber - 1);
+
+    const request: SeancesRequestModel = new SeancesRequestModel();
+    request.screeningRoomId = screeningRoom.id;
+    request.date = this._service.getDate(this.data.selectedWeekNumber, this.data.selectedDayNumber);
+    this._apiService.getMoviesProjections(request).subscribe(m => {
+      const selectedDaySeancesModel = new SelectedDaySeancesModel();
+      selectedDaySeancesModel.screeningRoomId = request.screeningRoomId;
+      selectedDaySeancesModel.weekNumber = this.data.selectedWeekNumber;
+      selectedDaySeancesModel.dayNumber = this.data.selectedDayNumber;
+      selectedDaySeancesModel.seances = m;
+      console.log(selectedDaySeancesModel.seances);
+
+      this.data.selectedDaySeances = selectedDaySeancesModel;
+    });
   }
 
   public getSelectedDayDate(): Date {

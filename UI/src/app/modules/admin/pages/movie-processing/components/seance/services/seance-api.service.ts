@@ -15,59 +15,59 @@ export class SeanceApiService {
   constructor(private _httpService: HttpBaseService) {
   }
 
-  public getScreeningRooms(): ScreeningRoomApiModel[] {
-    return [
-      {
-        id: 'sfdsfffasdsdfa',
-        name: 'super sala',
-        breakBeforeAndAfterMovie: 15
-      },
-      {
-        id: 'wifvicvwibie',
-        name: 'fajny room',
-        breakBeforeAndAfterMovie: 10
-      }
-    ];
+  // public getScreeningRooms(): ScreeningRoomApiModel[] {
+  //   return [
+  //     {
+  //       id: 'sfdsfffasdsdfa',
+  //       name: 'super sala',
+  //       breakBeforeAndAfterMovie: 15
+  //     },
+  //     {
+  //       id: 'wifvicvwibie',
+  //       name: 'fajny room',
+  //       breakBeforeAndAfterMovie: 10
+  //     }
+  //   ];
+  // }
+
+  // public getMoviesProjections(date: SeancesRequestModel): SeanceApiModel[] {
+  //   return [
+  //     {
+  //       seanceId: 'qwscvfv5',
+  //       title: 'Jaś fasola',
+  //       projectionType: ProjectionType.type2D,
+  //       start: new Date('May 13, 2019 8:05:00'),
+  //       end: new Date('May 13, 2019 10:05:00')
+  //     },
+  //     {
+  //       seanceId: 'wsx2',
+  //       title: 'The Avengers',
+  //       projectionType: ProjectionType.type2D,
+  //       start: new Date('May 13, 2019 10:30:00'),
+  //       end: new Date('May 13, 2019 12:05:00')
+  //     },
+  //     {
+  //       seanceId: 'edc3',
+  //       title: 'Wróg u bram',
+  //       projectionType: ProjectionType.type2D,
+  //       start: new Date('May 13, 2019 13:05:00'),
+  //       end: new Date('May 13, 2019 15:35:00')
+  //     },
+  //     {
+  //       seanceId: 'id1',
+  //       title: 'Linia Jordana',
+  //       projectionType: ProjectionType.type2D,
+  //       start: new Date('May 13, 2019 20:05:00'),
+  //       end: new Date('May 13, 2019 22:35:00')
+  //     },
+  //   ];
+  // }
+
+  public getScreeningRooms(): Observable<ScreeningRoomApiModel[]> {
+    return this._httpService.get<ScreeningRoomApiModel[]>('room/getRooms');
   }
 
-  public getMoviesProjections(date: SeancesRequestModel): SeanceApiModel[] {
-    return [
-      {
-        seanceId: 'qwscvfv5',
-        title: 'Jaś fasola',
-        projectionType: ProjectionType.type2D,
-        start: new Date('May 13, 2019 8:05:00'),
-        end: new Date('May 13, 2019 10:05:00')
-      },
-      {
-        seanceId: 'wsx2',
-        title: 'The Avengers',
-        projectionType: ProjectionType.type2D,
-        start: new Date('May 13, 2019 10:30:00'),
-        end: new Date('May 13, 2019 12:05:00')
-      },
-      {
-        seanceId: 'edc3',
-        title: 'Wróg u bram',
-        projectionType: ProjectionType.type2D,
-        start: new Date('May 13, 2019 13:05:00'),
-        end: new Date('May 13, 2019 15:35:00')
-      },
-      {
-        seanceId: 'id1',
-        title: 'Linia Jordana',
-        projectionType: ProjectionType.type2D,
-        start: new Date('May 13, 2019 20:05:00'),
-        end: new Date('May 13, 2019 22:35:00')
-      },
-    ];
-  }
-
-  public getScreeningRooms2(): Observable<ScreeningRoomApiModel[]> {
-    return this._httpService.get<ScreeningRoomApiModel[]>('');
-  }
-
-  public getMoviesProjections2(date: SeancesRequestModel): Observable<SeanceApiModel[]> {
-    return this._httpService.get<SeanceApiModel[]>('');
+  public getMoviesProjections(date: SeancesRequestModel): Observable<SeanceApiModel[]> {
+    return this._httpService.post<SeanceApiModel[]>('room/getSeances', date);
   }
 }

@@ -17,8 +17,8 @@ export class MovieProcessingApiService {
   }
 
   public addMovie(request: AddMovieRequestModel): void {
-    console.log(request);
-    this._httpService.post<any>('films/addFilm', JSON.stringify(request)).subscribe();
+    console.log(JSON.stringify(request));
+    this._httpService.post<any>('films/addFilm', request).subscribe();
   }
 
   public editMovie(request: UpdateMovieRequestModel): void {

@@ -88,7 +88,7 @@ export class AdminAutomapperMaps {
             day.seancesTimes.forEach(seanceTime => {
               destination.push({
                 projectionType: seanceTime.projectionType,
-                start: seanceTime.start
+                start: new Date(seanceTime.start.toUTCString())
               });
             });
           });

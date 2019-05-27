@@ -1,3 +1,4 @@
 export enum LocalStorageKey {
-  AuthToken = 'authToken'
+  AuthToken = 'authToken',
+  SuccessMessage = 'successMessage'
 }

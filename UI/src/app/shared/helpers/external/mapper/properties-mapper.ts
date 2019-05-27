@@ -3,6 +3,8 @@ import {SeancesPerTimesOfDay} from '../../../../modules/repertoire/models/seance
 import {Seat} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/models/seat';
 import {ScreeningRoomPlanRowApiModel} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/models/api/screening-room-plan-row-api.model';
 import {SeatStatus} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/enums/seat-status';
+import {DateTime} from 'luxon';
+import {Luxon} from '../luxon';
 
 export class PropertiesMapper {
 
@@ -10,11 +12,27 @@ export class PropertiesMapper {
     const destination: SeancesPerTimesOfDay = new SeancesPerTimesOfDay();
 
     for (const seance of source) {
-      const minutesInDay = seance.start.getMinutes() + seance.start.getHours() * 60;
+      console.log(seance.start);
+      console.log('nowa', JSON.stringify(new Date(new Date().toUTCString())));
+      console.log('UTC', new Date().toUTCString());
+      console.log('UTC', new Date().toUTCString());
+      console.log('UTC po formacie', new Date(new Date().toUTCString()));
+      console.log('ss', seance.start.toString());
+      console.log(Luxon.utils.DateTime.fromISO(seance.start.toString()));
+      seance.start = new Date(seance.start);
+      seance.finish = new Date(seance.finish);
 
-      if (minutesInDay <= 12 * 60) {
+      const untilNoon = new Date(seance.start);
+      untilNoon.setHours(12);
+      untilNoon.setMinutes(0);
+      untilNoon.setMilliseconds(0);
+
+      const evening = new Date(untilNoon);
+      untilNoon.setHours(18);
+
+      if (seance.start <= untilNoon) {
         destination.seancesUntilNoon.push(seance);
-      } else if (minutesInDay <= 18 * 60) {
+      } else if (seance.start <= evening) {
         destination.seancesAfternoon.push(seance);
       } else {
         destination.seancesEvening.push(seance);

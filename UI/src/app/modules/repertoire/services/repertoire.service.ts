@@ -4,6 +4,7 @@ import {SeanceStatus} from '../enums/seance-status.enum';
 import {RepertoireComponentModel} from '../models/repertoire-component.model';
 import {RepertoireApiService} from './repertoire-api.service';
 import {RepertoireListModel} from '../models/repertoire-list.model';
+import {MapperService} from '../../../shared/helpers/external/mapper/mapper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,12 +30,13 @@ export class RepertoireService {
   ];
 
 
-  constructor(private _repertoireListService: RepertoireApiService) {
+  constructor(
+    private _repertoireListService: RepertoireApiService,
+    private _mapper: MapperService) {
   }
 
   public initComponent(): RepertoireComponentModel {
     const result = new RepertoireComponentModel();
-    result.repertoireList.repertoire = this._repertoireListService.getRepertoire(1);
     result.repertoireDays = this.getRepertoireDaysSinceNow();
 
     return result;
@@ -43,7 +45,9 @@ export class RepertoireService {
   public getRepertoireList(bookmarkLetter: string, dayNumber: number): RepertoireListModel {
     const result = new RepertoireListModel();
     result.bookmarkLetter = bookmarkLetter;
-    result.repertoire = this._repertoireListService.getRepertoire(dayNumber);
+    this._repertoireListService.getRepertoire(dayNumber).subscribe(r => {
+      result.repertoire = this._mapper.toMovieProjectionCollection(r);
+    });
 
     return result;
   }

@@ -5,6 +5,8 @@ import {EditPriceListApiService} from './services/edit-price-list-api.service';
 import {PriceListApiModel} from '../../../../shared/components/internal/navbar/models/api-models/price-list-api.model';
 import {EditPriceListRequestModel} from './models/requests/edit-price-list-request.model';
 import {Subscription} from 'rxjs';
+import {Router} from '@angular/router';
+import {LocalStorageKey} from '../../../../core/enums/local-storage-key';
 
 @Component({
   selector: 'app-edit-price-list',
@@ -16,6 +18,7 @@ export class EditPriceListComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   constructor(
+    private _router: Router,
     private _formValidatorService: FormValidatorService,
     private _apiService: EditPriceListApiService) {
   }
@@ -55,5 +58,7 @@ export class EditPriceListComponent implements OnInit, OnDestroy {
     };
 
     this._apiService.editPriceList(request);
+    localStorage.setItem(LocalStorageKey.SuccessMessage, 'Pomyślnie zmieniono cennik');
+    this._router.navigate(['/admin/panel']);
   }
 }
