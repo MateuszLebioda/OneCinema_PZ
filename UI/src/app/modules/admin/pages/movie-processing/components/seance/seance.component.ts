@@ -184,6 +184,7 @@ export class SeanceComponent implements OnInit, OnDestroy {
     const request = this._getSeancesRequestModel(screeningRoom.id, this.data.selectedWeekNumber, this.data.selectedDayNumber);
     this._apiService.getMoviesProjections(request).subscribe(x => {
       this.data.selectedDaySeances = this._getSelectedDaySeancesModel(screeningRoom.id, this.data.selectedWeekNumber, this.data.selectedDayNumber, x);
+      this._service.attachAddedAndDetachRemovedSeancesToSelectedDaySeances(this.data);
     });
 
     // this.data.selectedDaySeances = this._service.getSelectedDaySeances(

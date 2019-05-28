@@ -63,7 +63,14 @@ export class SeanceService {
   }
 
   public setSeanceTimeValidator(data: SeanceComponentDataModel): void {
+
     const selectedScreeningRoom: ScreeningRoomApiModel = data.bookingForm.get('screeningRoom').value;
+
+    console.log('this.getDate', this.getDate(data.selectedWeekNumber, data.selectedDayNumber));
+    console.log('data.selectedDaySeances.seancesWithAddedByUser', data.selectedDaySeances.seancesWithAddedByUser);
+    console.log('data.movieDuration', data.movieDuration);
+    console.log('selectedScreeningRoom.breakBeforeAndAfterMovie', selectedScreeningRoom.breakBeforeAndAfterMovie);
+
     data.bookingForm.setControl('movieProjectionTime', new FormControl(
       null,
       [
@@ -176,6 +183,7 @@ export class SeanceService {
 
   public attachAddedAndDetachRemovedSeancesToSelectedDaySeances(data: SeanceComponentDataModel): void {
     if (data.bookingForm.get('addedSeances')) {
+      console.log('attachAddedAndDetachRemovedSeancesToSelectedDaySeances');
       const addedSeances = data.bookingForm.get('addedSeances').value as MovieProcessingScreeningRoomModel[];
       const seanceRoom: ScreeningRoomApiModel = data.bookingForm.get('screeningRoom').value;
       const seanceRoomIndex = addedSeances.findIndex(x => x.id === seanceRoom.id);
@@ -309,7 +317,7 @@ export class SeanceService {
     screeningRooms.forEach(screeningRoom => {
       const addMoviescreeningRoom: MovieProcessingScreeningRoomModel = new MovieProcessingScreeningRoomModel();
       addMoviescreeningRoom.id = screeningRoom.id;
-      addMoviescreeningRoom.weeks.push(new MovieProcessingWeekModel())
+      addMoviescreeningRoom.weeks.push(new MovieProcessingWeekModel());
       result.push(addMoviescreeningRoom);
     });
 

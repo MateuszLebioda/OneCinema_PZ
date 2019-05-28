@@ -35,6 +35,7 @@
 }
 
 .next-movie-image {
+  cursor: pointer;
   max-width: 100px;
   width: 100%;
   height: 18vh;

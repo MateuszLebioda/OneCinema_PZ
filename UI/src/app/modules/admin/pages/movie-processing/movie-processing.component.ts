@@ -52,7 +52,6 @@ export class MovieProcessingComponent implements OnInit {
   }
 
   public isInvalid(formControlName: string): boolean {
-    console.log(this.bookingForm.get(formControlName).errors);
     return this._formValidatorService.isInvalidAndTouched(this.bookingForm, formControlName);
   }
 
