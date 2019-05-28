@@ -1,6 +1,5 @@
 package com.MateuszLebioda.OneCinema.Model.Sence;
 
-import com.MateuszLebioda.OneCinema.entity.Seance;
 
 public class SeancesApiModelWithProjectionType extends  SeanceApiModel {
 
@@ -8,10 +7,6 @@ public class SeancesApiModelWithProjectionType extends  SeanceApiModel {
 
     public SeancesApiModelWithProjectionType(){
 
-    }
-
-    public SeancesApiModelWithProjectionType(Seance seances) {
-        super(seances);
     }
 
     public Dimension getProjectionType() {

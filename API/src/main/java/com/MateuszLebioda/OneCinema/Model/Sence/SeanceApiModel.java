@@ -1,6 +1,5 @@
 package com.MateuszLebioda.OneCinema.Model.Sence;
 
-import com.MateuszLebioda.OneCinema.entity.Seance;
 
 import java.util.Date;
 
@@ -9,15 +8,7 @@ public class SeanceApiModel {
     public Date start;
     public Date finish;
 
-    public SeanceApiModel(){
 
-    };
-
-    public SeanceApiModel(Seance seances) {
-        setId(seances.getId());
-        setStart(seances.getStart());
-        setFinish(new Date(seances.getStart().getTime() + seances.getFilm().getDuration()*60*1000));
-    }
 
     public String getId() {
         return id;

@@ -33,15 +33,15 @@ public class FilmService {
     @Autowired
     MovieMapper movieMapper;
 
-    public MovieApiModel getFilmDescriptionById(String id){
+    public MovieApiModel getFilmDescriptionById(String id) throws CannotFindObjectException {
         Optional<Film> optionalFilm =  filmRepository.findById(id);
         if(optionalFilm.isPresent()){
             Film film = optionalFilm.get();
             film.setSeances2D(seanceService.getCurrentSeances(film, Dimension._2D));
             film.setSeances3D(seanceService.getCurrentSeances(film, Dimension._3D));
-            return new MovieApiModel(film);
+            return  movieMapper.mapToMovieApiModel(film);
         }else {
-            return  null;
+            throw new CannotFindObjectException();
         }
     }
 
