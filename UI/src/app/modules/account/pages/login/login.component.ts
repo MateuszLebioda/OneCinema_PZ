@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormValidatorService} from '../../../../shared/services/form-validator.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AuthenticationService} from '../../../../core/services/authentication/authentication.service';
+import {Router} from '@angular/router';
+import {NotificationService} from '../../../../core/services/notification.service';
+import {LocalStorageKey} from '../../../../core/enums/local-storage-key';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +19,10 @@ export class LoginComponent implements OnInit {
   public form: FormGroup;
 
   constructor(
-    private _formValidatorService: FormValidatorService) {
+    private _router: Router,
+    private _notificationService: NotificationService,
+    private _formValidatorService: FormValidatorService,
+    private _authService: AuthenticationService) {
   }
 
   ngOnInit() {
@@ -35,7 +42,16 @@ export class LoginComponent implements OnInit {
 
   public onSubmit(): void {
     if (this.isFormValid()) {
-      console.log('xd');
+      const login = this.form.get('login').value;
+      const password = this.form.get('password').value;
+      this._authService.login(login, password)
+        .then(userCredencial => {
+          userCredencial.user.getIdToken().then(token => {
+            localStorage.setItem(LocalStorageKey.AuthToken, token);
+            this._router.navigate(['/admin/panel']);
+          });
+        })
+        .catch(err => this._notificationService.showError(err.message));
     }
   }
 }

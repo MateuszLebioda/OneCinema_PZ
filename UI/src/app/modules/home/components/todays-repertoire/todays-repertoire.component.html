@@ -15,6 +15,9 @@
               </tr>
               </thead>
               <tbody>
+              <tr *ngIf="!repertoire || repertoire.length <=0">
+                <td colspan="5" style="text-align: center">Brak seansów tego dnia</td>
+              </tr>
               <tr *ngFor="let movieProjection of repertoire">
                 <td class="w3-list-img image-column-size">
                   <a (click)="navigateToMovie(movieProjection.movieId)" class="cursor-pointer">
@@ -59,6 +62,9 @@
               </tr>
               </thead>
               <tbody>
+              <tr *ngIf="!repertoire || repertoire.length <=0">
+                <td colspan="3" style="text-align: center">Brak seansów tego dnia</td>
+              </tr>
               <tr *ngFor="let movieProjection of repertoire ">
                 <td class="w3-list-img image-column-size">
                   <a (click)="navigateToMovie(movieProjection.movieId)" class="cursor-pointer">
@@ -69,8 +75,7 @@
                 </td>
                 <td>
                   <p>Czas trwania: {{movieProjection.movieDuration}}</p>
-                  <p>Gatunek: <span class="movie-gender"
-                                    *ngFor="let movieGender of movieProjection.movieGenders">{{movieGender}},</span></p>
+                  <p>Gatunek: <span class="movie-gender">{{movieProjection.movieGenders.join(', ')}},</span></p>
                   <p>Typ projekcji: {{movieProjection.projectionType}}</p>
                 </td>
                 <td>

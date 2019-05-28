@@ -1,6 +1,6 @@
 import {MovieProcessingScreeningRoomRequestModel} from './movie-processing-screening-room-request.model';
 
-export class MovieProcessingRequestModel {
+export class UpdateMovieRequestModel {
   public id: string;
   public title: string;
   public rating: number;

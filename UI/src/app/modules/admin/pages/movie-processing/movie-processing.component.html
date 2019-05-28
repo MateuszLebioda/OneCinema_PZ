@@ -61,10 +61,11 @@
                     </div>
 
                     <div class="form-group">
-                      <input type="url" formControlName="trailerUrl" placeholder="Link do zwiastunu">
+                      <input type="url" formControlName="trailerUrl" placeholder="Link do zwiastunu (na YouTube)">
                       <span *ngIf="isInvalid('trailerUrl')" class="error-font help-block">
                       <div *ngIf="formControls.trailerUrl.errors.required">To pole jest wymagane</div>
                       <div *ngIf="formControls.trailerUrl.errors.url">To nie jest poprawny link</div>
+                      <div *ngIf="formControls.trailerUrl.errors.pattern">Zwiastun musi pochodzić z YouTube</div>
                     </span>
                     </div>
                   </div>

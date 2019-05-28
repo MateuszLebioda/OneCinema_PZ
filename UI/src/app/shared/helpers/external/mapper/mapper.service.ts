@@ -12,6 +12,8 @@ import {SharedServicesModule} from '../../../shared-services.module';
 import {TranslatorService} from '../../internal/translator.service';
 import {SeanceApiModel} from '../../../../modules/admin/pages/movie-processing/components/seance/models/api/seance-api.model';
 import {MovieProcessingSeanceTimeModel} from 'src/app/modules/admin/pages/movie-processing/models/movie-processing-seance-time.model';
+import {MovieApiModel} from '../../../../modules/movie/models/api/movie-api.model';
+import {Movie} from '../../../../modules/movie/models/movie.model';
 
 @Injectable({
   providedIn: SharedServicesModule
@@ -26,6 +28,8 @@ export class MapperService {
     const destination: MovieProjection = automapper.map(MovieProjectionApiModel.name, MovieProjection.name, source);
     destination.seances = PropertiesMapper.getSeancesPerTimesOfDay(source.seances);
     destination.movieGenders = [];
+    console.log('source', source);
+    destination.projectionType = source.projectionType;
     source.movieGenders.forEach(movieGender =>
       destination.movieGenders.push(this._translator.translateMovieGender(movieGender))
     );
@@ -55,6 +59,12 @@ export class MapperService {
 
   public toSeanceApiModel(source: MovieProcessingSeanceTimeModel): SeanceApiModel {
     const destination: SeanceApiModel = automapper.map(MovieProcessingSeanceTimeModel.name, SeanceApiModel.name, source);
+
+    return destination;
+  }
+
+  public toMovie(source: MovieApiModel): Movie {
+    const destination: Movie = automapper.map(MovieApiModel.name, Movie.name, source);
 
     return destination;
   }

@@ -31,10 +31,12 @@ export class SeanceValidator {
                           seanceDuration: number): boolean {
     const seanceTime: Time = this._dateTimeService.convertToTime(seanceStartHour);
     if (!seanceTime) {
+      console.log('!seanceTime');
       return false;
     }
 
     if (seancesThisDay.length <= 0) {
+      console.log('seancesThisDay.length <= 0');
       return true;
     }
 
@@ -46,14 +48,17 @@ export class SeanceValidator {
 
     const indexOfSeanceBeforeValidatingSeance = seancesThisDay.findIndex(currentSeance => currentSeance.start > seanceStart);
     if (indexOfSeanceBeforeValidatingSeance < 0) {
+      console.log('indexOfSeanceBeforeValidatingSeance < 0');
       return this._canSeanceBeLatest(
-        Luxon.toDateTime(seanceStart), seanceEnd, Luxon.toDateTime(seancesThisDay[seancesThisDay.length - 1].end));
+        Luxon.toDateTime(seanceStart), seanceEnd, Luxon.toDateTime(seancesThisDay[seancesThisDay.length - 1].finish));
     }
     if (indexOfSeanceBeforeValidatingSeance === 0) {
+      console.log('indexOfSeanceBeforeValidatingSeance === 0');
       return this._canSeanceBeFirst(
         Luxon.toDateTime(seanceStart), seanceEnd, Luxon.toDateTime(seancesThisDay[0].start));
     }
 
+    console.log('this._isSeanceBetweenPreviousAndNextSeances');
     return this._isSeanceBetweenPreviousAndNextSeances(
       seanceStart, Luxon.toDate(seanceEnd), seancesThisDay, indexOfSeanceBeforeValidatingSeance);
   }
@@ -70,7 +75,7 @@ export class SeanceValidator {
                                                         seanceEnd: Date,
                                                         seancesThisDay: SeanceApiModel[],
                                                         indexOfSeanceBeforeValidatingSeance: number): boolean {
-    const endOfSeanceBeforeValidatingSeance = seancesThisDay[indexOfSeanceBeforeValidatingSeance - 1].end;
+    const endOfSeanceBeforeValidatingSeance = seancesThisDay[indexOfSeanceBeforeValidatingSeance - 1].finish;
     const startOfSeanceAfterValidatingSeance = seancesThisDay[indexOfSeanceBeforeValidatingSeance].start;
 
     return seanceStart > endOfSeanceBeforeValidatingSeance && seanceEnd < startOfSeanceAfterValidatingSeance;

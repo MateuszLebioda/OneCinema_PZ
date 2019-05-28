@@ -1,9 +1,9 @@
-<ng-container [formGroup]="_controlContainer.control">
+<ng-container [formGroup]="_controlContainer.control" *ngIf="initComponent">
   <div class="sub-form-line">
     <div class="form-group cinema-room">
       <label class="cinema-room-label">Sala kinowa</label>
       <select formControlName="screeningRoom" class="form-control cinema-room-options"
-              (change)="resetAddedSeances()">
+              (change)="setScrreningRoomSeances()">
         <option *ngFor="let seanceRoom of data.screeningRooms" [ngValue]="seanceRoom">{{seanceRoom.name}}</option>
       </select>
       <span class="help-block help-block-right">
@@ -95,7 +95,7 @@
               <td>
                 <div class="movie-projection-time" *ngFor="let movieProjection of seances">
                   <p>
-                    {{movieProjection.start | date: 'HH:mm'}} - {{movieProjection.end | date: 'HH:mm'}}
+                    {{movieProjection.start | date: 'HH:mm'}} - {{movieProjection.finish | date: 'HH:mm'}}
                   </p>
                   <p>
                     {{movieProjection.title}} ({{movieProjection.projectionType}})
@@ -129,7 +129,7 @@
               <td>
                 <div class="movie-projection-time" *ngFor="let projectionTime of day.seancesTimes">
                   <p>
-                    {{projectionTime.start | date: 'HH:mm'}} - {{projectionTime.end | date: 'HH:mm'}}
+                    {{projectionTime.start | date: 'HH:mm'}} - {{projectionTime.finish | date: 'HH:mm'}}
                     ({{projectionTime.projectionType}})
                     <span class="delete-seance" (click)="removeSeance(projectionTime, weekIndex, dayIndex)">x</span>
                   </p>

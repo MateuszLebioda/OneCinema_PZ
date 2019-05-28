@@ -39,14 +39,11 @@ export class EditPriceListApiService {
   // }
 
   public editPriceList(request: EditPriceListRequestModel): void {
-    console.log('updated price list');
+    console.log(JSON.stringify(request));
+    this._httpService.post<any>('price/change', request).subscribe();
   }
 
   public getPriceList(): Observable<PriceListApiModel> {
-    return this._httpService.get<PriceListApiModel>('price');
-  }
-
-  public editPriceList2(request: EditPriceListRequestModel): Observable<any> {
-    return this._httpService.post<any>('', request);
+    return this._httpService.get<PriceListApiModel>('price/get');
   }
 }

@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {BookingFinalizationService} from './services/booking-finalization.service';
 import {TicketPrice} from './models/ticket-price';
+import {BookingFinalizationApiService} from './services/booking-finalization-api.service';
 
 @Component({
   selector: 'app-booking-finalization',
@@ -39,6 +40,7 @@ export class BookingFinalizationComponent implements OnInit {
 
   constructor(
     private _service: BookingFinalizationService,
+    private _apiService: BookingFinalizationApiService,
     private _router: Router) {
   }
 
@@ -49,7 +51,9 @@ export class BookingFinalizationComponent implements OnInit {
       'email': new FormControl(null, [Validators.required, Validators.email]),
     });
 
-    this._ticketPrice = this._service.getTicketPrices(this.seance);
+    this._apiService.getPriceList().subscribe(priceList => {
+      this._ticketPrice = this._service.getTicketPrices(priceList, this.seance);
+    });
   }
 
   public isInvalid(formControlName: string): boolean {
