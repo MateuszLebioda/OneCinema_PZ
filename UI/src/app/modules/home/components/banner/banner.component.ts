@@ -19,7 +19,10 @@ export class BannerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.movies = this._bannerService.getMovies();
+    this._bannerService.getMovies().subscribe(m => {
+      this.movies = m;
+      console.log('filmicki', this.movies);
+    });
     this.isMobile = this._deviceService.isMobile();
   }
 

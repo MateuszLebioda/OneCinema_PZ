@@ -1,92 +1,95 @@
-<div *ngIf="!isMobile">
-  <table>
-    <tbody>
-    <tr class="table-height">
-      <td rowspan="3" class="image">
-        <div>
-          <iframe class="trailer"
-                  [src]="movies[0].trailerUrl +  '?enablejsapi=1&rel=0&modestbranding=1&iv_load_policy=3&controls=0&fs=1&showinfo=0'| safe">
-          </iframe>
-        </div>
-        <div class="main-image-info">
+<div *ngIf="movies.length >= 4">
+
+  <div *ngIf="!isMobile">
+    <table>
+      <tbody>
+      <tr class="table-height">
+        <td rowspan="3" class="image">
+          <div>
+            <iframe class="trailer"
+                    [src]="movies[0].trailerUrl +  '?enablejsapi=1&rel=0&modestbranding=1&iv_load_policy=3&controls=0&fs=1&showinfo=0'| safe">
+            </iframe>
+          </div>
+          <div class="main-image-info">
           <span>
             <span>{{movies[0].title}}</span>
             <span class="middle-movie-info">Ocena: {{movies[0].rating}}</span>
             <a routerLink="film/{{movies[0].id}}" class="next-movie-link">Przejdź do filmu</a>
           </span>
-        </div>
-      </td>
-      <td class="next-movie-box">
-        <div class="next-movie-image-block">
-          <img class="next-movie-image" src="{{movies[1].posterUrl}}" (click)="clickedNextMovie(1)">
-        </div>
-        <div class="next-movie-info-box">
-          <p>{{movies[1].title}}</p>
-          <p>Ocena: {{movies[1].rating}}</p>
-          <a routerLink="film/{{movies[1].id}}" class="next-movie-link">Przejdź do filmu</a>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td class="next-movie-box">
-        <div class="next-movie-image-block">
-          <img class="next-movie-image" src="{{movies[2].posterUrl}}" (click)="clickedNextMovie(2)">
-        </div>
-        <div class="next-movie-info-box">
-          <p>{{movies[2].title}}</p>
-          <p>Ocena: {{movies[2].rating}}</p>
-          <a routerLink="film/{{movies[2].id}}" class="next-movie-link">Przejdź do filmu</a>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td class="next-movie-box">
-        <div class="next-movie-image-block">
-          <img class="next-movie-image" src="{{movies[3].posterUrl}}" (click)="clickedNextMovie(3)">
-        </div>
-        <div class="next-movie-info-box">
-          <p>{{movies[3].title}}</p>
-          <p>Ocena: {{movies[3].rating}}</p>
-          <a routerLink="film/{{movies[3].id}}" class="next-movie-link">Przejdź do filmu</a>
-        </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+          </div>
+        </td>
+        <td class="next-movie-box">
+          <div class="next-movie-image-block">
+            <img class="next-movie-image" src="{{movies[1].posterUrl}}" (click)="clickedNextMovie(1)">
+          </div>
+          <div class="next-movie-info-box">
+            <p>{{movies[1].title}}</p>
+            <p>Ocena: {{movies[1].rating}}</p>
+            <a routerLink="film/{{movies[1].id}}" class="next-movie-link">Przejdź do filmu</a>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="next-movie-box">
+          <div class="next-movie-image-block">
+            <img class="next-movie-image" src="{{movies[2].posterUrl}}" (click)="clickedNextMovie(2)">
+          </div>
+          <div class="next-movie-info-box">
+            <p>{{movies[2].title}}</p>
+            <p>Ocena: {{movies[2].rating}}</p>
+            <a routerLink="film/{{movies[2].id}}" class="next-movie-link">Przejdź do filmu</a>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="next-movie-box">
+          <div class="next-movie-image-block">
+            <img class="next-movie-image" src="{{movies[3].posterUrl}}" (click)="clickedNextMovie(3)">
+          </div>
+          <div class="next-movie-info-box">
+            <p>{{movies[3].title}}</p>
+            <p>Ocena: {{movies[3].rating}}</p>
+            <a routerLink="film/{{movies[3].id}}" class="next-movie-link">Przejdź do filmu</a>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
-
-<div *ngIf="isMobile">
-  <table>
-    <tbody>
-    <tr class="table-height">
-      <td colspan="3" class="image">
-        <div>
-          <iframe class="trailer"
-                  [src]="movies[0].trailerUrl +  '?enablejsapi=1&rel=0&modestbranding=1&iv_load_policy=3&controls=0&fs=1&showinfo=0'| safe">
-          </iframe>
-        </div>
-        <div class="main-image-info">
+  <div *ngIf="isMobile">
+    <table>
+      <tbody>
+      <tr class="table-height">
+        <td colspan="3" class="image">
+          <div>
+            <iframe class="trailer"
+                    [src]="movies[0].trailerUrl +  '?enablejsapi=1&rel=0&modestbranding=1&iv_load_policy=3&controls=0&fs=1&showinfo=0'| safe">
+            </iframe>
+          </div>
+          <div class="main-image-info">
           <span>
             <span>{{movies[0].title}}</span>
             <span class="middle-movie-info">Ocena: {{movies[0].rating}}</span>
             <a routerLink="film/{{movies[0].id}}" class="next-movie-link">Przejdź do filmu</a>
           </span>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td class="next-movie-box" *ngFor="let i of table">
-        <div class="next-movie-image-block mobile-version">
-          <img class="next-movie-image" src="{{movies[i].posterUrl}}" (click)="clickedNextMovie(i)">
-        </div>
-        <div class="next-movie-info-box">
-          <p>{{movies[i].title}}</p>
-          <p>Ocena: {{movies[i].rating}}</p>
-          <a routerLink="film/{{movies[i].id}}" class="next-movie-link">Przejdź do filmu</a>
-        </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="next-movie-box" *ngFor="let i of table">
+          <div class="next-movie-image-block mobile-version">
+            <img class="next-movie-image" src="{{movies[i].posterUrl}}" (click)="clickedNextMovie(i)">
+          </div>
+          <div class="next-movie-info-box">
+            <p>{{movies[i].title}}</p>
+            <p>Ocena: {{movies[i].rating}}</p>
+            <a routerLink="film/{{movies[i].id}}" class="next-movie-link">Przejdź do filmu</a>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>

@@ -125,6 +125,8 @@ export class MovieProcessingService {
       screeningRooms: castedScreeningRooms
     };
 
+    result.trailerUrl = result.trailerUrl.replace('watch?v=', 'embed/');
+
     return result;
   }
 
@@ -136,7 +138,10 @@ export class MovieProcessingService {
       'gender': new FormControl(null),
       'rating': new FormControl(3, [Validators.required, Validators.min(1), Validators.max(5)]),
       'posterUrl': new FormControl(null, [Validators.required, this._formValidatorService.isUrl.bind(this)]),
-      'trailerUrl': new FormControl(null, [Validators.required, this._formValidatorService.isUrl.bind(this)])
+      'trailerUrl': new FormControl(null, [
+        Validators.required,
+        this._formValidatorService.isUrl.bind(this),
+        Validators.pattern('^(http|https):\/\/www.youtube.com(.*)')]),
     });
 
     form.addControl('movieProjection', new FormGroup({
@@ -159,7 +164,10 @@ export class MovieProcessingService {
       'gender': new FormControl(null),
       'rating': new FormControl(castedMovie.rating, [Validators.required, Validators.min(1), Validators.max(5)]),
       'posterUrl': new FormControl(castedMovie.posterUrl, [Validators.required, this._formValidatorService.isUrl.bind(this)]),
-      'trailerUrl': new FormControl(castedMovie.trailerUrl, [Validators.required, this._formValidatorService.isUrl.bind(this)])
+      'trailerUrl': new FormControl(castedMovie.trailerUrl, [
+        Validators.required,
+        this._formValidatorService.isUrl.bind(this),
+        Validators.pattern('^(http|https):\/\/www.youtube.com(.*)')]),
     });
 
     if (castedMovie.screeningRooms.length > 0) {

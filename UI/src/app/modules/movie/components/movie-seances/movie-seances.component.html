@@ -30,6 +30,9 @@
               </tr>
               </thead>
               <tbody>
+              <tr *ngIf="!areSeances2D && !areSeances3D">
+                <td colspan="4" style="text-align: center">Brak seansów tego dnia</td>
+              </tr>
               <tr *ngIf="areSeances2D">
                 <td>2D</td>
                 <td>
@@ -94,6 +97,9 @@
               </tr>
               </thead>
               <tbody>
+              <tr *ngIf="!areSeances2D && !areSeances3D">
+                <td colspan="2" style="text-align: center">Brak seansów tego dnia</td>
+              </tr>
               <tr *ngIf="areSeances2D">
                 <td>2D</td>
                 <td>

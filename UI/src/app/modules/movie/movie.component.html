@@ -23,7 +23,7 @@
                     <tr>
                       <td class="row-title">Gatunek</td>
                       <td class="row-content">
-                        <span *ngFor="let movieGender of movie.genders">{{movieGender}},</span>
+                        <span>{{movie.genders.join(', ')}}</span>
                       </td>
                     </tr>
                     <tr>
