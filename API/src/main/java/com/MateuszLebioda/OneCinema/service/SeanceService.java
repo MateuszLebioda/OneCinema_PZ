@@ -85,12 +85,13 @@ public class SeanceService {
         Set<Film> films = prepareFilmSetFromSeancesSet(seances);
 
         for(Film film: films){
-            movieProjectionApiModel.add(movieMapper.mapToMovieProjectionApiModel(film));
+            movieProjectionApiModel.addAll(movieMapper.mapToListMovieProjectionApiModel(film,seances));
         }
         
         for(Seance seance: seances){
             for(MovieProjectionApiModel movie: movieProjectionApiModel) {
-                if (seance.getFilm().getTitle().equals(movie.getMovieTitle()))
+                if (seance.getFilm().getTitle().equals(movie.getMovieTitle()) &&
+                        (seance.isIs3D()?Dimension._3D:Dimension._2D) == movie.getProjectionType())
                     movie.addToSeanceApiModelList(seanceMapper.mapToSeancesApiModelWithProjectionType(seance));
             }
         }
