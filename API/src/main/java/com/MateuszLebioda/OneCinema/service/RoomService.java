@@ -12,6 +12,7 @@ import com.MateuszLebioda.OneCinema.entity.SeanceRepository;
 import com.MateuszLebioda.OneCinema.exception.CannotFindObjectException;
 import com.MateuszLebioda.OneCinema.utils.mappers.RoomMapper;
 import com.MateuszLebioda.OneCinema.utils.mappers.SeanceMapper;
+import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,9 @@ public class RoomService {
 
     @Autowired
     SeanceRepository seanceRepository;
+
+    @Autowired
+    RoomService roomService;
 
     @Autowired
     RoomMapper roomMaper;
@@ -94,9 +98,12 @@ public class RoomService {
 
     public ScreeningRoomPlanApiModel getPlanBySeanceId(String id) throws CannotFindObjectException {
         Seance seance = getSeanceById(id);
-
         return roomMaper.mapToScreeningRoomPlanApiModel(seance.getRoom());
+    }
 
+    public ScreeningRoomPlanApiModel getPlanById(String id) throws CannotFindObjectException {
+        Room room = roomService.getRoomById(id);
+        return roomMaper.mapToScreeningRoomPlanApiModel(room);
     }
 
     private Seance getSeanceById(String id) throws CannotFindObjectException {
