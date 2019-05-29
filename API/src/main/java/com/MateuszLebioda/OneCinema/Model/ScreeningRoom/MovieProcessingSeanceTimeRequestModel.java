@@ -10,7 +10,7 @@ public class MovieProcessingSeanceTimeRequestModel {
 
     private Dimension projectionType;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateFormat.FORMAT, timezone = "CET")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateFormat.FORMAT, timezone = "UTF")
     private Date start;
 
     public boolean validate(){
@@ -41,7 +41,7 @@ public class MovieProcessingSeanceTimeRequestModel {
     public void setStart(Date start) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(start);
-        calendar.add(Calendar.HOUR_OF_DAY, 2);
+        calendar.add(Calendar.HOUR_OF_DAY, -2);
         this.start = calendar.getTime();
     }
 
