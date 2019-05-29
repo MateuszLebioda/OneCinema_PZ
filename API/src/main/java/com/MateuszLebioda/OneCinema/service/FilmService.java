@@ -107,16 +107,21 @@ public class FilmService {
     }
 
     public List<MovieShortInfoApiModel> get4RandomActualFilm(){
-        final int COUNTER = 4;
+
 
         List<Film> films = getActualList();
         List<MovieShortInfoApiModel> moves = new ArrayList<>();
-
-        if(films.size()>=COUNTER){
-            List<Film> temporaryFilms = new ArrayList<>();
+        final int FINISH = 4;
+        int start = 0;
+        List<Film> temporaryFilms = new ArrayList<>();
+        
+        for(Film film:films){
             Collections.shuffle(films);
-            for(int i=0;i<COUNTER;i++){
-                temporaryFilms.add(films.get(i));
+            if(!checkContains(temporaryFilms,film)) {
+                temporaryFilms.add(film);
+                start++;
+                if(start == FINISH)
+                    break;
             }
             films = temporaryFilms;
         }
@@ -124,9 +129,15 @@ public class FilmService {
         for(Film film:films){
             moves.add(movieMapper.mapToMovieShortInfoApiModel(film));
         }
-
-
         return  moves;
+    }
+
+    private boolean checkContains(List<Film> films, Film film){
+        for(Film f:films){
+            if(f.getTitle().equals(film.getTitle()))
+                return true;
+        }
+        return false;
     }
 
 
