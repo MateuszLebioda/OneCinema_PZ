@@ -10,10 +10,11 @@ public class MovieProjectionApiModel {
     private String movieId;
     private String movieTitle;
     private String moviePosterUrl;
+    private Dimension projectionType;
     private int movieDuration;
     private double rating;
     private List<String> movieGenders;
-    private List<SeancesApiModelWithProjectionType> seances;
+    private List<SeanceApiModel> seances;
 
 
 
@@ -65,15 +66,23 @@ public class MovieProjectionApiModel {
         this.movieGenders = movieGenders;
     }
 
-    public List<SeancesApiModelWithProjectionType> getSeances() {
+    public void addToSeanceApiModelList(SeanceApiModel seancesApiModelWithProjectionType){
+        seances.add(seancesApiModelWithProjectionType);
+    }
+
+    public Dimension getProjectionType() {
+        return projectionType;
+    }
+
+    public void setProjectionType(Dimension projectionType) {
+        this.projectionType = projectionType;
+    }
+
+    public List<SeanceApiModel> getSeances() {
         return seances;
     }
 
-    public void setSeances(List<SeancesApiModelWithProjectionType> seances) {
+    public void setSeances(List<SeanceApiModel> seances) {
         this.seances = seances;
-    }
-
-    public void addToSeanceApiModelList(SeancesApiModelWithProjectionType seancesApiModelWithProjectionType){
-        seances.add(seancesApiModelWithProjectionType);
     }
 }
