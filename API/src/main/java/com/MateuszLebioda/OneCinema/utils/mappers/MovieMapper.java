@@ -69,6 +69,29 @@ public class MovieMapper {
         return movieApiMode;
     }
 
+    public List<MovieProjectionApiModel> mapToListMovieProjectionApiModel(Film film,Set<Seance> seances){
+        List<MovieProjectionApiModel> movieList = new ArrayList<>();
+
+        for(Dimension dimension:Dimension.values()){
+            if(checkDimensio(film,seances,dimension)){
+                MovieProjectionApiModel model = mapToMovieProjectionApiModel(film);
+                model.setProjectionType(dimension);
+                movieList.add(model);
+            }
+        }
+        return movieList;
+    }
+
+    public boolean checkDimensio(Film film,Set<Seance> seances,Dimension dimension){
+        for(Seance seance:seances){
+            if(seance.getFilm().getTitle().equals(film.getTitle())
+                    && dimension == (seance.isIs3D()?Dimension._3D:Dimension._2D)){
+                    return true;
+            }
+        }
+        return false;
+    }
+
     public MovieApiModel mapToMovieApiModel(Film film){
         MovieApiModel movieApiModel = new MovieApiModel();
 
