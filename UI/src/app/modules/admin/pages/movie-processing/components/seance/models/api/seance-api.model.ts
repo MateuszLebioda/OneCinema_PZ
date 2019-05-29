@@ -5,10 +5,10 @@ export class SeanceApiModel {
   public title: string;
   public projectionType: ProjectionType;
   public start: Date;
-  public end: Date;
+  public finish: Date;
 
   constructor() {
     this.start = new Date();
-    this.end = new Date();
+    this.finish = new Date();
   }
 }

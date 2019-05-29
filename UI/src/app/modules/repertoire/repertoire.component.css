@@ -4,7 +4,8 @@
 }
 
 .image-column-size {
-  width: 100px !important;
+  width: 20% !important;
+  text-align: center;
 }
 
 .time-padding {

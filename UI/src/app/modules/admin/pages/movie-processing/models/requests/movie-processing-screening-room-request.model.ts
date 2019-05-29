@@ -1,6 +1,6 @@
-import {MovieProcessingWeekRequestModel} from './movie-processing-week-request.model';
+import {MovieProcessingSeanceTimeRequestModel} from './movie-processing-seance-time-request.model';
 
 export class MovieProcessingScreeningRoomRequestModel {
   public id: string;
-  public weeks: MovieProcessingWeekRequestModel[];
+  public seances: MovieProcessingSeanceTimeRequestModel[];
 }

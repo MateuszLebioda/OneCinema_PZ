@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {MovieProcessingService} from './services/movie-processing.service';
 import {MovieGenderTranslateModel} from './models/movie-gender-translate.model';
 import {IMultipleSelectDropdownSettings} from '../../../../shared/components/external/multiple-select-dropdown/interfaces/i-multiple-select-dropdown-settings';
+import {MovieProcessingApiService} from './services/movie-processing-api.service';
 
 @Component({
   selector: 'app-movie-processing',
@@ -26,11 +27,14 @@ export class MovieProcessingComponent implements OnInit {
   public settings: IMultipleSelectDropdownSettings;
   public pageTitle = 'Dodawanie filmu';
 
+  private readonly editPageTitle = 'Edycja filmu';
   private clickedGenderSelector = false;
+
 
   constructor(
     private _formValidatorService: FormValidatorService,
     private _service: MovieProcessingService,
+    private _apiService: MovieProcessingApiService,
     private _route: ActivatedRoute) {
   }
 
@@ -38,10 +42,12 @@ export class MovieProcessingComponent implements OnInit {
     const movie = this._service.getMovie(this._route.snapshot.params.movieId);
     this.bookingForm = this._service.getForm(movie);
     this.settings = this._service.getMultiselectDropdownComponentSettings();
-    this.genders = this._service.getGenders();
+    this._apiService.getGenders().subscribe(g => {
+      this.genders = this._service.getTranslatedGenders(g);
+    });
     this.selectedGenders = this._service.getSelectedGendersIfEditMovie(movie);
     if (movie) {
-      this.pageTitle = 'Edycja filmu';
+      this.pageTitle = this.editPageTitle;
     }
   }
 
@@ -62,8 +68,11 @@ export class MovieProcessingComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    //TODO: zmienić (add lub edit)
-    this._service.addMovie(this.selectedGenders, this.bookingForm);
+    if (this.pageTitle === this.editPageTitle) {
+      this._service.editMovie(this.selectedGenders, this.bookingForm);
+    } else {
+      this._service.addMovie(this.selectedGenders, this.bookingForm);
+    }
     // this._router.navigate(['/rezerwacja/potwierdzenie']);
   }
 

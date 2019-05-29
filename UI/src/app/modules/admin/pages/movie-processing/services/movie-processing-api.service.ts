@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {AdminServicesModule} from '../../../admin-services.module';
-import {MovieProcessingRequestModel} from '../models/requests/movie-processing-request.model';
+import {UpdateMovieRequestModel} from '../models/requests/update-movie-request.model';
 import {MovieProcessingApiModel} from '../models/api/movie-processing-api.model';
 import {WeekDays} from '../components/seance/enums/week-days.enum';
 import {ProjectionType} from '../../../../movie/enums/projection-type.enum';
 import {Observable} from 'rxjs/internal/Observable';
 import {HttpBaseService} from '../../../../../core/services/http-base.service';
+import {AddMovieRequestModel} from '../models/requests/add-movie-request.model';
 
 @Injectable({
   providedIn: AdminServicesModule
@@ -15,13 +16,14 @@ export class MovieProcessingApiService {
   constructor(private _httpService: HttpBaseService) {
   }
 
-  public addMovie(request: MovieProcessingRequestModel): Observable<any> {
-    request.id = null;
-    return this._httpService.post<any>('', request);
+  public addMovie(request: AddMovieRequestModel): void {
+    console.log(JSON.stringify(request));
+    this._httpService.post<any>('films/addFilm', request).subscribe();
   }
 
-  public updateMovie(request: MovieProcessingRequestModel): Observable<any> {
-    return this._httpService.post<any>('', request);
+  public editMovie(request: UpdateMovieRequestModel): void {
+    console.log(request);
+    // this._httpService.post<any>('films/addFilm', request).subscribe();
   }
 
   public getMovie2(movieId: string): Observable<MovieProcessingApiModel> {
@@ -108,79 +110,79 @@ export class MovieProcessingApiService {
             }
           ]
         },
-        {
-          id: 'qwqqwewqqew',
-          weeks: [
-            {
-              weekNumber: 1,
-              days: [
-                {
-                  day: WeekDays.Monday,
-                  seancesTimes: [
-                    {
-                      seanceId: 'fgh5',
-                      projectionType: ProjectionType.type2D,
-                      start: new Date(),
-                      end: new Date()
-                    }
-                  ]
-                },
-                {
-                  day: WeekDays.Tuesday,
-                  seancesTimes: [
-                    {
-                      seanceId: 'plk7',
-                      projectionType: ProjectionType.type3D,
-                      start: new Date(),
-                      end: new Date()
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              weekNumber: 2,
-              days: [
-                {
-                  day: WeekDays.Wednesday,
-                  seancesTimes: [
-                    {
-                      seanceId: 'pwh8',
-                      projectionType: ProjectionType.type2D,
-                      start: new Date(),
-                      end: new Date()
-                    }
-                  ]
-                },
-                {
-                  day: WeekDays.Thursday,
-                  seancesTimes: [
-                    {
-                      seanceId: 'lzg9',
-                      projectionType: ProjectionType.type3D,
-                      start: new Date(),
-                      end: new Date()
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
+        // {
+        //   id: 'wifvicvwibie',
+        //   weeks: [
+        //     {
+        //       weekNumber: 1,
+        //       days: [
+        //         {
+        //           day: WeekDays.Monday,
+        //           seancesTimes: [
+        //             {
+        //               seanceId: 'fgh5',
+        //               projectionType: ProjectionType.type2D,
+        //               start: new Date(),
+        //               finish: new Date()
+        //             }
+        //           ]
+        //         },
+        //         {
+        //           day: WeekDays.Tuesday,
+        //           seancesTimes: [
+        //             {
+        //               seanceId: 'plk7',
+        //               projectionType: ProjectionType.type3D,
+        //               start: new Date(),
+        //               finish: new Date()
+        //             }
+        //           ]
+        //         }
+        //       ]
+        //     },
+        //     {
+        //       weekNumber: 2,
+        //       days: [
+        //         {
+        //           day: WeekDays.Wednesday,
+        //           seancesTimes: [
+        //             {
+        //               seanceId: 'pwh8',
+        //               projectionType: ProjectionType.type2D,
+        //               start: new Date(),
+        //               finish: new Date()
+        //             }
+        //           ]
+        //         },
+        //         {
+        //           day: WeekDays.Thursday,
+        //           seancesTimes: [
+        //             {
+        //               seanceId: 'lzg9',
+        //               projectionType: ProjectionType.type3D,
+        //               start: new Date(),
+        //               finish: new Date()
+        //             }
+        //           ]
+        //         }
+        //       ]
+        //     }
+        //   ]
+        // }
       ]
     };
   }
 
-  public getGenders(): string[] {
-    return [
-      'Horror',
-      'Adventure',
-      'Drama',
-      'Historical'
-    ];
-  }
+  // public getTranslatedGenders(): string[] {
+  //   return [
+  //     'Horror',
+  //     'Adventure',
+  //     'Drama',
+  //     'Historical'
+  //   ];
+  // }
 
-  public getGenders2(): Observable<string[]> {
-    return null;
+  public getGenders(): Observable<string[]> {
+    return this._httpService.get<string[]>('genders/getAll');
   }
 }

@@ -17,58 +17,58 @@ export class RepertoireApiService {
     private _mapper: MapperService) {
   }
 
-  public getRepertoire(dayNumber: number): MovieProjection[] {
-    const repertoire = new Array<MovieProjectionApiModel>();
+  // public getRepertoire(dayNumber: number): MovieProjection[] {
+  //   const repertoire = new Array<MovieProjectionApiModel>();
+  //
+  //   repertoire.push({
+  //     movieId: 'id1',
+  //     movieGenders: ['Action', 'Adventure'],
+  //     movieDuration: 120,
+  //     moviePosterUrl: 'https://static.pressfrom.info/upload/images/real/2019/03/14/fans-angry-danai-gurira-s-name-isn-t-atop-avengers-endgame-poster__701824_.jpg?content=1',
+  //     movieTitle: 'Avengers',
+  //     projectionType: ProjectionType.type2D,
+  //     seances: [
+  //       {
+  //         start: new Date('May 2, 2019 19:05:00'),
+  //         finish: new Date('May 2, 2019 23:05:00'),
+  //         id: '8823242'
+  //       },
+  //       {
+  //         start: new Date('May 2, 2019 20:05:00'),
+  //         finish: new Date('May 2, 2019 23:05:00'),
+  //         id: '54543242'
+  //       },
+  //       {
+  //         start: new Date('May 2, 2019 15:05:00'),
+  //         finish: new Date('May 2, 2019 18:05:00'),
+  //         id: '12223242'
+  //       }
+  //     ]
+  //   });
+  //
+  //   if (dayNumber === 2) {
+  //     repertoire.push({
+  //       movieId: 'id2',
+  //       movieGenders: ['Historical'],
+  //       movieDuration: 150,
+  //       moviePosterUrl: 'https://static.posters.cz/image/750/plakaty/kac-vegas-ii-plakat-i12276.jpg',
+  //       movieTitle: 'Jaś fasola',
+  //       projectionType: ProjectionType.type3D,
+  //       seances: [
+  //         {
+  //           start: new Date('April 1, 2019 11:05:00'),
+  //           finish: new Date('April 1, 2019 15:05:00'),
+  //           id: '32223242'
+  //         },
+  //       ]
+  //     });
+  //   }
+  //
+  //   return this._mapper.toMovieProjectionCollection(repertoire);
+  // }
 
-    repertoire.push({
-      movieId: 'id1',
-      movieGenders: ['Action', 'Adventure'],
-      movieDuration: 120,
-      moviePosterUrl: 'https://static.pressfrom.info/upload/images/real/2019/03/14/fans-angry-danai-gurira-s-name-isn-t-atop-avengers-endgame-poster__701824_.jpg?content=1',
-      movieTitle: 'Avengers',
-      projectionType: ProjectionType.type2D,
-      seances: [
-        {
-          start: new Date('May 2, 2019 19:05:00'),
-          finish: new Date('May 2, 2019 23:05:00'),
-          id: '8823242'
-        },
-        {
-          start: new Date('May 2, 2019 20:05:00'),
-          finish: new Date('May 2, 2019 23:05:00'),
-          id: '54543242'
-        },
-        {
-          start: new Date('May 2, 2019 15:05:00'),
-          finish: new Date('May 2, 2019 18:05:00'),
-          id: '12223242'
-        }
-      ]
-    });
-
-    if (dayNumber === 2) {
-      repertoire.push({
-        movieId: 'id2',
-        movieGenders: ['Historical'],
-        movieDuration: 150,
-        moviePosterUrl: 'https://static.posters.cz/image/750/plakaty/kac-vegas-ii-plakat-i12276.jpg',
-        movieTitle: 'Jaś fasola',
-        projectionType: ProjectionType.type3D,
-        seances: [
-          {
-            start: new Date('April 1, 2019 11:05:00'),
-            finish: new Date('April 1, 2019 15:05:00'),
-            id: '32223242'
-          },
-        ]
-      });
-    }
-
-    return this._mapper.toMovieProjectionCollection(repertoire);
-  }
-
-  public getRepertoire2(dayNumber: number): Observable<MovieProjection[]> {
-    return this._httpService.get<MovieProjection[]>('');
+  public getRepertoire(dayNumber: number): Observable<MovieProjectionApiModel[]> {
+    return this._httpService.get<MovieProjectionApiModel[]>(`/seance/getMovieList/${dayNumber}`);
   }
 
   // private temp() {

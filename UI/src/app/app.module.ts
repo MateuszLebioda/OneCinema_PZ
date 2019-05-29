@@ -19,6 +19,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material';
 import {ErrorPageComponent} from './core/errors/error-page/error-page.component';
 import {AccountModule} from './modules/account/account.module';
+// import {AngularFireModule, FirebaseAppConfig, FirebaseOptions} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFireModule, FirebaseOptions} from '@angular/fire';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {AuthenticationInterceptorService} from './core/services/authentication/authentication-interceptor.service';
 
 registerLocaleData(localePL);
 
@@ -30,6 +35,7 @@ registerLocaleData(localePL);
   imports: [
     BrowserModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
     BrowserAnimationsModule,
     MatSnackBarModule,
     DeviceDetectorModule.forRoot(),
@@ -44,10 +50,16 @@ registerLocaleData(localePL);
     AdminModule
   ],
   providers: [
+    AngularFireAuth,
     {provide: APP_BASE_HREF, useValue: '/'},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
-    {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
-    {provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptorService, multi: true}
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthenticationInterceptorService,
+    //   multi: true
+    // }
+    // {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
+    // {provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
 })

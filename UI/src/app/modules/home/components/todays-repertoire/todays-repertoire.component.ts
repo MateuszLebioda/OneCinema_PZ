@@ -6,6 +6,7 @@ import {SeanceApiModel} from '../../../repertoire/models/api/seance-api.model';
 import {SeanceStatus} from '../../../repertoire/enums/seance-status.enum';
 import {RepertoireService} from '../../../repertoire/services/repertoire.service';
 import {DeviceDetectorService} from 'ngx-device-detector';
+import {MapperService} from '../../../../shared/helpers/external/mapper/mapper.service';
 
 @Component({
   selector: 'app-todays-repertoire',
@@ -13,7 +14,7 @@ import {DeviceDetectorService} from 'ngx-device-detector';
   styleUrls: ['./todays-repertoire.component.css']
 })
 export class TodaysRepertoireComponent implements OnInit {
-  public repertoire: MovieProjection[];
+  public repertoire: MovieProjection[] = [];
   public repertoireDays: string[];
   public isMobile: boolean;
 
@@ -21,11 +22,16 @@ export class TodaysRepertoireComponent implements OnInit {
     private _repertoireListService: RepertoireApiService,
     private _repertoireService: RepertoireService,
     private _deviceService: DeviceDetectorService,
+    private _mapper: MapperService,
     private _router: Router) {
   }
 
   ngOnInit() {
-    this.repertoire = this._repertoireListService.getRepertoire(1);
+    this._repertoireListService.getRepertoire(0).subscribe(r => {
+      console.log('przed', r);
+      this.repertoire = this._mapper.toMovieProjectionCollection(r);
+      console.log('po', this.repertoire);
+    });
     this.repertoireDays = this._repertoireService.getRepertoireDaysSinceNow();
     this.isMobile = this._deviceService.isMobile();
   }

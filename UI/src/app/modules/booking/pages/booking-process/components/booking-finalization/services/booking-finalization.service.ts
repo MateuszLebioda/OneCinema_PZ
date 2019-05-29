@@ -8,6 +8,7 @@ import {SeanceApiModel} from '../../booking-preparation/models/api/seance-api.mo
 import {BookingRequestModel} from '../models/requests/booking-request.model';
 import {TicketPrice} from '../models/ticket-price';
 import {ProjectionType} from '../../../../../../movie/enums/projection-type.enum';
+import {PriceListApiModel} from '../../../../../../../shared/components/internal/navbar/models/api-models/price-list-api.model';
 
 @Injectable({
   providedIn: BookingServicesModule
@@ -33,8 +34,11 @@ export class BookingFinalizationService {
     });
   }
 
-  public getTicketPrices(seance: SeanceApiModel): TicketPrice {
-    const prices = this._apiService.getPriceList();
+  public getTicketPrices(prices: PriceListApiModel, seance: SeanceApiModel): TicketPrice {
+    // let prices: PriceListApiModel;
+    // this._apiService.getPriceList().subscribe(priceList => {
+    //   prices = priceList;
+    // });
     const result = new TicketPrice();
     if (seance.seanceType === ProjectionType.type2D) {
       if (seance.date.getDay() >= 1 && seance.date.getDay() <= 4) {

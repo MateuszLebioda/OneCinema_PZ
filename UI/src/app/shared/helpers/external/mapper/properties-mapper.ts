@@ -3,23 +3,36 @@ import {SeancesPerTimesOfDay} from '../../../../modules/repertoire/models/seance
 import {Seat} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/models/seat';
 import {ScreeningRoomPlanRowApiModel} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/models/api/screening-room-plan-row-api.model';
 import {SeatStatus} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/enums/seat-status';
+import {DateTime} from 'luxon';
+import {Luxon} from '../luxon';
 
 export class PropertiesMapper {
 
   public static getSeancesPerTimesOfDay(source: SeanceApiModel[]): SeancesPerTimesOfDay {
     const destination: SeancesPerTimesOfDay = new SeancesPerTimesOfDay();
-
+    console.log('LECI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', source);
     for (const seance of source) {
-      const minutesInDay = seance.start.getMinutes() + seance.start.getHours() * 60;
+      console.log('polecialo', seance);
+      seance.start = new Date(seance.start);
+      seance.finish = new Date(seance.finish);
 
-      if (minutesInDay <= 12 * 60) {
+      const untilNoon = new Date(seance.start);
+      untilNoon.setHours(12);
+      untilNoon.setMinutes(0);
+      untilNoon.setMilliseconds(0);
+
+      const afterNoon = new Date(untilNoon);
+      afterNoon.setHours(18);
+
+      if (seance.start <= untilNoon) {
         destination.seancesUntilNoon.push(seance);
-      } else if (minutesInDay <= 18 * 60) {
+      } else if (seance.start <= afterNoon) {
         destination.seancesAfternoon.push(seance);
       } else {
         destination.seancesEvening.push(seance);
       }
     }
+
     return destination;
   }
 

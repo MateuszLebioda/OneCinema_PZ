@@ -12,6 +12,12 @@ export class Movie {
 
 
   constructor() {
+    this.title = '';
+    this.posterUrl = '';
+    this.trailerUrl = '';
+    this.duration = 60;
+    this.genders = [];
+    this.rating = 3;
     this.seances2D = [];
     this.seances3D = [];
   }

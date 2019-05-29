@@ -1831,7 +1831,7 @@ h3.head {
 }
 
 .error button {
-  background-color:orangered;
+  background-color: orangered;
   color: white;
 }
 
@@ -1840,10 +1840,20 @@ h3.head {
 }
 
 .cdk-overlay-container {
-  position: absolute;
+  position: fixed;
   top: 0;
 }
 
 .mat-snack-bar-container {
- max-width: 100vw !important;
+  max-width: 100vw !important;
+}
+
+.succesMessage {
+  background-color: forestgreen;
+  color: white;
+}
+
+.succesMessage button {
+  background-color: forestgreen;
+  color: white;
 }
