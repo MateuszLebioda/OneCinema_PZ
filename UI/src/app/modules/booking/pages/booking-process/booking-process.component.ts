@@ -19,7 +19,9 @@ export class BookingProcessComponent implements OnInit {
 
   ngOnInit() {
     const seanceId: string = this._route.snapshot.params['seanceId'];
-    this.seance = this._bookingService.getSeance(seanceId);
+    this._bookingService.getSeance(seanceId).subscribe(s => {
+      this.seance = s;
+    });
   }
 
   public startFinalization(): void {

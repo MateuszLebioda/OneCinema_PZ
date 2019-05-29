@@ -21,6 +21,10 @@ export class BannerComponent implements OnInit {
   ngOnInit() {
     this._bannerService.getMovies().subscribe(m => {
       this.movies = m;
+
+      while (this.movies.length < 4) {
+        this.movies.push(new MovieShortInfoApiModel());
+      }
       console.log('filmicki', this.movies);
     });
     this.isMobile = this._deviceService.isMobile();
@@ -35,5 +39,9 @@ export class BannerComponent implements OnInit {
     for (let i = 0; i < movieIndex; i++) {
       this.changeDisplayedMovies();
     }
+  }
+
+  public displayMovie(movie: MovieShortInfoApiModel): boolean {
+    return movie && movie.id && movie.id.length > 0;
   }
 }

@@ -1,5 +1,5 @@
 <div class="agileinfo-news-top-grids">
-  <div class="col-md-8 wthree-top-news-left">
+  <div class="col-md-8 wthree-top-news-left" *ngIf="seanceIsDownloaded">
     <app-screening-room [seance]="seance" [(bookedSeats)]="bookedSeats"></app-screening-room>
   </div>
   <div class="col-md-4 wthree-news-right">

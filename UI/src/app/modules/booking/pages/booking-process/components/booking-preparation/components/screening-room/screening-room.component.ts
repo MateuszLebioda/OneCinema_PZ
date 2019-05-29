@@ -31,8 +31,7 @@ export class ScreeningRoomComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('na pocz', this.route.snapshot.params.seanceId);
-    this.seance.screeningRoomId = this.route.snapshot.params.seanceId;
+    console.log('SEANS', this.seance);
     this._screeningRoomApiService.getScreeningRoomPlan(this.seance.screeningRoomId).subscribe(p => {
       console.log('przed', p);
       this.screeningRoom = this._mapper.toScreeningRoom(p);

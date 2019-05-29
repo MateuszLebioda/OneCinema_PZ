@@ -13,8 +13,8 @@
           <div class="main-image-info">
           <span>
             <span>{{movies[0].title}}</span>
-            <span class="middle-movie-info">Ocena: {{movies[0].rating}}</span>
-            <a routerLink="film/{{movies[0].id}}" class="next-movie-link">Przejdź do filmu</a>
+            <span class="middle-movie-info" *ngIf="displayMovie(movies[0])">Ocena: {{movies[0].rating}}</span>
+            <a routerLink="film/{{movies[0].id}}" class="next-movie-link" *ngIf="displayMovie(movies[0])">Przejdź do filmu</a>
           </span>
           </div>
         </td>
@@ -24,8 +24,9 @@
           </div>
           <div class="next-movie-info-box">
             <p>{{movies[1].title}}</p>
-            <p>Ocena: {{movies[1].rating}}</p>
-            <a routerLink="film/{{movies[1].id}}" class="next-movie-link">Przejdź do filmu</a>
+            <p *ngIf="displayMovie(movies[1])">Ocena: {{movies[1].rating}}</p>
+            <a routerLink="film/{{movies[1].id}}" class="next-movie-link" *ngIf="displayMovie(movies[1])">Przejdź do
+              filmu</a>
           </div>
         </td>
       </tr>
@@ -36,8 +37,9 @@
           </div>
           <div class="next-movie-info-box">
             <p>{{movies[2].title}}</p>
-            <p>Ocena: {{movies[2].rating}}</p>
-            <a routerLink="film/{{movies[2].id}}" class="next-movie-link">Przejdź do filmu</a>
+            <p *ngIf="displayMovie(movies[2])">Ocena: {{movies[2].rating}}</p>
+            <a routerLink="film/{{movies[2].id}}" class="next-movie-link" *ngIf="displayMovie(movies[2])">Przejdź do
+              filmu</a>
           </div>
         </td>
       </tr>
@@ -48,8 +50,9 @@
           </div>
           <div class="next-movie-info-box">
             <p>{{movies[3].title}}</p>
-            <p>Ocena: {{movies[3].rating}}</p>
-            <a routerLink="film/{{movies[3].id}}" class="next-movie-link">Przejdź do filmu</a>
+            <p *ngIf="displayMovie(movies[3])">Ocena: {{movies[3].rating}}</p>
+            <a routerLink="film/{{movies[3].id}}" class="next-movie-link" *ngIf="displayMovie(movies[3])">Przejdź do
+              filmu</a>
           </div>
         </td>
       </tr>
@@ -70,8 +73,8 @@
           <div class="main-image-info">
           <span>
             <span>{{movies[0].title}}</span>
-            <span class="middle-movie-info">Ocena: {{movies[0].rating}}</span>
-            <a routerLink="film/{{movies[0].id}}" class="next-movie-link">Przejdź do filmu</a>
+            <span class="middle-movie-info" *ngIf="displayMovie(movies[0])">Ocena: {{movies[0].rating}}</span>
+            <a routerLink="film/{{movies[0].id}}" class="next-movie-link" *ngIf="displayMovie(movies[0])">Przejdź do filmu</a>
           </span>
           </div>
         </td>
@@ -83,8 +86,9 @@
           </div>
           <div class="next-movie-info-box">
             <p>{{movies[i].title}}</p>
-            <p>Ocena: {{movies[i].rating}}</p>
-            <a routerLink="film/{{movies[i].id}}" class="next-movie-link">Przejdź do filmu</a>
+            <p *ngIf="displayMovie(movies[i])">Ocena: {{movies[i].rating}}</p>
+            <a routerLink="film/{{movies[i].id}}" class="next-movie-link" *ngIf="displayMovie(movies[i])">Przejdź do
+              filmu</a>
           </div>
         </td>
       </tr>
