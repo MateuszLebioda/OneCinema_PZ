@@ -32,13 +32,12 @@ public class SeanceMapper {
         return seanceAndRoomApiModel;
     }
 
-    public SeancesApiModelWithProjectionType mapToSeancesApiModelWithProjectionType(Seance seance){
-        SeancesApiModelWithProjectionType seanceApiModel = new SeancesApiModelWithProjectionType();
+    public SeanceApiModel mapToSeancesApiModelWithProjectionType(Seance seance){
+        SeanceApiModel seanceApiModel = new SeanceApiModel();
 
         seanceApiModel.setId(seance.getId());
         seanceApiModel.setStart(seance.getStart());
         seanceApiModel.setFinish(getEndTime(seance));
-        seanceApiModel.setProjectionType(seance.isIs3D()? Dimension._3D:Dimension._2D);
 
         return seanceApiModel;
     }

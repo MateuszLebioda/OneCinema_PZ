@@ -9,9 +9,9 @@ import com.MateuszLebioda.OneCinema.utils.validators.ValidatorStatus;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URISyntaxException;
 
 @RequestMapping("/films")
 @RestController
@@ -51,7 +51,7 @@ public class FilmController {
     @ApiOperation(value = "Add film")
     @RequestMapping(value = "/addFilm", method = RequestMethod.POST)
     @ResponseBody
-    public ValidatorStatus addFilm(@RequestBody MovieProcessingAddMovieFilmRequestMode movieProcessingRequestModel) throws URISyntaxException {
+    public ResponseEntity<ValidatorStatus> addFilm(@RequestBody MovieProcessingAddMovieFilmRequestMode movieProcessingRequestModel) {
         validatorStatus.clear();
         filmService.validateMovieProcessingRequestModel(movieProcessingRequestModel);
         if(validatorStatus.isCorrect()) {
@@ -61,7 +61,10 @@ public class FilmController {
                 validatorStatus.addError(ValidationErrors.CANNOT_ADD_FILM);
             }
         }
-        return validatorStatus;
+        if(validatorStatus.isCorrect())
+            return new ResponseEntity(validatorStatus,HttpStatus.ACCEPTED);
+        else
+            return new ResponseEntity(validatorStatus,HttpStatus.BAD_REQUEST);
     }
 
     @ApiOperation(value = "preview about film")

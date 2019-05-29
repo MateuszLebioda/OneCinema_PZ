@@ -35,11 +35,18 @@ public class RoomController {
         return formatter.returnJson(roomService.getSeancesFromSeanceRequestModel(seanceRequestModel));
     }
 
+    @ApiOperation(value = "Return screening room plan by seance Id")
+    @RequestMapping(value = "/getPlanBySeance/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public String getScreeningRoomPlanBySeanceId(@PathVariable String id) throws JsonProcessingException, CannotFindObjectException {
+        return formatter.returnJson(roomService.getPlanBySeanceId(id));
+    }
+
+
     @ApiOperation(value = "Return screening room plan")
     @RequestMapping(value = "/getPlan/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String getScreeningRoomPlan(@PathVariable String id) throws JsonProcessingException, CannotFindObjectException {
-        return formatter.returnJson(roomService.getPlanBySeanceId(id));
-        //return null;
+        return formatter.returnJson(roomService.getPlanById(id));
     }
 }
