@@ -2,7 +2,6 @@ package com.MateuszLebioda.OneCinema.service;
 
 import com.MateuszLebioda.OneCinema.entity.Reservation;
 import com.MateuszLebioda.OneCinema.entity.ReservationRepository;
-import com.wordnik.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

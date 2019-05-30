@@ -10,6 +10,7 @@ import com.MateuszLebioda.OneCinema.utils.mappers.MovieMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.*;
 
 @Service
@@ -141,4 +142,11 @@ public class FilmService {
     }
 
 
+    public PreviewMovieApiModel getPreviewMovieApiModelByFilmId(String id) throws CannotFindObjectException {
+        Optional<Film> film = filmRepository.findById(id);
+        if(film.isPresent()){
+            return movieMapper.mapToPreviewMovieApiModel(film.get());
+        }
+        throw new CannotFindObjectException();
+    }
 }

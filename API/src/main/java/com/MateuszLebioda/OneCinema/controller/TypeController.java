@@ -3,8 +3,7 @@ package com.MateuszLebioda.OneCinema.controller;
 
 import com.MateuszLebioda.OneCinema.entity.Type;
 import com.MateuszLebioda.OneCinema.entity.TypeRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.wordnik.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

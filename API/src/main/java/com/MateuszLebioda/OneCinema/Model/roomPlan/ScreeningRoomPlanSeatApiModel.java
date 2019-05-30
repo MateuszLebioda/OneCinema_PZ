@@ -2,8 +2,8 @@ package com.MateuszLebioda.OneCinema.Model.roomPlan;
 
 public class ScreeningRoomPlanSeatApiModel {
     private String id;
-    private int seat;
-    private boolean isPlaced;
+    private int number;
+    private boolean isSeat;
 
     public String getId() {
         return id;
@@ -13,19 +13,19 @@ public class ScreeningRoomPlanSeatApiModel {
         this.id = id;
     }
 
-    public int getSeat() {
-        return seat;
+    public int getNumber() {
+        return number;
     }
 
-    public void setPlaced(int placed) {
-        this.seat = placed;
+    public void setSeat(int seat) {
+        this.number = seat;
     }
 
-    public boolean isPlaced() {
-        return isPlaced;
+    public boolean isSeat() {
+        return isSeat;
     }
 
-    public void setSeat(boolean seat) {
-        isPlaced = seat;
+    public void setNumber(boolean number) {
+        isSeat = number;
     }
 }
