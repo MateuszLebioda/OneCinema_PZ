@@ -103,7 +103,7 @@ public class SeanceMapper {
     }
 
 
-    public List<PreviewMovieWeekApiModel> mapToPreviewMovieWeekApiModel(Set<Seance> seances) {
+    /*public List<PreviewMovieWeekApiModel> mapToPreviewMovieWeekApiModel(Set<Seance> seances) {
         List<PreviewMovieWeekApiModel> previewMovieWeekApiModels = new ArrayList<>();
 
         for(Seance seance:seances){
@@ -111,5 +111,5 @@ public class SeanceMapper {
         }
 
         return previewMovieWeekApiModels;
-    }
+    }*/
 }
