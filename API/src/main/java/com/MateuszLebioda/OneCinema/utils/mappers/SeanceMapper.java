@@ -103,4 +103,13 @@ public class SeanceMapper {
     }
 
 
+    public List<PreviewMovieWeekApiModel> mapToPreviewMovieWeekApiModel(Set<Seance> seances) {
+        List<PreviewMovieWeekApiModel> previewMovieWeekApiModels = new ArrayList<>();
+
+        for(Seance seance:seances){
+            PreviewMovieWeekApiModel previewMovieWeekApiModel = new PreviewMovieWeekApiModel();
+        }
+
+        return previewMovieWeekApiModels;
+    }
 }

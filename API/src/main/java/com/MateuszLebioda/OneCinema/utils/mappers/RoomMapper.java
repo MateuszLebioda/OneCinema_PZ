@@ -1,11 +1,14 @@
 package com.MateuszLebioda.OneCinema.utils.mappers;
 
+import com.MateuszLebioda.OneCinema.Model.ScreeningRoom.PreviewMovieScreeningRoomApiModel;
 import com.MateuszLebioda.OneCinema.Model.ScreeningRoom.ScreeningRoomApiModel;
 import com.MateuszLebioda.OneCinema.Model.roomPlan.ScreeningRoomPlanApiModel;
 import com.MateuszLebioda.OneCinema.Model.roomPlan.ScreeningRoomPlanRowApiModel;
 import com.MateuszLebioda.OneCinema.Model.roomPlan.ScreeningRoomPlanSeatApiModel;
 import com.MateuszLebioda.OneCinema.entity.Room;
+import com.MateuszLebioda.OneCinema.entity.Seance;
 import com.MateuszLebioda.OneCinema.entity.Spot;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,9 +18,8 @@ import java.util.Set;
 @Service
 public class RoomMapper {
 
-    /*public Room mapScreeningRoomApiModel(ScreeningRoomApiModel screeningRoomApiModel){
-        return null;
-    }*/
+    @Autowired
+    SeanceMapper seanceMapper;
 
     public ScreeningRoomApiModel mapToScreeningRoomApiModel(Room room){
         ScreeningRoomApiModel screeningRoomApiModel = new ScreeningRoomApiModel();
@@ -80,8 +82,8 @@ public class RoomMapper {
             for (int seat=0;seat<maxSeat;seat++){
                 ScreeningRoomPlanSeatApiModel seats = new ScreeningRoomPlanSeatApiModel();
                 seats.setId(spotsTable[row][seat].getId());
-                seats.setSeat(spotsTable[row][seat].isPlace());
-                seats.setPlaced(spotsTable[row][seat].getPosition());
+                seats.setNumber(spotsTable[row][seat].isPlace());
+                seats.setSeat(spotsTable[row][seat].getPosition());
                 seatApiModelList.add(seats);
             }
             rows.setSeats(seatApiModelList);
@@ -91,4 +93,36 @@ public class RoomMapper {
         return plan;
     }
 
+    public PreviewMovieScreeningRoomApiModel mapToPreviewMovieScreeningRoomApiModel(Room room) {
+        PreviewMovieScreeningRoomApiModel previewMovieScreeningRoomApiModel = new PreviewMovieScreeningRoomApiModel();
+
+        previewMovieScreeningRoomApiModel.setId(room.getId());
+        previewMovieScreeningRoomApiModel.setName(room.getId());
+
+
+        previewMovieScreeningRoomApiModel.setSeances(seanceMapper.mapToPreviewMovieWeekApiModel(room.getSeances()));
+
+        return previewMovieScreeningRoomApiModel;
+    }
+
+
+    public List<PreviewMovieScreeningRoomApiModel> mapToPreviewMovieScreeningRoomApiModelList(Set<Seance> seances) {
+        List<PreviewMovieScreeningRoomApiModel> previewMovieScreeningRoomApiModels = new ArrayList<>();
+
+        for(Seance seance:seances){
+            if(!containSeances(previewMovieScreeningRoomApiModels,seance.getRoom())){
+                previewMovieScreeningRoomApiModels.add(mapToPreviewMovieScreeningRoomApiModel(seance.getRoom()));
+            }
+        }
+        return previewMovieScreeningRoomApiModels;
+    }
+
+    private boolean containSeances(List<PreviewMovieScreeningRoomApiModel> models, Room room){
+        for(PreviewMovieScreeningRoomApiModel model:models){
+            if(model.getName().equals(room.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
 }
