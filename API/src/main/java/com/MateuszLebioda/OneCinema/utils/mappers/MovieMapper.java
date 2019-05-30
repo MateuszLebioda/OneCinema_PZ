@@ -112,21 +112,4 @@ public class MovieMapper {
         return movieApiModel;
     }
 
-    public PreviewMovieApiModel mapToPreviewMovieApiModel(Film film) {
-        PreviewMovieApiModel previewMovieApiModel = new PreviewMovieApiModel();
-
-        previewMovieApiModel.setId(film.getId());
-        previewMovieApiModel.setDuration(film.getDuration());
-        previewMovieApiModel.setGenders(film.getGendersStringList());
-        previewMovieApiModel.setPosterUrl(film.getGraphic());
-        previewMovieApiModel.setRate(film.getRating());
-        previewMovieApiModel.setTitle(film.getTitle());
-        previewMovieApiModel.setTrailerUrl(film.getTrailer());
-
-        roomMapper.mapToPreviewMovieScreeningRoomApiModelList(film.getSeances());
-
-        //previewMovieApiModel.setScreeningRooms();
-
-        return previewMovieApiModel;
-    }
 }

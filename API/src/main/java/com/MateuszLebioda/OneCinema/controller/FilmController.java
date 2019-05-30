@@ -67,19 +67,4 @@ public class FilmController {
             return new ResponseEntity(validatorStatus,HttpStatus.BAD_REQUEST);
     }
 
-    @ApiOperation(value = "preview about film")
-    @RequestMapping(value = "preview/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity previewFilm(@PathVariable String id){
-        try {
-            filmService.getPreviewMovieApiModelByFilmId(id);
-            return new ResponseEntity(HttpStatus.ACCEPTED);
-        } catch (CannotFindObjectException e) {
-            validatorStatus.clear();
-            validatorStatus.setCorrect(false);
-            validatorStatus.addError(ValidationErrors.CANNOT_FIND_FILM);
-            return new ResponseEntity(validatorStatus,HttpStatus.BAD_REQUEST);
-        }
-
-    }
 }

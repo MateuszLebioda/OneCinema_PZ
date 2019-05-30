@@ -1,6 +1,5 @@
 package com.MateuszLebioda.OneCinema.utils.mappers;
 
-import com.MateuszLebioda.OneCinema.Model.ScreeningRoom.PreviewMovieScreeningRoomApiModel;
 import com.MateuszLebioda.OneCinema.Model.ScreeningRoom.ScreeningRoomApiModel;
 import com.MateuszLebioda.OneCinema.Model.roomPlan.ScreeningRoomPlanApiModel;
 import com.MateuszLebioda.OneCinema.Model.roomPlan.ScreeningRoomPlanRowApiModel;
@@ -93,36 +92,4 @@ public class RoomMapper {
         return plan;
     }
 
-    public PreviewMovieScreeningRoomApiModel mapToPreviewMovieScreeningRoomApiModel(Room room) {
-        PreviewMovieScreeningRoomApiModel previewMovieScreeningRoomApiModel = new PreviewMovieScreeningRoomApiModel();
-
-        previewMovieScreeningRoomApiModel.setId(room.getId());
-        previewMovieScreeningRoomApiModel.setName(room.getId());
-
-
-        previewMovieScreeningRoomApiModel.setSeances(seanceMapper.mapToPreviewMovieWeekApiModel(room.getSeances()));
-
-        return previewMovieScreeningRoomApiModel;
-    }
-
-
-    public List<PreviewMovieScreeningRoomApiModel> mapToPreviewMovieScreeningRoomApiModelList(Set<Seance> seances) {
-        List<PreviewMovieScreeningRoomApiModel> previewMovieScreeningRoomApiModels = new ArrayList<>();
-
-        for(Seance seance:seances){
-            if(!containSeances(previewMovieScreeningRoomApiModels,seance.getRoom())){
-                previewMovieScreeningRoomApiModels.add(mapToPreviewMovieScreeningRoomApiModel(seance.getRoom()));
-            }
-        }
-        return previewMovieScreeningRoomApiModels;
-    }
-
-    private boolean containSeances(List<PreviewMovieScreeningRoomApiModel> models, Room room){
-        for(PreviewMovieScreeningRoomApiModel model:models){
-            if(model.getName().equals(room.getName())){
-                return true;
-            }
-        }
-        return false;
-    }
 }
