@@ -1,10 +1,10 @@
 package com.MateuszLebioda.OneCinema.controller;
 
-import com.MateuszLebioda.OneCinema.entity.ReservationRepository;
+
 import com.MateuszLebioda.OneCinema.service.ReservationService;
 import com.MateuszLebioda.OneCinema.utils.formatters.Formatter;
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
+
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
