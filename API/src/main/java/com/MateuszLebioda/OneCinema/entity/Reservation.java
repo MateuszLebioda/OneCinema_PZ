@@ -29,6 +29,17 @@ public class Reservation {
     @JoinColumn(name = "id_seans")
     private Seance seance;
 
+    @Column(name = "e_mail")
+    private String email;
+
+    @Column(name = "imie")
+    private String firstName;
+
+    @Column(name = "nazwisko")
+    private String lastName;
+
+    @Column(name = "ulgowy")
+    private boolean isReduced;
 
     public String getId() {
         return id;
@@ -52,5 +63,37 @@ public class Reservation {
 
     public void setSeance(Seance seance) {
         this.seance = seance;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public boolean isReduced() {
+        return isReduced;
+    }
+
+    public void setReduced(boolean reduced) {
+        isReduced = reduced;
     }
 }
