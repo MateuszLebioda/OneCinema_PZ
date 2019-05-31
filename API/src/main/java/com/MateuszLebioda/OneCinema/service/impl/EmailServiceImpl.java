@@ -12,11 +12,11 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     public JavaMailSender emailSender;
 
-    public void sendEmail(String to, String text){
+    public void sendEmail(String to){
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to + ".com");
         message.setSubject("Rezerwacja");
-        message.setText(text);
+        message.setTo(to);
+        message.setText("Zarezerwowano miejsca!");
         emailSender.send(message);
 
     }

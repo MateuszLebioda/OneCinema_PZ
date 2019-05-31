@@ -6,10 +6,7 @@ import com.MateuszLebioda.OneCinema.Model.ScreeningRoom.MovieProcessingSeanceTim
 import com.MateuszLebioda.OneCinema.Model.ScreeningRoom.MovieProcessingSimplyScreeningRoomRequestModel;
 import com.MateuszLebioda.OneCinema.Model.Sence.Dimension;
 import com.MateuszLebioda.OneCinema.Model.Sence.SeancesApiModelWithProjectionType;
-import com.MateuszLebioda.OneCinema.entity.Film;
-import com.MateuszLebioda.OneCinema.entity.Room;
-import com.MateuszLebioda.OneCinema.entity.Seance;
-import com.MateuszLebioda.OneCinema.entity.SeanceRepository;
+import com.MateuszLebioda.OneCinema.entity.*;
 import com.MateuszLebioda.OneCinema.exception.CannotFindObjectException;
 import com.MateuszLebioda.OneCinema.exception.WrongTimeException;
 import com.MateuszLebioda.OneCinema.utils.mappers.MovieMapper;
@@ -120,4 +117,20 @@ public class SeanceService {
         return films;
     }
 
+    public Seance getSeanceById(String seanceId) throws CannotFindObjectException {
+        Optional<Seance> seance = seanceRepository.findById(seanceId);
+        if(seance.isPresent())
+            return seance.get();
+        throw new CannotFindObjectException();
+    }
+
+    public boolean haveReservedThisPlace(Seance seance, List<String> bookedSeatsId) {
+        for(Reservation r:seance.getReservations()){
+            for (String s:bookedSeatsId){
+                if(r.getSpot().getId().equals(s))
+                    return true;
+            }
+        }
+        return false;
+    }
 }
