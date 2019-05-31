@@ -45,9 +45,9 @@ export class PropertiesMapper {
       row.seats.forEach((seat, seatIndex) => {
         result[rowIndex].push(new Seat());
         result[rowIndex][seatIndex].id = seat.id;
-        result[rowIndex][seatIndex].row = seat.isSeat ? rowIndex + 1 : 0;
-        result[rowIndex][seatIndex].number = seat.isSeat ? seatNumber++ : 0;
-        result[rowIndex][seatIndex].status = seat.isSeat ? SeatStatus.available : SeatStatus.unavailable;
+        result[rowIndex][seatIndex].row = seat.seat ? rowIndex + 1 : 0;
+        result[rowIndex][seatIndex].number = seat.seat ? seatNumber++ : 0;
+        result[rowIndex][seatIndex].status = seat.seat ? SeatStatus.available : SeatStatus.unavailable;
       });
     });
 

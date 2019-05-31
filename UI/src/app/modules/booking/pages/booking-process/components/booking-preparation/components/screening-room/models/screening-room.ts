@@ -4,4 +4,8 @@ export class ScreeningRoom {
   public id: string;
   public screeningRoomName: string;
   public rows: Array<Array<Seat>>;
+
+  constructor() {
+    this.rows = [];
+  }
 }

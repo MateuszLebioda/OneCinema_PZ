@@ -8,6 +8,10 @@ import {Movie} from '../../../../modules/movie/models/movie.model';
 import {ScreeningRoomPlanApiModel} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/models/api/screening-room-plan-api.model';
 import {ScreeningRoom} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/models/screening-room';
 import {PropertiesMapper} from './properties-mapper';
+import {ScreeningRoomPlanRowApiModel} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/components/screening-room/models/api/screening-room-plan-row-api.model';
+import {Seat} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/models/seat';
+import {Lodash} from '../lodash';
+import {SeatStatus} from '../../../../modules/booking/pages/booking-process/components/booking-preparation/enums/seat-status';
 
 export class AutomapperMaps {
   public static InitializeMaps(): void {
@@ -35,8 +39,36 @@ export class AutomapperMaps {
       });
 
     automapper.createMap(ScreeningRoomPlanApiModel.name, ScreeningRoom.name)
-      .forSourceMember('rows', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => {
-        opts.ignore();
+      .forMember('rows', (opts: AutoMapperJs.IMemberConfigurationOptions) => {
+        const source = opts.sourceObject[opts.sourcePropertyName] as ScreeningRoomPlanRowApiModel[];
+
+        const rowsCount = source.length;
+        const seatsCount = source[0].seats.length;
+
+        Lodash.utils.sortBy(source, 'row');
+        source.forEach(s => {
+          Lodash.utils.sortBy(s.seats, 'number');
+        });
+
+        const destination: Array<Array<Seat>> = new Array<Array<Seat>>();
+
+        for (let rowIndex = 0; rowIndex < rowsCount; rowIndex++) {
+          destination.push(new Array<Seat>());
+
+          for (let seatIndex = 0; seatIndex < seatsCount; seatIndex++) {
+            destination[rowIndex].push(new Seat());
+
+            destination[rowIndex][seatIndex].id = source[rowIndex].seats[seatIndex].id;
+            destination[rowIndex][seatIndex].row = source[rowIndex].row;
+            destination[rowIndex][seatIndex].number = source[rowIndex].seats[seatIndex].number;
+            destination[rowIndex][seatIndex].status =
+              source[rowIndex].seats[seatIndex].seat ? SeatStatus.available : SeatStatus.unavailable;
+
+          }
+        }
+
+
+        return destination;
       });
   }
 

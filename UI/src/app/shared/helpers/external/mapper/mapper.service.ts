@@ -52,7 +52,7 @@ export class MapperService {
 
   public toScreeningRoom(source: ScreeningRoomPlanApiModel): ScreeningRoom {
     const destination: ScreeningRoom = automapper.map(ScreeningRoomPlanApiModel.name, ScreeningRoom.name, source);
-    destination.rows = PropertiesMapper.getRows(source.rows);
+    // destination.rows = PropertiesMapper.getRows(source.rows);
 
     return destination;
   }

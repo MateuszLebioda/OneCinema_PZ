@@ -41,6 +41,7 @@ export class ScreeningRoomComponent implements OnInit {
       this._screeningRoomService.setBookedSeats(this.screeningRoom, this.bookedSeats);
 
       setInterval(() => {
+        console.log('SEANS222222222222222222', this.seance);
         this._setScreeningRoomPlane();
       }, 1000 * 5);
     });
@@ -52,6 +53,7 @@ export class ScreeningRoomComponent implements OnInit {
   }
 
   private _setScreeningRoomPlane(): void {
+    console.log('idik seansu', this.seance);
     this._screeningRoomApiService.getBookedSeats(this.seance.id).subscribe(alreadyBookedSeats => {
       if (!this._screeningRoomService.areArraysEqual(alreadyBookedSeats, this._alreadyBookedSeats)) {
         this._alreadyBookedSeats = Object.assign([], alreadyBookedSeats);
