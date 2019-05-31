@@ -3,6 +3,7 @@ import {Seat} from './components/booking-preparation/models/seat';
 import {SeanceApiModel} from './components/booking-preparation/models/api/seance-api.model';
 import {BookingPreparationApiService} from './components/booking-preparation/services/booking-preparation-api.service';
 import {ActivatedRoute} from '@angular/router';
+import {ProjectionType} from '../../../movie/enums/projection-type.enum';
 
 @Component({
   selector: 'app-booking-process',
@@ -21,6 +22,8 @@ export class BookingProcessComponent implements OnInit {
     const seanceId: string = this._route.snapshot.params['seanceId'];
     this._bookingService.getSeance(seanceId).subscribe(s => {
       this.seance = s;
+      this.seance.date = new Date(s.date);
+      this.seance.seanceType = s.seanceType === '3D' ? ProjectionType.type3D : ProjectionType.type2D;
     });
   }
 

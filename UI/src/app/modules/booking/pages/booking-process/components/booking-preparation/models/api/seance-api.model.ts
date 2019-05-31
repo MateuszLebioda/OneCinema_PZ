@@ -1,7 +1,7 @@
 import {ProjectionType} from '../../../../../../../movie/enums/projection-type.enum';
 
 export class SeanceApiModel {
-  public id: string;
+  public seanceId: string;
   public screeningRoomId: string;
   public screeningRoomName: string;
   public movieTitle: string;

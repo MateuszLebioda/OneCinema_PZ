@@ -54,7 +54,7 @@ export class ScreeningRoomComponent implements OnInit {
 
   private _setScreeningRoomPlane(): void {
     console.log('idik seansu', this.seance);
-    this._screeningRoomApiService.getBookedSeats(this.seance.id).subscribe(alreadyBookedSeats => {
+    this._screeningRoomApiService.getBookedSeats(this.seance.seanceId).subscribe(alreadyBookedSeats => {
       if (!this._screeningRoomService.areArraysEqual(alreadyBookedSeats, this._alreadyBookedSeats)) {
         this._alreadyBookedSeats = Object.assign([], alreadyBookedSeats);
         const removedSeat = this._screeningRoomService.setAlreadyBookedSeatsOnPlaneAndRemoveThemFromBookedSeatsCollection(

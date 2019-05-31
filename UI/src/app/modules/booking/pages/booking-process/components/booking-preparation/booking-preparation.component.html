@@ -12,11 +12,11 @@
             <table class="background-color">
               <tr class="no-border background-color">
                 <td class="row-title">Film</td>
-                <td class="row-content">Jaś fasola</td>
+                <td class="row-content">{{seance.movieTitle}}</td>
               </tr>
               <tr class="no-border background-color">
                 <td class="row-title">Data seansu</td>
-                <td class="row-content">11.12.2019 15:00</td>
+                <td class="row-content">{{seance.date | date: 'dd-MM-yyyy HH:mm'}}</td>
               </tr>
               <tr class="no-border background-color">
                 <td class="row-title">Bilety</td>
