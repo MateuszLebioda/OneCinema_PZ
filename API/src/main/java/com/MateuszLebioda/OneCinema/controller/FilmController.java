@@ -7,7 +7,7 @@ import com.MateuszLebioda.OneCinema.utils.formatters.Formatter;
 import com.MateuszLebioda.OneCinema.utils.validators.ValidationErrors;
 import com.MateuszLebioda.OneCinema.utils.validators.ValidatorStatus;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.wordnik.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,11 +67,4 @@ public class FilmController {
             return new ResponseEntity(validatorStatus,HttpStatus.BAD_REQUEST);
     }
 
-    @ApiOperation(value = "preview about film")
-    @RequestMapping(value = "preview/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public String previewFilm(@PathVariable String id){
-
-        return null;
-    }
 }

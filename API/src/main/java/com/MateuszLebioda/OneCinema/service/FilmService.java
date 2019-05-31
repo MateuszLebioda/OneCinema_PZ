@@ -34,79 +34,79 @@ public class FilmService {
     MovieMapper movieMapper;
 
     public MovieApiModel getFilmDescriptionById(String id) throws CannotFindObjectException {
-        Optional<Film> optionalFilm =  filmRepository.findById(id);
-        if(optionalFilm.isPresent()){
+        Optional<Film> optionalFilm = filmRepository.findById(id);
+        if (optionalFilm.isPresent()) {
             Film film = optionalFilm.get();
             film.setSeances2D(seanceService.getCurrentSeances(film, Dimension._2D));
             film.setSeances3D(seanceService.getCurrentSeances(film, Dimension._3D));
-            return  movieMapper.mapToMovieApiModel(film);
-        }else {
+            return movieMapper.mapToMovieApiModel(film);
+        } else {
             throw new CannotFindObjectException();
         }
     }
 
     public void addFilmFromMovieProcessing(MovieProcessingAddMovieFilmRequestMode movieProcessingAddMovieFilmRequestMode) throws CannotFindObjectException {
-            Film film = movieMapper.mapMovieProcessingAddMovie(movieProcessingAddMovieFilmRequestMode);
-            filmRepository.save(film);
+        Film film = movieMapper.mapMovieProcessingAddMovie(movieProcessingAddMovieFilmRequestMode);
+        filmRepository.save(film);
 
     }
 
-    public Set<SimpleMovieApiModel> getAllSimpleMovieApiModel(){
+    public Set<SimpleMovieApiModel> getAllSimpleMovieApiModel() {
         List<Film> films = filmRepository.findAll();
         Set<SimpleMovieApiModel> simpleMovieApiModelSet = new HashSet<>();
-        for(Film film:films){
+        for (Film film : films) {
             simpleMovieApiModelSet.add(new SimpleMovieApiModel(film));
         }
         return simpleMovieApiModelSet;
     }
 
-    public void validateMovieProcessingRequestModel(MovieProcessingAddMovieFilmRequestMode movieProcessingRequestModel){
-            movieProcessingValidator.validateMovieProcessingAddMovie(movieProcessingRequestModel);
+    public void validateMovieProcessingRequestModel(MovieProcessingAddMovieFilmRequestMode movieProcessingRequestModel) {
+        movieProcessingValidator.validateMovieProcessingAddMovie(movieProcessingRequestModel);
     }
 
     public Film getFilmByTitle(String name) throws CannotFindObjectException {
         Optional<Film> film = filmRepository.findByTitle(name);
-        if(film.isPresent()){
+        if (film.isPresent()) {
             return film.get();
-        }else {
+        } else {
             throw new CannotFindObjectException();
         }
     }
 
     public void checkIfFilmExist(String title) throws CannotFindObjectException {
         Optional<Film> film = filmRepository.findByTitle(title);
-        if(film.isPresent()){
+        if (film.isPresent()) {
             throw new CannotFindObjectException();
         }
     }
 
-    public DeleteStatus deleteFilm(String id){
+    public DeleteStatus deleteFilm(String id) {
         DeleteStatus status = new DeleteStatus();
 
         Optional<Film> film = filmRepository.findById(id);
-        if(film.isPresent() && film.get().getSeances().isEmpty()){
+        if (film.isPresent() && film.get().getSeances().isEmpty()) {
             filmRepository.delete(film.get());
             status.setStatus(Status.OK);
-        }else {
+        } else {
             status.setStatus(Status.WRONG);
         }
         return status;
     }
 
-    public List<MovieShortInfoApiModel> get8LatestFilms(){
+    public List<MovieShortInfoApiModel> get8LatestFilms() {
         List<Film> films = filmRepository.findTop10ByOrderByAddDateDesc();
         List<MovieShortInfoApiModel> moves = new ArrayList<>();
-        for(Film film:films){
+        for (Film film : films) {
             moves.add(movieMapper.mapToMovieShortInfoApiModel(film));
         }
-        return  moves;
+        return moves;
     }
 
-    public List<Film> getActualList(){
+    public List<Film> getActualList() {
         return filmRepository.findCurrentFilms();
     }
 
-    public List<MovieShortInfoApiModel> get4RandomActualFilm(){
+    public List<MovieShortInfoApiModel> get4RandomActualFilm() {
 
 
         List<Film> films = getActualList();
@@ -114,31 +114,29 @@ public class FilmService {
         final int FINISH = 4;
         int start = 0;
         List<Film> temporaryFilms = new ArrayList<>();
-        
-        for(Film film:films){
+
+        for (Film film : films) {
             Collections.shuffle(films);
-            if(!checkContains(temporaryFilms,film)) {
+            if (!checkContains(temporaryFilms, film)) {
                 temporaryFilms.add(film);
                 start++;
-                if(start == FINISH)
+                if (start == FINISH)
                     break;
             }
             films = temporaryFilms;
         }
 
-        for(Film film:films){
+        for (Film film : films) {
             moves.add(movieMapper.mapToMovieShortInfoApiModel(film));
         }
-        return  moves;
+        return moves;
     }
 
-    private boolean checkContains(List<Film> films, Film film){
-        for(Film f:films){
-            if(f.getTitle().equals(film.getTitle()))
+    private boolean checkContains(List<Film> films, Film film) {
+        for (Film f : films) {
+            if (f.getTitle().equals(film.getTitle()))
                 return true;
         }
         return false;
     }
-
-
 }

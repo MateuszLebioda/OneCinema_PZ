@@ -5,7 +5,9 @@ import com.MateuszLebioda.OneCinema.Model.roomPlan.ScreeningRoomPlanApiModel;
 import com.MateuszLebioda.OneCinema.Model.roomPlan.ScreeningRoomPlanRowApiModel;
 import com.MateuszLebioda.OneCinema.Model.roomPlan.ScreeningRoomPlanSeatApiModel;
 import com.MateuszLebioda.OneCinema.entity.Room;
+import com.MateuszLebioda.OneCinema.entity.Seance;
 import com.MateuszLebioda.OneCinema.entity.Spot;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,9 +17,8 @@ import java.util.Set;
 @Service
 public class RoomMapper {
 
-    /*public Room mapScreeningRoomApiModel(ScreeningRoomApiModel screeningRoomApiModel){
-        return null;
-    }*/
+    @Autowired
+    SeanceMapper seanceMapper;
 
     public ScreeningRoomApiModel mapToScreeningRoomApiModel(Room room){
         ScreeningRoomApiModel screeningRoomApiModel = new ScreeningRoomApiModel();
@@ -80,8 +81,8 @@ public class RoomMapper {
             for (int seat=0;seat<maxSeat;seat++){
                 ScreeningRoomPlanSeatApiModel seats = new ScreeningRoomPlanSeatApiModel();
                 seats.setId(spotsTable[row][seat].getId());
-                seats.setSeat(spotsTable[row][seat].isPlace());
-                seats.setPlaced(spotsTable[row][seat].getPosition());
+                seats.setNumber(spotsTable[row][seat].isPlace());
+                seats.setSeat(spotsTable[row][seat].getPosition());
                 seatApiModelList.add(seats);
             }
             rows.setSeats(seatApiModelList);

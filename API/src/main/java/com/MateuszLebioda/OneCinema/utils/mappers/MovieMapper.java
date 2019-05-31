@@ -1,9 +1,6 @@
 package com.MateuszLebioda.OneCinema.utils.mappers;
 
-import com.MateuszLebioda.OneCinema.Model.Movie.MovieApiModel;
-import com.MateuszLebioda.OneCinema.Model.Movie.MovieProcessingAddMovieFilmRequestMode;
-import com.MateuszLebioda.OneCinema.Model.Movie.MovieProjectionApiModel;
-import com.MateuszLebioda.OneCinema.Model.Movie.MovieShortInfoApiModel;
+import com.MateuszLebioda.OneCinema.Model.Movie.*;
 import com.MateuszLebioda.OneCinema.Model.Sence.DaySeancesApiModel;
 import com.MateuszLebioda.OneCinema.Model.Sence.Dimension;
 import com.MateuszLebioda.OneCinema.entity.Film;
@@ -29,6 +26,9 @@ public class MovieMapper {
 
     @Autowired
     SeanceMapper seanceMapper;
+
+    @Autowired
+    RoomMapper roomMapper;
 
     public Film mapMovieProcessingAddMovie(MovieProcessingAddMovieFilmRequestMode  movieProcessingAddMovieFilmRequestMode) throws CannotFindObjectException {
         Film film = new Film();
@@ -111,4 +111,5 @@ public class MovieMapper {
 
         return movieApiModel;
     }
+
 }
