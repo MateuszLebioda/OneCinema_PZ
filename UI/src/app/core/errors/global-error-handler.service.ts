@@ -21,7 +21,6 @@ export class GlobalErrorHandlerService implements ErrorHandler {
 
       switch (error.status) {
         case 404 :
-        case 500 :
           this._zone.run(() => {
             const router = this._injector.get(Router);
             router.navigate(['/blad']);

@@ -25,7 +25,6 @@ export class BannerComponent implements OnInit {
       while (this.movies.length < 4) {
         this.movies.push(new MovieShortInfoApiModel());
       }
-      console.log('filmicki', this.movies);
     });
     this.isMobile = this._deviceService.isMobile();
   }

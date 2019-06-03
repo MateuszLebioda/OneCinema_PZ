@@ -74,7 +74,6 @@ export class AutomapperMaps {
 
   private static toSeancesPerDayCollection(source: DaySeancesApiModel[]): SeancesPerDay[] {
     const destination: SeancesPerDay[] = [];
-    console.log('toSeancesPerDayCollection', source);
     source.forEach(s => {
       const dest = automapper.map(DaySeancesApiModel.name, SeancesPerDay.name, s);
       dest.seances = PropertiesMapper.getSeancesPerTimesOfDay(s.seances);

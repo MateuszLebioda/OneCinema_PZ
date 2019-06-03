@@ -24,9 +24,7 @@ export class BookingPreparationComponent implements OnInit {
 
   ngOnInit() {
     const seanceId: string = this._route.snapshot.params['seanceId'];
-    console.log('BookingPreparationComponent-seanceId', seanceId);
     this._bookingService.getSeance(seanceId).subscribe(s => {
-      console.log('BookingPreparationComponent-seance', s);
       this.seance = s;
       this.seanceIsDownloaded = true;
     });

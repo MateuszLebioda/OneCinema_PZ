@@ -28,9 +28,7 @@ export class TodaysRepertoireComponent implements OnInit {
 
   ngOnInit() {
     this._repertoireListService.getRepertoire(0).subscribe(r => {
-      console.log('przed', r);
       this.repertoire = this._mapper.toMovieProjectionCollection(r);
-      console.log('po', this.repertoire);
     });
     this.repertoireDays = this._repertoireService.getRepertoireDaysSinceNow();
     this.isMobile = this._deviceService.isMobile();
@@ -49,7 +47,6 @@ export class TodaysRepertoireComponent implements OnInit {
 
   public bookSeance(seance: SeanceApiModel): void {
     if (this._repertoireService.getSeanceStatus(seance) === SeanceStatus.available) {
-      console.log('rezerwacaj seansu o id:', seance.id);
       this._router.navigate(['/rezerwacja', seance.id]);
     }
   }

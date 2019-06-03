@@ -36,12 +36,10 @@ export class RepertoireComponent implements OnInit {
 
   public repertoireList(bookmarkLetter: string, dayNumber: number): void {
     this._repertoireListService.getRepertoire(dayNumber).subscribe(r => {
-      console.log('xd', r);
       const result = new RepertoireListModel();
       result.bookmarkLetter = bookmarkLetter;
       result.repertoire = this._mapper.toMovieProjectionCollection(r);
       this.data.repertoireList = result;
-      console.log('reportuarrryk', this.data.repertoireList);
     });
   }
 

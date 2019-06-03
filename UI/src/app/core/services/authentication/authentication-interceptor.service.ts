@@ -15,7 +15,7 @@ export class AuthenticationInterceptorService implements HttpInterceptor {
     req = req.clone({
       setHeaders: {
         // Authorization: `Bearer ${localStorage.get('token')}`
-        Authorization: localStorage.getItem(LocalStorageKey.AuthToken)
+        // Authorization: localStorage.getItem(LocalStorageKey.AuthToken)
       }
     });
 

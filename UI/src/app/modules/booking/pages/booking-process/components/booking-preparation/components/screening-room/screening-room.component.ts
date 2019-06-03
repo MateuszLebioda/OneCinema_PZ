@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, OnDestroy} from '@angular/core';
 import {Seat} from '../../models/seat';
 import {ScreeningRoom} from './models/screening-room';
 import {SeanceApiModel} from '../../models/api/seance-api.model';
@@ -13,7 +13,7 @@ import {ActivatedRoute} from '@angular/router';
   templateUrl: './screening-room.component.html',
   styleUrls: ['./screening-room.component.css', '../../../../booking-process.component.css']
 })
-export class ScreeningRoomComponent implements OnInit {
+export class ScreeningRoomComponent implements OnInit, OnDestroy {
   @Input() seance: SeanceApiModel = new SeanceApiModel();
   @Input() bookedSeats: Seat[] = [];
   @Output() bookedSeatsChange: EventEmitter<Seat[]> = new EventEmitter<Seat[]>();
@@ -21,6 +21,7 @@ export class ScreeningRoomComponent implements OnInit {
   public screeningRoom: ScreeningRoom = new ScreeningRoom();
 
   private _alreadyBookedSeats: string[] = [];
+  private _myInterval: number;
 
   constructor(
     private _screeningRoomService: ScreeningRoomService,
@@ -31,20 +32,20 @@ export class ScreeningRoomComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('SEANS', this.seance);
     this._screeningRoomApiService.getScreeningRoomPlan(this.seance.screeningRoomId).subscribe(p => {
-      console.log('przed', p);
       this.screeningRoom = this._mapper.toScreeningRoom(p);
-      console.log('inittt', this.screeningRoom);
 
       this._setScreeningRoomPlane();
       this._screeningRoomService.setBookedSeats(this.screeningRoom, this.bookedSeats);
 
-      setInterval(() => {
-        console.log('SEANS222222222222222222', this.seance);
+      this._myInterval = setInterval(() => {
         this._setScreeningRoomPlane();
       }, 1000 * 5);
     });
+  }
+
+  ngOnDestroy() {
+    clearInterval(this._myInterval);
   }
 
   public bookSeat(seat: Seat): void {
@@ -53,7 +54,6 @@ export class ScreeningRoomComponent implements OnInit {
   }
 
   private _setScreeningRoomPlane(): void {
-    console.log('idik seansu', this.seance);
     this._screeningRoomApiService.getBookedSeats(this.seance.seanceId).subscribe(alreadyBookedSeats => {
       if (!this._screeningRoomService.areArraysEqual(alreadyBookedSeats, this._alreadyBookedSeats)) {
         this._alreadyBookedSeats = Object.assign([], alreadyBookedSeats);

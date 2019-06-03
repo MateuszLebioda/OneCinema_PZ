@@ -10,9 +10,7 @@ export class PropertiesMapper {
 
   public static getSeancesPerTimesOfDay(source: SeanceApiModel[]): SeancesPerTimesOfDay {
     const destination: SeancesPerTimesOfDay = new SeancesPerTimesOfDay();
-    console.log('LECI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', source);
     for (const seance of source) {
-      console.log('polecialo', seance);
       seance.start = new Date(seance.start);
       seance.finish = new Date(seance.finish);
 
