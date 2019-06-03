@@ -23,12 +23,20 @@
   width: 15%;
 }
 
+.row-title-mobile {
+  width: 25% !important;
+}
+
 .row-content {
   color: white;
   font-size: 14px;
   font-weight: bold;
   float: left;
   width: 35%;
+}
+
+.row-content-mobile {
+  width: 75%;
 }
 
 table {

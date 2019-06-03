@@ -7,6 +7,7 @@ import {NotificationService} from '../../../../../../../../core/services/notific
 import {ScreeningRoomApiService} from './services/screening-room-api.service';
 import {MapperService} from '../../../../../../../../shared/helpers/external/mapper/mapper.service';
 import {ActivatedRoute} from '@angular/router';
+import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Component({
   selector: 'app-screening-room',
@@ -19,6 +20,7 @@ export class ScreeningRoomComponent implements OnInit, OnDestroy {
   @Output() bookedSeatsChange: EventEmitter<Seat[]> = new EventEmitter<Seat[]>();
 
   public screeningRoom: ScreeningRoom = new ScreeningRoom();
+  public isMobile: boolean;
 
   private _alreadyBookedSeats: string[] = [];
   private _myInterval: number;
@@ -28,10 +30,13 @@ export class ScreeningRoomComponent implements OnInit, OnDestroy {
     private _screeningRoomApiService: ScreeningRoomApiService,
     private _mapper: MapperService,
     private route: ActivatedRoute,
+    private _deviceService: DeviceDetectorService,
     private _notificationService: NotificationService) {
   }
 
   ngOnInit() {
+    this.isMobile = this._deviceService.isMobile();
+
     this._screeningRoomApiService.getScreeningRoomPlan(this.seance.screeningRoomId).subscribe(p => {
       this.screeningRoom = this._mapper.toScreeningRoom(p);
 

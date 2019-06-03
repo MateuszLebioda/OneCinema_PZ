@@ -1830,6 +1830,15 @@ h3.head {
   color: white;
 }
 
+.error>.mat-simple-snackbar>span {
+  padding-left: 50px;
+}
+
+.error .mat-simple-snackbar .mat-simple-snackbar-action {
+  position: fixed;
+  margin: 0;
+}
+
 .error button {
   background-color: orangered;
   color: white;
@@ -1856,4 +1865,18 @@ h3.head {
 .succesMessage button {
   background-color: forestgreen;
   color: white;
+}
+
+.succesMessage {
+  background-color: red;
+  color: white;
+}
+
+.succesMessage>.mat-simple-snackbar>span {
+  padding-left: 50px;
+}
+
+.succesMessage .mat-simple-snackbar .mat-simple-snackbar-action {
+  position: fixed;
+  margin: 0;
 }

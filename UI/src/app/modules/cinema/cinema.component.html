@@ -15,7 +15,7 @@
               </div>
               <div class="col-md-8">
                 <div class="agile_tv_series_grid_right">
-                  <table>
+                  <table *ngIf="!isMobile">
                     <caption class="table-header">{{cinema.name}}</caption>
                     <tr>
                       <td colspan="2" class="row-header">Informacje</td>
@@ -41,6 +41,36 @@
                     </tr>
                   </table>
 
+                  <table *ngIf="isMobile">
+                    <caption class="table-header">{{cinema.name}}</caption>
+                    <tr>
+                      <td colspan="2" class="row-header">Informacje</td>
+                    </tr>
+                    <tr>
+                      <td class="row-title row-title-mobile">Sale</td>
+                      <td class="row-content row-content-mobile">{{cinema.screeningRoomsCount}}</td>
+                    </tr>
+                    <tr>
+                      <td class="row-title row-title-mobile">Miejsca</td>
+                      <td class="row-content row-content-mobile">{{cinema.seatsCount}}</td>
+                    </tr>
+
+                    <tr>
+                      <td colspan="2" class="row-header">Kontakt</td>
+                    </tr>
+                    <tr>
+                      <td class="row-title row-title-mobile">Adres</td>
+                      <td class="row-content row-content-mobile">{{cinema.address}}</td>
+                    </tr>
+                    <tr>
+                      <td class="row-title row-title-mobile">Telefon</td>
+                      <td class="row-content row-content-mobile">{{cinema.phoneNumber}}</td>
+                    </tr>
+                    <tr>
+                      <td class="row-title row-title-mobile">Email</td>
+                      <td class="row-content row-content-mobile">{{cinema.email}}</td>
+                    </tr>
+                  </table>
                 </div>
               </div>
               <div class="clearfix"></div>
