@@ -22,7 +22,7 @@ export class NotificationService {
   public showError(message: string): void {
     this._zone.run(() => {
       this._snackBar.open(message, 'X', {
-        panelClass: ['error']
+        panelClass: ['error'],
       });
     });
   }

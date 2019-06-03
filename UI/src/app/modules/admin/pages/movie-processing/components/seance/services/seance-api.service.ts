@@ -68,6 +68,7 @@ export class SeanceApiService {
   }
 
   public getMoviesProjections(date: SeancesRequestModel): Observable<SeanceApiModel[]> {
+    date.date = new Date(date.date.toUTCString());
     return this._httpService.post<SeanceApiModel[]>('room/getSeances', date);
   }
 }

@@ -10,9 +10,7 @@ export class PropertiesMapper {
 
   public static getSeancesPerTimesOfDay(source: SeanceApiModel[]): SeancesPerTimesOfDay {
     const destination: SeancesPerTimesOfDay = new SeancesPerTimesOfDay();
-    console.log('LECI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', source);
     for (const seance of source) {
-      console.log('polecialo', seance);
       seance.start = new Date(seance.start);
       seance.finish = new Date(seance.finish);
 
@@ -36,21 +34,21 @@ export class PropertiesMapper {
     return destination;
   }
 
-  public static getRows(rows: ScreeningRoomPlanRowApiModel[]): Array<Array<Seat>> {
-    const result = new Array<Array<Seat>>();
-
-    rows.forEach((row, rowIndex) => {
-      result.push(new Array<Seat>());
-      let seatNumber = 1;
-      row.seats.forEach((seat, seatIndex) => {
-        result[rowIndex].push(new Seat());
-        result[rowIndex][seatIndex].id = seat.id;
-        result[rowIndex][seatIndex].row = seat.isSeat ? rowIndex + 1 : 0;
-        result[rowIndex][seatIndex].number = seat.isSeat ? seatNumber++ : 0;
-        result[rowIndex][seatIndex].status = seat.isSeat ? SeatStatus.available : SeatStatus.unavailable;
-      });
-    });
-
-    return result;
-  }
+  // public static getRows(rows: ScreeningRoomPlanRowApiModel[]): Array<Array<Seat>> {
+  //   const result = new Array<Array<Seat>>();
+  //
+  //   rows.forEach((row, rowIndex) => {
+  //     result.push(new Array<Seat>());
+  //     let seatNumber = 1;
+  //     row.seats.forEach((seat, seatIndex) => {
+  //       result[rowIndex].push(new Seat());
+  //       result[rowIndex][seatIndex].id = seat.id;
+  //       result[rowIndex][seatIndex].row = seat.seat ? rowIndex + 1 : 0;
+  //       result[rowIndex][seatIndex].number = seat.seat ? seatNumber++ : 0;
+  //       result[rowIndex][seatIndex].status = seat.seat ? SeatStatus.available : SeatStatus.unavailable;
+  //     });
+  //   });
+  //
+  //   return result;
+  // }
 }

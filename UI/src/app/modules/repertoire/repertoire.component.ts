@@ -36,12 +36,10 @@ export class RepertoireComponent implements OnInit {
 
   public repertoireList(bookmarkLetter: string, dayNumber: number): void {
     this._repertoireListService.getRepertoire(dayNumber).subscribe(r => {
-      console.log('xd', r);
       const result = new RepertoireListModel();
       result.bookmarkLetter = bookmarkLetter;
       result.repertoire = this._mapper.toMovieProjectionCollection(r);
       this.data.repertoireList = result;
-      console.log('reportuarrryk', this.data.repertoireList);
     });
   }
 
@@ -51,8 +49,7 @@ export class RepertoireComponent implements OnInit {
 
   public bookSeance(seance: SeanceApiModel): void {
     if (this._repertoireService.getSeanceStatus(seance) === SeanceStatus.available) {
-      console.log('rezerwacaj seansu o id:', seance.id);
-      // this._router.navigate(['/product-details', seance.id]);
+      this._router.navigate(['/rezerwacja', seance.id]);
     }
   }
 

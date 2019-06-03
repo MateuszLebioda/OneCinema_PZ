@@ -39,7 +39,7 @@ export class BookingFinalizationApiService {
   // }
 
   public bookSeats(bookingApiModel: BookingRequestModel): Observable<any> {
-    return this._httpService.post<any>('', bookingApiModel);
+    return this._httpService.post<any>('reservation/book', bookingApiModel);
   }
 
   public getPriceList(): Observable<PriceListApiModel> {

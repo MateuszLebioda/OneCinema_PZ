@@ -15,6 +15,7 @@ export class BookingPreparationComponent implements OnInit {
   @Output() finishedPreparation: EventEmitter<void> = new EventEmitter<void>();
 
   public seance: SeanceApiModel = new SeanceApiModel();
+  public seanceIsDownloaded = false;
 
   constructor(
     private _bookingService: BookingPreparationApiService,
@@ -23,7 +24,10 @@ export class BookingPreparationComponent implements OnInit {
 
   ngOnInit() {
     const seanceId: string = this._route.snapshot.params['seanceId'];
-    this.seance = this._bookingService.getSeance(seanceId);
+    this._bookingService.getSeance(seanceId).subscribe(s => {
+      this.seance = s;
+      this.seanceIsDownloaded = true;
+    });
   }
 
   public bookSeats(): void {

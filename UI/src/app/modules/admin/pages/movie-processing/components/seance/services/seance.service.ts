@@ -66,11 +66,6 @@ export class SeanceService {
 
     const selectedScreeningRoom: ScreeningRoomApiModel = data.bookingForm.get('screeningRoom').value;
 
-    console.log('this.getDate', this.getDate(data.selectedWeekNumber, data.selectedDayNumber));
-    console.log('data.selectedDaySeances.seancesWithAddedByUser', data.selectedDaySeances.seancesWithAddedByUser);
-    console.log('data.movieDuration', data.movieDuration);
-    console.log('selectedScreeningRoom.breakBeforeAndAfterMovie', selectedScreeningRoom.breakBeforeAndAfterMovie);
-
     data.bookingForm.setControl('movieProjectionTime', new FormControl(
       null,
       [
@@ -183,7 +178,6 @@ export class SeanceService {
 
   public attachAddedAndDetachRemovedSeancesToSelectedDaySeances(data: SeanceComponentDataModel): void {
     if (data.bookingForm.get('addedSeances')) {
-      console.log('attachAddedAndDetachRemovedSeancesToSelectedDaySeances');
       const addedSeances = data.bookingForm.get('addedSeances').value as MovieProcessingScreeningRoomModel[];
       const seanceRoom: ScreeningRoomApiModel = data.bookingForm.get('screeningRoom').value;
       const seanceRoomIndex = addedSeances.findIndex(x => x.id === seanceRoom.id);

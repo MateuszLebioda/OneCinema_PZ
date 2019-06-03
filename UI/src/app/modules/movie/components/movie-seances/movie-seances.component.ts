@@ -70,7 +70,6 @@ export class MovieSeancesComponent implements OnInit {
 
   public bookSeance(seance: SeanceApiModel): void {
     if (this._repertoireService.getSeanceStatus(seance) === SeanceStatus.available) {
-      console.log('rezerwacaj seansu o id:', seance.id);
       this._router.navigate(['/rezerwacja', seance.id]);
     }
   }

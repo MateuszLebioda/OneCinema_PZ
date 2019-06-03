@@ -3,7 +3,6 @@ import {SeanceApiModel} from '../models/api/seance-api.model';
 import {BookingServicesModule} from '../../../../../booking-services.module';
 import {HttpBaseService} from '../../../../../../../core/services/http-base.service';
 import {Observable} from 'rxjs/internal/Observable';
-import {ProjectionType} from '../../../../../../movie/enums/projection-type.enum';
 
 @Injectable({
   providedIn: BookingServicesModule
@@ -13,18 +12,18 @@ export class BookingPreparationApiService {
   constructor(private _httpService: HttpBaseService) {
   }
 
-  public getSeance(id: string): SeanceApiModel {
-    return {
-      id: 'seance-good-id',
-      screeningRoomId: 'sr-good-id',
-      movieTitle: 'Jaś Fasola',
-      date: new Date(),
-      screeningRoomName: 'Super sala',
-      seanceType: ProjectionType.type3D
-    };
-  }
+  // public getSeance(id: string): SeanceApiModel {
+  //   return {
+  //     id: 'seance-good-id',
+  //     screeningRoomId: 'sr-good-id',
+  //     movieTitle: 'Jaś Fasola',
+  //     date: new Date(),
+  //     screeningRoomName: 'Super sala',
+  //     seanceType: ProjectionType.type3D
+  //   };
+  // }
 
-  public getSeance2(id: string): Observable<SeanceApiModel> {
-    return this._httpService.get<SeanceApiModel>('');
+  public getSeance(id: string): Observable<SeanceApiModel> {
+    return this._httpService.get<SeanceApiModel>(`seance/getBySeanceId/${id}`);
   }
 }

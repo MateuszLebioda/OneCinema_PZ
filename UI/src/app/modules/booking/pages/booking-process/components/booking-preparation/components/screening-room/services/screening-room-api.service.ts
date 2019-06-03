@@ -31,6 +31,10 @@ export class ScreeningRoomApiService {
   //   };
   // }
 
+  // public getSeance(seanceId: string) {
+  //   return this._httpService.get<ScreeningRoomPlanApiModel>(`room/getPlanBySeance/${seanceId}`);
+  // }
+
   public getScreeningRoomPlan(screeningRoomId: string): Observable<ScreeningRoomPlanApiModel> {
     return this._httpService.get<ScreeningRoomPlanApiModel>(`room/getPlan/${screeningRoomId}`);
   }

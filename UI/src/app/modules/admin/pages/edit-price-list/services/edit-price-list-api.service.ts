@@ -39,7 +39,6 @@ export class EditPriceListApiService {
   // }
 
   public editPriceList(request: EditPriceListRequestModel): void {
-    console.log(JSON.stringify(request));
     this._httpService.post<any>('price/change', request).subscribe();
   }
 

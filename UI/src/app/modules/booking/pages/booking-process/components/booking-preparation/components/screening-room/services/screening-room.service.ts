@@ -58,14 +58,12 @@ export class ScreeningRoomService {
   }
 
   public areArraysEqual(firstArray: string[], secondArray: string[]): boolean {
-    console.log(firstArray, secondArray);
     return firstArray.every(element => {
       return secondArray.includes(element);
     });
   }
 
   public setBookedSeats(screeningRoom: ScreeningRoom, bookedSeats: Seat[]): void {
-    console.log('setBookedSeats', screeningRoom);
     screeningRoom.rows.forEach(row => {
       row.forEach(seat => {
         const bookedSeatIndex = bookedSeats.findIndex(oneSeat => oneSeat.id === seat.id);

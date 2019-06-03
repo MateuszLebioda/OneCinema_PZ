@@ -28,7 +28,6 @@ export class MapperService {
     const destination: MovieProjection = automapper.map(MovieProjectionApiModel.name, MovieProjection.name, source);
     destination.seances = PropertiesMapper.getSeancesPerTimesOfDay(source.seances);
     destination.movieGenders = [];
-    console.log('source', source);
     destination.projectionType = source.projectionType;
     source.movieGenders.forEach(movieGender =>
       destination.movieGenders.push(this._translator.translateMovieGender(movieGender))
@@ -52,7 +51,7 @@ export class MapperService {
 
   public toScreeningRoom(source: ScreeningRoomPlanApiModel): ScreeningRoom {
     const destination: ScreeningRoom = automapper.map(ScreeningRoomPlanApiModel.name, ScreeningRoom.name, source);
-    destination.rows = PropertiesMapper.getRows(source.rows);
+    // destination.rows = PropertiesMapper.getRows(source.rows);
 
     return destination;
   }
