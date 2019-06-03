@@ -55,15 +55,16 @@ export class AutomapperMaps {
         for (let rowIndex = 0; rowIndex < rowsCount; rowIndex++) {
           destination.push(new Array<Seat>());
 
+          let seatNumber = 1;
           for (let seatIndex = 0; seatIndex < seatsCount; seatIndex++) {
             destination[rowIndex].push(new Seat());
 
             destination[rowIndex][seatIndex].id = source[rowIndex].seats[seatIndex].id;
-            destination[rowIndex][seatIndex].row = source[rowIndex].row;
-            destination[rowIndex][seatIndex].number = source[rowIndex].seats[seatIndex].number;
+            destination[rowIndex][seatIndex].row = rowIndex + 1;
             destination[rowIndex][seatIndex].status =
               source[rowIndex].seats[seatIndex].seat ? SeatStatus.available : SeatStatus.unavailable;
-
+            destination[rowIndex][seatIndex].number =
+              destination[rowIndex][seatIndex].status === SeatStatus.available ? seatNumber++ : 0;
           }
         }
 
