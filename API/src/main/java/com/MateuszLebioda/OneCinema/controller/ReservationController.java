@@ -35,14 +35,14 @@ public class ReservationController {
         try {
             return new ResponseEntity(formatter.returnJson(reservationService.getReservationById(id)), HttpStatus.OK);
         } catch (CannotFindReservationException e) {
-            return new ResponseEntity("Cannot find reservation",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Cannot find reservation", HttpStatus.BAD_REQUEST);
         }
     }
 
     //@ApiOperation(value = "Book spots")
     @RequestMapping(value = "/book", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity book(@RequestBody BookingRequestModel model){
-        return  reservationService.addReservation(model);
+    public String book(@RequestBody BookingRequestModel model) throws JsonProcessingException {
+        return formatter.returnJson(reservationService.addReservation(model));
     }
 }

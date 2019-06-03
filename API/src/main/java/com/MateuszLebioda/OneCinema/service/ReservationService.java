@@ -44,7 +44,7 @@ public class ReservationService {
     public ResponseEntity addReservation(BookingRequestModel bookingRequestModel){
         try {
             List<Reservation> reservations = bookMapper.mapBookingRequestModel(bookingRequestModel);
-            emailService.sendEmail(bookingRequestModel.getClientEmail());
+//            emailService.sendEmail(bookingRequestModel.getClientEmail());
             reservationRepository.saveAll(reservations);
             return new ResponseEntity("Succes",HttpStatus.OK);
         } catch (CannotFindSeanceException e) {

@@ -29,14 +29,14 @@ public class FilmController {
     @RequestMapping(value = "/description/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String spot(@PathVariable String id) throws JsonProcessingException, CannotFindObjectException {
-        return  formatter.returnJson(filmService.getFilmDescriptionById(id));
+        return formatter.returnJson(filmService.getFilmDescriptionById(id));
     }
 
     //@ApiOperation(value = "Delete film by id")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public String deleteFilm(@PathVariable String id) throws JsonProcessingException {
-        return  formatter.returnJson(filmService.deleteFilm(id));
+        return formatter.returnJson(filmService.deleteFilm(id));
     }
 
 
@@ -44,26 +44,24 @@ public class FilmController {
     @RequestMapping(value = "/simpleMovieList", method = RequestMethod.GET)
     @ResponseBody
     public String getSimpleFilms() throws JsonProcessingException {
-        return  formatter.returnJson(filmService.getAllSimpleMovieApiModel());
+        return formatter.returnJson(filmService.getAllSimpleMovieApiModel());
     }
 
     //@ApiOperation(value = "Add film")
     @RequestMapping(value = "/addFilm", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity addFilm(@RequestBody MovieProcessingAddMovieFilmRequestMode movieProcessingRequestModel) {
+    public String addFilm(@RequestBody MovieProcessingAddMovieFilmRequestMode movieProcessingRequestModel) throws JsonProcessingException {
         validatorStatus.clear();
         filmService.validateMovieProcessingRequestModel(movieProcessingRequestModel);
-        if(validatorStatus.isCorrect()) {
+        if (validatorStatus.isCorrect()) {
             try {
                 filmService.addFilmFromMovieProcessing(movieProcessingRequestModel);
             } catch (CannotFindObjectException e) {
                 validatorStatus.addError(ValidationErrors.CANNOT_ADD_FILM);
             }
         }
-        if(validatorStatus.isCorrect())
-            return new ResponseEntity(validatorStatus,HttpStatus.ACCEPTED);
-        else
-            return new ResponseEntity(validatorStatus,HttpStatus.BAD_REQUEST);
+
+        return formatter.returnJson(validatorStatus);
     }
 
 }

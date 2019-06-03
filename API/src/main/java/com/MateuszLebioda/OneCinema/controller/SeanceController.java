@@ -35,7 +35,4 @@ public class SeanceController {
     public String getMoviesList(@PathVariable int dayNumber) throws CannotFindObjectException, JsonProcessingException, WrongTimeException {
         return  formatter.returnJson(seanceService.getMovieProjectionApiModelList(dayNumber));
     }
-
-
-
 }
