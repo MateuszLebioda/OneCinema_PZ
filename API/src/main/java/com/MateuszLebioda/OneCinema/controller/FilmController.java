@@ -50,7 +50,7 @@ public class FilmController {
     //@ApiOperation(value = "Add film")
     @RequestMapping(value = "/addFilm", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<ValidatorStatus> addFilm(@RequestBody MovieProcessingAddMovieFilmRequestMode movieProcessingRequestModel) {
+    public ResponseEntity addFilm(@RequestBody MovieProcessingAddMovieFilmRequestMode movieProcessingRequestModel) {
         validatorStatus.clear();
         filmService.validateMovieProcessingRequestModel(movieProcessingRequestModel);
         if(validatorStatus.isCorrect()) {
