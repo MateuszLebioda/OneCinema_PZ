@@ -3,6 +3,7 @@ package com.MateuszLebioda.OneCinema.service;
 import com.MateuszLebioda.OneCinema.Model.Book.BookingRequestModel;
 import com.MateuszLebioda.OneCinema.entity.Reservation;
 import com.MateuszLebioda.OneCinema.entity.ReservationRepository;
+import com.MateuszLebioda.OneCinema.exception.CannotFindReservationException;
 import com.MateuszLebioda.OneCinema.exception.CannotFindSeanceException;
 import com.MateuszLebioda.OneCinema.exception.CannotFindSpotException;
 import com.MateuszLebioda.OneCinema.exception.ReservationAlreadyExist;
@@ -27,10 +28,14 @@ public class ReservationService {
     @Autowired
     EmailService emailService;
 
-    public List<String> getReservationById(String id){
+    public List<String> getReservationById(String id) throws CannotFindReservationException {
 
         List<String> idList = new ArrayList<>();
-        for(Reservation reservation:reservationRepository.findAllBySeanceId(id)){
+        List<Reservation> reservations = reservationRepository.findAllBySeanceId(id);
+        if(reservations.size() == 0){
+            throw new CannotFindReservationException();
+        }
+        for(Reservation reservation:reservations){
             idList.add(reservation.getId());
         }
         return  idList;
