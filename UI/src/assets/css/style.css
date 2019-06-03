@@ -1867,11 +1867,6 @@ h3.head {
   color: white;
 }
 
-.succesMessage {
-  background-color: red;
-  color: white;
-}
-
 .succesMessage>.mat-simple-snackbar>span {
   padding-left: 50px;
 }

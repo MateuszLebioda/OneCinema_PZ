@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormValidatorService} from '../../../../shared/services/form-validator.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MovieProcessingService} from './services/movie-processing.service';
 import {MovieGenderTranslateModel} from './models/movie-gender-translate.model';
 import {IMultipleSelectDropdownSettings} from '../../../../shared/components/external/multiple-select-dropdown/interfaces/i-multiple-select-dropdown-settings';
@@ -35,6 +35,7 @@ export class MovieProcessingComponent implements OnInit {
     private _formValidatorService: FormValidatorService,
     private _service: MovieProcessingService,
     private _apiService: MovieProcessingApiService,
+    private _router: Router,
     private _route: ActivatedRoute) {
   }
 
@@ -73,7 +74,7 @@ export class MovieProcessingComponent implements OnInit {
     } else {
       this._service.addMovie(this.selectedGenders, this.bookingForm);
     }
-    // this._router.navigate(['/rezerwacja/potwierdzenie']);
+    this._router.navigate(['/']);
   }
 
   public valueChanged(rate: number): void {

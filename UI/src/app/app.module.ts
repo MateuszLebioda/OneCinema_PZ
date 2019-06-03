@@ -58,8 +58,8 @@ registerLocaleData(localePL);
     //   useClass: AuthenticationInterceptorService,
     //   multi: true
     // }
-    {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
-    {provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptorService, multi: true}
+    // {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
+    // {provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
 })
