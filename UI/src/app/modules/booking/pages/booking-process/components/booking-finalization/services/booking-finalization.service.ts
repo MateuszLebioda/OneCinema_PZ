@@ -25,7 +25,7 @@ export class BookingFinalizationService {
 
   public bookSeats(seance: SeanceApiModel, form: FormGroup, bookedSeats: Seat[]): void {
     const bookingApiModel = this._createBookingRequest(bookedSeats, seance, form);
-    this._apiService.bookSeats(bookingApiModel);
+    this._apiService.bookSeats(bookingApiModel).subscribe();
   }
 
   public resetBookedSeats(bookedSeats: Seat[]): void {
