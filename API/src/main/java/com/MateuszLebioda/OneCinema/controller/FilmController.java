@@ -7,7 +7,6 @@ import com.MateuszLebioda.OneCinema.utils.formatters.Formatter;
 import com.MateuszLebioda.OneCinema.utils.validators.ValidationErrors;
 import com.MateuszLebioda.OneCinema.utils.validators.ValidatorStatus;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,14 +25,14 @@ public class FilmController {
     @Autowired
     ValidatorStatus validatorStatus;
 
-    @ApiOperation(value = "Return description of film")
+    //@ApiOperation(value = "Return description of film")
     @RequestMapping(value = "/description/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String spot(@PathVariable String id) throws JsonProcessingException, CannotFindObjectException {
         return  formatter.returnJson(filmService.getFilmDescriptionById(id));
     }
 
-    @ApiOperation(value = "Delete film by id")
+    //@ApiOperation(value = "Delete film by id")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public String deleteFilm(@PathVariable String id) throws JsonProcessingException {
@@ -41,14 +40,14 @@ public class FilmController {
     }
 
 
-    @ApiOperation(value = "Return simple set of film")
+    //@ApiOperation(value = "Return simple set of film")
     @RequestMapping(value = "/simpleMovieList", method = RequestMethod.GET)
     @ResponseBody
     public String getSimpleFilms() throws JsonProcessingException {
         return  formatter.returnJson(filmService.getAllSimpleMovieApiModel());
     }
 
-    @ApiOperation(value = "Add film")
+    //@ApiOperation(value = "Add film")
     @RequestMapping(value = "/addFilm", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<ValidatorStatus> addFilm(@RequestBody MovieProcessingAddMovieFilmRequestMode movieProcessingRequestModel) {

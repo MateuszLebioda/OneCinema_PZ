@@ -5,8 +5,8 @@ import com.MateuszLebioda.OneCinema.exception.CannotFindObjectException;
 import com.MateuszLebioda.OneCinema.service.RoomService;
 import com.MateuszLebioda.OneCinema.utils.formatters.Formatter;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/room")
@@ -20,21 +20,21 @@ public class RoomController {
     Formatter formatter;
 
 
-    @ApiOperation(value = "Return simple set of film")
+    //@ApiOperation(value = "Return simple set of film")
     @RequestMapping(value = "/getRooms", method = RequestMethod.GET)
     @ResponseBody
     public String getRooms() throws JsonProcessingException {
         return  formatter.returnJson(roomService.getAllRooms());
     }
 
-    @ApiOperation(value = "Return simple set of film")
-    @RequestMapping(value = "/getSeances", method = RequestMethod.POST)
+    //@ApiOperation(value = "Return simple set of film")
+    @PostMapping(value = "/getSeances",consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String getSeances(@RequestBody SeanceRequestModel seanceRequestModel) throws JsonProcessingException {
         return formatter.returnJson(roomService.getSeancesFromSeanceRequestModel(seanceRequestModel));
     }
 
-    @ApiOperation(value = "Return screening room plan by seance Id")
+    //@ApiOperation(value = "Return screening room plan by seance Id")
     @RequestMapping(value = "/getPlanBySeance/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String getScreeningRoomPlanBySeanceId(@PathVariable String id) throws JsonProcessingException, CannotFindObjectException {
@@ -42,7 +42,7 @@ public class RoomController {
     }
 
 
-    @ApiOperation(value = "Return screening room plan")
+    //@ApiOperation(value = "Return screening room plan")
     @RequestMapping(value = "/getPlan/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String getScreeningRoomPlan(@PathVariable String id) throws JsonProcessingException, CannotFindObjectException {

@@ -4,7 +4,6 @@ import com.MateuszLebioda.OneCinema.Model.Price.PriceListApiModel;
 import com.MateuszLebioda.OneCinema.utils.formatters.Formatter;
 import com.MateuszLebioda.OneCinema.service.PriceService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,14 +18,14 @@ public class PriceApiController {
     @Autowired
     Formatter formatter;
 
-    @ApiOperation(value = "Return price list")
+    //@ApiOperation(value = "Return price list")
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
     public String spot() throws JsonProcessingException {
         return  formatter.returnJson(priceService.getPriceList());
     }
 
-    @ApiOperation(value = "Change price")
+    //@ApiOperation(value = "Change price")
     @RequestMapping(value = "/change", method = RequestMethod.POST)
     @ResponseBody
     public String changePrice(@RequestBody PriceListApiModel priceListApiModel) throws JsonProcessingException {

@@ -3,7 +3,6 @@ package com.MateuszLebioda.OneCinema.controller;
 import com.MateuszLebioda.OneCinema.service.FilmService;
 import com.MateuszLebioda.OneCinema.utils.formatters.Formatter;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,14 +19,14 @@ public class RecommendedController {
     @Autowired
     FilmService filmService;
 
-    @ApiOperation(value = "List of latest MovieShortInfoApiModel")
+    //@ApiOperation(value = "List of latest MovieShortInfoApiModel")
     @RequestMapping(value = "/get8latest", method = RequestMethod.GET)
     @ResponseBody
     public String getSimpleFilms() throws JsonProcessingException {
         return  formatter.returnJson(filmService.get8LatestFilms());
     }
 
-    @ApiOperation(value = "List of 4 random MovieShortInfoApiModel")
+    //@ApiOperation(value = "List of 4 random MovieShortInfoApiModel")
     @RequestMapping(value = "/get4Random", method = RequestMethod.GET)
     @ResponseBody
     public String getRandom() throws JsonProcessingException {
