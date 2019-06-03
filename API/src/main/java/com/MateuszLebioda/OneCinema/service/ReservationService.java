@@ -36,7 +36,7 @@ public class ReservationService {
             throw new CannotFindReservationException();
         }
         for(Reservation reservation:reservations){
-            idList.add(reservation.getId());
+            idList.add(reservation.getSpot().getId());
         }
         return  idList;
     }
