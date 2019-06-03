@@ -47,4 +47,6 @@ public class SeanceRequestModel {
         return calendar.getTime();
     }
 
+
+
 }
